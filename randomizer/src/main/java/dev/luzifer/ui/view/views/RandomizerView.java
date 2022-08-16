@@ -9,6 +9,7 @@ import dev.luzifer.ui.view.View;
 import dev.luzifer.ui.view.viewmodel.RandomizerViewModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tab;
@@ -77,9 +78,24 @@ public class RandomizerView extends View<RandomizerViewModel> {
         for(Event event : EventDispatcher.getEvents()) {
             
             Label label = new Label(event.getClass().getSimpleName(), new ImageView("images/event_icon.png"));
-            label.setOnMouseEntered(dragEnter -> label.setStyle("-fx-background-color: #d3d3d3;"));
-            label.setOnMouseExited(dragExit -> label.setStyle(""));
-            label.setOnMouseClicked(e -> infoArea.setText(event.description()));
+            label.setOnMouseEntered(dragEnter -> {
+                if(!label.isFocused())
+                    label.setStyle("-fx-background-color: #d3d3d3;");
+            });
+            label.setOnMouseExited(dragExit -> {
+                if(!label.isFocused())
+                    label.setStyle("");
+            });
+            label.setOnMouseClicked(e -> {
+                
+                for(Node node : secondVBox.getChildren())
+                    if(node != label)
+                        node.setStyle("");
+                
+                label.requestFocus();
+                label.setStyle("-fx-background-color: #A9A9A9;");
+                infoArea.setText(event.description());
+            });
             
             secondVBox.getChildren().add(label);
         }
