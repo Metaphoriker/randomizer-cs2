@@ -1,4 +1,6 @@
 # randomizer-csgo
+
+## About
 A Randomizer to have more fun in CS:GO
 
 More specifically, this is an application that throws different events or event clusters* in an interval of 10-45 seconds.
@@ -6,7 +8,7 @@ Said events are simple button presses, such as spacebar, left or right mouse but
 
 *An event clusters are multiple events thrown successively
 
-
+## Functionality
 
 The application consists of a logbook that visualizes the thrown events and a button to start/stop the event-throwing
 
