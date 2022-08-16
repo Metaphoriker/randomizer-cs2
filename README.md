@@ -8,6 +8,11 @@ Said events are simple button presses, such as spacebar, left or right mouse but
 
 *An event clusters are multiple events thrown successively
 
+## Requirements
+
+- Java 17 or higher
+- This jar..
+
 ## Functionality
 
 The application consists of a logbook that visualizes the thrown events and a button to start/stop the event-throwing
