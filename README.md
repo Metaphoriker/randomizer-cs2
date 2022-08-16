@@ -7,7 +7,9 @@ Said events are simple button presses, such as spacebar, left or right mouse but
 *An event clusters are multiple events thrown successively
 
 The application consists of a logbook that visualizes the thrown events
+
 <img width="451" alt="2022-08-17 00_43_28-Randomizer" src="https://user-images.githubusercontent.com/50031457/184998927-fed07605-5aa0-4f83-8edf-7d3676d8b22d.png">
 
 and a glossary that describes what the respective event produces
+
 <img width="451" alt="2022-08-17 00_50_02-Randomizer" src="https://user-images.githubusercontent.com/50031457/184999009-93dad35b-ebfe-4e26-8cfd-9c11568c5ce6.png">
