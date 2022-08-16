@@ -7,7 +7,7 @@
     <groupId>dev.luzifer</groupId>
     <artifactId>csgo-remote</artifactId>
     <packaging>pom</packaging>
-    <version>1.0-SNAPSHOT</version>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>
