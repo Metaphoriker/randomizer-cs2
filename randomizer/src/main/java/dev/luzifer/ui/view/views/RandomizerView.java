@@ -56,6 +56,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
     
         firstTab.setGraphic(new ImageView("images/logbook_icon.png"));
         secondTab.setGraphic(new ImageView("images/glossary_icon.png"));
+        thirdTab.setGraphic(new ImageView("images/information_icon.png"));
         
         thirdTab.setOnSelectionChanged(event -> {
             if(thirdTab.isSelected()) {
