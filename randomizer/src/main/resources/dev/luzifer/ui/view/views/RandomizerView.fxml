@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Tab?>
 <?import javafx.scene.control.TabPane?>
@@ -10,42 +11,27 @@
 <?import javafx.scene.web.WebView?>
 
 <TabPane fx:id="tabPane" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.ui.view.views.RandomizerView">
-  <tabs>
     <Tab fx:id="logbookTab" text="Logbook">
-      <content>
         <AnchorPane fx:id="firstAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <Button fx:id="button" focusTraversable="false" layoutX="249.0" layoutY="332.0" mnemonicParsing="false" onAction="#onPress" prefHeight="25.0" prefWidth="103.0" text="Start" />
-                  <ScrollPane fx:id="scrollPane" focusTraversable="false" prefHeight="328.0" prefWidth="600.0">
-                     <content>
-                        <VBox fx:id="firstVBox" prefHeight="326.0" prefWidth="597.0" />
-                     </content>
-                  </ScrollPane>
-               </children></AnchorPane>
-      </content>
+            <Button fx:id="button" focusTraversable="false" layoutX="249.0" layoutY="332.0" mnemonicParsing="false" onAction="#onPress" prefHeight="25.0" prefWidth="103.0" text="Start" />
+            <ScrollPane fx:id="scrollPane" focusTraversable="false" prefHeight="328.0" prefWidth="600.0">
+                <VBox fx:id="firstVBox" prefHeight="326.0" prefWidth="597.0" />
+            </ScrollPane>
+         <Label fx:id="updateLabel" layoutX="367.0" layoutY="332.0" prefHeight="25.0" prefWidth="200.0" text="Update available! Click me!" />
+        </AnchorPane>
     </Tab>
-    <Tab fx:id="glossaryTab" text="Glossary">
-      <content>
+    <Tab fx:id="eventTab" text="Events">
         <AnchorPane fx:id="secondAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <VBox fx:id="secondVBox" layoutX="12.0" layoutY="12.0" prefHeight="350.0" prefWidth="285.0" />
-                  <TextArea fx:id="infoArea" editable="false" focusTraversable="false" layoutX="297.0" layoutY="12.0" prefHeight="350.0" prefWidth="285.0" promptText="Select an event..." wrapText="true" />
-               </children></AnchorPane>
-      </content>
+            <VBox fx:id="secondVBox" layoutX="12.0" layoutY="12.0" prefHeight="350.0" prefWidth="285.0" />
+            <TextArea fx:id="infoArea" editable="false" focusTraversable="false" layoutX="297.0" layoutY="12.0" prefHeight="350.0" prefWidth="285.0" promptText="Select an event..." wrapText="true" />
+        </AnchorPane>
     </Tab>
-      <Tab fx:id="informationTab" text="Informations">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
-               <children>
-                  <WebView fx:id="webView" layoutX="14.0" layoutY="14.0" prefHeight="341.0" prefWidth="571.0" />
-               </children>
-            </AnchorPane>
-        </content>
-      </Tab>
-      <Tab fx:id="settingsTab" text="Settings">
-        <content>
-          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
-        </content>
-      </Tab>
-  </tabs>
+    <Tab fx:id="informationTab" text="Informations">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+            <WebView fx:id="webView" layoutX="14.0" layoutY="14.0" prefHeight="341.0" prefWidth="571.0" />
+        </AnchorPane>
+    </Tab>
+    <Tab fx:id="settingsTab" text="Settings">
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
+    </Tab>
 </TabPane>

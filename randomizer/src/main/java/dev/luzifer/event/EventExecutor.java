@@ -14,7 +14,8 @@ public class EventExecutor extends Thread {
         
             if(AppStarter.getState() == ApplicationState.RUNNING) {
             
-                if(ThreadLocalRandom.current().nextBoolean()) {
+                int random = ThreadLocalRandom.current().nextInt(0, 100);
+                if(random >= 25) {
                     Event event = EventDispatcher.getEvents()[ThreadLocalRandom.current().nextInt(0, EventDispatcher.getEvents().length)];
                     EventDispatcher.dispatch(event);
                 } else {
