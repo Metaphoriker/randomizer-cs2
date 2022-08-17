@@ -11,7 +11,7 @@
 
 <TabPane fx:id="tabPane" focusTraversable="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" tabClosingPolicy="UNAVAILABLE" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.ui.view.views.RandomizerView">
   <tabs>
-    <Tab fx:id="firstTab" text="Logbook">
+    <Tab fx:id="logbookTab" text="Logbook">
       <content>
         <AnchorPane fx:id="firstAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -24,7 +24,7 @@
                </children></AnchorPane>
       </content>
     </Tab>
-    <Tab fx:id="secondTab" text="Glossary">
+    <Tab fx:id="glossaryTab" text="Glossary">
       <content>
         <AnchorPane fx:id="secondAnchorPane" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
@@ -33,13 +33,18 @@
                </children></AnchorPane>
       </content>
     </Tab>
-      <Tab fx:id="thirdTab" text="Informations">
+      <Tab fx:id="informationTab" text="Informations">
         <content>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                <children>
                   <WebView fx:id="webView" layoutX="14.0" layoutY="14.0" prefHeight="341.0" prefWidth="571.0" />
                </children>
             </AnchorPane>
+        </content>
+      </Tab>
+      <Tab fx:id="settingsTab" text="Settings">
+        <content>
+          <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0" />
         </content>
       </Tab>
   </tabs>

@@ -10,7 +10,7 @@ public class RandomizerViewModel implements ViewModel {
         this.callback = callback;
     }
     
-    public void callback() {
+    public void toggleRunning() {
         callback.run();
     }
     

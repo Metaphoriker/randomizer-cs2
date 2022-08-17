@@ -27,13 +27,13 @@ public class RandomizerView extends View<RandomizerViewModel> {
     private Button button;
     
     @FXML
-    private Tab firstTab;
+    private Tab logbookTab;
     
     @FXML
     private VBox firstVBox;
     
     @FXML
-    private Tab secondTab;
+    private Tab glossaryTab;
     
     @FXML
     private VBox secondVBox;
@@ -45,7 +45,10 @@ public class RandomizerView extends View<RandomizerViewModel> {
     private WebView webView;
     
     @FXML
-    private Tab thirdTab;
+    private Tab informationTab;
+    
+    @FXML
+    private Tab settingsTab;
     
     public RandomizerView(RandomizerViewModel viewModel) {
         super(viewModel);
@@ -54,12 +57,13 @@ public class RandomizerView extends View<RandomizerViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     
-        firstTab.setGraphic(new ImageView("images/logbook_icon.png"));
-        secondTab.setGraphic(new ImageView("images/glossary_icon.png"));
-        thirdTab.setGraphic(new ImageView("images/information_icon.png"));
+        logbookTab.setGraphic(new ImageView("images/logbook_icon.png"));
+        glossaryTab.setGraphic(new ImageView("images/glossary_icon.png"));
+        informationTab.setGraphic(new ImageView("images/information_icon.png"));
+        settingsTab.setGraphic(new ImageView("images/setting_icon.png"));
         
-        thirdTab.setOnSelectionChanged(event -> {
-            if(thirdTab.isSelected()) {
+        informationTab.setOnSelectionChanged(event -> {
+            if(informationTab.isSelected()) {
                 webView.getEngine().load("https://i.imgur.com/MxAE8Wp.mp4");
             } else {
                 webView.getEngine().load("");
@@ -105,7 +109,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
     @FXML
     public void onPress() {
         
-        getViewModel().callback();
+        getViewModel().toggleRunning();
         if(AppStarter.getState() == ApplicationState.RUNNING) {
             button.setText("Stop");
         } else {

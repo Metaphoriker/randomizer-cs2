@@ -15,16 +15,12 @@ public class EventExecutor extends Thread {
             if(AppStarter.getState() == ApplicationState.RUNNING) {
             
                 if(ThreadLocalRandom.current().nextBoolean()) {
-                    
                     Event event = EventDispatcher.getEvents()[ThreadLocalRandom.current().nextInt(0, EventDispatcher.getEvents().length)];
                     EventDispatcher.dispatch(event);
                 } else {
-                    
                     EventCluster eventCluster = EventDispatcher.getEventClusters()[ThreadLocalRandom.current().nextInt(0, EventDispatcher.getEventClusters().length)];
-                    
-                    for (Event event : eventCluster.getEvents()) {
+                    for (Event event : eventCluster.getEvents())
                         EventDispatcher.dispatch(event);
-                    }
                 }
                 
                 try {
