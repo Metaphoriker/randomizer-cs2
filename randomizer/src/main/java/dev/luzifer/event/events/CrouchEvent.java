@@ -13,13 +13,7 @@ public class CrouchEvent extends Event {
         int key = KeyEvent.VK_CONTROL;
     
         robot.keyPress(key);
-    
-        try {
-            Thread.sleep(ThreadLocalRandom.current().nextInt(1000, 5000));
-        } catch (InterruptedException e) {
-            throw new RuntimeException(e);
-        }
-    
+        robot.delay(ThreadLocalRandom.current().nextInt(1000, 5000));
         robot.keyRelease(key);
     }
     

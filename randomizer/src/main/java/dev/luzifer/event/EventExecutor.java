@@ -1,22 +1,16 @@
 package dev.luzifer.event;
 
-import dev.luzifer.ui.AppStarter;
-import dev.luzifer.ui.ApplicationState;
-
-import java.util.concurrent.ThreadLocalRandom;
-
 public class EventExecutor extends Thread {
     
     @Override
     public void run() {
         
         while (true) {
-        
-            if(AppStarter.getState() == ApplicationState.RUNNING) {
             
+            /*
                 int random = ThreadLocalRandom.current().nextInt(0, 100);
                 if(random >= 25) {
-                    Event event = EventDispatcher.getEvents()[ThreadLocalRandom.current().nextInt(0, EventDispatcher.getEvents().length)];
+                    Event event = EventDispatcher.getRegisteredEvents().get(ThreadLocalRandom.current().nextInt(0, EventDispatcher.getRegisteredEvents().size()));
                     EventDispatcher.dispatch(event);
                 } else {
                     EventCluster eventCluster = EventDispatcher.getEventClusters()[ThreadLocalRandom.current().nextInt(0, EventDispatcher.getEventClusters().length)];
@@ -29,7 +23,7 @@ public class EventExecutor extends Thread {
                 } catch (InterruptedException e) {
                     throw new RuntimeException(e);
                 }
-            }
+             */
         }
     }
 }

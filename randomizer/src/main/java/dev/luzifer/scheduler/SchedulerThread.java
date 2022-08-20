@@ -13,7 +13,7 @@ public class SchedulerThread extends Thread {
         
         while (!isInterrupted()) {
     
-            scheduler.getTasks().removeIf(Scheduler.Task::tryRun);
+            scheduler.getTasks().removeIf(Scheduler.Task::runIfAllowed);
             
             try {
                 Thread.sleep(1000);

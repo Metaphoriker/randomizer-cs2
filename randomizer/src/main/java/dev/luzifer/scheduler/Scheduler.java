@@ -41,7 +41,7 @@ public class Scheduler {
             this.executionDate = executionDate;
         }
         
-        public boolean tryRun() {
+        public boolean runIfAllowed() {
             if (executionDate.getTime() <= System.currentTimeMillis()) {
                 runnable.run();
                 return true;

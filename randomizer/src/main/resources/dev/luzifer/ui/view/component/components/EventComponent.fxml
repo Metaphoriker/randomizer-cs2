@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.geometry.Point3D?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="root" prefHeight="90.0" prefWidth="290.0" style="-fx-border-color: #a0a0a0;" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label fx:id="nameLabel" prefHeight="30.0" prefWidth="290.0" text="Label">
+         <font>
+            <Font size="16.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" top="2.0" />
+         </padding>
+      </Label>
+      <Label fx:id="descriptionLabel" alignment="CENTER" layoutY="32.0" opacity="0.5" prefHeight="60.0" prefWidth="290.0" text="Label" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+      <Separator layoutY="31.0" prefHeight="0.0" prefWidth="290.0">
+         <rotationAxis>
+            <Point3D />
+         </rotationAxis>
+         <padding>
+            <Insets left="1.0" right="1.0" />
+         </padding></Separator>
+   </children>
+</Pane>

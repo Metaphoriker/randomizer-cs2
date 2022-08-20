@@ -17,15 +17,9 @@ public class MoveEvent extends Event {
         int index = 0;
     
         while(index++ < amount) {
-    
+            
             robot.keyPress(key);
-            
-            try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(40, 120));
-            } catch (InterruptedException e) {
-                throw new RuntimeException(e);
-            }
-            
+            robot.delay(ThreadLocalRandom.current().nextInt(40, 120));
             robot.keyRelease(key);
         }
     }
