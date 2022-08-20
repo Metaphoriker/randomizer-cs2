@@ -10,9 +10,11 @@ public class EmptyMagazineEvent extends Event {
     @Override
     public void execute() {
         
-        robot.mousePress(InputEvent.BUTTON1_DOWN_MASK);
+        int key = InputEvent.BUTTON1_DOWN_MASK;
+        
+        robot.mousePress(key);
         robot.delay(ThreadLocalRandom.current().nextInt(3000, 5000));
-        robot.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+        robot.mouseRelease(key);
     }
     
     @Override
