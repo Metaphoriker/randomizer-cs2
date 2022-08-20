@@ -69,5 +69,18 @@
             </AnchorPane>
          </children>
       </GridPane>
+      <Label fx:id="bottomPaneTitle" layoutX="17.0" layoutY="334.0" prefHeight="24.0" prefWidth="1253.0" text="Bob der Bauarbeiter">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </Label>
+      <ScrollPane fx:id="testScrollPane" layoutX="921.0" layoutY="14.0">
+         <content>
+            <VBox fx:id="testVBox" prefHeight="298.0" prefWidth="347.0" />
+         </content>
+      </ScrollPane>
    </children>
 </Pane>

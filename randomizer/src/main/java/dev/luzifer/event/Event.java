@@ -4,6 +4,8 @@ import java.awt.*;
 
 public abstract class Event {
     
+    private static final String EMPTY = "";
+    
     protected static final Robot robot;
     
     static {
@@ -14,8 +16,12 @@ public abstract class Event {
         }
     }
     
+    public String name() {
+        return getClass().getSimpleName();
+    }
+    
     public String description() {
-        return "NO DESCRIPTION";
+        return EMPTY;
     }
     
     public abstract void execute();

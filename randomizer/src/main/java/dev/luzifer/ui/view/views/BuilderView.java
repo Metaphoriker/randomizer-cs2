@@ -6,8 +6,12 @@ import dev.luzifer.ui.view.View;
 import dev.luzifer.ui.view.viewmodel.BuilderViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -28,11 +32,19 @@ public class BuilderView extends View<BuilderViewModel> {
     @FXML
     private Pane rootPane;
     
+    @FXML
+    private ScrollPane testScrollPane;
+    
+    @FXML
+    private VBox testVBox;
+    
+    @FXML
+    private Label bottomPaneTitle;
+    
     // Bottom root
     @FXML
     private GridPane bottomRoot;
     
-    // Left side bottom root
     @FXML
     private VBox eventVBox;
     
@@ -53,9 +65,14 @@ public class BuilderView extends View<BuilderViewModel> {
         root.setStyle(STYLING_BORDER);
         nameLabel.setStyle(STYLING_HEADER);
         descriptionLabel.setStyle(STYLING_CONTENT);
+        
+        bottomPaneTitle.setStyle(STYLING_HEADER + STYLING_BORDER);
     
-        bottomRoot.setStyle(STYLING_BACKGROUND_DARKER + STYLING_BORDER);
+        bottomRoot.setStyle(STYLING_BACKGROUND_DARKER);
         rootPane.setStyle(STYLING_BACKGROUND + STYLING_BORDER);
+        
+        getIcons().clear();
+        getIcons().add(new Image("images/16x16/builder16x16.png"));
     }
     
     private void setupEventComponentDragActions() {
@@ -63,23 +80,41 @@ public class BuilderView extends View<BuilderViewModel> {
         double initialEventComponentX = root.getTranslateX();
         double initialEventComponentY = root.getTranslateY();
     
+        // wtf is this?
+        root.setOnMouseClicked(enter -> changeParent(root, rootPane));
+        
         root.setOnMouseDragged(drag -> {
-        
+    
             root.setManaged(false);
-        
+            
             // Hardcoded offsets make it jump centralized
             root.setTranslateX(drag.getX() + root.getTranslateX() - 200);
             root.setTranslateY(drag.getY() + root.getTranslateY() - 25);
-        
+            
             drag.consume();
         });
-    
-        root.setOnMouseReleased(release -> {
         
+        root.setOnMouseDragReleased(release -> {
+            
             root.setTranslateX(initialEventComponentX);
             root.setTranslateY(initialEventComponentY);
         
             root.setManaged(true);
+            
+            release.consume();
+        });
+        
+        testVBox.setOnDragOver(drag -> {
+            drag.acceptTransferModes(TransferMode.COPY);
+            drag.consume();
+        });
+    
+        testVBox.setOnDragDropped(drop -> {
+            
+            changeParent(root, testVBox);
+            drop.setDropCompleted(true);
+            
+            drop.consume();
         });
     }
     
@@ -93,7 +128,7 @@ public class BuilderView extends View<BuilderViewModel> {
             label.setOnMouseEntered(enter -> label.setStyle(STYLING_SELECTED));
             label.setOnMouseExited(exit -> label.setStyle(STYLING_CLEAR));
             label.setOnMouseClicked(click -> {
-                nameLabel.setText(event.getClass().getSimpleName());
+                nameLabel.setText(event.name());
                 descriptionLabel.setText(event.description());
             });
         

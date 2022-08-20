@@ -26,7 +26,11 @@ public class SelectionView extends View<SelectionViewModel> {
     private Label builderLabel;
     
     @FXML
+    private Label wipLabel;
+    
+    @FXML
     private Button settingsButton;
+    
     
     public SelectionView(SelectionViewModel selectionViewModel) {
         super(selectionViewModel);
@@ -37,6 +41,8 @@ public class SelectionView extends View<SelectionViewModel> {
         
         setupStyling();
         setupClickActions();
+        
+        wipLabel.setDisable(true);
     }
     
     @FXML
@@ -58,11 +64,16 @@ public class SelectionView extends View<SelectionViewModel> {
         root.setStyle(STYLING_BACKGROUND);
         randomizerLabel.setStyle(STYLING_UNSELECTED + STYLING_BORDER);
         builderLabel.setStyle(STYLING_UNSELECTED + STYLING_BORDER);
+        wipLabel.setStyle(STYLING_UNSELECTED + STYLING_BORDER);
         settingsButton.setStyle(STYLING_UNSELECTED + STYLING_BORDER);
     
         // Not a ^ styling, but still style based
         settingsButton.setFocusTraversable(false);
-        settingsButton.setGraphic(new ImageView("images/settings_icon.png"));
+        
+        settingsButton.setGraphic(new ImageView("images/16x16/settings16x16.png"));
+        randomizerLabel.setGraphic(new ImageView("images/16x16/shuffle16x16.png"));
+        builderLabel.setGraphic(new ImageView("images/16x16/builder16x16.png"));
+        wipLabel.setGraphic(new ImageView("images/16x16/builder16x16.png"));
     }
     
     private void setupClickActions() {

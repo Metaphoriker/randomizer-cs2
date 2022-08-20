@@ -6,6 +6,7 @@ import dev.luzifer.event.events.CrouchEvent;
 import dev.luzifer.event.events.DropWeaponEvent;
 import dev.luzifer.event.events.EmptyMagazineEvent;
 import dev.luzifer.event.events.EscapeEvent;
+import dev.luzifer.event.events.IWannaKnifeEvent;
 import dev.luzifer.event.events.JumpEvent;
 import dev.luzifer.event.events.MouseLeftClickEvent;
 import dev.luzifer.event.events.MouseMoveEvent;
@@ -30,6 +31,7 @@ public class Main {
         
         setupScheduler();
         setupEventExecutor();
+        
         Thread.currentThread().setUncaughtExceptionHandler(new UncaughtExceptionLogger(LOG_FILE));
         Application.launch(AppStarter.class);
     }
@@ -71,6 +73,7 @@ public class Main {
         EventDispatcher.registerEvent(new EscapeEvent());
         EventDispatcher.registerEvent(new DropWeaponEvent());
         EventDispatcher.registerEvent(new EmptyMagazineEvent());
+        EventDispatcher.registerEvent(new IWannaKnifeEvent());
     }
     
 }
