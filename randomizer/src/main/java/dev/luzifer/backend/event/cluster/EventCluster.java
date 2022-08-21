@@ -5,7 +5,15 @@ import dev.luzifer.backend.event.Event;
 import java.util.Arrays;
 import java.util.Objects;
 
-public record EventCluster(String name, Event... events) {
+public class EventCluster {
+    
+    private final String name;
+    private final Event[] events;
+    
+    public EventCluster(String name, Event... events) {
+        this.name = name;
+        this.events = events;
+    }
     
     public String getName() {
         return name;

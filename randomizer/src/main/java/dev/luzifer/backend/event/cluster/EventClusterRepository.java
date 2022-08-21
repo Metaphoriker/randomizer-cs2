@@ -1,5 +1,6 @@
 package dev.luzifer.backend.event.cluster;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -21,7 +22,7 @@ public class EventClusterRepository {
     }
     
     public List<EventCluster> getClusters() {
-        return List.copyOf(clusters.values());
+        return new ArrayList<>(clusters.values());
     }
     
 }

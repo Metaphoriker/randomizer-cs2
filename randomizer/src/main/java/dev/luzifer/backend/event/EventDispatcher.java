@@ -1,5 +1,6 @@
 package dev.luzifer.backend.event;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -24,7 +25,7 @@ public class EventDispatcher {
     
     public static void registerHandler(Class<? extends Event> eventClass, Consumer<Event> handler) {
         if (!EVENT_HANDLERS.containsKey(eventClass)) {
-            EVENT_HANDLERS.put(eventClass, List.of(handler));
+            EVENT_HANDLERS.put(eventClass, Collections.singletonList(handler));
         } else {
             EVENT_HANDLERS.get(eventClass).add(handler);
         }

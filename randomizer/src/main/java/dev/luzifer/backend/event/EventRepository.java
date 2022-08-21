@@ -53,7 +53,7 @@ public class EventRepository {
         List<Event> list = new ArrayList<>(eventRegistry.keySet());
         list.sort(Comparator.comparing(o -> o.getClass().getSimpleName().length()));
         
-        return List.copyOf(list);
+        return list;
     }
 
 }
