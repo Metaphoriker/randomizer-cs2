@@ -48,6 +48,8 @@ public class SelectionView extends View<SelectionViewModel> {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
         updateChecker.checkUpdate();
+        if(updateChecker.isUpdateAvailable())
+            updateLabel.setVisible(true);
         
         setupStyling();
         setupClickActions();
@@ -69,27 +71,21 @@ public class SelectionView extends View<SelectionViewModel> {
     }
     
     private void setupStyling() {
-        
-        // not really a styling
-        if(updateChecker.isUpdateAvailable()) {
-            
-            updateLabel.setStyle(Styling.FONT_RED);
-            updateLabel.setCursor(Cursor.HAND);
-            updateLabel.setText("Update available!");
-            updateLabel.setGraphic(new ImageView("images/16x16/wip16x16.png"));
-        }
-        
+    
         root.setStyle(Styling.BACKGROUND);
         randomizerLabel.setStyle(Styling.UNSELECTED + Styling.BORDER);
         builderLabel.setStyle(Styling.UNSELECTED + Styling.BORDER);
         settingsButton.setStyle(Styling.UNSELECTED + Styling.BORDER);
+        updateLabel.setStyle(Styling.FONT_RED);
     
         // Not a ^ styling, but still style based
+        updateLabel.setCursor(Cursor.HAND);
         settingsButton.setFocusTraversable(false);
         
         settingsButton.setGraphic(new ImageView("images/16x16/settings16x16.png"));
         randomizerLabel.setGraphic(new ImageView("images/16x16/shuffle16x16.png"));
         builderLabel.setGraphic(new ImageView("images/16x16/builder16x16.png"));
+        updateLabel.setGraphic(new ImageView("images/16x16/wip16x16.png"));
     }
     
     private void setupClickActions() {

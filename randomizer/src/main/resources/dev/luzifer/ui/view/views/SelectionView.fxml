@@ -22,7 +22,7 @@
       <Pane prefHeight="119.0" prefWidth="227.0">
          <children>
             <Button fx:id="settingsButton" layoutX="177.0" layoutY="76.0" mnemonicParsing="false" onAction="#onSettingsPress" onMouseEntered="#onEnter" onMouseExited="#onExit" prefHeight="29.0" prefWidth="29.0" />
-            <Label fx:id="updateLabel" layoutX="14.0" layoutY="90.0" prefHeight="17.0" prefWidth="147.0" text="Up to date!" />
+            <Label fx:id="updateLabel" layoutX="14.0" layoutY="90.0" prefHeight="17.0" prefWidth="147.0" text="An update is available!" visible="false" />
          </children>
       </Pane>
    </children>
