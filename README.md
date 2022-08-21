@@ -10,7 +10,7 @@ Said events are simple button presses, such as spacebar, left or right mouse but
 
 ## Requirements
 
-- Java 17 or higher
+- Java 8 or higher
 - This jar..
 
 ## Functionality
