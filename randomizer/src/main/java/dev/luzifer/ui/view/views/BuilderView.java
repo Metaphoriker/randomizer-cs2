@@ -193,7 +193,7 @@ public class BuilderView extends View<BuilderViewModel> {
             if(clusterBuilderVBox.getChildren().isEmpty())
                 dragAndDropLabel.setVisible(true);
             
-            clusterBuilderVBox.getChildren().remove(miniEventComponent );
+            clusterBuilderVBox.getChildren().remove(miniEventComponent);
         
             dragEvent.consume();
         });
