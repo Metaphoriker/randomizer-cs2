@@ -85,7 +85,7 @@ public class SelectionView extends View<SelectionViewModel> {
         settingsButton.setGraphic(new ImageView("images/16x16/settings16x16.png"));
         randomizerLabel.setGraphic(new ImageView("images/16x16/shuffle16x16.png"));
         builderLabel.setGraphic(new ImageView("images/16x16/builder16x16.png"));
-        updateLabel.setGraphic(new ImageView("images/16x16/wip16x16.png"));
+        updateLabel.setGraphic(new ImageView("images/16x16/update16x16.png"));
     }
     
     private void setupClickActions() {
