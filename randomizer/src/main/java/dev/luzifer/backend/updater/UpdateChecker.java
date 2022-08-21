@@ -13,7 +13,9 @@ public class UpdateChecker {
     
     private static final String VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/master/randomizer/src/main/resources/version.txt";
     
-    public boolean hasUpdate() {
+    private boolean updateAvailable;
+    
+    public void checkUpdate() {
         
         HttpURLConnection connection;
         String latestVersion;
@@ -26,10 +28,14 @@ public class UpdateChecker {
             latestVersion = readLineFromInputStream(connection.getInputStream());
         
         } catch (Exception e) {
-            return false;
+            throw new RuntimeException(e);
         }
-        
-        return !latestVersion.equals(fetchCurrentVersion());
+    
+        updateAvailable = !latestVersion.equals(fetchCurrentVersion());
+    }
+    
+    public boolean isUpdateAvailable() {
+        return updateAvailable;
     }
     
     private String fetchCurrentVersion() {

@@ -3,7 +3,6 @@ package dev.luzifer.ui.view;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
 import javafx.util.Callback;
 
 import java.io.IOException;
@@ -22,7 +21,6 @@ public class ViewController {
         Parent root = loadView(view.getClass(), controllerFactory);
         Scene scene = new Scene(root);
         
-        view.getIcons().addAll(new Image("images/16x16/shuffle16x16.png"));
         view.setScene(scene);
         view.setTitle(title);
         view.setResizable(false);

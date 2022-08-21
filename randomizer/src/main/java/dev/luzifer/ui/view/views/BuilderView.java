@@ -1,6 +1,5 @@
 package dev.luzifer.ui.view.views;
 
-import com.google.gson.Gson;
 import com.google.gson.JsonSyntaxException;
 import dev.luzifer.Main;
 import dev.luzifer.backend.event.Event;
@@ -85,7 +84,6 @@ public class BuilderView extends View<BuilderViewModel> {
         bottomRoot.setStyle(Styling.BACKGROUND_DARKER);
         rootPane.setStyle(Styling.BACKGROUND);
         
-        getIcons().clear();
         getIcons().add(new Image("images/16x16/builder16x16.png"));
     }
     
