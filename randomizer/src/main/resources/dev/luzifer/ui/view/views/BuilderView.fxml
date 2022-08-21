@@ -31,7 +31,7 @@
                         <VBox fx:id="clusterBuilderVBox" />
                      </content>
                   </ScrollPane>
-                  <Label fx:id="dragAndDropLabel" alignment="CENTER" opacity="0.3" text="Drag and drop the EventComponent here" textFill="WHITE" StackPane.alignment="CENTER">
+                  <Label fx:id="dragAndDropLabel" alignment="CENTER" opacity="0.3" text="Drag and drop the EventComponents here" textFill="WHITE" StackPane.alignment="CENTER">
                      <font>
                         <Font size="20.0" />
                      </font>

@@ -109,46 +109,93 @@ public class BuilderView extends View<BuilderViewModel> {
             db.setContent(content);
             event.consume();
         });
-    
-        clusterBuilderScrollPane.setOnDragOver(event -> {
-        
-            if (event.getGestureSource() != clusterBuilderScrollPane && event.getDragboard().hasString())
-                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-        
-            dragAndDropLabel.setVisible(false);
-            event.consume();
-        });
-    
-        clusterBuilderScrollPane.setOnDragDropped(event -> {
-            
-            Dragboard db = event.getDragboard();
-            boolean success = false;
-            
-            if (db.hasString()) {
-                
-                try {
-                    
-                    Event eventWrapped = JsonUtil.deserialize(db.getString());
-                    
-                    MiniEventComponent miniEventComponent = new MiniEventComponent();
-                    miniEventComponent.getModel().acceptEvent(eventWrapped);
-                    
-                    clusterBuilderVBox.getChildren().add(miniEventComponent);
-                    success = true;
-                } catch (JsonSyntaxException ignored) { // this could be probably done better
-                }
-            }
-            
-            event.setDropCompleted(success);
-            event.consume();
-        });
-    
         eventComponent.setOnDragDone(event -> {
-            
+        
             if(clusterBuilderVBox.getChildren().isEmpty())
                 dragAndDropLabel.setVisible(true);
             
             event.consume();
+        });
+        
+        clusterBuilderScrollPane.setOnDragOver(event -> {
+    
+            if (event.getGestureSource() != clusterBuilderScrollPane && event.getDragboard().hasString()) {
+                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            }
+    
+            dragAndDropLabel.setVisible(false);
+            event.consume();
+        });
+        clusterBuilderScrollPane.setOnDragDropped(event -> {
+    
+            Dragboard db = event.getDragboard();
+            boolean success = false;
+    
+            if (db.hasString()) {
+    
+                try {
+    
+                    Event eventWrapped = JsonUtil.deserialize(db.getString());
+                    clusterBuilderVBox.getChildren().add(createMiniEventComponent(eventWrapped));
+    
+                    success = true;
+                } catch (JsonSyntaxException ignored) { // this could be probably done better
+                }
+            }
+    
+            event.setDropCompleted(success);
+            event.consume();
+        });
+    }
+    
+    private MiniEventComponent createMiniEventComponent(Event event) {
+        
+        MiniEventComponent miniEventComponent = new MiniEventComponent();
+        setupMiniEventComponentDragAndDropActions(miniEventComponent);
+        miniEventComponent.getModel().acceptEvent(event);
+        
+        return miniEventComponent;
+    }
+    
+    private void setupMiniEventComponentDragAndDropActions(MiniEventComponent miniEventComponent) {
+        
+        miniEventComponent.setOnDragDropped(dragEvent -> {
+        
+            Dragboard dragboard = dragEvent.getDragboard();
+            boolean success = false;
+        
+            if (dragboard.hasString()) {
+            
+                int index = clusterBuilderVBox.getChildren().indexOf(miniEventComponent);
+                clusterBuilderVBox.getChildren().add(index+1, createMiniEventComponent(JsonUtil.deserialize(dragboard.getString())));
+            
+                success = true;
+            }
+        
+            dragEvent.setDropCompleted(success);
+            dragEvent.consume();
+        });
+        miniEventComponent.setOnDragEntered(dragEvent -> miniEventComponent.setStyle(Styling.BOTTOM_BORDER_BLUE));
+        miniEventComponent.setOnDragExited(dragEvent -> miniEventComponent.setStyle(Styling.CLEAR));
+        miniEventComponent.setOnDragDetected(dragEvent -> {
+        
+            Dragboard db = miniEventComponent.startDragAndDrop(TransferMode.ANY);
+            db.setDragView(miniEventComponent.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
+        
+            ClipboardContent content = new ClipboardContent();
+            content.putString(JsonUtil.serialize(miniEventComponent.getModel().getEventWrapped()));
+        
+            db.setContent(content);
+            dragEvent.consume();
+        });
+        miniEventComponent.setOnDragDone(dragEvent -> {
+        
+            if(clusterBuilderVBox.getChildren().isEmpty())
+                dragAndDropLabel.setVisible(true);
+            
+            clusterBuilderVBox.getChildren().remove(miniEventComponent );
+        
+            dragEvent.consume();
         });
     }
     
@@ -158,7 +205,12 @@ public class BuilderView extends View<BuilderViewModel> {
         
             Label label = new Label(event.getClass().getSimpleName());
             label.setFont(new Font("Arial", 16));
-        
+            
+            if(!getViewModel().isEventEnabled(event)) {
+                label.setStyle(Styling.FONT_RED);
+                label.setDisable(true);
+            }
+            
             label.setOnMouseEntered(enter -> label.setStyle(Styling.SELECTED));
             label.setOnMouseExited(exit -> label.setStyle(Styling.CLEAR));
             label.setOnMouseClicked(click -> eventComponent.getModel().acceptEvent(event));

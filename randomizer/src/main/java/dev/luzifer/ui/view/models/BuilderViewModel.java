@@ -18,6 +18,10 @@ public class BuilderViewModel implements ViewModel {
         this.eventClusterRepository = eventClusterRepository;
     }
     
+    public boolean isEventEnabled(Event event) {
+        return eventRepository.isEnabled(event);
+    }
+    
     public List<Event> getEvents() {
         return eventRepository.getRegisteredEvents();
     }

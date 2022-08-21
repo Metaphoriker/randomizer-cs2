@@ -1,30 +1,41 @@
 package dev.luzifer.backend.event;
 
+import dev.luzifer.backend.event.cluster.EventCluster;
+import dev.luzifer.backend.event.cluster.EventClusterRepository;
+
+import java.util.concurrent.ThreadLocalRandom;
+
 public class EventExecutor extends Thread {
+    
+    private final EventRepository eventRepository;
+    private final EventClusterRepository eventClusterRepository;
+    
+    public EventExecutor(EventRepository eventRepository, EventClusterRepository eventClusterRepository) {
+        this.eventRepository = eventRepository;
+        this.eventClusterRepository = eventClusterRepository;
+    }
     
     @Override
     public void run() {
         
         while (true) {
             
-            // TODO: Implement event execution
-            /*
-                int random = ThreadLocalRandom.current().nextInt(0, 100);
-                if(random >= 25) {
-                    Event event = EventDispatcher.getRegisteredEvents().get(ThreadLocalRandom.current().nextInt(0, EventDispatcher.getRegisteredEvents().size()));
-                    EventDispatcher.dispatch(event);
-                } else {
-                    EventCluster eventCluster = EventDispatcher.getEventClusters()[ThreadLocalRandom.current().nextInt(0, EventDispatcher.getEventClusters().length)];
-                    for (Event event : eventCluster.getEvents())
-                        EventDispatcher.dispatch(event);
-                }
-                
-                try {
-                    Thread.sleep(ThreadLocalRandom.current().nextInt(10*1000, 45*1000));
-                } catch (InterruptedException e) {
-                    throw new RuntimeException(e);
-                }
-             */
+            int random = ThreadLocalRandom.current().nextInt(0, 100);
+    
+            if(random >= 25) {
+                Event event = eventRepository.getEnabledEvents().get(ThreadLocalRandom.current().nextInt(0, eventRepository.getEnabledEvents().size()));
+                EventDispatcher.dispatch(event);
+            } else {
+                EventCluster eventCluster = eventClusterRepository.getClusters().get(ThreadLocalRandom.current().nextInt(0, eventClusterRepository.getClusters().size()));
+                for (Event event : eventCluster.getEvents())
+                    EventDispatcher.dispatch(event); // TODO: don't dispatch disabled events or the entire cluster if contained
+            }
+    
+            try {
+                Thread.sleep(ThreadLocalRandom.current().nextInt(10*1000, 45*1000));
+            } catch (InterruptedException e) {
+                throw new RuntimeException(e);
+            }
         }
     }
 }

@@ -1,6 +1,5 @@
 package dev.luzifer;
 
-import dev.luzifer.backend.event.EventDispatcher;
 import dev.luzifer.backend.event.EventExecutor;
 import dev.luzifer.backend.event.EventRepository;
 import dev.luzifer.backend.event.cluster.EventClusterRepository;
@@ -68,7 +67,7 @@ public class Main {
         
         registerEvents();
         
-        EventExecutor eventExecutor = new EventExecutor();
+        EventExecutor eventExecutor = new EventExecutor(EVENT_REPOSITORY, EVENT_CLUSTER_REPOSITORY);
         eventExecutor.setDaemon(true);
         eventExecutor.setUncaughtExceptionHandler(new UncaughtExceptionLogger(LOG_FILE));
         eventExecutor.start();
