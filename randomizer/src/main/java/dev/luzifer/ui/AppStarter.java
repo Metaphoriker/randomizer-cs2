@@ -1,9 +1,9 @@
 package dev.luzifer.ui;
 
 import dev.luzifer.ui.view.ViewController;
-import dev.luzifer.ui.view.viewmodel.BuilderViewModel;
-import dev.luzifer.ui.view.viewmodel.RandomizerViewModel;
-import dev.luzifer.ui.view.viewmodel.SelectionViewModel;
+import dev.luzifer.ui.view.models.BuilderViewModel;
+import dev.luzifer.ui.view.models.RandomizerViewModel;
+import dev.luzifer.ui.view.models.SelectionViewModel;
 import dev.luzifer.ui.view.views.BuilderView;
 import dev.luzifer.ui.view.views.RandomizerView;
 import dev.luzifer.ui.view.views.SelectionView;

@@ -1,7 +1,8 @@
 package dev.luzifer.ui.view.views;
 
+import dev.luzifer.ui.util.Styling;
 import dev.luzifer.ui.view.View;
-import dev.luzifer.ui.view.viewmodel.SelectionViewModel;
+import dev.luzifer.ui.view.models.SelectionViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
@@ -26,9 +27,6 @@ public class SelectionView extends View<SelectionViewModel> {
     private Label builderLabel;
     
     @FXML
-    private Label wipLabel;
-    
-    @FXML
     private Button settingsButton;
     
     
@@ -41,18 +39,16 @@ public class SelectionView extends View<SelectionViewModel> {
         
         setupStyling();
         setupClickActions();
-        
-        wipLabel.setDisable(true);
     }
     
     @FXML
     public void onEnter(MouseEvent mouseEvent) {
-        ((Control) mouseEvent.getSource()).setStyle(STYLING_SELECTED + STYLING_BORDER);
+        ((Control) mouseEvent.getSource()).setStyle(Styling.SELECTED + Styling.BORDER);
     }
     
     @FXML
     public void onExit(MouseEvent mouseEvent) {
-        ((Control) mouseEvent.getSource()).setStyle(STYLING_UNSELECTED + STYLING_BORDER);
+        ((Control) mouseEvent.getSource()).setStyle(Styling.UNSELECTED + Styling.BORDER);
     }
     
     @FXML
@@ -61,11 +57,10 @@ public class SelectionView extends View<SelectionViewModel> {
     
     private void setupStyling() {
         
-        root.setStyle(STYLING_BACKGROUND);
-        randomizerLabel.setStyle(STYLING_UNSELECTED + STYLING_BORDER);
-        builderLabel.setStyle(STYLING_UNSELECTED + STYLING_BORDER);
-        wipLabel.setStyle(STYLING_UNSELECTED + STYLING_BORDER);
-        settingsButton.setStyle(STYLING_UNSELECTED + STYLING_BORDER);
+        root.setStyle(Styling.BACKGROUND);
+        randomizerLabel.setStyle(Styling.UNSELECTED + Styling.BORDER);
+        builderLabel.setStyle(Styling.UNSELECTED + Styling.BORDER);
+        settingsButton.setStyle(Styling.UNSELECTED + Styling.BORDER);
     
         // Not a ^ styling, but still style based
         settingsButton.setFocusTraversable(false);
@@ -73,7 +68,6 @@ public class SelectionView extends View<SelectionViewModel> {
         settingsButton.setGraphic(new ImageView("images/16x16/settings16x16.png"));
         randomizerLabel.setGraphic(new ImageView("images/16x16/shuffle16x16.png"));
         builderLabel.setGraphic(new ImageView("images/16x16/builder16x16.png"));
-        wipLabel.setGraphic(new ImageView("images/16x16/builder16x16.png"));
     }
     
     private void setupClickActions() {

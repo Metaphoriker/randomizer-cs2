@@ -19,11 +19,6 @@
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="wipLabel" onMouseEntered="#onEnter" onMouseExited="#onExit" prefHeight="43.0" prefWidth="170.0" text="WIP" textAlignment="CENTER" textFill="RED" VBox.vgrow="ALWAYS">
-         <font>
-            <Font size="16.0" />
-         </font>
-      </Label>
       <Pane prefHeight="119.0" prefWidth="227.0">
          <children>
             <Button fx:id="settingsButton" layoutX="177.0" layoutY="76.0" mnemonicParsing="false" onAction="#onSettingsPress" onMouseEntered="#onEnter" onMouseExited="#onExit" prefHeight="29.0" prefWidth="29.0" />

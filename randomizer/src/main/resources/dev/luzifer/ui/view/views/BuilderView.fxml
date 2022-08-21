@@ -1,21 +1,54 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.geometry.Point3D?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
+<?import dev.luzifer.ui.view.component.components.EventComponent?>
 <Pane fx:id="rootPane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="641.0" prefWidth="1287.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.ui.view.views.BuilderView">
    <children>
+      <GridPane fx:id="topRoot" gridLinesVisible="true" layoutX="78.0" layoutY="69.0" prefHeight="252.0" prefWidth="1130.0">
+        <columnConstraints>
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+          <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+        </columnConstraints>
+        <rowConstraints>
+          <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+        </rowConstraints>
+         <children>
+            <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
+               <children>
+                  <ScrollPane fx:id="clusterBuilderScrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                     <content>
+                        <VBox fx:id="clusterBuilderVBox" />
+                     </content>
+                  </ScrollPane>
+                  <Label fx:id="dragAndDropLabel" alignment="CENTER" opacity="0.3" text="Drag and drop the EventComponent here" textFill="WHITE" StackPane.alignment="CENTER">
+                     <font>
+                        <Font size="20.0" />
+                     </font>
+                  </Label>
+               </children>
+            </StackPane>
+            <Pane prefHeight="200.0" prefWidth="200.0">
+               <children>
+                  <ScrollPane hbarPolicy="NEVER" nodeOrientation="RIGHT_TO_LEFT" prefHeight="252.0" prefWidth="273.0" style="-fx-background-color: transparent;">
+                     <content>
+                        <VBox fx:id="clusterVBox" nodeOrientation="LEFT_TO_RIGHT" prefHeight="248.0" prefWidth="270.0" />
+                     </content>
+                  </ScrollPane>
+               </children>
+            </Pane>
+         </children>
+      </GridPane>
       <GridPane fx:id="bottomRoot" gridLinesVisible="true" layoutX="17.0" layoutY="358.0">
          <columnConstraints>
             <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -39,37 +72,13 @@
                </children>
             </AnchorPane>
           <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="264.0" prefWidth="927.0" GridPane.columnIndex="1">
-               <children>
-                  <Pane fx:id="root" layoutX="268.0" layoutY="81.0" prefHeight="102.0" prefWidth="392.0" style="-fx-border-color: #a0a0a0;">
-                     <children>
-                        <Label fx:id="nameLabel" prefHeight="31.0" prefWidth="392.0" text="Name">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                           <padding>
-                              <Insets left="5.0" top="2.0" />
-                           </padding>
-                        </Label>
-                        <Label fx:id="descriptionLabel" alignment="CENTER" layoutY="31.0" opacity="0.5" prefHeight="71.0" prefWidth="392.0" text="Description" wrapText="true">
-                           <font>
-                              <Font size="14.0" />
-                           </font>
-                        </Label>
-                        <Separator layoutY="31.0" prefHeight="0.0" prefWidth="392.0">
-                           <rotationAxis>
-                              <Point3D />
-                           </rotationAxis>
-                           <padding>
-                              <Insets left="1.0" right="1.0" />
-                           </padding>
-                        </Separator>
-                     </children>
-                  </Pane>
-               </children>
+             <children>
+                <EventComponent fx:id="eventComponent" layoutX="268.0" layoutY="81.0" style="-fx-border-color: #a0a0a0;"/>
+             </children>
             </AnchorPane>
          </children>
       </GridPane>
-      <Label fx:id="bottomPaneTitle" layoutX="17.0" layoutY="334.0" prefHeight="24.0" prefWidth="1253.0" text="Bob der Bauarbeiter">
+      <Label fx:id="bottomPaneTitle" layoutX="17.0" layoutY="334.0" prefHeight="24.0" prefWidth="1253.0" text="Event">
          <font>
             <Font size="14.0" />
          </font>
@@ -77,10 +86,13 @@
             <Insets left="5.0" />
          </padding>
       </Label>
-      <ScrollPane fx:id="testScrollPane" layoutX="921.0" layoutY="14.0">
-         <content>
-            <VBox fx:id="testVBox" prefHeight="298.0" prefWidth="347.0" />
-         </content>
-      </ScrollPane>
+      <Label fx:id="topPaneTitle" layoutX="78.0" layoutY="45.0" prefHeight="24.0" prefWidth="1130.0" text="EventCluster">
+         <font>
+            <Font size="14.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" />
+         </padding>
+      </Label>
    </children>
 </Pane>
