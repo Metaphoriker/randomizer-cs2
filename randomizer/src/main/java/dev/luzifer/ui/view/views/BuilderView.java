@@ -3,7 +3,7 @@ package dev.luzifer.ui.view.views;
 import com.google.gson.JsonSyntaxException;
 import dev.luzifer.Main;
 import dev.luzifer.backend.event.Event;
-import dev.luzifer.backend.event.EventDispatcher;
+import dev.luzifer.backend.event.cluster.EventCluster;
 import dev.luzifer.backend.json.JsonUtil;
 import dev.luzifer.ui.util.Styling;
 import dev.luzifer.ui.view.View;
@@ -25,6 +25,7 @@ import javafx.scene.text.Font;
 import java.net.URL;
 import java.util.ResourceBundle;
 
+// TODO: A Section to build events from scratch
 public class BuilderView extends View<BuilderViewModel> {
     
     // Total root
@@ -153,7 +154,7 @@ public class BuilderView extends View<BuilderViewModel> {
     
     private void fillAndSetupVBoxes() {
     
-        for(Event event : EventDispatcher.getRegisteredEvents()) {
+        for(Event event : getViewModel().getEvents()) {
         
             Label label = new Label(event.getClass().getSimpleName());
             label.setFont(new Font("Arial", 16));
@@ -165,6 +166,9 @@ public class BuilderView extends View<BuilderViewModel> {
             eventVBox.getChildren().add(label);
         }
         
-        // fill event cluster vbox
+        for(EventCluster eventCluster : getViewModel().getEventClusters()) {
+            clusterVBox.getChildren().add(new Label(eventCluster.getName()));
+            // TODO
+        }
     }
 }

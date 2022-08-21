@@ -2,6 +2,8 @@ package dev.luzifer;
 
 import dev.luzifer.backend.event.EventDispatcher;
 import dev.luzifer.backend.event.EventExecutor;
+import dev.luzifer.backend.event.EventRepository;
+import dev.luzifer.backend.event.cluster.EventClusterRepository;
 import dev.luzifer.backend.event.events.CrouchEvent;
 import dev.luzifer.backend.event.events.DropWeaponEvent;
 import dev.luzifer.backend.event.events.EmptyMagazineEvent;
@@ -25,6 +27,10 @@ import java.io.File;
 public class Main {
     
     private static final File LOG_FILE = new File("log.txt");
+    
+    private static final EventRepository EVENT_REPOSITORY = new EventRepository();
+    private static final EventClusterRepository EVENT_CLUSTER_REPOSITORY = new EventClusterRepository();
+    
     private static Scheduler scheduler;
     
     public static void main(String[] args) {
@@ -38,6 +44,14 @@ public class Main {
     
     public static Scheduler getScheduler() {
         return scheduler;
+    }
+    
+    public static EventRepository getEventRepository() {
+        return EVENT_REPOSITORY;
+    }
+    
+    public static EventClusterRepository getEventClusterRepository() {
+        return EVENT_CLUSTER_REPOSITORY;
     }
     
     private static void setupScheduler() {
@@ -62,18 +76,18 @@ public class Main {
     
     private static void registerEvents() {
     
-        EventDispatcher.registerEvent(new MouseLeftClickEvent());
-        EventDispatcher.registerEvent(new MouseRightClickEvent());
-        EventDispatcher.registerEvent(new MouseMoveEvent());
-        EventDispatcher.registerEvent(new MoveEvent());
-        EventDispatcher.registerEvent(new CrouchEvent());
-        EventDispatcher.registerEvent(new ShiftEvent());
-        EventDispatcher.registerEvent(new JumpEvent());
-        EventDispatcher.registerEvent(new ReloadEvent());
-        EventDispatcher.registerEvent(new EscapeEvent());
-        EventDispatcher.registerEvent(new DropWeaponEvent());
-        EventDispatcher.registerEvent(new EmptyMagazineEvent());
-        EventDispatcher.registerEvent(new IWannaKnifeEvent());
+        EVENT_REPOSITORY.registerEvent(new MouseLeftClickEvent());
+        EVENT_REPOSITORY.registerEvent(new MouseRightClickEvent());
+        EVENT_REPOSITORY.registerEvent(new MouseMoveEvent());
+        EVENT_REPOSITORY.registerEvent(new MoveEvent());
+        EVENT_REPOSITORY.registerEvent(new CrouchEvent());
+        EVENT_REPOSITORY.registerEvent(new ShiftEvent());
+        EVENT_REPOSITORY.registerEvent(new JumpEvent());
+        EVENT_REPOSITORY.registerEvent(new ReloadEvent());
+        EVENT_REPOSITORY.registerEvent(new EscapeEvent());
+        EVENT_REPOSITORY.registerEvent(new DropWeaponEvent());
+        EVENT_REPOSITORY.registerEvent(new EmptyMagazineEvent());
+        EVENT_REPOSITORY.registerEvent(new IWannaKnifeEvent());
     }
     
 }
