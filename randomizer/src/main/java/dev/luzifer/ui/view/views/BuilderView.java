@@ -1,13 +1,11 @@
 package dev.luzifer.ui.view.views;
 
 import com.google.gson.JsonSyntaxException;
-import dev.luzifer.Main;
 import dev.luzifer.backend.event.Event;
 import dev.luzifer.backend.event.cluster.EventCluster;
 import dev.luzifer.backend.json.JsonUtil;
 import dev.luzifer.ui.util.Styling;
 import dev.luzifer.ui.view.View;
-import dev.luzifer.ui.view.component.components.EventComponent;
 import dev.luzifer.ui.view.component.components.MiniEventComponent;
 import dev.luzifer.ui.view.models.BuilderViewModel;
 import javafx.fxml.FXML;
@@ -32,6 +30,12 @@ public class BuilderView extends View<BuilderViewModel> {
     @FXML
     private Pane rootPane;
     
+    @FXML
+    private Pane panePane;
+    
+    @FXML
+    private Label panePaneTitle;
+    
     // Top root
     @FXML
     private Label topPaneTitle;
@@ -53,15 +57,6 @@ public class BuilderView extends View<BuilderViewModel> {
     
     // Bottom root
     @FXML
-    private Label bottomPaneTitle;
-    
-    @FXML
-    private GridPane bottomRoot;
-    
-    @FXML
-    private EventComponent eventComponent;
-    
-    @FXML
     private VBox eventVBox;
     
     public BuilderView(BuilderViewModel viewModel) {
@@ -70,89 +65,87 @@ public class BuilderView extends View<BuilderViewModel> {
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-    
+        
         setupStyling();
-        setupEventComponentDragAndDropActions();
-        fillAndSetupVBoxes();
+        setupClusterBuilderVBoxAcceptDrag();
+        
+        fillVBoxes();
     }
     
     private void setupStyling() {
-    
-        eventComponent.setStyle(Styling.BORDER);
+        
         topPaneTitle.setStyle(Styling.HEADER + Styling.BORDER);
-        bottomPaneTitle.setStyle(Styling.HEADER + Styling.BORDER);
+        panePaneTitle.setStyle(Styling.HEADER + Styling.BORDER);
+        
         topRoot.setStyle(Styling.BACKGROUND_DARKER);
-        bottomRoot.setStyle(Styling.BACKGROUND_DARKER);
+        panePane.setStyle(Styling.BACKGROUND_DARKER);
         rootPane.setStyle(Styling.BACKGROUND);
         
         getIcons().add(new Image("images/16x16/builder16x16.png"));
     }
     
-    private void setupEventComponentDragAndDropActions() {
+    private void setupEventLabelDragAndDropActions(Label label) {
+        
+        Event event = getViewModel().getEvent(label.getText()); // the event that this label represents
     
-        eventComponent.setOnDragDetected(event -> {
-        
-            if(!eventComponent.getModel().isEventAccepted()) {
-                
-                eventComponent.setStyle(Styling.BORDER_RED);
-                Main.getScheduler().schedule(() -> eventComponent.setStyle(Styling.BORDER), 150);
-                
-                return;
-            }
+        label.setOnDragDetected(dragEvent -> {
             
-            Dragboard db = eventComponent.startDragAndDrop(TransferMode.ANY);
-            db.setDragView(eventComponent.snapshot(null, null), event.getX(), event.getY());
-        
+            Dragboard db = label.startDragAndDrop(TransferMode.ANY);
+            db.setDragView(label.snapshot(null, null), dragEvent.getX(), dragEvent.getY()); // TODO: MiniEventComponent as drag view
+            
             ClipboardContent content = new ClipboardContent();
-            content.putString(JsonUtil.serialize(eventComponent.getModel().getEventWrapped()));
+            content.putString(JsonUtil.serialize(event));
             
             db.setContent(content);
-            event.consume();
+            dragEvent.consume();
         });
-        eventComponent.setOnDragDone(event -> {
-        
-            if(clusterBuilderVBox.getChildren().isEmpty())
+        label.setOnDragDone(dragEvent -> {
+            
+            if (clusterBuilderVBox.getChildren().isEmpty())
                 dragAndDropLabel.setVisible(true);
             
-            event.consume();
+            dragEvent.consume();
         });
+    }
+    
+    private void setupClusterBuilderVBoxAcceptDrag() {
         
-        clusterBuilderScrollPane.setOnDragOver(event -> {
-    
-            if (event.getGestureSource() != clusterBuilderScrollPane && event.getDragboard().hasString()) {
-                event.acceptTransferModes(TransferMode.COPY_OR_MOVE);
-            }
-    
+        clusterBuilderScrollPane.setOnDragOver(dragEvent -> {
+            
+            if (dragEvent.getGestureSource() != clusterBuilderScrollPane && dragEvent.getDragboard().hasString())
+                dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            
             dragAndDropLabel.setVisible(false);
-            event.consume();
+            dragEvent.consume();
         });
-        clusterBuilderScrollPane.setOnDragDropped(event -> {
-    
-            Dragboard db = event.getDragboard();
+        clusterBuilderScrollPane.setOnDragDropped(dragEvent -> {
+            
+            Dragboard db = dragEvent.getDragboard();
             boolean success = false;
-    
+            
             if (db.hasString()) {
-    
+                
                 try {
-    
+                    
                     Event eventWrapped = JsonUtil.deserialize(db.getString());
                     clusterBuilderVBox.getChildren().add(createMiniEventComponent(eventWrapped));
-    
+                    
                     success = true;
                 } catch (JsonSyntaxException ignored) { // this could be probably done better
                 }
             }
-    
-            event.setDropCompleted(success);
-            event.consume();
+            
+            dragEvent.setDropCompleted(success);
+            dragEvent.consume();
         });
     }
     
     private MiniEventComponent createMiniEventComponent(Event event) {
         
         MiniEventComponent miniEventComponent = new MiniEventComponent();
-        setupMiniEventComponentDragAndDropActions(miniEventComponent);
         miniEventComponent.getModel().acceptEvent(event);
+        
+        setupMiniEventComponentDragAndDropActions(miniEventComponent);
         
         return miniEventComponent;
     }
@@ -160,65 +153,66 @@ public class BuilderView extends View<BuilderViewModel> {
     private void setupMiniEventComponentDragAndDropActions(MiniEventComponent miniEventComponent) {
         
         miniEventComponent.setOnDragDropped(dragEvent -> {
-        
+            
             Dragboard dragboard = dragEvent.getDragboard();
             boolean success = false;
-        
+            
             if (dragboard.hasString()) {
-            
+                
                 int index = clusterBuilderVBox.getChildren().indexOf(miniEventComponent);
-                clusterBuilderVBox.getChildren().add(index+1, createMiniEventComponent(JsonUtil.deserialize(dragboard.getString())));
-            
+                clusterBuilderVBox.getChildren().add(index + 1, createMiniEventComponent(JsonUtil.deserialize(dragboard.getString())));
+                
                 success = true;
             }
-        
+            
             dragEvent.setDropCompleted(success);
             dragEvent.consume();
         });
         miniEventComponent.setOnDragEntered(dragEvent -> miniEventComponent.setStyle(Styling.BOTTOM_BORDER_BLUE));
         miniEventComponent.setOnDragExited(dragEvent -> miniEventComponent.setStyle(Styling.CLEAR));
         miniEventComponent.setOnDragDetected(dragEvent -> {
-        
+            
             Dragboard db = miniEventComponent.startDragAndDrop(TransferMode.ANY);
             db.setDragView(miniEventComponent.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
-        
+            
             ClipboardContent content = new ClipboardContent();
             content.putString(JsonUtil.serialize(miniEventComponent.getModel().getEventWrapped()));
-        
+            
             db.setContent(content);
             dragEvent.consume();
         });
         miniEventComponent.setOnDragDone(dragEvent -> {
-        
-            if(clusterBuilderVBox.getChildren().isEmpty())
+    
+            clusterBuilderVBox.getChildren().remove(miniEventComponent);
+            
+            if (clusterBuilderVBox.getChildren().isEmpty())
                 dragAndDropLabel.setVisible(true);
             
-            clusterBuilderVBox.getChildren().remove(miniEventComponent);
-        
             dragEvent.consume();
         });
     }
     
-    private void fillAndSetupVBoxes() {
-    
-        for(Event event : getViewModel().getEvents()) {
+    private void fillVBoxes() {
         
+        for (Event event : getViewModel().getEvents()) {
+            
             Label label = new Label(event.getClass().getSimpleName());
             label.setFont(new Font("Arial", 16));
             
-            if(!getViewModel().isEventEnabled(event)) {
+            if (!getViewModel().isEventEnabled(event)) {
                 label.setStyle(Styling.FONT_RED);
                 label.setDisable(true);
             }
             
             label.setOnMouseEntered(enter -> label.setStyle(Styling.SELECTED));
             label.setOnMouseExited(exit -> label.setStyle(Styling.CLEAR));
-            label.setOnMouseClicked(click -> eventComponent.getModel().acceptEvent(event));
-        
+            
+            setupEventLabelDragAndDropActions(label);
+            
             eventVBox.getChildren().add(label);
         }
         
-        for(EventCluster eventCluster : getViewModel().getEventClusters()) {
+        for (EventCluster eventCluster : getViewModel().getEventClusters()) {
             clusterVBox.getChildren().add(new Label(eventCluster.getName()));
             // TODO
         }

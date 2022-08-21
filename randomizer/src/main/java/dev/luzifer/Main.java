@@ -33,9 +33,11 @@ public class Main {
     private static Scheduler scheduler;
     
     public static void main(String[] args) {
-        
+    
+        registerEvents();
+    
         setupScheduler();
-        setupEventExecutor();
+        // setupEventExecutor();
         
         Thread.currentThread().setUncaughtExceptionHandler(new UncaughtExceptionLogger(LOG_FILE));
         Application.launch(AppStarter.class);
@@ -64,8 +66,6 @@ public class Main {
     }
     
     private static void setupEventExecutor() {
-        
-        registerEvents();
         
         EventExecutor eventExecutor = new EventExecutor(EVENT_REPOSITORY, EVENT_CLUSTER_REPOSITORY);
         eventExecutor.setDaemon(true);
