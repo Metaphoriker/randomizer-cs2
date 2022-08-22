@@ -10,6 +10,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Control;
 import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
@@ -46,7 +47,9 @@ public class SelectionView extends View<SelectionViewModel> {
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
+
+        getIcons().add(new Image("images/512x512/csgoremote512x512.png"));
+
         updateChecker.checkUpdate();
         if(updateChecker.isUpdateAvailable())
             updateLabel.setVisible(true);
