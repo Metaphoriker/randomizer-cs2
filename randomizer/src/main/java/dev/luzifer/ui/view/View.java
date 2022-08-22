@@ -1,12 +1,7 @@
 package dev.luzifer.ui.view;
 
 import javafx.fxml.Initializable;
-import javafx.geometry.BoundingBox;
-import javafx.geometry.Bounds;
-import javafx.geometry.Point2D;
 import javafx.geometry.Side;
-import javafx.scene.Node;
-import javafx.scene.Parent;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundImage;
@@ -18,16 +13,9 @@ import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Shape;
 import javafx.stage.Stage;
 
-import java.lang.reflect.InvocationTargetException;
-import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.text.MessageFormat;
-import java.util.ArrayList;
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
 import java.util.ResourceBundle;
-import java.util.Set;
 
 public abstract class View<T extends ViewModel> extends Stage implements Initializable {
     private final T viewModel;
