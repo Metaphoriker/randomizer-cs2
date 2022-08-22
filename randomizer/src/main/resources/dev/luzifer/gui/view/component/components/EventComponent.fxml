@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<fx:root prefHeight="110.0" prefWidth="420.0" style="-fx-border-color: #a0a0a0;" type="javafx.scene.layout.Pane" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/18" fx:controller="dev.luzifer.gui.view.component.components.EventComponent">
+   <children>
+      <Label fx:id="nameLabel" prefHeight="30" prefWidth="420.0" text="Name">
+         <font>
+            <Font size="18.0" />
+         </font>
+         <padding>
+            <Insets left="5.0" top="2.0" />
+         </padding>
+      </Label>
+      <Label fx:id="descriptionLabel" alignment="CENTER" layoutY="32.0" opacity="0.5" prefHeight="77.0" prefWidth="420.0" text="Description" wrapText="true">
+         <font>
+            <Font size="14.0" />
+         </font>
+      </Label>
+   </children>
+</fx:root>

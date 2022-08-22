@@ -18,7 +18,7 @@ import dev.luzifer.backend.event.events.ShiftEvent;
 import dev.luzifer.backend.exception.UncaughtExceptionLogger;
 import dev.luzifer.backend.scheduler.Scheduler;
 import dev.luzifer.backend.scheduler.SchedulerThread;
-import dev.luzifer.ui.AppStarter;
+import dev.luzifer.gui.AppStarter;
 import javafx.application.Application;
 
 import java.io.File;
