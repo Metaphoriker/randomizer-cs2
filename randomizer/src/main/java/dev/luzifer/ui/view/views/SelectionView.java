@@ -1,17 +1,16 @@
 package dev.luzifer.ui.view.views;
 
 import dev.luzifer.backend.updater.UpdateChecker;
+import dev.luzifer.ui.util.ImageUtil;
 import dev.luzifer.ui.util.Styling;
 import dev.luzifer.ui.view.View;
 import dev.luzifer.ui.view.models.SelectionViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
-import javafx.scene.control.Control;
 import javafx.scene.control.Label;
-import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
@@ -48,7 +47,7 @@ public class SelectionView extends View<SelectionViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        getIcons().add(new Image("images/512x512/csgoremote512x512.png"));
+        getIcons().add(ImageUtil.getImage("images/csgoremote_icon.png"));
 
         updateChecker.checkUpdate();
         if(updateChecker.isUpdateAvailable())
@@ -60,12 +59,12 @@ public class SelectionView extends View<SelectionViewModel> {
     
     @FXML
     public void onEnter(MouseEvent mouseEvent) {
-        ((Control) mouseEvent.getSource()).setStyle(Styling.SELECTED + Styling.BORDER);
+        ((Node) mouseEvent.getSource()).setStyle(Styling.SELECTED + Styling.BORDER);
     }
     
     @FXML
     public void onExit(MouseEvent mouseEvent) {
-        ((Control) mouseEvent.getSource()).setStyle(Styling.UNSELECTED + Styling.BORDER);
+        ((Node) mouseEvent.getSource()).setStyle(Styling.UNSELECTED + Styling.BORDER);
     }
     
     @FXML
@@ -85,10 +84,10 @@ public class SelectionView extends View<SelectionViewModel> {
         updateLabel.setCursor(Cursor.HAND);
         settingsButton.setFocusTraversable(false);
         
-        settingsButton.setGraphic(new ImageView("images/16x16/settings16x16.png"));
-        randomizerLabel.setGraphic(new ImageView("images/16x16/shuffle16x16.png"));
-        builderLabel.setGraphic(new ImageView("images/16x16/builder16x16.png"));
-        updateLabel.setGraphic(new ImageView("images/16x16/update16x16.png"));
+        settingsButton.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.SMALL));
+        randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
+        builderLabel.setGraphic(ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));
+        updateLabel.setGraphic(ImageUtil.getImageView("images/update_icon.png", ImageUtil.ImageResolution.SMALL));
     }
     
     private void setupClickActions() {

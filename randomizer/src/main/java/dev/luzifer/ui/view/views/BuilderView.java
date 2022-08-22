@@ -4,6 +4,7 @@ import com.google.gson.JsonSyntaxException;
 import dev.luzifer.backend.event.Event;
 import dev.luzifer.backend.event.cluster.EventCluster;
 import dev.luzifer.backend.json.JsonUtil;
+import dev.luzifer.ui.util.ImageUtil;
 import dev.luzifer.ui.util.Styling;
 import dev.luzifer.ui.view.View;
 import dev.luzifer.ui.view.component.components.MiniEventComponent;
@@ -81,7 +82,7 @@ public class BuilderView extends View<BuilderViewModel> {
         panePane.setStyle(Styling.BACKGROUND_DARKER);
         rootPane.setStyle(Styling.BACKGROUND);
         
-        getIcons().add(new Image("images/16x16/builder16x16.png"));
+        getIcons().add(ImageUtil.getImage("images/build_icon.png"));
     }
     
     private void setupEventLabelDragAndDropActions(Label label) {

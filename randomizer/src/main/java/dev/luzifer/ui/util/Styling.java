@@ -1,6 +1,6 @@
 package dev.luzifer.ui.util;
 
-public class Styling {
+public final class Styling {
     
     public static final String CLEAR = "";
     public static final String BACKGROUND = "-fx-base: #9aa5aa;";
