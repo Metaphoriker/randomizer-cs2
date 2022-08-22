@@ -10,6 +10,8 @@ import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.component.components.EventComponent;
 import dev.luzifer.gui.view.models.BuilderViewModel;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ClipboardContent;
@@ -195,22 +197,19 @@ public class BuilderView extends View<BuilderViewModel> {
             
             Label label = new Label(event.getClass().getSimpleName());
             label.setFont(new Font("Arial", 16));
+    
+            label.setContentDisplay(ContentDisplay.RIGHT);
             
             if (!getViewModel().isEventEnabled(event)) {
                 label.setStyle(Styling.FONT_RED);
                 label.setDisable(true);
             }
-            
+    
             label.setStyle(Styling.BACKGROUND_BANZAI_BLUE + Styling.BORDER);
-            label.setOnMouseEntered(enter -> {
-                // TODO: Show drag icon
-            });
-            label.setOnMouseExited(exit -> {
-                // TODO: Hide drag icon
-            });
+            label.setOnMouseEntered(enter -> label.setGraphic(ImageUtil.getImageView("images/wip_icon.png", ImageUtil.ImageResolution.SMALL)));
+            label.setOnMouseExited(exit -> label.setGraphic(null));
             
             setupEventLabelDragAndDropActions(label);
-            
             eventFlowPane.getChildren().add(label);
         }
         
