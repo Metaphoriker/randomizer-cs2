@@ -74,7 +74,7 @@ public class SelectionView extends View<SelectionViewModel> {
     
     private void setupStyling() {
     
-        root.setStyle(Styling.BACKGROUND);
+        root.setStyle(Styling.BASE);
         randomizerLabel.setStyle(Styling.UNSELECTED + Styling.BORDER);
         builderLabel.setStyle(Styling.UNSELECTED + Styling.BORDER);
         settingsButton.setStyle(Styling.UNSELECTED + Styling.BORDER);

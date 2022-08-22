@@ -7,7 +7,7 @@ import dev.luzifer.backend.json.JsonUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.util.Styling;
 import dev.luzifer.gui.view.View;
-import dev.luzifer.gui.view.component.components.MiniEventComponent;
+import dev.luzifer.gui.view.component.components.EventComponent;
 import dev.luzifer.gui.view.models.BuilderViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -15,6 +15,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
@@ -29,9 +30,6 @@ public class BuilderView extends View<BuilderViewModel> {
     // Total root
     @FXML
     private Pane rootPane;
-    
-    @FXML
-    private Pane panePane;
     
     @FXML
     private Label panePaneTitle;
@@ -55,9 +53,8 @@ public class BuilderView extends View<BuilderViewModel> {
     @FXML
     private VBox clusterBuilderVBox;
     
-    // Bottom root
     @FXML
-    private VBox eventVBox;
+    private FlowPane eventFlowPane;
     
     public BuilderView(BuilderViewModel viewModel) {
         super(viewModel);
@@ -76,10 +73,10 @@ public class BuilderView extends View<BuilderViewModel> {
         
         topPaneTitle.setStyle(Styling.HEADER + Styling.BORDER);
         panePaneTitle.setStyle(Styling.HEADER + Styling.BORDER);
-        
+    
+        rootPane.setStyle(Styling.BASE);
         topRoot.setStyle(Styling.BACKGROUND_DARKER);
-        panePane.setStyle(Styling.BACKGROUND_DARKER);
-        rootPane.setStyle(Styling.BACKGROUND);
+        eventFlowPane.setStyle(Styling.BACKGROUND_DARKER);
         
         getIcons().add(ImageUtil.getImage("images/build_icon.png"));
     }
@@ -87,7 +84,7 @@ public class BuilderView extends View<BuilderViewModel> {
     private void setupEventLabelDragAndDropActions(Label label) {
         
         Event event = getViewModel().getEvent(label.getText()); // the event that this label represents
-    
+        
         label.setOnDragDetected(dragEvent -> {
             
             Dragboard db = label.startDragAndDrop(TransferMode.ANY);
@@ -128,7 +125,7 @@ public class BuilderView extends View<BuilderViewModel> {
                 try {
                     
                     Event eventWrapped = JsonUtil.deserialize(db.getString());
-                    clusterBuilderVBox.getChildren().add(createMiniEventComponent(eventWrapped));
+                    clusterBuilderVBox.getChildren().add(createEventComponent(eventWrapped));
                     
                     success = true;
                 } catch (JsonSyntaxException ignored) { // this could be probably done better
@@ -140,27 +137,27 @@ public class BuilderView extends View<BuilderViewModel> {
         });
     }
     
-    private MiniEventComponent createMiniEventComponent(Event event) {
+    private EventComponent createEventComponent(Event event) {
+    
+        EventComponent eventComponent = new EventComponent();
+        eventComponent.getModel().acceptEvent(event);
         
-        MiniEventComponent miniEventComponent = new MiniEventComponent();
-        miniEventComponent.getModel().acceptEvent(event);
+        setupEventComponentDragAndDropActions(eventComponent);
         
-        setupMiniEventComponentDragAndDropActions(miniEventComponent);
-        
-        return miniEventComponent;
+        return eventComponent;
     }
     
-    private void setupMiniEventComponentDragAndDropActions(MiniEventComponent miniEventComponent) {
+    private void setupEventComponentDragAndDropActions(EventComponent eventComponent) {
         
-        miniEventComponent.setOnDragDropped(dragEvent -> {
+        eventComponent.setOnDragDropped(dragEvent -> {
             
             Dragboard dragboard = dragEvent.getDragboard();
             boolean success = false;
             
             if (dragboard.hasString()) {
                 
-                int index = clusterBuilderVBox.getChildren().indexOf(miniEventComponent);
-                clusterBuilderVBox.getChildren().add(index + 1, createMiniEventComponent(JsonUtil.deserialize(dragboard.getString())));
+                int index = clusterBuilderVBox.getChildren().indexOf(eventComponent);
+                clusterBuilderVBox.getChildren().add(index + 1, createEventComponent(JsonUtil.deserialize(dragboard.getString())));
                 
                 success = true;
             }
@@ -168,22 +165,22 @@ public class BuilderView extends View<BuilderViewModel> {
             dragEvent.setDropCompleted(success);
             dragEvent.consume();
         });
-        miniEventComponent.setOnDragEntered(dragEvent -> miniEventComponent.setStyle(Styling.BOTTOM_BORDER_BLUE));
-        miniEventComponent.setOnDragExited(dragEvent -> miniEventComponent.setStyle(Styling.CLEAR));
-        miniEventComponent.setOnDragDetected(dragEvent -> {
+        eventComponent.setOnDragEntered(dragEvent -> eventComponent.setStyle(Styling.BOTTOM_BORDER_BLUE));
+        eventComponent.setOnDragExited(dragEvent -> eventComponent.setStyle(Styling.CLEAR));
+        eventComponent.setOnDragDetected(dragEvent -> {
             
-            Dragboard db = miniEventComponent.startDragAndDrop(TransferMode.ANY);
-            db.setDragView(miniEventComponent.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
+            Dragboard db = eventComponent.startDragAndDrop(TransferMode.ANY);
+            db.setDragView(eventComponent.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
             
             ClipboardContent content = new ClipboardContent();
-            content.putString(JsonUtil.serialize(miniEventComponent.getModel().getEventWrapped()));
+            content.putString(JsonUtil.serialize(eventComponent.getModel().getEventWrapped()));
             
             db.setContent(content);
             dragEvent.consume();
         });
-        miniEventComponent.setOnDragDone(dragEvent -> {
-    
-            clusterBuilderVBox.getChildren().remove(miniEventComponent);
+        eventComponent.setOnDragDone(dragEvent -> {
+            
+            clusterBuilderVBox.getChildren().remove(eventComponent);
             
             if (clusterBuilderVBox.getChildren().isEmpty())
                 dragAndDropLabel.setVisible(true);
@@ -204,12 +201,17 @@ public class BuilderView extends View<BuilderViewModel> {
                 label.setDisable(true);
             }
             
-            label.setOnMouseEntered(enter -> label.setStyle(Styling.SELECTED));
-            label.setOnMouseExited(exit -> label.setStyle(Styling.CLEAR));
+            label.setStyle(Styling.BACKGROUND_BANZAI_BLUE + Styling.BORDER);
+            label.setOnMouseEntered(enter -> {
+                // TODO: Show drag icon
+            });
+            label.setOnMouseExited(exit -> {
+                // TODO: Hide drag icon
+            });
             
             setupEventLabelDragAndDropActions(label);
             
-            eventVBox.getChildren().add(label);
+            eventFlowPane.getChildren().add(label);
         }
         
         for (EventCluster eventCluster : getViewModel().getEventClusters()) {
