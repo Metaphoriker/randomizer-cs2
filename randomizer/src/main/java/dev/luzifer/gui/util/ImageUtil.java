@@ -30,7 +30,7 @@ public final class ImageUtil {
 
         SMALL(16, 16),
         MEDIUM(32, 32),
-        LARGE(64, 64);
+        ORIGINAL(64, 64); // large
 
         private final int width;
         private final int height;
