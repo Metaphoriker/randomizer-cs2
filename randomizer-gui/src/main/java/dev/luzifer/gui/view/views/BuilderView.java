@@ -10,7 +10,6 @@ import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.component.components.EventComponent;
 import dev.luzifer.gui.view.models.BuilderViewModel;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;

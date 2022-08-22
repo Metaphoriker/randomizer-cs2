@@ -1,7 +1,5 @@
 package dev.luzifer.backend.updater;
 
-import dev.luzifer.Main;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -45,7 +43,7 @@ public class UpdateChecker {
     
     public InputStream getInputStream(String fileName) {
         
-        InputStream resource = Main.class.getResourceAsStream("/" + fileName);
+        InputStream resource = UpdateChecker.class.getResourceAsStream("/" + fileName);
         
         if (resource == null)
             throw new IllegalStateException("Probably corrupted JAR file, missing " + fileName);
