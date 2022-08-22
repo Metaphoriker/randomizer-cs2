@@ -23,7 +23,7 @@ public class ViewController {
         
         view.setScene(scene);
         view.setTitle(title);
-        view.setResizable(false);
+        view.setResizable(true);
         view.show();
     }
     
