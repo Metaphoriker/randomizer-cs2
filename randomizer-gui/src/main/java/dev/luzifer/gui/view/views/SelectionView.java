@@ -38,8 +38,7 @@ public class SelectionView extends View<SelectionViewModel> {
     
     @FXML
     private Button settingsButton;
-    
-    
+
     public SelectionView(SelectionViewModel selectionViewModel) {
         super(selectionViewModel);
     }
@@ -52,7 +51,7 @@ public class SelectionView extends View<SelectionViewModel> {
         updateChecker.checkUpdate();
         if(updateChecker.isUpdateAvailable())
             updateLabel.setVisible(true);
-        
+
         setupStyling();
         setupClickActions();
     }

@@ -8,21 +8,32 @@ import javafx.util.Callback;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
+import java.util.HashMap;
+import java.util.Map;
 
 public class ViewController {
-    
+
+    private final Map<String, View> viewMap = new HashMap<>();
+
     public void showView(View view) {
-        loadAndShowView(view, (Class<?> param) -> view,
-                view.getClass().getSimpleName().substring(0, view.getClass().getSimpleName().length() - 4));
+
+        String name = view.getClass().getSimpleName().substring(0, view.getClass().getSimpleName().length() - 4);
+        if(viewMap.containsKey(name)) {
+            viewMap.get(name).requestFocus();
+        } else {
+            viewMap.put(name, view);
+            loadAndShowView(view, (Class<?> param) -> view, name);
+        }
     }
     
     private void loadAndShowView(View view, Callback<Class<?>, Object> controllerFactory, String title) {
         
         Parent root = loadView(view.getClass(), controllerFactory);
         Scene scene = new Scene(root);
-        
+
         view.setScene(scene);
         view.setTitle(title);
+        view.setOnHiding(event -> viewMap.remove(title));
         view.setResizable(true);
         view.show();
     }
