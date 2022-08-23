@@ -15,7 +15,7 @@ public class UncaughtExceptionLogger implements Thread.UncaughtExceptionHandler 
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
         
-        StringBuilder builder = new StringBuilder("Exception caught in Scheduler Thread: ").append(throwable.getMessage()).append("\n");
+        StringBuilder builder = new StringBuilder("Exception caught in" + thread.getName() + "Thread: ").append(throwable.getMessage()).append("\n");
         for(StackTraceElement element : throwable.getStackTrace())
             builder.append("\tat ").append(element.toString()).append("\n");
     
