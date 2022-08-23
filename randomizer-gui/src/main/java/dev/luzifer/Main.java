@@ -26,7 +26,8 @@ import java.io.File;
 public class Main {
     
     private static final File LOG_FILE = new File("log.txt");
-    
+    private static final UncaughtExceptionLogger DEFAULT_UNCAUGHT_EXCEPTION_LOGGER = new UncaughtExceptionLogger(LOG_FILE);
+
     private static final EventRepository EVENT_REPOSITORY = new EventRepository();
     private static final EventClusterRepository EVENT_CLUSTER_REPOSITORY = new EventClusterRepository();
 
@@ -39,7 +40,7 @@ public class Main {
         setupScheduler();
         // setupEventExecutor();
         
-        Thread.currentThread().setUncaughtExceptionHandler(new UncaughtExceptionLogger(LOG_FILE));
+        Thread.currentThread().setUncaughtExceptionHandler(DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
         Application.launch(AppStarter.class);
     }
 
@@ -60,16 +61,16 @@ public class Main {
     private static void setupScheduler() {
     
         SchedulerThread schedulerThread = new SchedulerThread(SCHEDULER);
+        schedulerThread.setUncaughtExceptionHandler(DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
         schedulerThread.setDaemon(true);
-        schedulerThread.setUncaughtExceptionHandler(new UncaughtExceptionLogger(LOG_FILE));
         schedulerThread.start();
     }
     
     private static void setupEventExecutor() {
         
         EventExecutor eventExecutor = new EventExecutor(EVENT_REPOSITORY, EVENT_CLUSTER_REPOSITORY);
+        eventExecutor.setUncaughtExceptionHandler(DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
         eventExecutor.setDaemon(true);
-        eventExecutor.setUncaughtExceptionHandler(new UncaughtExceptionLogger(LOG_FILE));
         eventExecutor.start();
     }
     
