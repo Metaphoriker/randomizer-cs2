@@ -6,30 +6,31 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 
 public class UpdateChecker {
     
-    private static final String VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/master/randomizer/src/main/resources/version.txt";
+    private static final String VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/master/randomizer-model/src/main/resources/version.txt";
     
     private boolean updateAvailable;
     
     public void checkUpdate() {
-        
-        HttpURLConnection connection;
-        String latestVersion;
-    
+
+        HttpURLConnection connection = null;
         try {
-        
+
             connection = (HttpURLConnection) new URL(VERSION_URL).openConnection();
             connection.connect();
-        
-            latestVersion = readLineFromInputStream(connection.getInputStream());
-        
-        } catch (Exception e) {
-            throw new RuntimeException(e);
+
+            String latestVersion = readLineFromInputStream(connection.getInputStream());
+            updateAvailable = !latestVersion.equals(fetchCurrentVersion());
+
+        } catch (Exception ignored) {
+            // TODO: Handle exception
+        } finally {
+            if(connection != null)
+                connection.disconnect();
         }
-    
-        updateAvailable = !latestVersion.equals(fetchCurrentVersion());
     }
     
     public boolean isUpdateAvailable() {
@@ -41,7 +42,7 @@ public class UpdateChecker {
         return readLineFromInputStream(inputStream);
     }
     
-    public InputStream getInputStream(String fileName) {
+    private InputStream getInputStream(String fileName) {
         
         InputStream resource = UpdateChecker.class.getResourceAsStream("/" + fileName);
         
@@ -53,7 +54,7 @@ public class UpdateChecker {
     
     private String readLineFromInputStream(InputStream inputStream) {
         
-        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
             return bufferedReader.readLine();
         } catch (IOException e) {
             e.printStackTrace();
