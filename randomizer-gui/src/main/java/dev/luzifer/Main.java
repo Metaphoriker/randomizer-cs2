@@ -29,8 +29,8 @@ public class Main {
     
     private static final EventRepository EVENT_REPOSITORY = new EventRepository();
     private static final EventClusterRepository EVENT_CLUSTER_REPOSITORY = new EventClusterRepository();
-    
-    private static Scheduler scheduler;
+
+    private static final Scheduler SCHEDULER = new Scheduler();
     
     public static void main(String[] args) {
     
@@ -42,9 +42,11 @@ public class Main {
         Thread.currentThread().setUncaughtExceptionHandler(new UncaughtExceptionLogger(LOG_FILE));
         Application.launch(AppStarter.class);
     }
-    
+
+    // I don't like those singletons
+
     public static Scheduler getScheduler() {
-        return scheduler;
+        return SCHEDULER;
     }
     
     public static EventRepository getEventRepository() {
@@ -57,9 +59,7 @@ public class Main {
     
     private static void setupScheduler() {
     
-        scheduler = new Scheduler();
-        
-        SchedulerThread schedulerThread = new SchedulerThread(scheduler);
+        SchedulerThread schedulerThread = new SchedulerThread(SCHEDULER);
         schedulerThread.setDaemon(true);
         schedulerThread.setUncaughtExceptionHandler(new UncaughtExceptionLogger(LOG_FILE));
         schedulerThread.start();
