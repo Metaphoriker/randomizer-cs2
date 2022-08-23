@@ -8,10 +8,8 @@ import dev.luzifer.gui.view.models.SelectionViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
-import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.VBox;
 
 import java.awt.Desktop;
@@ -53,19 +51,9 @@ public class SelectionView extends View<SelectionViewModel> {
             updateLabel.setVisible(true);
 
         setupStyling();
-        setupClickActions();
+        setupMouseEvents();
     }
-    
-    @FXML
-    public void onEnter(MouseEvent mouseEvent) {
-        ((Node) mouseEvent.getSource()).setStyle(Styling.SELECTED + Styling.BORDER);
-    }
-    
-    @FXML
-    public void onExit(MouseEvent mouseEvent) {
-        ((Node) mouseEvent.getSource()).setStyle(Styling.UNSELECTED + Styling.BORDER);
-    }
-    
+
     @FXML
     public void onSettingsPress(ActionEvent actionEvent) {
         // TODO: Implement settings view
@@ -89,9 +77,14 @@ public class SelectionView extends View<SelectionViewModel> {
         updateLabel.setGraphic(ImageUtil.getImageView("images/download_icon.png", ImageUtil.ImageResolution.SMALL));
     }
     
-    private void setupClickActions() {
-        
+    private void setupMouseEvents() {
+
+        randomizerLabel.setOnMouseEntered(event -> randomizerLabel.setStyle(Styling.SELECTED + Styling.BORDER));
+        randomizerLabel.setOnMouseExited(event -> randomizerLabel.setStyle(Styling.UNSELECTED + Styling.BORDER));
         randomizerLabel.setOnMouseClicked(event -> getViewModel().openRandomizer());
+
+        builderLabel.setOnMouseEntered(event -> builderLabel.setStyle(Styling.SELECTED + Styling.BORDER));
+        builderLabel.setOnMouseExited(event -> builderLabel.setStyle(Styling.UNSELECTED + Styling.BORDER));
         builderLabel.setOnMouseClicked(event -> getViewModel().openBuilder());
         
         updateLabel.setOnMouseClicked(mouseEvent -> {

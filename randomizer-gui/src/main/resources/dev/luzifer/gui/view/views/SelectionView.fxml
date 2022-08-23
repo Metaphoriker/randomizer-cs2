@@ -9,19 +9,19 @@
 
 <VBox fx:id="root" alignment="TOP_CENTER" prefHeight="235.0" prefWidth="227.0" spacing="10.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.SelectionView">
    <children>
-      <Label fx:id="randomizerLabel" onMouseEntered="#onEnter" onMouseExited="#onExit" prefHeight="43.0" prefWidth="170.0" text="Randomizer" textAlignment="CENTER" VBox.vgrow="ALWAYS">
+      <Label fx:id="randomizerLabel" prefHeight="43.0" prefWidth="170.0" text="Randomizer" textAlignment="CENTER" VBox.vgrow="ALWAYS">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
-      <Label fx:id="builderLabel" onMouseEntered="#onEnter" onMouseExited="#onExit" prefHeight="43.0" prefWidth="170.0" text="Builder" textAlignment="CENTER">
+      <Label fx:id="builderLabel" prefHeight="43.0" prefWidth="170.0" text="Builder" textAlignment="CENTER">
          <font>
             <Font size="16.0" />
          </font>
       </Label>
       <Pane prefHeight="119.0" prefWidth="227.0">
          <children>
-            <Button fx:id="settingsButton" layoutX="177.0" layoutY="76.0" mnemonicParsing="false" onAction="#onSettingsPress" onMouseEntered="#onEnter" onMouseExited="#onExit" prefHeight="29.0" prefWidth="29.0" />
+            <Button fx:id="settingsButton" layoutX="177.0" layoutY="76.0" mnemonicParsing="false" onAction="#onSettingsPress" prefHeight="29.0" prefWidth="29.0" />
             <Label fx:id="updateLabel" layoutX="14.0" layoutY="90.0" prefHeight="17.0" prefWidth="147.0" text="An update is available!" visible="false" />
          </children>
       </Pane>
