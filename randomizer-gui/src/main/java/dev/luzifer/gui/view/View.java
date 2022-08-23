@@ -18,7 +18,7 @@ public abstract class View<T extends ViewModel> extends Stage implements Initial
     public void initialize(URL url, ResourceBundle resourceBundle) {
     }
     
-    public T getViewModel() {
+    protected T getViewModel() {
         return viewModel;
     }
 }

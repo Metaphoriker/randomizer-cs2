@@ -20,7 +20,7 @@ public class Scheduler {
         }
     }
     
-    public List<Task> getTasks() {
+    List<Task> getTasks() {
         return tasks;
     }
     
