@@ -1,9 +1,9 @@
 package dev.luzifer.gui.view.models;
 
-import dev.luzifer.backend.event.Event;
-import dev.luzifer.backend.event.EventRepository;
-import dev.luzifer.backend.event.cluster.EventCluster;
-import dev.luzifer.backend.event.cluster.EventClusterRepository;
+import dev.luzifer.model.event.Event;
+import dev.luzifer.model.event.EventRepository;
+import dev.luzifer.model.event.cluster.EventCluster;
+import dev.luzifer.model.event.cluster.EventClusterRepository;
 import dev.luzifer.gui.view.ViewModel;
 
 import java.util.List;

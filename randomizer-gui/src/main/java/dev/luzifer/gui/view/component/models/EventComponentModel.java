@@ -1,6 +1,6 @@
 package dev.luzifer.gui.view.component.models;
 
-import dev.luzifer.backend.event.Event;
+import dev.luzifer.model.event.Event;
 import dev.luzifer.gui.view.component.ComponentModel;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;

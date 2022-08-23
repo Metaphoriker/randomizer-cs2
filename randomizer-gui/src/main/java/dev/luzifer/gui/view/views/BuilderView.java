@@ -1,9 +1,9 @@
 package dev.luzifer.gui.view.views;
 
 import com.google.gson.JsonSyntaxException;
-import dev.luzifer.backend.event.Event;
-import dev.luzifer.backend.event.cluster.EventCluster;
-import dev.luzifer.backend.json.JsonUtil;
+import dev.luzifer.model.event.Event;
+import dev.luzifer.model.event.cluster.EventCluster;
+import dev.luzifer.model.json.JsonUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.util.Styling;
 import dev.luzifer.gui.view.View;

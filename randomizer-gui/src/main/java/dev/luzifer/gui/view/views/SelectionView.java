@@ -1,6 +1,6 @@
 package dev.luzifer.gui.view.views;
 
-import dev.luzifer.backend.updater.UpdateChecker;
+import dev.luzifer.model.updater.UpdateChecker;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.util.Styling;
 import dev.luzifer.gui.view.View;
