@@ -71,7 +71,7 @@ public class SelectionView extends View<SelectionViewModel> {
         updateLabel.setCursor(Cursor.HAND);
         settingsButton.setFocusTraversable(false);
         
-        settingsButton.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.SMALL));
+        settingsButton.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.OKAY));
         randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
         builderLabel.setGraphic(ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));
         updateLabel.setGraphic(ImageUtil.getImageView("images/download_icon.png", ImageUtil.ImageResolution.SMALL));

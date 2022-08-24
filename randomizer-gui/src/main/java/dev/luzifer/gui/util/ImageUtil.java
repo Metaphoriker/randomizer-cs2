@@ -29,6 +29,7 @@ public final class ImageUtil {
     public enum ImageResolution {
 
         SMALL(16, 16),
+        OKAY(24, 24),
         MEDIUM(32, 32),
         ORIGINAL(64, 64); // large
 
