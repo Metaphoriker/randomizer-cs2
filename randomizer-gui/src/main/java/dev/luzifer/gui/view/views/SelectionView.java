@@ -10,7 +10,7 @@ import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.GridPane;
 
 import java.awt.Desktop;
 import java.io.IOException;
@@ -23,7 +23,7 @@ public class SelectionView extends View<SelectionViewModel> {
     private final UpdateChecker updateChecker = new UpdateChecker();
     
     @FXML
-    private VBox root;
+    private GridPane root;
     
     @FXML
     private Label randomizerLabel;
