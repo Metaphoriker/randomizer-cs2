@@ -1,6 +1,7 @@
 package dev.luzifer.gui.view.views;
 
 import com.google.gson.JsonSyntaxException;
+import dev.luzifer.Main;
 import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.cluster.EventCluster;
 import dev.luzifer.model.json.JsonUtil;
@@ -9,8 +10,10 @@ import dev.luzifer.gui.util.Styling;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.component.components.EventComponent;
 import dev.luzifer.gui.view.models.BuilderViewModel;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -222,6 +225,9 @@ public class BuilderView extends View<BuilderViewModel> {
             
             Label label = new Label(event.getClass().getSimpleName());
             label.setFont(new Font("Arial", 16));
+            label.setPadding(new Insets(0, 0, 0, 24));
+            
+            Main.getScheduler().schedule(() -> Platform.runLater(() -> label.setPrefWidth(label.getWidth() + 24)));
             
             label.setContentDisplay(ContentDisplay.RIGHT);
             
