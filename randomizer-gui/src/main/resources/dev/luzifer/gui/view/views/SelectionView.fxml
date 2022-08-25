@@ -49,7 +49,7 @@
                   <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#onSettingsPress" />
                </children>
                <padding>
-                  <Insets left="10.0" top="40.0" />
+                  <Insets bottom="10.0" left="10.0" right="10.0" top="40.0" />
                </padding>
             </HBox>
          </children>
