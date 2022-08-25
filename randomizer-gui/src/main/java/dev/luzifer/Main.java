@@ -16,6 +16,7 @@ import dev.luzifer.model.event.events.MoveEvent;
 import dev.luzifer.model.event.events.ReloadEvent;
 import dev.luzifer.model.event.events.ShiftEvent;
 import dev.luzifer.model.exception.UncaughtExceptionLogger;
+import dev.luzifer.model.messages.Messages;
 import dev.luzifer.model.scheduler.Scheduler;
 import dev.luzifer.model.scheduler.SchedulerThread;
 import dev.luzifer.gui.AppStarter;
@@ -34,13 +35,15 @@ public class Main {
     private static final Scheduler SCHEDULER = new Scheduler();
     
     public static void main(String[] args) {
-    
+
         registerEvents();
-    
+
         setupScheduler();
         // setupEventExecutor();
-        
+
+        Messages.cache();
         Thread.currentThread().setUncaughtExceptionHandler(DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
+
         Application.launch(AppStarter.class);
     }
 
