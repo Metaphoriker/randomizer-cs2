@@ -70,7 +70,7 @@ public class Main {
 
     private static void evaluateFlags(List<String> args) {
         if(args.contains(TEST_FLAG))
-            disableEvents();
+            disableEvents(); // TODO: TBR once the randomizer's ApplicationState works
     }
 
     private static void startScheduler() {
