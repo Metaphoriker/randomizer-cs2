@@ -72,10 +72,7 @@ public class BuilderView extends View<BuilderViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        Tooltip tooltip = new Tooltip("Clear");
-        tooltip.setShowDelay(Duration.ONE);
-        tooltip.setHideDelay(Duration.ONE);
-        clearButton.setTooltip(tooltip);
+        clearButton.setTooltip(new Tooltip("Clear"));
 
         setupStyling();
         setupClusterBuilderVBoxAcceptDrag();
