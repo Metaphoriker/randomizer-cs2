@@ -9,11 +9,14 @@ import dev.luzifer.gui.util.Styling;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.component.components.EventComponent;
 import dev.luzifer.gui.view.models.BuilderViewModel;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -22,6 +25,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
+import javafx.util.Duration;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -58,12 +62,20 @@ public class BuilderView extends View<BuilderViewModel> {
     @FXML
     private FlowPane eventFlowPane;
     
+    @FXML
+    private Button clearButton;
+    
     public BuilderView(BuilderViewModel viewModel) {
         super(viewModel);
     }
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
+    
+        Tooltip tooltip = new Tooltip("Clear");
+        tooltip.setShowDelay(Duration.ONE);
+        tooltip.setHideDelay(Duration.ONE);
+        clearButton.setTooltip(tooltip);
         
         setupStyling();
         setupClusterBuilderVBoxAcceptDrag();
@@ -71,16 +83,22 @@ public class BuilderView extends View<BuilderViewModel> {
         fillVBoxes();
     }
     
+    @FXML
+    private void onClear(ActionEvent actionEvent) {
+        clusterBuilderVBox.getChildren().clear();
+    }
+    
     private void setupStyling() {
         
         topPaneTitle.setStyle(Styling.HEADER + Styling.BORDER);
         panePaneTitle.setStyle(Styling.HEADER + Styling.BORDER);
-    
+        
         rootPane.setStyle(Styling.BASE);
         topRoot.setStyle(Styling.BACKGROUND_DARKER);
         eventFlowPane.setStyle(Styling.BACKGROUND_DARKER);
         
         getIcons().add(ImageUtil.getImage("images/build_icon.png"));
+        clearButton.setGraphic(ImageUtil.getImageView("images/delete_icon.png", ImageUtil.ImageResolution.OKAY));
     }
     
     private void setupEventLabelDragAndDropActions(Label label) {
@@ -140,7 +158,7 @@ public class BuilderView extends View<BuilderViewModel> {
     }
     
     private EventComponent createEventComponent(Event event) {
-    
+        
         EventComponent eventComponent = new EventComponent();
         eventComponent.getModel().acceptEvent(event);
         
@@ -204,14 +222,14 @@ public class BuilderView extends View<BuilderViewModel> {
             
             Label label = new Label(event.getClass().getSimpleName());
             label.setFont(new Font("Arial", 16));
-    
+            
             label.setContentDisplay(ContentDisplay.RIGHT);
             
             if (!getViewModel().isEventEnabled(event)) {
                 label.setStyle(Styling.FONT_RED);
                 label.setDisable(true);
             }
-    
+            
             label.setStyle(Styling.BACKGROUND_BANZAI_BLUE + Styling.BORDER);
             label.setOnMouseEntered(enter -> label.setGraphic(ImageUtil.getImageView("images/wip_icon.png", ImageUtil.ImageResolution.SMALL)));
             label.setOnMouseExited(exit -> label.setGraphic(null));
