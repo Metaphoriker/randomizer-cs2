@@ -10,6 +10,8 @@ Said events are simple button presses, such as spacebar, left or right mouse but
 
 *An event clusters are multiple events thrown successively
 
+Since this is an application just sending random button presses and not interfere with the actual game, it's totally allowed and legal to use. You don't have to worry to face a ban when using it.
+
 ## Requirements
 
 - Java 8 or higher
