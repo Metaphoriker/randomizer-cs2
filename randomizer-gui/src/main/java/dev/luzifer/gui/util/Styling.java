@@ -9,6 +9,7 @@ public final class Styling {
     public static final String BACKGROUND_DARKER = "-fx-background-color: #77868c;";
     public static final String BACKGROUND_BANZAI_BLUE = "-fx-background-color: #3168a9;";
     public static final String BACKGROUND_BANZAI_BLUE_LIGHTER = "-fx-background-color: #4783ca;";
+    public static final String BACKGROUND_RED = "-fx-background-color: #FF0000;";
     public static final String DROP_SHADOW = "-fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 10, 0.5, 0.0, 0.0);";
     public static final String HEADER = "-fx-background-color: #688c9b;";
     public static final String CONTENT = "-fx-background-color: #93a8b1;";

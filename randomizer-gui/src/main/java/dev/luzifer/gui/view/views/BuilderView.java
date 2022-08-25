@@ -13,6 +13,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -158,7 +159,8 @@ public class BuilderView extends View<BuilderViewModel> {
             if (dragboard.hasString()) {
                 
                 int index = clusterBuilderVBox.getChildren().indexOf(eventComponent);
-                clusterBuilderVBox.getChildren().add(index + 1, createEventComponent(JsonUtil.deserialize(dragboard.getString())));
+                // offset -1 because then it gets set before the separator which gets removed in the next step
+                clusterBuilderVBox.getChildren().add(index - 1, createEventComponent(JsonUtil.deserialize(dragboard.getString())));
                 
                 success = true;
             }
@@ -166,8 +168,14 @@ public class BuilderView extends View<BuilderViewModel> {
             dragEvent.setDropCompleted(success);
             dragEvent.consume();
         });
-        eventComponent.setOnDragEntered(dragEvent -> eventComponent.setStyle(Styling.BOTTOM_BORDER_BLUE));
-        eventComponent.setOnDragExited(dragEvent -> eventComponent.setStyle(Styling.CLEAR));
+        eventComponent.setOnDragEntered(dragEvent -> {
+            Separator separator = new Separator();
+            separator.setStyle(Styling.BACKGROUND_RED);
+            clusterBuilderVBox.getChildren().add(clusterBuilderVBox.getChildren().indexOf(eventComponent), separator);
+        });
+        eventComponent.setOnDragExited(dragEvent -> {
+            clusterBuilderVBox.getChildren().remove(clusterBuilderVBox.getChildren().indexOf(eventComponent) - 1);
+        });
         eventComponent.setOnDragDetected(dragEvent -> {
             
             Dragboard db = eventComponent.startDragAndDrop(TransferMode.ANY);
