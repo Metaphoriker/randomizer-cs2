@@ -41,9 +41,8 @@ public class Main {
     
     public static void main(String[] args) {
 
-        evaluateFlags(Collections.unmodifiableList(Arrays.asList(args)));
-
         registerEvents();
+        evaluateFlags(Collections.unmodifiableList(Arrays.asList(args)));
 
         startScheduler();
         startEventExecutor();
