@@ -25,7 +25,7 @@
             <RowConstraints maxHeight="275.3333740234375" minHeight="10.0" prefHeight="184.00000000000006" vgrow="SOMETIMES" />
          </rowConstraints>
          <children>
-            <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
+            <StackPane fx:id="builderStackPane" prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
                   <ScrollPane fx:id="clusterBuilderScrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                      <content>
