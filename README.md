@@ -1,5 +1,5 @@
 # randomizer-csgo
-### Foreword
+## Foreword
 For now, this is just a sketch of my imaginations - nothing final. If you want to use the Randomizer, check out the [releases](https://github.com/Luziferium/randomizer-csgo/releases), where an early alpha, representing the basic idea, is available.
 
 ## About
