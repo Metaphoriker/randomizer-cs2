@@ -1,5 +1,6 @@
 package dev.luzifer;
 
+import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.EventExecutor;
 import dev.luzifer.model.event.EventRepository;
 import dev.luzifer.model.event.cluster.EventClusterRepository;
@@ -23,23 +24,29 @@ import dev.luzifer.gui.AppStarter;
 import javafx.application.Application;
 
 import java.io.File;
+import java.util.Arrays;
+import java.util.Collections;
+import java.util.List;
 
 public class Main {
-    
+
+    private static final String TEST_FLAG = "-test";
+
     private static final File LOG_FILE = new File("log.txt");
-    private static final UncaughtExceptionLogger DEFAULT_UNCAUGHT_EXCEPTION_LOGGER = new UncaughtExceptionLogger(LOG_FILE);
+    private static final Thread.UncaughtExceptionHandler DEFAULT_UNCAUGHT_EXCEPTION_LOGGER = new UncaughtExceptionLogger(LOG_FILE);
 
     private static final EventRepository EVENT_REPOSITORY = new EventRepository();
     private static final EventClusterRepository EVENT_CLUSTER_REPOSITORY = new EventClusterRepository();
-
     private static final Scheduler SCHEDULER = new Scheduler();
     
     public static void main(String[] args) {
 
+        evaluateFlags(Collections.unmodifiableList(Arrays.asList(args)));
+
         registerEvents();
 
-        setupScheduler();
-        // setupEventExecutor();
+        startScheduler();
+        startEventExecutor();
 
         Messages.cache();
         Thread.currentThread().setUncaughtExceptionHandler(DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
@@ -60,8 +67,13 @@ public class Main {
     public static EventClusterRepository getEventClusterRepository() {
         return EVENT_CLUSTER_REPOSITORY;
     }
-    
-    private static void setupScheduler() {
+
+    private static void evaluateFlags(List<String> args) {
+        if(args.contains(TEST_FLAG))
+            disableEvents();
+    }
+
+    private static void startScheduler() {
     
         SchedulerThread schedulerThread = new SchedulerThread(SCHEDULER);
         schedulerThread.setUncaughtExceptionHandler(DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
@@ -69,7 +81,7 @@ public class Main {
         schedulerThread.start();
     }
     
-    private static void setupEventExecutor() {
+    private static void startEventExecutor() {
         
         EventExecutor eventExecutor = new EventExecutor(EVENT_REPOSITORY, EVENT_CLUSTER_REPOSITORY);
         eventExecutor.setUncaughtExceptionHandler(DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
@@ -91,6 +103,11 @@ public class Main {
         EVENT_REPOSITORY.registerEvent(new DropWeaponEvent());
         EVENT_REPOSITORY.registerEvent(new EmptyMagazineEvent());
         EVENT_REPOSITORY.registerEvent(new IWannaKnifeEvent());
+    }
+
+    private static void disableEvents() {
+        for(Event event : EVENT_REPOSITORY.getRegisteredEvents())
+            EVENT_REPOSITORY.disableEvent(event);
     }
     
 }

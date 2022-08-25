@@ -18,7 +18,7 @@ public class EventExecutor extends Thread {
     @Override
     public void run() {
         
-        while (true) {
+        while (!isInterrupted()) { // TODO: check for application state
             
             int random = ThreadLocalRandom.current().nextInt(0, 100);
     

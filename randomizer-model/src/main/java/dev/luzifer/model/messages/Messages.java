@@ -8,7 +8,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
-public class Messages {
+public final class Messages {
 
     private static final Map<String, String> MESSAGES_MAP = new HashMap<>();
 
