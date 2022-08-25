@@ -18,4 +18,5 @@ jobs:
       with:
         java-version: 1.8
     - name: Build with Maven
-      run: mvn clean install -U compile assembly:single -pl randomizer-gui
+      run: mvn clean install -U 
+        mvn compile assembly:single -pl randomizer-gui
