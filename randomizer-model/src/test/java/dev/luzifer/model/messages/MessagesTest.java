@@ -28,15 +28,12 @@ public class MessagesTest {
             List<String> readLines = bufferedReader.lines().collect(Collectors.toList());
 
             String previousElement = null;
-
             for (String line : readLines) {
 
-                String nextElement = line;
+                if (previousElement != null && line.compareTo(previousElement) <= 0)
+                    fail(MessageFormat.format("{0} is not in the right place. Sort it alphabetically!", line));
 
-                if (previousElement != null && nextElement.compareTo(previousElement) <= 0)
-                    fail(MessageFormat.format("{0} is not on the right place. Sort it alphabetically!", nextElement));
-
-                previousElement = nextElement;
+                previousElement = line;
             }
         } catch (IOException e) {
             e.printStackTrace();
