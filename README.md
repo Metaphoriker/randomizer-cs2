@@ -3,12 +3,14 @@
 For now, this is just a sketch of my imaginations - nothing final. If you want to use the Randomizer, check out the [releases](https://github.com/Luziferium/randomizer-csgo/releases), where an early alpha, representing the basic idea, is available.
 
 ## About
-A Randomizer to have more fun in CS:GO
+A Randomizer to have more fun in CS:GO. This is NOT a cheat!
 
 More specifically, this is an application that throws different events or event clusters* in an interval of 10-45 seconds.
 Said events are simple button presses, such as spacebar, left or right mouse button, w-a-s-d and other main buttons in csgo.
 
 *An event clusters are multiple events thrown successively
+
+Since this is an application just sending random button presses and not interfere with the actual game, it's totally allowed and legal to use. You don't have to worry to face a ban when using it.
 
 ## Requirements
 
