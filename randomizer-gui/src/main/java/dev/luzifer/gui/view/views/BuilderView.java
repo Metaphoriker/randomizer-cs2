@@ -52,10 +52,7 @@ public class BuilderView extends View<BuilderViewModel> {
     
     @FXML
     private VBox clusterVBox;
-    
-    @FXML
-    private Label dragAndDropLabel;
-    
+
     @FXML
     private ScrollPane clusterBuilderScrollPane;
     
@@ -119,13 +116,6 @@ public class BuilderView extends View<BuilderViewModel> {
             db.setContent(content);
             dragEvent.consume();
         });
-        label.setOnDragDone(dragEvent -> {
-            
-            if (clusterBuilderVBox.getChildren().isEmpty())
-                dragAndDropLabel.setVisible(true);
-            
-            dragEvent.consume();
-        });
     }
     
     private void setupClusterBuilderVBoxAcceptDrag() {
@@ -135,7 +125,6 @@ public class BuilderView extends View<BuilderViewModel> {
             if (dragEvent.getGestureSource() != clusterBuilderScrollPane && dragEvent.getDragboard().hasString())
                 dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
             
-            dragAndDropLabel.setVisible(false);
             dragEvent.consume();
         });
         clusterBuilderScrollPane.setOnDragDropped(dragEvent -> {
@@ -209,12 +198,7 @@ public class BuilderView extends View<BuilderViewModel> {
             dragEvent.consume();
         });
         eventComponent.setOnDragDone(dragEvent -> {
-            
             clusterBuilderVBox.getChildren().remove(eventComponent);
-            
-            if (clusterBuilderVBox.getChildren().isEmpty())
-                dragAndDropLabel.setVisible(true);
-            
             dragEvent.consume();
         });
     }

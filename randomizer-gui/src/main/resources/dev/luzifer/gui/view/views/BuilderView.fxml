@@ -27,11 +27,6 @@
          <children>
             <StackPane prefHeight="150.0" prefWidth="200.0" GridPane.columnIndex="1">
                <children>
-                  <Label fx:id="dragAndDropLabel" alignment="CENTER" opacity="0.3" text="Drag Events in here" textFill="WHITE" StackPane.alignment="CENTER">
-                     <font>
-                        <Font size="20.0" />
-                     </font>
-                  </Label>
                   <ScrollPane fx:id="clusterBuilderScrollPane" hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
                      <content>
                         <VBox fx:id="clusterBuilderVBox" />
