@@ -36,17 +36,29 @@ jobs:
       - name: Build Randomizer
         run: |
           mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -am -DskipTests -Djar.finalName=randomizer
+
+      - name: Upload Artifact
+        uses: actions/upload-artifact@v3
+        with:
+          name: randomizer
+          path: ./target/randomizer.jar
   pre-release:
     name: Pre Release
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - uses: "marvinpinto/action-automatic-releases@latest"
+      - name: Download Artifact
+        uses: actions/download-artifact@v3
+        with:
+          name: randomizer
+          path: ./target/randomizer.jar
+      - name: Release
+        uses: "marvinpinto/action-automatic-releases@latest"
         with:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
           title: "Development Build"
           files: |
-            /home/runner/work/randomizer-csgo/randomizer-csgo/randomizer-gui/target/randomizer.jar
+            ./target/randomizer.jar
