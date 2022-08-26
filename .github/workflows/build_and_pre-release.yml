@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Randomizer
         run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -am -DskipTests
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -am -DskipTests -Djar.finalName=randomizer
   pre-release:
     name: Pre Release
     needs: build
@@ -50,4 +50,4 @@ jobs:
           title: "Development Build"
           files: |
             LICENSE.txt
-            *.jar
+            ./target/randomizer.jar
