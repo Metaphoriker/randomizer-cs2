@@ -26,7 +26,6 @@ jobs:
 
       - name: Build Randomizer
         run: |
-          cp toolchains-gh.xml ~/.m2/toolchains.xml
           mvn -U -V -e -B -ntp clean install --file randomizer-gui/pom.xml -T1C
 
       - name: Run Tests
