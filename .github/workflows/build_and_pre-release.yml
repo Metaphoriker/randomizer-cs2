@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Randomizer
         run: |
-          mvn -U -V -e -B -ntp clean install compile assembly:single -pl randomizer-gui -am -DskipTests
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -am -DskipTests
 
       - name: Run Tests
         run: mvn test
