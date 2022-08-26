@@ -10,7 +10,7 @@ import java.nio.charset.StandardCharsets;
 
 public class UpdateChecker {
     
-    private static final String VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/master/randomizer-model/src/main/resources/version.txt";
+    private static final String VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/stage/randomizer-model/src/main/resources/version.txt";
     
     private boolean updateAvailable;
     
