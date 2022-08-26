@@ -35,6 +35,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Clean install
+        run: mvn clean install -U
+
       - name: Execute Tests
         run: mvn -U -V -e -B -ntp -Pits clean install test -pl randomizer-test -amd
 
