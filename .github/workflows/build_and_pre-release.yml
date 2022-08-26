@@ -35,7 +35,7 @@ jobs:
 
       - name: Build Randomizer
         run: |
-          mvn -U -V -e -B -ntp clean install test compile package -pl randomizer-gui -am -Djar.finalName=randomizer
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -am -DskipTests -Djar.finalName=randomizer
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
