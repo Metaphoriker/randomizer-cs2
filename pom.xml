@@ -18,6 +18,7 @@
         <module>randomizer-gui</module>
         <module>randomizer-model</module>
         <module>randomizer-test</module>
+        <module>randomizer-updater</module>
     </modules>
 
 </project>

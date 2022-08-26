@@ -38,25 +38,42 @@ jobs:
       - name: Execute Tests
         run: mvn -U -V -e -B -ntp -Pits clean install test -pl randomizer-test -amd
 
+      - name: Build Updater
+        run: |
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-updater -amd -DskipTests
+
       - name: Build Randomizer
         run: |
           mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -amd -DskipTests
 
-      - name: Upload Artifact
+      - name: Upload Randomizer
         uses: actions/upload-artifact@v3
         with:
           name: randomizer
           path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-gui\target\randomizer.jar
+
+      - name: Upload Updater
+        uses: actions/upload-artifact@v3
+        with:
+          name: updater
+          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-updater\target\randomizer-updater.jar
+
   pre-release:
     name: Pre Release
     needs: build
     runs-on: ubuntu-latest
 
     steps:
-      - name: Download Artifact
+      - name: Download Randomizer
         uses: actions/download-artifact@v3
         with:
           name: randomizer
+
+      - name: Download Updater
+        uses: actions/download-artifact@v3
+        with:
+          name: updater
+
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:

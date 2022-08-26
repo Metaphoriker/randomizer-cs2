@@ -1,6 +1,5 @@
 package dev.luzifer.gui.view.views;
 
-import dev.luzifer.model.updater.UpdateChecker;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.util.Styling;
 import dev.luzifer.gui.view.View;
@@ -19,8 +18,6 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SelectionView extends View<SelectionViewModel> {
-    
-    private final UpdateChecker updateChecker = new UpdateChecker();
     
     @FXML
     private GridPane root;
@@ -46,10 +43,8 @@ public class SelectionView extends View<SelectionViewModel> {
 
         getIcons().add(ImageUtil.getImage("images/csgoremote_icon.png"));
 
-        updateChecker.checkUpdate();
-        if(updateChecker.isUpdateAvailable())
-            updateLabel.setVisible(true);
-
+        // TODO: UpdateLabel
+        
         setupStyling();
         setupMouseEvents();
     }

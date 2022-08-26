@@ -21,15 +21,22 @@ import dev.luzifer.model.messages.Messages;
 import dev.luzifer.model.scheduler.Scheduler;
 import dev.luzifer.model.scheduler.SchedulerThread;
 import dev.luzifer.gui.AppStarter;
+import dev.luzifer.model.updater.Updater;
 import javafx.application.Application;
+import org.apache.commons.io.FileUtils;
 
+import javax.swing.plaf.FileChooserUI;
 import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 
 public class Main {
 
+    private static final String UPDATER_VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/stage/randomizer-updater/src/main/resources/version.txt";
+    private static final String UPDATER_DOWNLOAD_URL = "https://github.com/Luziferium/randomizer-csgo/releases/download/latest/randomizer-updater.jar";
+    
     private static final String TEST_FLAG = "-test";
 
     private static final File LOG_FILE = new File("log.txt");
@@ -41,6 +48,8 @@ public class Main {
     
     public static void main(String[] args) {
 
+        setupCDrive();
+        
         registerEvents();
         evaluateFlags(Collections.unmodifiableList(Arrays.asList(args)));
 
@@ -67,6 +76,28 @@ public class Main {
         return EVENT_CLUSTER_REPOSITORY;
     }
 
+    private static void setupCDrive() {
+        
+        File cFolder = new File(System.getenv("APPDATA") + "\\Randomizer");
+        cFolder.mkdirs();
+    
+        // TODO: check for update, otherwise the planned open workflow will end recursive
+        installUpdater(cFolder);
+    }
+    
+    private static File installUpdater(File folderInto) {
+        
+        File updaterJar = new File(folderInto, "randomizer-updater.jar");
+        try {
+            updaterJar.createNewFile();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        
+        Updater.update(updaterJar, UPDATER_VERSION_URL, UPDATER_DOWNLOAD_URL);
+        return updaterJar;
+    }
+    
     private static void evaluateFlags(List<String> args) {
         if(args.contains(TEST_FLAG))
             disableEvents(); // TODO: TBR once the randomizer's ApplicationState works

@@ -10,21 +10,25 @@ import java.nio.charset.StandardCharsets;
 
 public class UpdateChecker {
     
-    private static final String VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/stage/randomizer-model/src/main/resources/version.txt";
+    private final String versionUrl;
     
     private boolean updateAvailable;
     
-    public void checkUpdate() {
-
+    public UpdateChecker(String versionUrl) {
+        this.versionUrl = versionUrl;
+    }
+    
+    public void checkUpdate(String version) {
+        
         HttpURLConnection connection = null;
         try {
-
-            connection = (HttpURLConnection) new URL(VERSION_URL).openConnection();
+            
+            connection = (HttpURLConnection) new URL(versionUrl).openConnection();
             connection.connect();
-
+            
             String latestVersion = readLineFromInputStream(connection.getInputStream());
-            updateAvailable = !latestVersion.equals(fetchCurrentVersion());
-
+            updateAvailable = !latestVersion.equals(version);
+            
         } catch (Exception ignored) {
             // TODO: Handle exception
         } finally {
@@ -35,21 +39,6 @@ public class UpdateChecker {
     
     public boolean isUpdateAvailable() {
         return updateAvailable;
-    }
-    
-    private String fetchCurrentVersion() {
-        InputStream inputStream = getInputStream("version.txt");
-        return readLineFromInputStream(inputStream);
-    }
-    
-    private InputStream getInputStream(String fileName) {
-        
-        InputStream resource = UpdateChecker.class.getResourceAsStream("/" + fileName);
-        
-        if (resource == null)
-            throw new IllegalStateException("Probably corrupted JAR file, missing " + fileName);
-        
-        return resource;
     }
     
     private String readLineFromInputStream(InputStream inputStream) {

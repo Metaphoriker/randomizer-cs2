@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Build Randomizer" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="Build Updater" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -21,7 +21,7 @@
             <map />
           </option>
           <option name="resolveToWorkspace" value="false" />
-          <option name="workingDirPath" value="$PROJECT_DIR$/randomizer-gui" />
+          <option name="workingDirPath" value="$PROJECT_DIR$/randomizer-updater" />
         </MavenRunnerParameters>
       </option>
     </MavenSettings>
