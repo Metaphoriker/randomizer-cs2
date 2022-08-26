@@ -7,8 +7,12 @@ on:
 
 jobs:
   build:
+    strategy:
+      matrix:
+        os: [ macos-latest, ubuntu-latest, windows-latest]
+
     name: Build
-    runs-on: ubuntu-latest
+    runs-on: ${{ matrix.os }}
 
     steps:
       - name: Checkout
@@ -37,7 +41,7 @@ jobs:
 
       - name: Build Randomizer
         run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -am -DskipTests -Djar.finalName=randomizer
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -am -DskipTests
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
