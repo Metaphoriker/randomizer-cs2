@@ -41,7 +41,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: randomizer
-          path: ./target/randomizer.jar
+          path: /home/runner/work/randomizer-csgo/randomizer-csgo/randomizer-gui/target/randomizer.jar
   pre-release:
     name: Pre Release
     needs: build
@@ -52,7 +52,6 @@ jobs:
         uses: actions/download-artifact@v3
         with:
           name: randomizer
-          path: ./target/randomizer.jar
       - name: Release
         uses: "marvinpinto/action-automatic-releases@latest"
         with:
@@ -61,4 +60,4 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            ./target/randomizer.jar
+            *.jar
