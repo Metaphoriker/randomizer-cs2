@@ -49,5 +49,4 @@ jobs:
           prerelease: true
           title: "Development Build"
           files: |
-            LICENSE.txt
-            ./target/randomizer.jar
+            /home/runner/work/randomizer-csgo/randomizer-csgo/randomizer-gui/target/randomizer.jar
