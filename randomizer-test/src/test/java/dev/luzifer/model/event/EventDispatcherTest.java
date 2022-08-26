@@ -1,7 +1,7 @@
 package dev.luzifer.model.event;
 
+import org.junit.Ignore;
 import org.junit.Test;
-import org.junit.jupiter.api.Disabled;
 import org.mockito.Mockito;
 
 import java.util.function.Consumer;
@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 public class EventDispatcherTest {
 
     @Test
-    @Disabled(value = "NOT HEADLESS")
+    @Ignore(value = "NOT HEADLESS")
     public void testEventDispatched() {
 
         Event event = Mockito.mock(Event.class);
@@ -19,7 +19,7 @@ public class EventDispatcherTest {
     }
 
     @Test
-    @Disabled(value = "NOT HEADLESS")
+    @Ignore(value = "NOT HEADLESS")
     public void testHandlerCalled() {
 
         Event event = Mockito.mock(Event.class);
