@@ -1,4 +1,4 @@
-# randomizer-csgo
+# randomizer-csgo [![.github/workflows/build_and_pre-release.yml](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml/badge.svg?branch=stage)](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml)
 ## Foreword
 For now, this is just a sketch of my imaginations - nothing final. If you want to use the Randomizer, check out the [releases](https://github.com/Luziferium/randomizer-csgo/releases), where an early alpha, representing the basic idea, is available.
 
