@@ -34,7 +34,7 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Execute Tests
-        - run: mvn -U -V -e -B -ntp -Pits -Dmaven.test.failure.ignore=true clean install test --file randomizer-test/pom.xml
+        - run: mvn -U -V -e -B -ntp -Pits -Dmaven.test.failure.ignore=true clean install test -pl randomizer-test -am
 
       - name: Build Randomizer
         run: |
