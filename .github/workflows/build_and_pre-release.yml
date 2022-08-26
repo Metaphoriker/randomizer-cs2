@@ -22,8 +22,7 @@ jobs:
         uses: actions/setup-java@v3
         with:
           distribution: 'adopt'
-          java-version: '16'
-          java-package: 'jdk+fx'
+          java-version: '18'
 
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.4
