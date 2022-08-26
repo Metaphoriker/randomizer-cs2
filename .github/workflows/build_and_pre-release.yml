@@ -9,6 +9,7 @@ jobs:
   build:
     strategy:
       matrix:
+        javaVersion: [ 11, 17 ]
         os: [ macos-latest, ubuntu-latest, windows-latest]
 
     name: Build
@@ -16,14 +17,14 @@ jobs:
 
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v1
 
       - name: Set up JDK 18
         uses: actions/setup-java@v1
         with:
           distribution: 'corretto'
-          java-version: '18'
           java-package: 'jdk+fx'
+          java-version: ${{ matrix.javaVersion }}
 
       - name: Set up Maven
         uses: stCarolas/setup-maven@v4.4
@@ -39,11 +40,11 @@ jobs:
             ${{ runner.os }}-maven-
 
       - name: Execute Tests
-        run: mvn -U -V -e -B -ntp -Pits clean install test -pl randomizer-test -am
+        run: mvn -U -V -e -B -ntp -Pits clean install test -pl randomizer-test -amd
 
       - name: Build Randomizer
         run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -am -DskipTests
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -amd -DskipTests
 
       - name: Upload Artifact
         uses: actions/upload-artifact@v3
