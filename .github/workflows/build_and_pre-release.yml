@@ -49,7 +49,7 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: randomizer
-          path: /home/runner/work/randomizer-csgo/randomizer-csgo/randomizer-gui/target/randomizer.jar
+          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-gui\target\randomizer.jar
   pre-release:
     name: Pre Release
     needs: build
