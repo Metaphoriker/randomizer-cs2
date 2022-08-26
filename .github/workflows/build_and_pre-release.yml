@@ -1,0 +1,35 @@
+name: CI Build and Release
+
+on:
+  push:
+    branches:
+      - "stage"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Setup Maven Action
+        uses: s4u/setup-maven-action@v1.2.1
+        with:
+          java-version: 8
+
+      - name: Build with Maven
+        run: mvn verify
+  pre-release:
+    name: Pre Release
+    needs: build
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: "marvinpinto/action-automatic-releases@latest"
+        with:
+          repo_token: "${{ secrets.GITHUB_TOKEN }}"
+          automatic_release_tag: "latest"
+          prerelease: true
+          title: "Development Build"
+          files: |
+            LICENSE.txt
+            *.jar
