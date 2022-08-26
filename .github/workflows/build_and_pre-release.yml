@@ -33,6 +33,9 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-maven-
 
+      - name: Execute Tests
+        - run: mvn -U -V -e -B -ntp -Pits -Dmaven.test.failure.ignore=true clean install test --file randomizer-test/pom.xml
+
       - name: Build Randomizer
         run: |
           mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -am -DskipTests -Djar.finalName=randomizer
