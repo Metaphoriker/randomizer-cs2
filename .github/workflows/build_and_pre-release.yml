@@ -10,16 +10,15 @@ jobs:
     strategy:
       matrix:
         javaVersion: [ 11, 17 ]
-        os: [ macos-latest, ubuntu-latest, windows-latest]
 
     name: Build
-    runs-on: ${{ matrix.os }}
+    runs-on: windows-latest
 
     steps:
       - name: Checkout
         uses: actions/checkout@v1
 
-      - name: Set up JDK 18
+      - name: Set up JDK ${{ matrix.javaVersion }}
         uses: actions/setup-java@v1
         with:
           distribution: 'corretto'
