@@ -43,23 +43,23 @@ jobs:
 
       - name: Build Updater
         run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-updater -amd -DskipTests
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-modules/randomizer-updater -amd -DskipTests
 
       - name: Build Randomizer
         run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-gui -amd -DskipTests
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-modules/randomizer-gui -amd -DskipTests
 
       - name: Upload Randomizer
         uses: actions/upload-artifact@v3
         with:
           name: randomizer
-          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-gui\target\randomizer.jar
+          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-modules\randomizer-gui\target\randomizer.jar
 
       - name: Upload Updater
         uses: actions/upload-artifact@v3
         with:
           name: updater
-          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-updater\target\randomizer-updater.jar
+          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-modules\randomizer-updater\target\randomizer-updater.jar
 
   pre-release:
     name: Pre Release
