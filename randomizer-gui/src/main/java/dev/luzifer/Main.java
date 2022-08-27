@@ -23,9 +23,7 @@ import dev.luzifer.model.scheduler.SchedulerThread;
 import dev.luzifer.gui.AppStarter;
 import dev.luzifer.model.updater.Updater;
 import javafx.application.Application;
-import org.apache.commons.io.FileUtils;
 
-import javax.swing.plaf.FileChooserUI;
 import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
@@ -48,7 +46,7 @@ public class Main {
     
     public static void main(String[] args) {
 
-        setupCDrive();
+        setupAppdataFolder();
         
         registerEvents();
         evaluateFlags(Collections.unmodifiableList(Arrays.asList(args)));
@@ -76,13 +74,13 @@ public class Main {
         return EVENT_CLUSTER_REPOSITORY;
     }
 
-    private static void setupCDrive() {
+    private static void setupAppdataFolder() {
         
-        File cFolder = new File(System.getenv("APPDATA") + "\\Randomizer");
-        cFolder.mkdirs();
+        File appdataFolder = new File(System.getenv("APPDATA") + "\\randomizer");
+        appdataFolder.mkdirs();
     
         // TODO: check for update, otherwise the planned open workflow will end recursive
-        installUpdater(cFolder);
+        installUpdater(appdataFolder);
     }
     
     private static File installUpdater(File folderInto) {
