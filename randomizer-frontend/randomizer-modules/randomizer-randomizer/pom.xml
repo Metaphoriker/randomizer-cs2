@@ -9,7 +9,8 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>randomizer-updater</artifactId>
+    <artifactId>randomizer-randomizer</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
@@ -22,10 +23,10 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>randomizer-updater</finalName>
+                    <finalName>randomizer</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>dev.luzifer.updater.Main</mainClass>
+                            <mainClass>dev.luzifer.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -56,10 +57,24 @@
 
     <dependencies>
         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-controls</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics </artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-fxml</artifactId>
+            <version>${javafx.version}</version>
+        </dependency>
+        <dependency>
             <groupId>dev.luzifer</groupId>
             <artifactId>randomizer-model</artifactId>
             <version>1.0</version>
         </dependency>
     </dependencies>
-
 </project>

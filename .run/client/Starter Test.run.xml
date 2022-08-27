@@ -5,7 +5,7 @@
     <option name="MAIN_CLASS_NAME" value="dev.luzifer.Main" />
     <module name="randomizer-randomizer" />
     <option name="PROGRAM_PARAMETERS" value="-test" />
-    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/randomizer-modules/randomizer-randomizer" />
+    <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/randomizer-frontend/randomizer-modules/randomizer-randomizer" />
     <method v="2">
       <option name="Make" enabled="true" />
     </method>

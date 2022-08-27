@@ -21,7 +21,7 @@
             <map />
           </option>
           <option name="resolveToWorkspace" value="false" />
-          <option name="workingDirPath" value="$PROJECT_DIR$/randomizer-modules/randomizer-updater" />
+          <option name="workingDirPath" value="$PROJECT_DIR$/randomizer-frontend/randomizer-updater" />
         </MavenRunnerParameters>
       </option>
     </MavenSettings>
