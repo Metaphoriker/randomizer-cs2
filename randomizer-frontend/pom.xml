@@ -20,7 +20,7 @@
 
     <modules>
         <module>randomizer-launcher</module>
-        <module>randomizer-modules</module>
+        <module>randomizer-randomizer</module>
         <module>randomizer-updater</module>
     </modules>
 
