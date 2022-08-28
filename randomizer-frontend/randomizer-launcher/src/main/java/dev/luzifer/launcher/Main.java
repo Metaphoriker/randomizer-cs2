@@ -17,19 +17,17 @@ public class Main {
     
     public static void main(String[] args) throws IOException, URISyntaxException {
         
-        if(Collections.unmodifiableList(Arrays.asList(args)).contains("-noupdate")) {
-            
-            JFrame jFrame = new JFrame();
-            jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-            jFrame.setSize(200, 200);
-            jFrame.setVisible(true);
+        JFrame jFrame = new JFrame();
+        jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        jFrame.setSize(200, 200);
+        jFrame.setVisible(true);
     
-            JLabel jLabel = new JLabel();
-            jFrame.add(jLabel);
+        JLabel jLabel = new JLabel();
+        jFrame.add(jLabel);
     
-            jLabel.setText("Launcher representation...");
-        } else {
-            
+        jLabel.setText("Launcher representation...");
+    
+        if(!Collections.unmodifiableList(Arrays.asList(args)).contains("-noupdate")) {
             File appdataFolder = setupAppdataFolder();
             installUpdater(appdataFolder);
             // TODO: check if update is needed first

@@ -18,24 +18,6 @@ public class Main {
     
     public static void main(String[] args) throws IOException {
     
-        if(args.length != 0) {
-            for(int i = 0; i < args.length; i++) {
-                if(args[i].startsWith("-launcherLocation=")) {
-                    
-                    File path = new File(args[i].substring(args[i].indexOf("=") + 1));
-                    String pathName = path.getAbsolutePath().substring(0, path.getAbsolutePath().lastIndexOf("\\"));
-                    String fileName = path.getAbsolutePath().substring(path.getAbsolutePath().lastIndexOf("\\") + 1);
-                    
-                    File launcher = new File(pathName, fileName);
-                    
-                    Updater.update(launcher, LAUNCHER_VERSION_URL, LAUNCHER_DOWNLOAD_URL);
-                    Runtime.getRuntime().exec("java -jar " + launcher.getAbsolutePath() + " -noupdate");
-                    System.exit(0);
-                }
-                // TODO: parameter for randomizer stuff like -randomizerModule=module + refactor
-            }
-        }
-        
         JFrame jFrame = new JFrame();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setSize(200, 200);
@@ -43,11 +25,30 @@ public class Main {
     
         JLabel jLabel = new JLabel();
         jFrame.add(jLabel);
-        
+    
         jLabel.setText("Checking for updates...");
+
+        if(args.length != 0) {
+            for (String arg : args) {
+                if (arg.startsWith("-launcherLocation=")) {
+            
+                    File path = new File(arg.substring(arg.indexOf("=") + 1));
+                    String pathName = path.getAbsolutePath().substring(0, path.getAbsolutePath().lastIndexOf("\\"));
+                    String fileName = path.getAbsolutePath().substring(path.getAbsolutePath().lastIndexOf("\\") + 1);
+            
+                    File launcher = new File(pathName, fileName);
+            
+                    Updater.update(launcher, LAUNCHER_VERSION_URL, LAUNCHER_DOWNLOAD_URL);
+                    Runtime.getRuntime().exec("java -jar " + launcher.getAbsolutePath() + " -noupdate");
+                    System.exit(0);
+                    return;
+                }
+                // TODO: parameter for randomizer stuff like -randomizerModule=module + refactor
+            }
+        }
     
         Updater.update(RANDOMIZER_JAR, RANDOMIZER_VERSION_URL, RANDOMIZER_DOWNLOAD_URL);
-        
+    
         Runtime.getRuntime().exec("java -jar randomizer.jar");
         System.exit(0);
     }
