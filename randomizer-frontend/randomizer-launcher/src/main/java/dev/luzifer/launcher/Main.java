@@ -2,6 +2,7 @@ package dev.luzifer.launcher;
 
 import dev.luzifer.model.updater.Updater;
 
+import javax.swing.ImageIcon;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import java.io.File;
@@ -23,10 +24,12 @@ public class Main {
         jFrame.setVisible(true);
     
         JLabel jLabel = new JLabel();
+        jLabel.setIcon(new ImageIcon(Main.class.getResource("/images/downloading.gif")));
         jFrame.add(jLabel);
     
         jLabel.setText("Launcher representation...");
-    
+        
+        // TODO: since this is only initial, we have to check for updates manually in here, before restarting the launcher to avoid a restart loop
         if(!Collections.unmodifiableList(Arrays.asList(args)).contains("-noupdate")) {
             File appdataFolder = setupAppdataFolder();
             installUpdater(appdataFolder);

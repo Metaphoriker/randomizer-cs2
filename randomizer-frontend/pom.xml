@@ -24,4 +24,9 @@
         <module>randomizer-updater</module>
     </modules>
 
+    <dependencyManagement>
+        <dependencies>
+        </dependencies>
+    </dependencyManagement>
+
 </project>
