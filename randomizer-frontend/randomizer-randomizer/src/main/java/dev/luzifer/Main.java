@@ -37,7 +37,8 @@ public class Main {
     
     private static final String TEST_FLAG = "-test";
 
-    private static final File LOG_FILE = new File("log.txt");
+    // TODO: new Log file everyday to avoid huge log files and to make it easier to find the last log (file)
+    private static final File LOG_FILE = new File(System.getenv("APPDATA") + "\\randomizer\\logs", "log.txt");
     private static final Thread.UncaughtExceptionHandler DEFAULT_UNCAUGHT_EXCEPTION_LOGGER = new UncaughtExceptionLogger(LOG_FILE);
 
     private static final EventRepository EVENT_REPOSITORY = new EventRepository();
