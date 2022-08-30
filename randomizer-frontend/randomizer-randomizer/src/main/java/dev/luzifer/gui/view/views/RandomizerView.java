@@ -21,7 +21,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
     
-        Label label = new Label("This is a test..");
+        Label label = new Label("WIP");
         root.getChildren().add(label);
     }
 }
