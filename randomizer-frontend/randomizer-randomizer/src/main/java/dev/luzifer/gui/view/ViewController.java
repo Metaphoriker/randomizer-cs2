@@ -33,7 +33,10 @@ public class ViewController {
 
         view.setScene(scene);
         view.setTitle(title);
-        view.setOnHiding(event -> viewMap.remove(title));
+        view.setOnHiding(event -> {
+            view.onClose();
+            viewMap.remove(title);
+        });
         view.setResizable(true);
         view.show();
     }

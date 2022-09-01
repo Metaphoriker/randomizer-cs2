@@ -48,7 +48,12 @@ public class SelectionView extends View<SelectionViewModel> {
         setupStyling();
         setupMouseEvents();
     }
-
+    
+    @Override
+    public void onClose() {
+        System.exit(0);
+    }
+    
     @FXML
     public void onSettingsPress(ActionEvent actionEvent) {
         // TODO: Implement settings view
