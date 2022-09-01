@@ -2,9 +2,7 @@ package dev.luzifer.launcher;
 
 import dev.luzifer.model.updater.Updater;
 
-import javax.swing.ImageIcon;
-import javax.swing.JFrame;
-import javax.swing.JLabel;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -30,11 +28,16 @@ public class Main {
         jLabel.setText("Launcher representation...");
         
         // TODO: since this is only initial, we have to check for updates manually in here, before restarting the launcher to avoid a restart loop
-        if(!Collections.unmodifiableList(Arrays.asList(args)).contains("-noupdate")) {
-            File appdataFolder = setupAppdataFolder();
-            installUpdater(appdataFolder);
-            // TODO: check if update is needed first
-            startUpdater(appdataFolder);
+    
+        int result = JOptionPane.showConfirmDialog(null, "Do you want to install the updater? (Recommended)", "Install", JOptionPane.YES_NO_OPTION);
+        if(result == 0) {
+            if(!Collections.unmodifiableList(Arrays.asList(args)).contains("-noupdate")) {
+                
+                File appdataFolder = setupAppdataFolder();
+                installUpdater(appdataFolder);
+                // TODO: check if update is needed first
+                startUpdater(appdataFolder);
+            }
         }
     }
     
