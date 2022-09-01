@@ -1,5 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.StackPane?>
 
-<Pane fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.RandomizerView"/>
+
+<?import javafx.scene.text.Font?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TableColumn?>
+<?import javafx.scene.control.TableView?>
+<StackPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="547.0" prefWidth="783.0" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.RandomizerView">
+    <AnchorPane id="AnchorPane" prefHeight="546.0" prefWidth="732.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8.0.111">
+        <children>
+            <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
+            <SplitPane dividerPositions="0.3078078078078078" layoutX="26.0" layoutY="120.0" prefHeight="160.0" prefWidth="200.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                <items>
+                    <AnchorPane maxWidth="200.0" minHeight="0.0" minWidth="200.0" prefHeight="160.0" prefWidth="200.0">
+                        <children>
+                            <VBox layoutX="29.0" layoutY="26.0" prefHeight="200.0" prefWidth="100.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="50.0">
+                                <children>
+                                    <Label text="Name" />
+                                    <TextField />
+                                    <Label text="Specie" />
+                                    <TextField />
+                                    <Label text="Age" />
+                                    <TextField />
+                                    <Label text="Cage" />
+                                    <TextField />
+                                    <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" text="Add">
+                                        <VBox.margin>
+                                            <Insets top="10.0" />
+                                        </VBox.margin>
+                                    </Button>
+                                    <StackPane prefHeight="180.0" VBox.vgrow="ALWAYS">
+                                        <VBox.margin>
+                                            <Insets top="20.0" />
+                                        </VBox.margin>
+                                        <children>
+                                            <ImageView fitHeight="150.0" fitWidth="180.0" pickOnBounds="true" preserveRatio="true">
+                                            </ImageView>
+                                        </children>
+                                    </StackPane>
+                                    <StackPane maxWidth="1.7976931348623157E308">
+                                        <children>
+                                            <Label text="ZOO APPLICATION">
+                                                <font>
+                                                    <Font name="System Bold" size="12.0" />
+                                                </font>
+                                            </Label>
+                                        </children>
+                                    </StackPane>
+                                </children>
+                            </VBox>
+                        </children>
+                    </AnchorPane>
+                    <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="544.0" prefWidth="520.0">
+                        <children>
+                            <TableView layoutX="65.0" layoutY="80.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
+                                <columns>
+                                    <TableColumn prefWidth="45.0" text="ID" />
+                                    <TableColumn prefWidth="105.0" text="Name" />
+                                    <TableColumn prefWidth="108.33334350585938" text="Specie" />
+                                    <TableColumn prefWidth="41.666656494140625" text="Age" />
+                                    <TableColumn prefWidth="75.0" text="Cage" />
+                                    <TableColumn prefWidth="124.33331298828125" text="Action" />
+                                </columns>
+                            </TableView>
+                        </children>
+                    </AnchorPane>
+                </items>
+            </SplitPane>
+        </children>
+    </AnchorPane>
+</StackPane>
