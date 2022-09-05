@@ -6,14 +6,10 @@ import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.SelectionViewModel;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.GridPane;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -29,9 +25,6 @@ public class SelectionView extends View<SelectionViewModel> {
     private Label builderLabel;
     
     @FXML
-    private Label updateLabel;
-    
-    @FXML
     private Button settingsButton;
 
     public SelectionView(SelectionViewModel selectionViewModel) {
@@ -44,8 +37,9 @@ public class SelectionView extends View<SelectionViewModel> {
         getIcons().add(ImageUtil.getImage("images/csgoremote_icon.png"));
 
         // TODO: UpdateLabel
-        
+    
         setupStyling();
+        setupGraphics();
         setupMouseEvents();
     }
     
@@ -65,16 +59,13 @@ public class SelectionView extends View<SelectionViewModel> {
         randomizerLabel.setStyle(Styling.UNSELECTED + Styling.BORDER);
         builderLabel.setStyle(Styling.UNSELECTED + Styling.BORDER);
         settingsButton.setStyle(Styling.UNSELECTED + Styling.BORDER);
-        updateLabel.setStyle(Styling.FONT_RED);
+    }
     
-        // Not a ^ styling, but still style based
-        updateLabel.setCursor(Cursor.HAND);
-        settingsButton.setFocusTraversable(false);
+    private void setupGraphics() {
         
         settingsButton.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.OKAY));
         randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
         builderLabel.setGraphic(ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));
-        updateLabel.setGraphic(ImageUtil.getImageView("images/download_icon.png", ImageUtil.ImageResolution.SMALL));
     }
     
     private void setupMouseEvents() {
@@ -86,13 +77,5 @@ public class SelectionView extends View<SelectionViewModel> {
         builderLabel.setOnMouseEntered(event -> builderLabel.setStyle(Styling.SELECTED + Styling.BORDER));
         builderLabel.setOnMouseExited(event -> builderLabel.setStyle(Styling.UNSELECTED + Styling.BORDER));
         builderLabel.setOnMouseClicked(event -> getViewModel().openBuilder());
-        
-        updateLabel.setOnMouseClicked(mouseEvent -> {
-            try {
-                Desktop.getDesktop().browse(new URL("https://github.com/Luziferium/randomizer-csgo").toURI());
-            } catch (IOException | URISyntaxException e) {
-                throw new RuntimeException(e);
-            }
-        });
     }
 }

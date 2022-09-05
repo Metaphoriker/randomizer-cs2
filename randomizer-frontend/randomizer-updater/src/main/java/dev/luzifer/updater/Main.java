@@ -1,6 +1,5 @@
 package dev.luzifer.updater;
 
-import dev.luzifer.model.exception.UncaughtExceptionLogger;
 import dev.luzifer.model.updater.Updater;
 
 import javax.swing.*;
@@ -18,11 +17,6 @@ public class Main {
     
     public static void main(String[] args) throws IOException {
     
-        File file = new File("log-updater.txt");
-        file.createNewFile();
-        
-        Thread.currentThread().setUncaughtExceptionHandler(new UncaughtExceptionLogger(file));
-        
         JFrame jFrame = new JFrame();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setSize(200, 200);

@@ -1,5 +1,6 @@
 package dev.luzifer;
 
+import dev.luzifer.model.config.ConfigRepository;
 import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.EventExecutor;
 import dev.luzifer.model.event.EventRepository;
@@ -43,6 +44,7 @@ public class Main {
 
     private static final EventRepository EVENT_REPOSITORY = new EventRepository();
     private static final EventClusterRepository EVENT_CLUSTER_REPOSITORY = new EventClusterRepository();
+    private static final ConfigRepository CONFIG_REPOSITORY = new ConfigRepository();
     private static final Scheduler SCHEDULER = new Scheduler();
     
     public static void main(String[] args) {
@@ -74,7 +76,11 @@ public class Main {
     public static EventClusterRepository getEventClusterRepository() {
         return EVENT_CLUSTER_REPOSITORY;
     }
-
+    
+    public static ConfigRepository getConfigRepository() {
+        return CONFIG_REPOSITORY;
+    }
+    
     private static void setupAppdataFolder() {
         
         File appdataFolder = new File(System.getenv("APPDATA") + "\\randomizer");

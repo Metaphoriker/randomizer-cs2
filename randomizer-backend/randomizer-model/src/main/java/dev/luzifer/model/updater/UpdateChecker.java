@@ -30,7 +30,7 @@ public class UpdateChecker {
             updateAvailable = !latestVersion.equals(version);
             
         } catch (Exception ignored) {
-            // TODO: Handle exception
+            // TODO: Handle exception f.e. no internet connection, GitHub down, whatever
         } finally {
             if(connection != null)
                 connection.disconnect();

@@ -42,9 +42,8 @@
                   <Insets top="10.0" />
                </padding>
             </VBox>
-            <HBox alignment="CENTER" layoutY="150.0" spacing="30.0" AnchorPane.bottomAnchor="1.4210854715202004E-14" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
+            <HBox alignment="BOTTOM_RIGHT" layoutY="150.0" spacing="30.0" AnchorPane.bottomAnchor="1.4210854715202004E-14" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
                <children>
-                  <Label fx:id="updateLabel" text="An update is available!" visible="false" />
                   <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#onSettingsPress" />
                </children>
                <padding>

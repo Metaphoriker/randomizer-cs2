@@ -8,7 +8,6 @@ import dev.luzifer.model.json.JsonUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.util.Styling;
 import dev.luzifer.gui.view.View;
-import dev.luzifer.gui.view.component.components.EventComponent;
 import dev.luzifer.gui.view.models.BuilderViewModel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,7 +17,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
@@ -30,7 +28,7 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 // TODO: A Section to build events from scratch
-public class BuilderView extends View<BuilderViewModel> {
+public class OldBuilderView extends View<BuilderViewModel> {
 
     // Total root
     @FXML
@@ -64,7 +62,7 @@ public class BuilderView extends View<BuilderViewModel> {
     @FXML
     private StackPane builderStackPane;
 
-    public BuilderView(BuilderViewModel viewModel) {
+    public OldBuilderView(BuilderViewModel viewModel) {
         super(viewModel);
     }
 
@@ -145,7 +143,7 @@ public class BuilderView extends View<BuilderViewModel> {
                 try {
 
                     Event eventWrapped = JsonUtil.deserialize(db.getString());
-                    clusterBuilderVBox.getChildren().add(createEventComponent(eventWrapped));
+                    clusterBuilderVBox.getChildren().add(new Label(eventWrapped.name()));
 
                     success = true;
                 } catch (JsonSyntaxException ignored) { // this could be probably done better
@@ -157,6 +155,7 @@ public class BuilderView extends View<BuilderViewModel> {
         });
     }
 
+/*
     private EventComponent createEventComponent(Event event) {
 
         EventComponent eventComponent = new EventComponent();
@@ -210,6 +209,7 @@ public class BuilderView extends View<BuilderViewModel> {
             dragEvent.consume();
         });
     }
+ */
 
     private void fillVBoxes() {
 
