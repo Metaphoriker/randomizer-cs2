@@ -44,7 +44,7 @@
             </VBox>
             <HBox alignment="BOTTOM_RIGHT" layoutY="150.0" spacing="30.0" AnchorPane.bottomAnchor="1.4210854715202004E-14" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
                <children>
-                  <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#onSettingsPress" />
+                  <Button fx:id="informationButton" mnemonicParsing="false" onAction="#onInformationRequested" />
                </children>
                <padding>
                   <Insets bottom="10.0" left="10.0" right="10.0" top="40.0" />
