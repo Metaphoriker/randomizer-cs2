@@ -22,22 +22,26 @@
                <children>
                   <BorderPane layoutX="357.0" layoutY="14.0" prefHeight="200.0" prefWidth="200.0" AnchorPane.bottomAnchor="186.0" AnchorPane.leftAnchor="357.0" AnchorPane.rightAnchor="13.666666666666629" AnchorPane.topAnchor="14.0">
                      <center>
-                        <ScrollPane hbarPolicy="NEVER" prefHeight="200.0" prefWidth="200.0">
+                        <ScrollPane hbarPolicy="NEVER">
                           <content>
-                            <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="200.0" prefWidth="200.0">
+                            <AnchorPane minHeight="0.0" minWidth="0.0">
                                  <children>
-                                    <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0" />
+                                    <VBox AnchorPane.bottomAnchor="26.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="1.0" AnchorPane.topAnchor="0.0" />
                                  </children>
                               </AnchorPane>
                           </content>
                         </ScrollPane>
                      </center>
                      <top>
-                        <Label fx:id="configLabel" prefHeight="17.0" prefWidth="227.0" text="Configurations" BorderPane.alignment="CENTER">
-                           <font>
-                              <Font size="16.0" />
-                           </font>
-                        </Label>
+                        <AnchorPane>
+                           <children>
+                              <Label fx:id="configLabel" prefHeight="17.0" prefWidth="227.0" text="Configurations" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <font>
+                                    <Font size="16.0" />
+                                 </font>
+                              </Label>
+                           </children>
+                        </AnchorPane>
                      </top>
                   </BorderPane>
                </children></AnchorPane>
