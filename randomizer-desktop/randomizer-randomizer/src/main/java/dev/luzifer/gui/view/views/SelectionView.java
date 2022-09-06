@@ -64,7 +64,7 @@ public class SelectionView extends View<SelectionViewModel> {
     
     private void setupGraphics() {
         
-        informationButton.setGraphic(ImageUtil.getImageView("images/wip_icon.png", ImageUtil.ImageResolution.OKAY));
+        informationButton.setGraphic(ImageUtil.getImageView("images/information_icon.png", ImageUtil.ImageResolution.SMALL));
         randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
         builderLabel.setGraphic(ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));
     }

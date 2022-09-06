@@ -229,7 +229,7 @@ public class OldBuilderView extends View<BuilderViewModel> {
             }
 
             label.setStyle(Styling.BACKGROUND_BANZAI_BLUE + Styling.BORDER);
-            label.setOnMouseEntered(enter -> label.setGraphic(ImageUtil.getImageView("images/wip_icon.png", ImageUtil.ImageResolution.SMALL)));
+            label.setOnMouseEntered(enter -> label.setGraphic(ImageUtil.getImageView("images/drag_icon.png", ImageUtil.ImageResolution.SMALL)));
             label.setOnMouseExited(exit -> label.setGraphic(null));
 
             setupEventLabelDragAndDropActions(label);
