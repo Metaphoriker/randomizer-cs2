@@ -15,8 +15,8 @@
     </properties>
 
     <modules>
-        <module>randomizer-frontend</module>
-        <module>randomizer-backend</module>
+        <module>randomizer-desktop</module>
+        <module>randomizer-model</module>
     </modules>
 
 </project>

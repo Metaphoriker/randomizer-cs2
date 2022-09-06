@@ -21,7 +21,7 @@
             <map />
           </option>
           <option name="resolveToWorkspace" value="false" />
-          <option name="workingDirPath" value="$PROJECT_DIR$/randomizer-frontend/randomizer-launcher" />
+          <option name="workingDirPath" value="$PROJECT_DIR$/randomizer-desktop/randomizer-launcher" />
         </MavenRunnerParameters>
       </option>
     </MavenSettings>

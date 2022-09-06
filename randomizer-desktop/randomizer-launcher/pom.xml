@@ -3,18 +3,19 @@
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
-        <artifactId>randomizer-frontend</artifactId>
+        <artifactId>randomizer-desktop</artifactId>
         <groupId>dev.luzifer</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>randomizer-randomizer</artifactId>
+    <artifactId>randomizer-launcher</artifactId>
     <version>1.0</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
         <maven.compiler.target>8</maven.compiler.target>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <javafx.version>18.0.2</javafx.version>
     </properties>
 
@@ -23,10 +24,10 @@
             <plugin>
                 <artifactId>maven-assembly-plugin</artifactId>
                 <configuration>
-                    <finalName>randomizer</finalName>
+                    <finalName>randomizer-launcher</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>dev.luzifer.Main</mainClass>
+                            <mainClass>dev.luzifer.launcher.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
@@ -57,24 +58,9 @@
 
     <dependencies>
         <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-graphics </artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
-            <groupId>org.openjfx</groupId>
-            <artifactId>javafx-fxml</artifactId>
-            <version>${javafx.version}</version>
-        </dependency>
-        <dependency>
             <groupId>dev.luzifer</groupId>
             <artifactId>randomizer-model</artifactId>
-            <version>1.0</version>
         </dependency>
     </dependencies>
+
 </project>

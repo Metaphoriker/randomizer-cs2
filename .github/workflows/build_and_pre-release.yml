@@ -39,37 +39,37 @@ jobs:
         run: mvn clean install -U
 
       - name: Execute Tests
-        run: mvn -U -V -e -B -ntp -Pits clean install test -pl randomizer-backend/randomizer-test -amd
+        run: mvn -U -V -e -B -ntp -Pits clean install test -pl randomizer-model -amd
 
       - name: Build Launcher
         run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-frontend/randomizer-launcher -amd -DskipTests
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-desktop/randomizer-launcher -amd -DskipTests
 
       - name: Build Updater
         run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-frontend/randomizer-updater -amd -DskipTests
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-desktop/randomizer-updater -amd -DskipTests
 
       - name: Build Randomizer
         run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-frontend/randomizer-randomizer -amd -DskipTests
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-desktop/randomizer-randomizer -amd -DskipTests
 
       - name: Upload Randomizer
         uses: actions/upload-artifact@v3
         with:
           name: randomizer
-          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-frontend\randomizer-randomizer\target\randomizer.jar
+          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-desktop\randomizer-randomizer\target\randomizer.jar
 
       - name: Upload Updater
         uses: actions/upload-artifact@v3
         with:
           name: updater
-          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-frontend\randomizer-updater\target\randomizer-updater.jar
+          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-desktop\randomizer-updater\target\randomizer-updater.jar
 
       - name: Upload Launcher
         uses: actions/upload-artifact@v3
         with:
           name: launcher
-          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-frontend\randomizer-launcher\target\randomizer-launcher.jar
+          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-desktop\randomizer-launcher\target\randomizer-launcher.jar
 
   pre-release:
     name: Pre Release

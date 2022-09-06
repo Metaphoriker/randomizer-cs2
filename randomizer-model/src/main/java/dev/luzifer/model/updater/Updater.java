@@ -9,10 +9,34 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
+import java.util.List;
+import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 public class Updater {
+    
+    /**
+     * Compares the current version with the latest version from the given URL.
+     * @return a List of all files that need to be updated
+     *
+     * TODO: WIP
+     */
+    public static List<? extends ZipEntry> compareFiles(File current, File online) {
+        
+        try (ZipFile currentZip = new ZipFile(current);
+             ZipFile onlineZip = new ZipFile(online)) {
+            
+            return onlineZip.stream()
+                    .filter(onlineEntry -> {
+                        ZipEntry currentEntry = currentZip.getEntry(onlineEntry.getName());
+                        return currentEntry == null || currentEntry.getCrc() != onlineEntry.getCrc();
+                    })
+                    .collect(Collectors.toList());
+        } catch (IOException e) {
+            throw new RuntimeException("Could not compare files", e);
+        }
+    }
     
     public static void update(File target, String versionUrl, String downloadUrl) {
     
