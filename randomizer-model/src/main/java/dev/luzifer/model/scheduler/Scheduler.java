@@ -1,5 +1,7 @@
 package dev.luzifer.model.scheduler;
 
+import lombok.Value;
+
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -31,10 +33,11 @@ public class Scheduler {
                 '}';
     }
     
+    @Value
     static class Task {
         
-        private final Runnable runnable;
-        private final Date executionDate;
+        Runnable runnable;
+        Date executionDate;
         
         public Task(Runnable runnable, Date executionDate) {
             this.runnable = runnable;

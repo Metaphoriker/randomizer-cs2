@@ -1,5 +1,7 @@
 package dev.luzifer.model.messages;
 
+import lombok.experimental.UtilityClass;
+
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
@@ -8,6 +10,7 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 
+@UtilityClass
 public final class Messages {
 
     private static final Map<String, String> MESSAGES_MAP = new HashMap<>();
@@ -31,9 +34,6 @@ public final class Messages {
 
     public static String getMessage(String key) {
         return MESSAGES_MAP.get(key);
-    }
-
-    private Messages() {
     }
 
 }

@@ -3,9 +3,11 @@ package dev.luzifer.model.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import dev.luzifer.model.event.Event;
+import lombok.experimental.UtilityClass;
 
 import java.io.IOException;
 
+@UtilityClass
 public class JsonUtil {
     
     private static final Gson GSON = new GsonBuilder()

@@ -1,5 +1,6 @@
 package dev.luzifer.model.updater;
 
+import lombok.experimental.UtilityClass;
 import org.apache.commons.io.FileUtils;
 
 import java.io.BufferedReader;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
+@UtilityClass
 public class Updater {
     
     /**
