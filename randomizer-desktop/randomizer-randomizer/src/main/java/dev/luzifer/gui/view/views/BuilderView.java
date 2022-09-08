@@ -14,6 +14,7 @@ import javafx.scene.control.Label;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -59,9 +60,6 @@ public class BuilderView extends View<BuilderViewModel> {
         
         root.setStyle(Styling.BASE_DARKER);
         
-        buttonHBox.setStyle(Styling.BORDER);
-        buttonVBox.setStyle(Styling.BORDER);
-        
         randomizerButton.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
         saveButton.setGraphic(ImageUtil.getImageView("images/plus_icon.png", ImageUtil.ImageResolution.SMALL));
         clearButton.setGraphic(ImageUtil.getImageView("images/delete_icon.png", ImageUtil.ImageResolution.SMALL));
@@ -72,6 +70,7 @@ public class BuilderView extends View<BuilderViewModel> {
             label.setStyle(Styling.BORDER + Styling.HEADER);
             label.setContentDisplay(ContentDisplay.RIGHT);
             label.setPadding(new Insets(0, 0, 0, 5));
+            label.setFont(new Font("Arial", 16));
             label.setGraphic(ImageUtil.getImageView("images/drag_icon.png", ImageUtil.ImageResolution.SMALL));
             label.getGraphic().setOpacity(0);
             
