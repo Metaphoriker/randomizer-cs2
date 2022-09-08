@@ -55,9 +55,8 @@ public class BuilderView extends View<BuilderViewModel> {
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-        
-        root.setStyle(Styling.BASE_DARKER);
-        
+
+        setStylings();
         setGraphics();
         fillEventHBox();
     }
@@ -83,12 +82,24 @@ public class BuilderView extends View<BuilderViewModel> {
             return;
         
         clusterBuilderVBox.getChildren().clear();
-        clusterVBox.getChildren().add(new Label("Insert stuff here"));
+        
+        Label label = new Label("Insert stuff here", ImageUtil.getImageView("images/bundle_icon.png", ImageUtil.ImageResolution.SMALL));
+        label.setFont(new Font("Arial", 14));
+        
+        clusterVBox.getChildren().add(label);
     }
     
     @FXML
     public void onClear(ActionEvent actionEvent) {
         clusterBuilderVBox.getChildren().clear();
+    }
+    
+    private void setStylings() {
+    
+        root.setStyle(Styling.BASE_DARKER);
+        
+        buttonVBox.setStyle(Styling.BACKGROUND_DARKER);
+        buttonHBox.setStyle(Styling.BACKGROUND_DARKER);
     }
     
     private void setGraphics() {
