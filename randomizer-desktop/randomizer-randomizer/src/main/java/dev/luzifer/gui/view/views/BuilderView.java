@@ -56,29 +56,10 @@ public class BuilderView extends View<BuilderViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
-        getIcons().add(ImageUtil.getImage("images/build_icon.png"));
-        
         root.setStyle(Styling.BASE_DARKER);
         
-        randomizerButton.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
-        saveButton.setGraphic(ImageUtil.getImageView("images/plus_icon.png", ImageUtil.ImageResolution.SMALL));
-        clearButton.setGraphic(ImageUtil.getImageView("images/delete_icon.png", ImageUtil.ImageResolution.SMALL));
-        
-        for (Event event : getViewModel().getEvents()) {
-            
-            Label label = new Label(event.name());
-            label.setStyle(Styling.BORDER + Styling.HEADER);
-            label.setContentDisplay(ContentDisplay.RIGHT);
-            label.setPadding(new Insets(0, 0, 0, 5));
-            label.setFont(new Font("Arial", 16));
-            label.setGraphic(ImageUtil.getImageView("images/drag_icon.png", ImageUtil.ImageResolution.SMALL));
-            label.getGraphic().setOpacity(0);
-            
-            label.setOnMouseEntered(mouseEvent -> label.getGraphic().setOpacity(1));
-            label.setOnMouseExited(mouseEvent -> label.getGraphic().setOpacity(0));
-            
-            eventFlowPane.getChildren().add(label);
-        }
+        setGraphics();
+        fillEventHBox();
     }
     
     @FXML
@@ -108,5 +89,33 @@ public class BuilderView extends View<BuilderViewModel> {
     @FXML
     public void onClear(ActionEvent actionEvent) {
         clusterBuilderVBox.getChildren().clear();
+    }
+    
+    private void setGraphics() {
+    
+        getIcons().add(ImageUtil.getImage("images/build_icon.png"));
+    
+        randomizerButton.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
+        saveButton.setGraphic(ImageUtil.getImageView("images/plus_icon.png", ImageUtil.ImageResolution.SMALL));
+        clearButton.setGraphic(ImageUtil.getImageView("images/delete_icon.png", ImageUtil.ImageResolution.SMALL));
+    }
+    
+    private void fillEventHBox() {
+    
+        for (Event event : getViewModel().getEvents()) {
+        
+            Label label = new Label(event.name());
+            label.setStyle(Styling.BORDER + Styling.HEADER);
+            label.setContentDisplay(ContentDisplay.RIGHT);
+            label.setPadding(new Insets(0, 0, 0, 5));
+            label.setFont(new Font("Arial", 16));
+            label.setGraphic(ImageUtil.getImageView("images/drag_icon.png", ImageUtil.ImageResolution.SMALL));
+            label.getGraphic().setOpacity(0);
+        
+            label.setOnMouseEntered(mouseEvent -> label.getGraphic().setOpacity(1));
+            label.setOnMouseExited(mouseEvent -> label.getGraphic().setOpacity(0));
+        
+            eventFlowPane.getChildren().add(label);
+        }
     }
 }
