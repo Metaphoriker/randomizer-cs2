@@ -54,7 +54,11 @@ public class BuilderView extends View<BuilderViewModel> {
     
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
-
+        
+        root.getStylesheets().add(getClass().getResource("BuilderView.css").toExternalForm());
+        buttonVBox.getStyleClass().add("test");
+        buttonHBox.getStyleClass().add("test");
+        
         setGraphics();
         fillEventHBox();
     }
