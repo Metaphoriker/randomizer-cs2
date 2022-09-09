@@ -19,7 +19,6 @@
     </properties>
 
     <modules>
-        <module>randomizer-launcher</module>
         <module>randomizer-randomizer</module>
         <module>randomizer-updater</module>
     </modules>
