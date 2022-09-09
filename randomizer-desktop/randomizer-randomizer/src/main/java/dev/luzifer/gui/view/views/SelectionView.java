@@ -1,7 +1,6 @@
 package dev.luzifer.gui.view.views;
 
 import dev.luzifer.gui.util.ImageUtil;
-import dev.luzifer.gui.util.Styling;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.SelectionViewModel;
 import javafx.event.ActionEvent;
@@ -39,7 +38,6 @@ public class SelectionView extends View<SelectionViewModel> {
 
         getIcons().add(ImageUtil.getImage("images/csgoremote_icon.png"));
 
-        setupStyling();
         setupGraphics();
         setupMouseEvents();
     }
@@ -54,14 +52,6 @@ public class SelectionView extends View<SelectionViewModel> {
         Desktop.getDesktop().browse(new URL("https://github.com/Luziferium/randomizer-csgo/releases/tag/latest").toURI());
     }
     
-    private void setupStyling() {
-    
-        root.setStyle(Styling.BASE);
-        randomizerLabel.setStyle(Styling.UNSELECTED + Styling.BORDER);
-        builderLabel.setStyle(Styling.UNSELECTED + Styling.BORDER);
-        informationButton.setStyle(Styling.UNSELECTED + Styling.BORDER);
-    }
-    
     private void setupGraphics() {
         
         informationButton.setGraphic(ImageUtil.getImageView("images/information_icon.png", ImageUtil.ImageResolution.SMALL));
@@ -70,16 +60,7 @@ public class SelectionView extends View<SelectionViewModel> {
     }
     
     private void setupMouseEvents() {
-
-        randomizerLabel.setOnMouseEntered(event -> randomizerLabel.setStyle(Styling.SELECTED + Styling.BORDER));
-        randomizerLabel.setOnMouseExited(event -> randomizerLabel.setStyle(Styling.UNSELECTED + Styling.BORDER));
         randomizerLabel.setOnMouseClicked(event -> getViewModel().openRandomizer());
-
-        builderLabel.setOnMouseEntered(event -> builderLabel.setStyle(Styling.SELECTED + Styling.BORDER));
-        builderLabel.setOnMouseExited(event -> builderLabel.setStyle(Styling.UNSELECTED + Styling.BORDER));
         builderLabel.setOnMouseClicked(event -> getViewModel().openBuilder());
-        
-        informationButton.setOnMouseEntered(event -> informationButton.setStyle(Styling.SELECTED + Styling.BORDER));
-        informationButton.setOnMouseExited(event -> informationButton.setStyle(Styling.UNSELECTED + Styling.BORDER));
     }
 }

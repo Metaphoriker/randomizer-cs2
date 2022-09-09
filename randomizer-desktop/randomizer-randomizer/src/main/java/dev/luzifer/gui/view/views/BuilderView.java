@@ -1,7 +1,6 @@
 package dev.luzifer.gui.view.views;
 
 import dev.luzifer.gui.util.ImageUtil;
-import dev.luzifer.gui.util.Styling;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.BuilderViewModel;
 import dev.luzifer.model.event.Event;
@@ -56,7 +55,6 @@ public class BuilderView extends View<BuilderViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        setStylings();
         setGraphics();
         fillEventHBox();
     }
@@ -94,14 +92,6 @@ public class BuilderView extends View<BuilderViewModel> {
         clusterBuilderVBox.getChildren().clear();
     }
     
-    private void setStylings() {
-    
-        root.setStyle(Styling.BASE_DARKER);
-        
-        buttonVBox.setStyle(Styling.BACKGROUND_DARKER);
-        buttonHBox.setStyle(Styling.BACKGROUND_DARKER);
-    }
-    
     private void setGraphics() {
     
         getIcons().add(ImageUtil.getImage("images/build_icon.png"));
@@ -116,7 +106,6 @@ public class BuilderView extends View<BuilderViewModel> {
         for (Event event : getViewModel().getEvents()) {
         
             Label label = new Label(event.name());
-            label.setStyle(Styling.BORDER + Styling.HEADER);
             label.setContentDisplay(ContentDisplay.RIGHT);
             label.setPadding(new Insets(0, 0, 0, 5));
             label.setFont(new Font("Arial", 16));

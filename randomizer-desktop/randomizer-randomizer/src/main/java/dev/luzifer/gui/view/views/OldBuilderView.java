@@ -6,7 +6,6 @@ import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.cluster.EventCluster;
 import dev.luzifer.model.json.JsonUtil;
 import dev.luzifer.gui.util.ImageUtil;
-import dev.luzifer.gui.util.Styling;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.BuilderViewModel;
 import javafx.application.Platform;
@@ -83,13 +82,6 @@ public class OldBuilderView extends View<BuilderViewModel> {
     }
 
     private void setupStyling() {
-
-        topPaneTitle.setStyle(Styling.HEADER + Styling.BORDER);
-        panePaneTitle.setStyle(Styling.HEADER + Styling.BORDER);
-
-        rootPane.setStyle(Styling.BASE);
-        topRoot.setStyle(Styling.BACKGROUND_DARKER);
-        eventFlowPane.setStyle(Styling.BACKGROUND_DARKER);
 
         getIcons().add(ImageUtil.getImage("images/build_icon.png"));
         clearButton.setGraphic(ImageUtil.getImageView("images/delete_icon.png", ImageUtil.ImageResolution.OKAY));
@@ -224,11 +216,9 @@ public class OldBuilderView extends View<BuilderViewModel> {
             label.setContentDisplay(ContentDisplay.RIGHT);
 
             if (!getViewModel().isEventEnabled(event)) {
-                label.setStyle(Styling.FONT_RED);
                 label.setDisable(true);
             }
 
-            label.setStyle(Styling.BACKGROUND_BANZAI_BLUE + Styling.BORDER);
             label.setOnMouseEntered(enter -> label.setGraphic(ImageUtil.getImageView("images/drag_icon.png", ImageUtil.ImageResolution.SMALL)));
             label.setOnMouseExited(exit -> label.setGraphic(null));
 
