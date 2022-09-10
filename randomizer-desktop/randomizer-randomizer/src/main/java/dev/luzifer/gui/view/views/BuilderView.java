@@ -1,17 +1,25 @@
 package dev.luzifer.gui.view.views;
 
+import com.google.gson.JsonSyntaxException;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.BuilderViewModel;
 import dev.luzifer.model.event.Event;
+import dev.luzifer.model.json.JsonUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.Separator;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
@@ -48,6 +56,9 @@ public class BuilderView extends View<BuilderViewModel> {
     @FXML
     private Button clearButton;
     
+    @FXML
+    private ScrollPane clusterVBoxScrollPane;
+    
     public BuilderView(BuilderViewModel viewModel) {
         super(viewModel);
     }
@@ -55,10 +66,7 @@ public class BuilderView extends View<BuilderViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
-        root.getStylesheets().add(getClass().getResource("BuilderView.css").toExternalForm());
-        buttonVBox.getStyleClass().add("test");
-        buttonHBox.getStyleClass().add("test");
-        
+        setupStyling();
         setGraphics();
         fillEventHBox();
     }
@@ -72,8 +80,11 @@ public class BuilderView extends View<BuilderViewModel> {
             
             int randomEventIndex = ThreadLocalRandom.current().nextInt(0, getViewModel().getEvents().size());
             Event randomEvent = getViewModel().getEvents().get(randomEventIndex);
+    
+            Label label = new Label(randomEvent.name());
+            setupDragAlreadyDropped(label);
             
-            clusterBuilderVBox.getChildren().add(new Label(randomEvent.name()));
+            clusterBuilderVBox.getChildren().add(label);
         }
     }
     
@@ -96,17 +107,109 @@ public class BuilderView extends View<BuilderViewModel> {
         clusterBuilderVBox.getChildren().clear();
     }
     
+    private void setupDrag(Label node) {
+    
+        Event event = getViewModel().getEvent(node.getText());
+        node.setOnDragDetected(dragEvent -> {
+        
+            Dragboard db = node.startDragAndDrop(TransferMode.ANY);
+            db.setDragView(node.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
+        
+            ClipboardContent content = new ClipboardContent();
+            content.putString(JsonUtil.serialize(event));
+        
+            db.setContent(content);
+            dragEvent.consume();
+        });
+    }
+    
+    private void setupDragAlreadyDropped(Label node) {
+    
+        setupDrag(node);
+    
+        node.setOnDragDropped(dragEvent -> {
+        
+            Dragboard dragboard = dragEvent.getDragboard();
+            boolean success = false;
+        
+            if (dragboard.hasString()) {
+            
+                int index = clusterBuilderVBox.getChildren().indexOf(node);
+                // offset -1 because then it gets set before the separator which gets removed in the next step
+                clusterBuilderVBox.getChildren().add(index - 1, new Label(JsonUtil.deserialize(dragboard.getString()).name()));
+            
+                success = true;
+            }
+        
+            dragEvent.setDropCompleted(success);
+            dragEvent.consume();
+        });
+    
+        node.setOnDragEntered(dragEvent -> {
+            Separator separator = new Separator();
+            clusterBuilderVBox.getChildren().add(clusterBuilderVBox.getChildren().indexOf(node), separator);
+        });
+    
+        node.setOnDragExited(dragEvent -> clusterBuilderVBox.getChildren().remove(clusterBuilderVBox.getChildren().indexOf(node) - 1));
+    
+        node.setOnDragDone(dragEvent -> {
+            clusterBuilderVBox.getChildren().remove(node);
+            dragEvent.consume();
+        });
+    }
+    
+    private void setupDrop(Region region) {
+    
+        region.setOnDragOver(dragEvent -> {
+        
+            if (dragEvent.getGestureSource() != region && dragEvent.getDragboard().hasString())
+                dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+        
+            dragEvent.consume();
+        });
+        
+        region.setOnDragDropped(dragEvent -> {
+        
+            Dragboard db = dragEvent.getDragboard();
+            boolean success = false;
+        
+            if (db.hasString()) {
+            
+                try {
+                
+                    Event eventWrapped = JsonUtil.deserialize(db.getString());
+                    Label label = new Label(eventWrapped.name());
+                    setupDragAlreadyDropped(label);
+                    
+                    clusterBuilderVBox.getChildren().add(label);
+                
+                    success = true;
+                } catch (JsonSyntaxException ignored) { // this could be probably done better
+                }
+            }
+        
+            dragEvent.setDropCompleted(success);
+            dragEvent.consume();
+        });
+    }
+    
+    private void setupStyling() {
+        root.getStylesheets().add(getClass().getResource("BuilderView.css").toExternalForm());
+    }
+    
     private void setGraphics() {
     
         getIcons().add(ImageUtil.getImage("images/build_icon.png"));
     
-        randomizerButton.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
-        saveButton.setGraphic(ImageUtil.getImageView("images/plus_icon.png", ImageUtil.ImageResolution.SMALL));
-        clearButton.setGraphic(ImageUtil.getImageView("images/delete_icon.png", ImageUtil.ImageResolution.SMALL));
+        randomizerButton.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.OKAY));
+        saveButton.setGraphic(ImageUtil.getImageView("images/plus_icon.png", ImageUtil.ImageResolution.OKAY));
+        clearButton.setGraphic(ImageUtil.getImageView("images/delete_icon.png", ImageUtil.ImageResolution.OKAY));
     }
     
     private void fillEventHBox() {
     
+        setupDrop(clusterVBoxScrollPane);
+        
         for (Event event : getViewModel().getEvents()) {
         
             Label label = new Label(event.name());
@@ -118,6 +221,8 @@ public class BuilderView extends View<BuilderViewModel> {
         
             label.setOnMouseEntered(mouseEvent -> label.getGraphic().setOpacity(1));
             label.setOnMouseExited(mouseEvent -> label.getGraphic().setOpacity(0));
+            
+            setupDrag(label);
         
             eventFlowPane.getChildren().add(label);
         }

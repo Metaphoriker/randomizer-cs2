@@ -43,7 +43,7 @@
                               </AnchorPane>
                             <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                                  <children>
-                                    <ScrollPane hbarPolicy="NEVER" prefHeight="262.0" prefWidth="466.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <ScrollPane fx:id="clusterVBoxScrollPane" hbarPolicy="NEVER" prefHeight="262.0" prefWidth="466.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <content>
                                           <VBox fx:id="clusterBuilderVBox" />
                                        </content>
