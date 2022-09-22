@@ -33,10 +33,12 @@ import java.util.List;
 
 public class Main {
 
-    private static final String UPDATER_VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/stage/randomizer-updater/src/main/resources/version.txt";
-    private static final String UPDATER_DOWNLOAD_URL = "https://github.com/Luziferium/randomizer-csgo/releases/download/latest/randomizer-updater.jar";
+    public static final File APPDATA_FOLDER = new File(System.getenv("APPDATA") + File.separator + "randomizer");
     
     private static final String TEST_FLAG = "-test";
+    
+    private static final String UPDATER_VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/stage/randomizer-updater/src/main/resources/version.txt";
+    private static final String UPDATER_DOWNLOAD_URL = "https://github.com/Luziferium/randomizer-csgo/releases/download/latest/randomizer-updater.jar";
 
     // TODO: new Log file everyday to avoid huge log files and to make it easier to find the last log (file)
     private static final File LOG_FILE = new File(System.getenv("APPDATA") + "\\randomizer\\logs", "log.txt");
@@ -48,7 +50,7 @@ public class Main {
     private static final Scheduler SCHEDULER = new Scheduler();
     
     public static void main(String[] args) {
-
+        
         setupAppdataFolder();
         
         registerEvents();
@@ -62,9 +64,7 @@ public class Main {
 
         Application.launch(AppStarter.class);
     }
-
-    // I don't like those singletons
-
+    
     public static Scheduler getScheduler() {
         return SCHEDULER;
     }
@@ -83,11 +83,10 @@ public class Main {
     
     private static void setupAppdataFolder() {
         
-        File appdataFolder = new File(System.getenv("APPDATA") + "\\randomizer");
-        appdataFolder.mkdirs();
-    
+        APPDATA_FOLDER.mkdirs();
+        
         // TODO: check for update, otherwise the planned open workflow will end recursive
-        installUpdater(appdataFolder);
+        installUpdater(APPDATA_FOLDER);
     }
     
     private static File installUpdater(File folderInto) {

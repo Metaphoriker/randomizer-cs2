@@ -1,6 +1,7 @@
 package dev.luzifer.gui.view.views;
 
 import com.google.gson.JsonSyntaxException;
+import dev.luzifer.Main;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.BuilderViewModel;
@@ -9,6 +10,7 @@ import dev.luzifer.model.json.JsonUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
@@ -23,8 +25,11 @@ import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 import javafx.scene.text.Font;
 
+import java.io.File;
+import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BuilderView extends View<BuilderViewModel> {
@@ -94,11 +99,24 @@ public class BuilderView extends View<BuilderViewModel> {
         if (clusterBuilderVBox.getChildren().isEmpty())
             return;
         
-        clusterBuilderVBox.getChildren().clear();
-        
         Label label = new Label("Insert stuff here", ImageUtil.getImageView("images/bundle_icon.png", ImageUtil.ImageResolution.SMALL));
         label.setFont(new Font("Arial", 14));
-        
+    
+        // Viewmodel stuff right there
+        File clusterFile = new File(Main.APPDATA_FOLDER, UUID.randomUUID().toString() + ".cluster");
+        try(PrintWriter printWriter = new PrintWriter(clusterFile)) {
+            
+            StringBuilder stringBuilder = new StringBuilder();
+            for(Node node : clusterBuilderVBox.getChildren())
+                stringBuilder.append(((Label) node).getText()).append(";");
+            
+            printWriter.println(stringBuilder.toString());
+            printWriter.flush();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    
+        clusterBuilderVBox.getChildren().clear();
         clusterVBox.getChildren().add(label);
     }
     
