@@ -34,11 +34,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BuilderView extends View<BuilderViewModel> {
     
-    @FXML
-    private HBox buttonHBox;
-    
-    @FXML
-    private VBox buttonVBox;
+    private static final File CLUSTER_FOLDER = new File(Main.APPDATA_FOLDER + File.separator + "cluster");
     
     @FXML
     private VBox clusterBuilderVBox;
@@ -71,9 +67,14 @@ public class BuilderView extends View<BuilderViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
+        // TODO: move this
+        if(!CLUSTER_FOLDER.exists())
+            CLUSTER_FOLDER.mkdirs();
+        
         setupStyling();
         setGraphics();
         fillEventHBox();
+        refreshCluster();
     }
     
     @FXML
@@ -103,26 +104,44 @@ public class BuilderView extends View<BuilderViewModel> {
         label.setFont(new Font("Arial", 14));
     
         // Viewmodel stuff right there
-        File clusterFile = new File(Main.APPDATA_FOLDER, UUID.randomUUID().toString() + ".cluster");
+        File clusterFile = new File(CLUSTER_FOLDER, UUID.randomUUID() + ".cluster");
         try(PrintWriter printWriter = new PrintWriter(clusterFile)) {
             
             StringBuilder stringBuilder = new StringBuilder();
             for(Node node : clusterBuilderVBox.getChildren())
                 stringBuilder.append(((Label) node).getText()).append(";");
             
-            printWriter.println(stringBuilder.toString());
+            printWriter.println(stringBuilder);
             printWriter.flush();
         } catch (Exception e) {
             e.printStackTrace();
         }
     
+        refreshCluster();
         clusterBuilderVBox.getChildren().clear();
-        clusterVBox.getChildren().add(label);
     }
     
     @FXML
     public void onClear(ActionEvent actionEvent) {
         clusterBuilderVBox.getChildren().clear();
+    }
+    
+    // TODO: retrieve from viewmodel
+    private void refreshCluster() {
+            
+            clusterVBox.getChildren().clear();
+            
+            File clusterFolder = new File(Main.APPDATA_FOLDER + File.separator + "cluster");
+            if (!clusterFolder.exists())
+                return;
+            
+            for (File file : clusterFolder.listFiles()) {
+                
+                Label label = new Label(file.getName(), ImageUtil.getImageView("images/bundle_icon.png", ImageUtil.ImageResolution.SMALL));
+                label.setFont(new Font("Arial", 14));
+                
+                clusterVBox.getChildren().add(label);
+            }
     }
     
     private void setupDrag(Label node) {
