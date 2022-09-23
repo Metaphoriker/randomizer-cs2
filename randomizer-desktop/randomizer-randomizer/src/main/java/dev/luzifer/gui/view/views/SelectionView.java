@@ -5,7 +5,6 @@ import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.SelectionViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.paint.Paint;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
