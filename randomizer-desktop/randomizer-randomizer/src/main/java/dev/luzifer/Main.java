@@ -27,6 +27,7 @@ import javafx.application.Application;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URISyntaxException;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
@@ -46,10 +47,9 @@ public class Main {
     private static final ConfigRepository CONFIG_REPOSITORY = new ConfigRepository();
     private static final Scheduler SCHEDULER = new Scheduler();
     
-    public static void main(String[] args) throws IOException {
+    public static void main(String[] args) throws IOException, URISyntaxException {
         
         setupAppdataFolder();
-        startUpdaterIfNecessary();
         
         registerEvents();
         evaluateFlags(Collections.unmodifiableList(Arrays.asList(args)));
@@ -79,18 +79,21 @@ public class Main {
         return CONFIG_REPOSITORY;
     }
     
-    private static void startUpdaterIfNecessary() throws IOException {
+    private static void startUpdaterIfNecessary(String path) throws IOException, URISyntaxException {
         
-        File thisFile = new File("randomizer.jar");
+        File thisFile = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
         if(Updater.isUpdateAvailable(thisFile, Updater.RANDOMIZER_VERSION_URL)) {
-            Runtime.getRuntime().exec("java -jar randomizer-updater.jar -randomizerLocation=" + thisFile.getAbsolutePath());
+            Runtime.getRuntime().exec("java -jar " + path + " -randomizerLocation=" + thisFile.getAbsolutePath());
             System.exit(0);
         }
     }
     
-    private static void setupAppdataFolder() {
+    private static void setupAppdataFolder() throws IOException, URISyntaxException {
+        
         APPDATA_FOLDER.mkdirs();
-        installUpdater(APPDATA_FOLDER);
+        
+        File updater = installUpdater(APPDATA_FOLDER);
+        startUpdaterIfNecessary(updater.getAbsolutePath());
     }
     
     private static File installUpdater(File folderInto) {
