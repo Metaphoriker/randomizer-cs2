@@ -42,6 +42,8 @@ public class Main {
                     return;
                 }
             }
+        } else {
+            jLabel.setText("No randomizer location specified! DONT OPEN THIS JAR DIRECTLY!");
         }
     }
     
