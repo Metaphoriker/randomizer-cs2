@@ -10,76 +10,73 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-import java.util.List;
-import java.util.stream.Collectors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
 @UtilityClass
 public class Updater {
     
-    /**
-     * Compares the current version with the latest version from the given URL.
-     * @return a List of all files that need to be updated
-     *
-     * TODO: WIP
-     */
-    public static List<? extends ZipEntry> compareFiles(File current, File online) {
-        
-        try (ZipFile currentZip = new ZipFile(current);
-             ZipFile onlineZip = new ZipFile(online)) {
-            
-            return onlineZip.stream()
-                    .filter(onlineEntry -> {
-                        ZipEntry currentEntry = currentZip.getEntry(onlineEntry.getName());
-                        return currentEntry == null || currentEntry.getCrc() != onlineEntry.getCrc();
-                    })
-                    .collect(Collectors.toList());
-        } catch (IOException e) {
-            throw new RuntimeException("Could not compare files", e);
+    public static final String UPDATER_VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/stage/randomizer-updater/src/main/resources/version.txt";
+    public static final String UPDATER_DOWNLOAD_URL = "https://github.com/Luziferium/randomizer-csgo/releases/download/latest/randomizer-updater.jar";
+    public static final String RANDOMIZER_VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/master/randomizer-backend/randomizer-model/src/main/resources/version.txt";
+    public static final String RANDOMIZER_DOWNLOAD_URL = "https://github.com/Luziferium/randomizer-csgo/releases/download/latest/randomizer.jar";
+    
+    public static void update(File target, String downloadUrl) {
+        try {
+            URL downloadFrom = new URL(downloadUrl);
+            FileUtils.copyURLToFile(downloadFrom, target);
+        } catch (IOException ignored) {
         }
     }
     
-    public static void update(File target, String versionUrl, String downloadUrl) {
-    
-        if(!target.exists()) {
-            update(target, downloadUrl);
-            return;
-        }
+    public static boolean isUpdateAvailable(File toUpdate, String versionUrl) {
         
-        if(isEmpty(target)) {
-            update(target, downloadUrl);
-            return;
-        }
+        if(!toUpdate.exists())
+            return true;
         
-        String currentVersion = null;
-        try {
+        try (ZipFile zipFile = new ZipFile(toUpdate)) {
+            ZipEntry versionEntry = zipFile.getEntry("version.txt");
+            if(versionEntry == null)
+                return true;
+            
+            String version = readLineFromInputStream(zipFile.getInputStream(versionEntry));
+            return isUpdateAvailable(version, versionUrl);
+        } catch (IOException ignored) {
+        }
+        return true;
+    }
+    
+    private static boolean isUpdateAvailable(String version, String versionUrl) {
         
-            try (ZipFile zipFile = new ZipFile(target)) {
-    
-                ZipEntry entry = zipFile.getEntry("version.txt");
-                if(entry == null) {
-                    update(target, downloadUrl);
-                    return;
-                }
-                
-                try (InputStream inputStream = zipFile.getInputStream(entry)) {
-                    currentVersion = new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8)).readLine();
-                }
-            }
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-    
-        if (currentVersion == null) {
-            return;
-        }
-    
         UpdateChecker updateChecker = new UpdateChecker(versionUrl);
-        updateChecker.checkUpdate(currentVersion);
+        updateChecker.checkUpdate(version);
+        
+        return updateChecker.isUpdateAvailable();
+    }
     
-        if (updateChecker.isUpdateAvailable())
-            update(target, downloadUrl);
+    private static String getCurrentVersion() {
+        return readLineFromInputStream(getInputStream("version.txt"));
+    }
+    
+    private static InputStream getInputStream(String fileName) {
+        
+        InputStream resource = Updater.class.getResourceAsStream("/" + fileName);
+        
+        if (resource == null)
+            throw new IllegalStateException("Probably corrupted JAR file, missing " + fileName);
+        
+        return resource;
+    }
+    
+    private static String readLineFromInputStream(InputStream inputStream) {
+        
+        try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
+            return bufferedReader.readLine();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+        
+        return "INVALID";
     }
     
     private static boolean isEmpty(File file) {
@@ -87,14 +84,6 @@ public class Updater {
             return bufferedReader.readLine() == null;
         } catch (IOException e) {
             throw new RuntimeException(e);
-        }
-    }
-    
-    private static void update(File target, String downloadUrl) {
-        try {
-            URL downloadFrom = new URL(downloadUrl);
-            FileUtils.copyURLToFile(downloadFrom, target);
-        } catch (IOException ignored) {
         }
     }
     

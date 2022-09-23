@@ -36,9 +36,6 @@ public class Main {
     public static final File APPDATA_FOLDER = new File(System.getenv("APPDATA") + File.separator + "randomizer");
     
     private static final String TEST_FLAG = "-test";
-    
-    private static final String UPDATER_VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/stage/randomizer-updater/src/main/resources/version.txt";
-    private static final String UPDATER_DOWNLOAD_URL = "https://github.com/Luziferium/randomizer-csgo/releases/download/latest/randomizer-updater.jar";
 
     // TODO: new Log file everyday to avoid huge log files and to make it easier to find the last log (file)
     private static final File LOG_FILE = new File(System.getenv("APPDATA") + "\\randomizer\\logs", "log.txt");
@@ -49,9 +46,10 @@ public class Main {
     private static final ConfigRepository CONFIG_REPOSITORY = new ConfigRepository();
     private static final Scheduler SCHEDULER = new Scheduler();
     
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         
         setupAppdataFolder();
+        startUpdaterIfNecessary();
         
         registerEvents();
         evaluateFlags(Collections.unmodifiableList(Arrays.asList(args)));
@@ -81,11 +79,17 @@ public class Main {
         return CONFIG_REPOSITORY;
     }
     
+    private static void startUpdaterIfNecessary() throws IOException {
+        if(Updater.isUpdateAvailable(new File("randomizer.jar"), Updater.RANDOMIZER_VERSION_URL)) {
+            Runtime.getRuntime().exec("java -jar randomizer-updater.jar");
+            System.exit(0);
+        }
+    }
+    
     private static void setupAppdataFolder() {
         
         APPDATA_FOLDER.mkdirs();
         
-        // TODO: check for update, otherwise the planned open workflow will end recursive
         installUpdater(APPDATA_FOLDER);
     }
     
@@ -98,7 +102,9 @@ public class Main {
             throw new RuntimeException(e);
         }
         
-        Updater.update(updaterJar, UPDATER_VERSION_URL, UPDATER_DOWNLOAD_URL);
+        if(Updater.isUpdateAvailable(updaterJar, Updater.UPDATER_VERSION_URL))
+            Updater.update(updaterJar, Updater.UPDATER_DOWNLOAD_URL);
+        
         return updaterJar;
     }
     
