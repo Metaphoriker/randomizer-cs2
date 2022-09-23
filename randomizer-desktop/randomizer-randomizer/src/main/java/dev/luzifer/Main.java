@@ -80,10 +80,10 @@ public class Main {
     }
     
     private static void startUpdaterIfNecessary(String path) throws IOException, URISyntaxException {
-        
-        File thisFile = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-        if(Updater.isUpdateAvailable(thisFile, Updater.RANDOMIZER_VERSION_URL)) {
-            Runtime.getRuntime().exec("java -jar " + path + " -randomizerLocation=" + thisFile.getAbsolutePath());
+    
+        File jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+        if(Updater.isUpdateAvailable(Updater.getCurrentVersion(), Updater.RANDOMIZER_VERSION_URL)) {
+            Runtime.getRuntime().exec("java -jar " + path + " -randomizerLocation=" + jarPath.getAbsolutePath());
             System.exit(0);
         }
     }

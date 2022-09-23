@@ -37,7 +37,7 @@ public class Main {
                     } else {
                         jLabel.setText("No update available!");
                     }
-                    Runtime.getRuntime().exec("java -jar" + randomizer.getAbsolutePath());
+                    Runtime.getRuntime().exec("java -jar " + randomizer.getAbsolutePath());
                     System.exit(0);
                     return;
                 }

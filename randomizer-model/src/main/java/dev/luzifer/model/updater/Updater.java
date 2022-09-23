@@ -46,7 +46,7 @@ public class Updater {
         return true;
     }
     
-    private static boolean isUpdateAvailable(String version, String versionUrl) {
+    public static boolean isUpdateAvailable(String version, String versionUrl) {
         
         UpdateChecker updateChecker = new UpdateChecker(versionUrl);
         updateChecker.checkUpdate(version);
@@ -54,7 +54,7 @@ public class Updater {
         return updateChecker.isUpdateAvailable();
     }
     
-    private static String getCurrentVersion() {
+    public static String getCurrentVersion() {
         return readLineFromInputStream(getInputStream("version.txt"));
     }
     
