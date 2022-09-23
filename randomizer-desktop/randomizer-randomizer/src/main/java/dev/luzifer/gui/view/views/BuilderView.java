@@ -29,7 +29,6 @@ import java.io.File;
 import java.io.PrintWriter;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.UUID;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class BuilderView extends View<BuilderViewModel> {
