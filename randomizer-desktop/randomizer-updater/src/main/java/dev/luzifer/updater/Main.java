@@ -8,8 +8,6 @@ import java.io.IOException;
 
 public class Main {
     
-    private static final File RANDOMIZER_JAR = new File("randomizer.jar");
-    
     public static void main(String[] args) throws IOException {
     
         JFrame jFrame = new JFrame();
@@ -22,17 +20,28 @@ public class Main {
     
         jLabel.setText("Checking for updates...");
     
-        int result = JOptionPane.showConfirmDialog(null, "Do you want to update..?", "Update", JOptionPane.YES_NO_OPTION);
-        if(result == 0) {
-            
-            if(Updater.isUpdateAvailable(RANDOMIZER_JAR, Updater.RANDOMIZER_VERSION_URL)) {
-                jLabel.setText("Updating...");
-                Updater.update(RANDOMIZER_JAR, Updater.RANDOMIZER_DOWNLOAD_URL);
-                jLabel.setText("Update successful!");
-            } else {
-                jLabel.setText("No update available!");
+        if(args.length != 0) {
+            for (String arg : args) {
+                if (arg.startsWith("-randomizerLocation=")) {
+                
+                    File path = new File(arg.substring(arg.indexOf("=") + 1));
+                    String pathName = path.getAbsolutePath().substring(0, path.getAbsolutePath().lastIndexOf("\\"));
+                    String fileName = path.getAbsolutePath().substring(path.getAbsolutePath().lastIndexOf("\\") + 1);
+                
+                    File randomizer = new File(pathName, fileName);
+                
+                    if(Updater.isUpdateAvailable(randomizer, Updater.RANDOMIZER_VERSION_URL)) {
+                        jLabel.setText("Updating...");
+                        Updater.update(randomizer, Updater.RANDOMIZER_DOWNLOAD_URL);
+                        jLabel.setText("Update successful!");
+                    } else {
+                        jLabel.setText("No update available!");
+                    }
+                    Runtime.getRuntime().exec("java -jar" + randomizer.getAbsolutePath());
+                    System.exit(0);
+                    return;
+                }
             }
-            Runtime.getRuntime().exec("java -jar randomizer.jar");
         }
     }
     
