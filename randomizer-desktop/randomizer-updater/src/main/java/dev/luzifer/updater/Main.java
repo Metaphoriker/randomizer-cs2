@@ -12,7 +12,7 @@ public class Main {
     
         JFrame jFrame = new JFrame();
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(200, 200);
+        jFrame.setSize(500, 200);
         jFrame.setVisible(true);
     
         JLabel jLabel = new JLabel();
