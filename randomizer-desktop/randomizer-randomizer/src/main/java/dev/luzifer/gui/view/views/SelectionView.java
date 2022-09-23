@@ -3,15 +3,9 @@ package dev.luzifer.gui.view.views;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.SelectionViewModel;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 
-import java.awt.*;
-import java.io.IOException;
-import java.net.URISyntaxException;
 import java.net.URL;
 import java.util.ResourceBundle;
 
@@ -25,9 +19,6 @@ public class SelectionView extends View<SelectionViewModel> {
     
     @FXML
     private Label configLabel;
-    
-    @FXML
-    private Button informationButton;
 
     public SelectionView(SelectionViewModel selectionViewModel) {
         super(selectionViewModel);
@@ -47,14 +38,7 @@ public class SelectionView extends View<SelectionViewModel> {
         System.exit(0);
     }
     
-    @FXML
-    public void onInformationRequested(ActionEvent actionEvent) throws IOException, URISyntaxException {
-        Desktop.getDesktop().browse(new URL("https://github.com/Luziferium/randomizer-csgo/releases/tag/latest").toURI());
-    }
-    
     private void setupGraphics() {
-        
-        informationButton.setGraphic(ImageUtil.getImageView("images/information_icon.png", ImageUtil.ImageResolution.SMALL));
         
         randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
         builderLabel.setGraphic(ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));

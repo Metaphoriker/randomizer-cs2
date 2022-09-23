@@ -1,13 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
@@ -48,14 +46,6 @@
                   <Insets top="10.0" />
                </padding>
             </VBox>
-            <HBox alignment="BOTTOM_RIGHT" layoutY="150.0" spacing="30.0" AnchorPane.bottomAnchor="1.4210854715202004E-14" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="150.0">
-               <children>
-                  <Button fx:id="informationButton" mnemonicParsing="false" onAction="#onInformationRequested" />
-               </children>
-               <padding>
-                  <Insets bottom="10.0" left="10.0" right="10.0" top="40.0" />
-               </padding>
-            </HBox>
          </children>
       </AnchorPane>
    </children>
