@@ -89,9 +89,7 @@ public class Main {
     }
     
     private static void setupAppdataFolder() {
-        
         APPDATA_FOLDER.mkdirs();
-        
         installUpdater(APPDATA_FOLDER);
     }
     
