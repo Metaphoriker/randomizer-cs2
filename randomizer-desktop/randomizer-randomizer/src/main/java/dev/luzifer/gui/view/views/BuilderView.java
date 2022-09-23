@@ -34,6 +34,7 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BuilderView extends View<BuilderViewModel> {
     
+    // TODO: model stuff
     private static final File CLUSTER_FOLDER = new File(Main.APPDATA_FOLDER + File.separator + "cluster");
     
     @FXML

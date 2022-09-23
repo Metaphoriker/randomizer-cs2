@@ -18,13 +18,13 @@ import java.util.ResourceBundle;
 public class SelectionView extends View<SelectionViewModel> {
     
     @FXML
-    private GridPane root;
-    
-    @FXML
     private Label randomizerLabel;
     
     @FXML
     private Label builderLabel;
+    
+    @FXML
+    private Label configLabel;
     
     @FXML
     private Button informationButton;
@@ -55,8 +55,10 @@ public class SelectionView extends View<SelectionViewModel> {
     private void setupGraphics() {
         
         informationButton.setGraphic(ImageUtil.getImageView("images/information_icon.png", ImageUtil.ImageResolution.SMALL));
+        
         randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
         builderLabel.setGraphic(ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));
+        configLabel.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.SMALL));
     }
     
     private void setupMouseEvents() {
