@@ -16,6 +16,7 @@ import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Separator;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -99,12 +100,18 @@ public class BuilderView extends View<BuilderViewModel> {
         
         if (clusterBuilderVBox.getChildren().isEmpty())
             return;
-        
-        Label label = new Label("Insert stuff here", ImageUtil.getImageView("images/bundle_icon.png", ImageUtil.ImageResolution.SMALL));
-        label.setFont(new Font("Arial", 14));
     
+        TextInputDialog clusterNameDialog = new TextInputDialog();
+        clusterNameDialog.setTitle(null);
+        clusterNameDialog.setHeaderText(null);
+        clusterNameDialog.setGraphic(null);
+        clusterNameDialog.setContentText("Cluster Name:");
+        clusterNameDialog.showAndWait();
+        
+        // TODO: check for invalid/duplicate names
+        
         // Viewmodel stuff right there
-        File clusterFile = new File(CLUSTER_FOLDER, UUID.randomUUID() + ".cluster");
+        File clusterFile = new File(CLUSTER_FOLDER, clusterNameDialog.getResult() + ".cluster");
         try(PrintWriter printWriter = new PrintWriter(clusterFile)) {
             
             StringBuilder stringBuilder = new StringBuilder();
@@ -137,7 +144,8 @@ public class BuilderView extends View<BuilderViewModel> {
             
             for (File file : clusterFolder.listFiles()) {
                 
-                Label label = new Label(file.getName(), ImageUtil.getImageView("images/bundle_icon.png", ImageUtil.ImageResolution.SMALL));
+                Label label = new Label(file.getName().substring(0, file.getName().lastIndexOf(".")),
+                        ImageUtil.getImageView("images/bundle_icon.png", ImageUtil.ImageResolution.SMALL));
                 label.setFont(new Font("Arial", 14));
                 
                 clusterVBox.getChildren().add(label);
