@@ -5,11 +5,16 @@ import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.SelectionViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.paint.Paint;
+import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SelectionView extends View<SelectionViewModel> {
+    
+    @FXML
+    private Circle logoShape;
     
     @FXML
     private Label randomizerLabel;
@@ -39,6 +44,8 @@ public class SelectionView extends View<SelectionViewModel> {
     }
     
     private void setupGraphics() {
+        
+        logoShape.setFill(ImageUtil.getImagePattern("images/csgoremote_icon.png", ImageUtil.ImageResolution.ORIGINAL));
         
         randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
         builderLabel.setGraphic(ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));

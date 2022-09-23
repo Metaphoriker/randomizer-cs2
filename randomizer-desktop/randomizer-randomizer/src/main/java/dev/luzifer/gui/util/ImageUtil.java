@@ -2,6 +2,8 @@ package dev.luzifer.gui.util;
 
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.paint.ImagePattern;
+import javafx.scene.paint.Paint;
 
 public final class ImageUtil {
 
@@ -22,7 +24,15 @@ public final class ImageUtil {
     public static ImageView getImageView(String path, ImageResolution resolution) {
         return new ImageView(getImage(path, resolution));
     }
-
+    
+    public static ImagePattern getImagePattern(String path) {
+        return getImagePattern(path, DEFAULT_RESOLUTION);
+    }
+    
+    public static ImagePattern getImagePattern(String path, ImageResolution resolution) {
+        return new ImagePattern(getImage(path, resolution));
+    }
+    
     private ImageUtil() {
     }
 

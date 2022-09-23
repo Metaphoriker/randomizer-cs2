@@ -10,6 +10,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
+<?import javafx.scene.shape.Circle?>
 <GridPane fx:id="root" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.SelectionView">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -22,6 +23,7 @@
          <children>
             <VBox alignment="TOP_CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
+                  <Circle fx:id="logoShape" radius="50.0" />
                   <Separator prefWidth="200.0" />
                   <Label fx:id="randomizerLabel" prefHeight="43.0" prefWidth="170.0" text="Randomizer" textAlignment="CENTER" VBox.vgrow="ALWAYS">
                      <font>
