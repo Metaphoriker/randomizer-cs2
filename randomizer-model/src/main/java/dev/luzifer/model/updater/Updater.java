@@ -16,9 +16,9 @@ import java.util.zip.ZipFile;
 @UtilityClass
 public class Updater {
     
-    public static final String UPDATER_VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/stage/randomizer-updater/src/main/resources/version.txt";
+    public static final String UPDATER_VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/master/randomizer-desktop/randomizer-updater/src/main/resources/version.txt";
     public static final String UPDATER_DOWNLOAD_URL = "https://github.com/Luziferium/randomizer-csgo/releases/download/latest/randomizer-updater.jar";
-    public static final String RANDOMIZER_VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/master/randomizer-backend/randomizer-model/src/main/resources/version.txt";
+    public static final String RANDOMIZER_VERSION_URL = "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/master/randomizer-model/src/main/resources/version.txt";
     public static final String RANDOMIZER_DOWNLOAD_URL = "https://github.com/Luziferium/randomizer-csgo/releases/download/latest/randomizer.jar";
     
     public static void update(File target, String downloadUrl) {
