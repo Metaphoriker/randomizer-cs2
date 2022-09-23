@@ -80,8 +80,10 @@ public class Main {
     }
     
     private static void startUpdaterIfNecessary() throws IOException {
-        if(Updater.isUpdateAvailable(new File("randomizer.jar"), Updater.RANDOMIZER_VERSION_URL)) {
-            Runtime.getRuntime().exec("java -jar randomizer-updater.jar -randomizerLocation=" + new File("randomizer.jar").getAbsolutePath());
+        
+        File thisFile = new File("randomizer.jar");
+        if(Updater.isUpdateAvailable(thisFile, Updater.RANDOMIZER_VERSION_URL)) {
+            Runtime.getRuntime().exec("java -jar randomizer-updater.jar -randomizerLocation=" + thisFile.getAbsolutePath());
             System.exit(0);
         }
     }
