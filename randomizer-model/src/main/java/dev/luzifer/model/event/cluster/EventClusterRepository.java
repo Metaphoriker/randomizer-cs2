@@ -1,5 +1,8 @@
 package dev.luzifer.model.event.cluster;
 
+import dev.luzifer.model.event.Event;
+import dev.luzifer.model.event.EventRegistry;
+
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -7,14 +10,16 @@ import java.util.Map;
 
 public class EventClusterRepository {
     
+    private final EventClusterDao eventClusterDao = new EventClusterDao();
+    
     private final Map<String, EventCluster> clusters = new HashMap<>();
     
     public void saveCluster(EventCluster cluster) {
-        // TODO: Dao
+        eventClusterDao.saveCluster(cluster);
     }
     
     public void deleteCluster(EventCluster cluster) {
-        // TODO: Dao
+        eventClusterDao.deleteCluster(cluster);
     }
     
     public void addCluster(EventCluster cluster) {
@@ -25,9 +30,19 @@ public class EventClusterRepository {
         clusters.remove(name);
     }
     
+    public EventCluster formatEventCluster(String name, String content) {
+    
+        String[] events = content.split(";");
+        List<Event> eventList = new ArrayList<>();
+    
+        for(String event : events)
+            eventList.add(EventRegistry.getByName(event));
+    
+        return new EventCluster(name, eventList.toArray(new Event[0]));
+    }
+    
     public List<EventCluster> loadClusters() {
-        // TODO: Dao
-        return null;
+        return eventClusterDao.loadClusters();
     }
     
     public EventCluster getCluster(String name) {

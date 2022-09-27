@@ -3,14 +3,14 @@ package dev.luzifer.model.exception;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintWriter;
+import java.text.DateFormat;
 
 public class UncaughtExceptionLogger implements Thread.UncaughtExceptionHandler {
 
-    private final File logFile;
+    public static final UncaughtExceptionLogger DEFAULT_UNCAUGHT_EXCEPTION_LOGGER = new UncaughtExceptionLogger();
     
-    public UncaughtExceptionLogger(File logFile) {
-        this.logFile = logFile;
-    }
+    private static final DateFormat DATE_FORMAT = DateFormat.getDateTimeInstance(DateFormat.SHORT, DateFormat.MEDIUM);
+    private static final File LOG_FILE = new File(System.getenv("APPDATA") + "\\randomizer\\logs", DATE_FORMAT.format(System.currentTimeMillis()) + ".log");
     
     @Override
     public void uncaughtException(Thread thread, Throwable throwable) {
@@ -24,15 +24,15 @@ public class UncaughtExceptionLogger implements Thread.UncaughtExceptionHandler 
     
     private void log(String message) {
         
-        if(!logFile.exists()) {
+        if(!LOG_FILE.exists()) {
             try {
-                logFile.createNewFile();
+                LOG_FILE.createNewFile();
             } catch (Exception e) {
                 throw new RuntimeException(e);
             }
         }
         
-        try(PrintWriter printWriter = new PrintWriter(new FileOutputStream(logFile, true))) {
+        try(PrintWriter printWriter = new PrintWriter(new FileOutputStream(LOG_FILE, true))) {
             printWriter.println(message);
             printWriter.flush();
         } catch (Exception e) {

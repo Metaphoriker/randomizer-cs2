@@ -1,37 +1,58 @@
 package dev.luzifer.gui.view.models;
 
 import dev.luzifer.model.event.Event;
-import dev.luzifer.model.event.EventRepository;
+import dev.luzifer.model.event.EventRegistry;
 import dev.luzifer.model.event.cluster.EventCluster;
 import dev.luzifer.model.event.cluster.EventClusterRepository;
 import dev.luzifer.gui.view.ViewModel;
+import dev.luzifer.model.json.JsonUtil;
 
 import java.util.List;
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class BuilderViewModel implements ViewModel {
     
-    private final EventRepository eventRepository;
     private final EventClusterRepository eventClusterRepository;
     
-    public BuilderViewModel(EventRepository eventRepository, EventClusterRepository eventClusterRepository) {
-        this.eventRepository = eventRepository;
+    public BuilderViewModel(EventClusterRepository eventClusterRepository) {
         this.eventClusterRepository = eventClusterRepository;
     }
     
+    public void saveCluster(String name, String content) {
+        eventClusterRepository.saveCluster(eventClusterRepository.formatEventCluster(name, content));
+    }
+    
+    public String serialize(Event event) {
+        return JsonUtil.serialize(event);
+    }
+    
+    public Event deserialize(String json) {
+        return JsonUtil.deserialize(json);
+    }
+    
     public Event getEvent(String name) {
-        return eventRepository.getByName(name);
+        return EventRegistry.getByName(name);
     }
     
-    public boolean isEventEnabled(Event event) {
-        return eventRepository.isEnabled(event);
+    public Event getRandomEvent() {
+        
+        Set<Event> events = EventRegistry.getEvents();
+        int index = ThreadLocalRandom.current().nextInt(0, events.size());
+        
+        return (Event) events.toArray()[index];
     }
     
-    public List<Event> getEvents() {
-        return eventRepository.getRegisteredEvents();
+    public Set<Event> getEvents() {
+        return EventRegistry.getEvents();
     }
     
     public List<EventCluster> getEventClusters() {
         return eventClusterRepository.getClusters();
+    }
+    
+    public List<EventCluster> loadEventClusters() {
+        return eventClusterRepository.loadClusters();
     }
     
 }
