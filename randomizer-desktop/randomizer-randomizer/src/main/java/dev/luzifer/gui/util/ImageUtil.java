@@ -3,7 +3,6 @@ package dev.luzifer.gui.util;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.paint.Paint;
 
 public final class ImageUtil {
 
