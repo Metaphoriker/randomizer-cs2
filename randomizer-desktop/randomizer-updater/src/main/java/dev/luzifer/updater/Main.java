@@ -38,13 +38,13 @@ public class Main {
                         jLabel.setText("No update available!");
                     }
                     Runtime.getRuntime().exec("java -jar " + randomizer.getAbsolutePath());
-                    System.exit(0);
-                    return;
+                    break;
                 }
             }
         } else {
             jLabel.setText("No randomizer location specified! DONT OPEN THIS JAR DIRECTLY!");
         }
-    }
     
+        System.exit(0);
+    }
 }
