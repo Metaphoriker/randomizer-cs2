@@ -14,7 +14,11 @@ import java.util.List;
 public class EventClusterDao {
     
     private static final File CLUSTER_FOLDER = new File(WhateverThisFuckerIs.getAppdataFolder() + File.separator + "cluster");
-    
+
+    static {
+        CLUSTER_FOLDER.mkdirs();
+    }
+
     public void saveCluster(EventCluster cluster) {
         
         File file = new File(CLUSTER_FOLDER, cluster.getName() + ".cluster");
@@ -47,7 +51,7 @@ public class EventClusterDao {
             
             if(!file.getName().endsWith(".cluster"))
                 continue;
-            
+
             String name = file.getName().replace(".cluster", "");
             EventCluster cluster;
             
@@ -67,7 +71,7 @@ public class EventClusterDao {
                     
                     eventArray[index++] = eventInstance;
                 }
-                
+
                 cluster = new EventCluster(name, eventArray);
             } catch (IOException e) {
                 throw new RuntimeException(e);
