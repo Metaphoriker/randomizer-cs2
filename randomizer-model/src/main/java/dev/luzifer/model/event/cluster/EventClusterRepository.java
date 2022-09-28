@@ -1,8 +1,5 @@
 package dev.luzifer.model.event.cluster;
 
-import dev.luzifer.model.event.Event;
-import dev.luzifer.model.event.EventRegistry;
-
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -29,18 +26,7 @@ public class EventClusterRepository {
     public void removeCluster(String name) {
         clusters.remove(name);
     }
-    
-    public EventCluster formatEventCluster(String name, String content) {
-    
-        String[] events = content.split(";");
-        List<Event> eventList = new ArrayList<>();
-    
-        for(String event : events)
-            eventList.add(EventRegistry.getByName(event));
-    
-        return new EventCluster(name, eventList.toArray(new Event[0]));
-    }
-    
+
     public List<EventCluster> loadClusters() {
         return eventClusterDao.loadClusters();
     }

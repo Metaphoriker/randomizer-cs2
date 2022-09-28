@@ -52,9 +52,7 @@ public class EventClusterDao {
             if(!file.getName().endsWith(".cluster"))
                 continue;
 
-            String name = file.getName().replace(".cluster", "");
             EventCluster cluster;
-            
             try {
                 
                 String content = Files.readAllLines(file.toPath()).get(0);
@@ -69,9 +67,11 @@ public class EventClusterDao {
                     if(eventInstance == null)
                         continue;
                     
-                    eventArray[index++] = eventInstance;
+                    eventArray[index] = eventInstance;
+                    index++;
                 }
 
+                String name = file.getName().replace(".cluster", "");
                 cluster = new EventCluster(name, eventArray);
             } catch (IOException e) {
                 throw new RuntimeException(e);

@@ -20,7 +20,7 @@ public class BuilderViewModel implements ViewModel {
     }
     
     public void saveCluster(String name, String content) {
-        eventClusterRepository.saveCluster(eventClusterRepository.formatEventCluster(name, content));
+        eventClusterRepository.saveCluster(EventCluster.formatEventCluster(name, content));
     }
     
     public String serialize(Event event) {
@@ -46,11 +46,7 @@ public class BuilderViewModel implements ViewModel {
     public Set<Event> getEvents() {
         return EventRegistry.getEvents();
     }
-    
-    public List<EventCluster> getEventClusters() {
-        return eventClusterRepository.getClusters();
-    }
-    
+
     public List<EventCluster> loadEventClusters() {
         return eventClusterRepository.loadClusters();
     }

@@ -1,12 +1,26 @@
 package dev.luzifer.model.event.cluster;
 
 import dev.luzifer.model.event.Event;
+import dev.luzifer.model.event.EventRegistry;
 
+import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.List;
 import java.util.Objects;
 
 public class EventCluster {
-    
+
+    public static EventCluster formatEventCluster(String name, String content) {
+
+        String[] events = content.split(";");
+        List<Event> eventList = new ArrayList<>();
+
+        for(String event : events)
+            eventList.add(EventRegistry.getByName(event));
+
+        return new EventCluster(name, eventList.toArray(new Event[0]));
+    }
+
     private final String name;
     private final Event[] events;
     
