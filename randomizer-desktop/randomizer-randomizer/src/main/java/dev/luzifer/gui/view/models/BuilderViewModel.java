@@ -50,5 +50,9 @@ public class BuilderViewModel implements ViewModel {
     public List<EventCluster> loadEventClusters() {
         return eventClusterRepository.loadClusters();
     }
+
+    public List<EventCluster> getClusters() {
+        return eventClusterRepository.getClusters();
+    }
     
 }

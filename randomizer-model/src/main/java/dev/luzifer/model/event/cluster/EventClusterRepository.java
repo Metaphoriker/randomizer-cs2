@@ -28,7 +28,8 @@ public class EventClusterRepository {
     }
 
     public List<EventCluster> loadClusters() {
-        return eventClusterDao.loadClusters();
+        updateCached();
+        return getClusters();
     }
     
     public EventCluster getCluster(String name) {
@@ -37,6 +38,12 @@ public class EventClusterRepository {
     
     public List<EventCluster> getClusters() {
         return new ArrayList<>(clusters.values());
+    }
+
+    private void updateCached() {
+        clusters.clear();
+        for(EventCluster cluster : eventClusterDao.loadClusters())
+            clusters.put(cluster.getName(), cluster);
     }
     
 }

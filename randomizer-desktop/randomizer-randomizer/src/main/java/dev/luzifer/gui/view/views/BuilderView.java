@@ -8,12 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
 import javafx.scene.Node;
-import javafx.scene.control.Button;
-import javafx.scene.control.ContentDisplay;
-import javafx.scene.control.Label;
-import javafx.scene.control.ScrollPane;
-import javafx.scene.control.Separator;
-import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.*;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -24,6 +19,7 @@ import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.Arrays;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -89,20 +85,15 @@ public class BuilderView extends View<BuilderViewModel> {
         if (clusterBuilderVBox.getChildren().isEmpty())
             return;
     
-        TextInputDialog clusterNameDialog = new TextInputDialog();
-        clusterNameDialog.setTitle(null);
-        clusterNameDialog.setHeaderText(null);
-        clusterNameDialog.setGraphic(null);
-        clusterNameDialog.setContentText("Cluster Name:");
-        clusterNameDialog.showAndWait();
-        
-        // TODO: check for invalid/duplicate names
-        
         StringBuilder stringBuilder = new StringBuilder();
         for(Node node : clusterBuilderVBox.getChildren())
-            stringBuilder.append(((Label) node).getText()).append(";");
-        
-        getViewModel().saveCluster(clusterNameDialog.getResult(), stringBuilder.toString());
+            stringBuilder.append(((Labeled) node).getText()).append(";");
+
+        String clusterName = awaitClusterName();
+        if(clusterName == null)
+            return;
+
+        getViewModel().saveCluster(clusterName, stringBuilder.toString());
     
         refreshCluster();
         clusterBuilderVBox.getChildren().clear();
@@ -258,5 +249,36 @@ public class BuilderView extends View<BuilderViewModel> {
     
             eventFlowPane.getChildren().add(label);
         });
+    }
+
+    private String awaitClusterName() {
+        while (true) {
+
+            TextInputDialog dialog = new TextInputDialog();
+            dialog.setTitle("Cluster Name");
+            dialog.setHeaderText("Enter a name for the cluster");
+            dialog.setContentText("Name:");
+
+            Optional<String> result = dialog.showAndWait();
+            if(!result.isPresent())
+                return null;
+
+            if (dialog.getResult().isEmpty() ||
+                    getViewModel().getClusters()
+                            .stream()
+                            .anyMatch(eventCluster -> eventCluster.getName().equals(dialog.getResult()))) {
+
+                Alert alert = new Alert(Alert.AlertType.ERROR);
+                alert.setTitle(null);
+                alert.setHeaderText(null);
+                alert.setGraphic(null);
+                alert.setContentText("Cluster name is empty or already exists!");
+                alert.showAndWait();
+
+                continue;
+            }
+
+            return dialog.getResult();
+        }
     }
 }
