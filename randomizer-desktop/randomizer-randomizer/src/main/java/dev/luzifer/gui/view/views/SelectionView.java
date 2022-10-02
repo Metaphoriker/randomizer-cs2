@@ -36,8 +36,6 @@ public class SelectionView extends View<SelectionViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        getIcons().add(ImageUtil.getImage("images/csgoremote_icon.png"));
-        
         CSSUtil.applyBasicStyle(root);
         root.getStyleClass().add("container");
         
@@ -53,7 +51,9 @@ public class SelectionView extends View<SelectionViewModel> {
     }
     
     private void setupGraphics() {
-        
+    
+        getIcons().add(ImageUtil.getImage("images/csgoremote_icon.png"));
+    
         logoShape.setFill(ImageUtil.getImagePattern("images/csgoremote_icon.png", ImageUtil.ImageResolution.ORIGINAL));
         
         randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
