@@ -3,7 +3,6 @@ package dev.luzifer.gui.view.views;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.RandomizerViewModel;
-import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.EventDispatcher;
 import dev.luzifer.model.event.cluster.EventCluster;
 import javafx.application.Platform;

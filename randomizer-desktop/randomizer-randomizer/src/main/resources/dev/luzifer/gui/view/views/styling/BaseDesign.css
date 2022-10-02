@@ -4,3 +4,7 @@
     -fx-background-color: #e0e0e0;
     -fx-background-radius: 5px;
 }
+
+.container {
+    -fx-base: #b3b3b3;
+}
