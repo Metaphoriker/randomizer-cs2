@@ -12,7 +12,7 @@ import java.util.List;
 
 public class RandomizerViewModel implements ViewModel {
     
-    private final StringProperty nextStateProperty = new SimpleStringProperty();
+    private final StringProperty nextStateProperty = new SimpleStringProperty("Run");
     private final EventClusterRepository eventClusterRepository;
     
     public RandomizerViewModel(EventClusterRepository eventClusterRepository) {
