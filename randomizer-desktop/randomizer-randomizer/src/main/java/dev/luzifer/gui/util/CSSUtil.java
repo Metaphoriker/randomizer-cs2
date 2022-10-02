@@ -8,7 +8,7 @@ import java.net.URL;
 
 public class CSSUtil {
     
-    private static final String STYLING_PATH = "styling" + File.separator;
+    private static final String STYLING_PATH = "styling/";
     
     public static void applyBasicStyle(Parent node) {
     
