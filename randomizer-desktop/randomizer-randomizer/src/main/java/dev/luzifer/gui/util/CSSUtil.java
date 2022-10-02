@@ -23,6 +23,16 @@ public class CSSUtil {
             throw new IllegalStateException("Could not find BaseDesign.css");
     }
     
+    public static void applyIndividualStyle(Parent node) {
+        
+        URL resource = node.getClass().getResource(STYLING_PATH + node.getClass().getSimpleName() + ".css");
+        
+        if(resource != null)
+            node.getStylesheets().add(resource.toExternalForm());
+        else
+            throw new IllegalStateException("Could not find " + STYLING_PATH + node.getClass().getSimpleName() + ".css \n Is it located in the correct folder?");
+    }
+    
     private CSSUtil() {
     }
 }
