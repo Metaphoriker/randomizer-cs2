@@ -39,23 +39,19 @@ public class RandomizerView extends View<RandomizerViewModel> {
         
         for(EventCluster cluster : getViewModel().getClusters()) {
             
-            EventDispatcher.registerGenericClusterHandler(cluster, ec -> {
-                Platform.runLater(() -> {
-                    
-                    Label label = new Label(cluster.getName());
-                    label.setGraphic(ImageUtil.getImageView("images/loading_gif.gif"));
-                    logVBox.getChildren().add(label);
-                });
-            });
+            EventDispatcher.registerGenericClusterHandler(cluster, ec -> Platform.runLater(() -> {
+                
+                Label label = new Label(cluster.getName());
+                label.setGraphic(ImageUtil.getImageView("images/loading_gif.gif"));
+                logVBox.getChildren().add(label);
+            }));
             
-            EventDispatcher.registerOnFinish(cluster, ec -> {
-                Platform.runLater(() -> {
-                    
-                    Label label = (Label) logVBox.getChildren().get(logVBox.getChildren().size() - 1);
-                    label.setGraphic(ImageUtil.getImageView("images/checkmark_icon.png"));
-                    logVBox.getChildren().set(logVBox.getChildren().size() - 1, label);
-                });
-            });
+            EventDispatcher.registerOnFinish(cluster, ec -> Platform.runLater(() -> {
+                
+                Label label = (Label) logVBox.getChildren().get(logVBox.getChildren().size() - 1);
+                label.setGraphic(ImageUtil.getImageView("images/checkmark_icon.png"));
+                logVBox.getChildren().set(logVBox.getChildren().size() - 1, label);
+            }));
         }
     }
     
