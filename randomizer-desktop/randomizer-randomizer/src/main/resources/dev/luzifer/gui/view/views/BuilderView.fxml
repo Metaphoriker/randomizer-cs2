@@ -28,7 +28,7 @@
                                           <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                                        </padding>
                                        <children>
-                                          <Button mnemonicParsing="false" text="Button" />
+                                          <Button fx:id="deleteClusterButton" mnemonicParsing="false" onAction="#onDeleteCluster" />
                                           <Button mnemonicParsing="false" text="Button" />
                                           <Button mnemonicParsing="false" text="Button" />
                                        </children>

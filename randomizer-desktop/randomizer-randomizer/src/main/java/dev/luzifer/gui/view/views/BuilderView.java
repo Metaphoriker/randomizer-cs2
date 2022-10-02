@@ -47,6 +47,9 @@ public class BuilderView extends View<BuilderViewModel> {
     private Button clearButton;
     
     @FXML
+    private Button deleteClusterButton;
+    
+    @FXML
     private ScrollPane clusterVBoxScrollPane;
     
     @FXML
@@ -103,6 +106,19 @@ public class BuilderView extends View<BuilderViewModel> {
     
     @FXML
     public void onClear(ActionEvent actionEvent) {
+        clusterBuilderVBox.getChildren().clear();
+    }
+    
+    @FXML
+    private void onDeleteCluster(ActionEvent actionEvent) {
+        
+        String clusterName = currentlyViewingLabel.getText().replace("Currently Viewing: ", "");
+        if(clusterName.isEmpty())
+            return;
+        
+        getViewModel().deleteCluster(currentlyViewingLabel.getText().replace("Currently Viewing: ", ""));
+        refreshCluster();
+        
         clusterBuilderVBox.getChildren().clear();
     }
     
@@ -227,6 +243,7 @@ public class BuilderView extends View<BuilderViewModel> {
         randomizerButton.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.OKAY));
         saveButton.setGraphic(ImageUtil.getImageView("images/plus_icon.png", ImageUtil.ImageResolution.OKAY));
         clearButton.setGraphic(ImageUtil.getImageView("images/delete_icon.png", ImageUtil.ImageResolution.OKAY));
+        deleteClusterButton.setGraphic(ImageUtil.getImageView("images/delete_icon.png", ImageUtil.ImageResolution.OKAY));
     }
     
     private void fillEventHBox() {
