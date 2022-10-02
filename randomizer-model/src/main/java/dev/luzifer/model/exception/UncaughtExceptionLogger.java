@@ -1,6 +1,6 @@
 package dev.luzifer.model.exception;
 
-import dev.luzifer.model.file.WhateverThisFuckerIs;
+import dev.luzifer.model.stuff.WhateverThisFuckerIs;
 
 import java.io.File;
 import java.io.FileOutputStream;

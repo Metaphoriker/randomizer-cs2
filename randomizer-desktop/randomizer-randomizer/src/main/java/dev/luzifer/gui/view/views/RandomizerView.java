@@ -35,6 +35,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
     
+        toggleButton.textProperty().bindBidirectional(getViewModel().getNextStateProperty());
         
         /* TODO: dev nodes on german, y'all suck
          *  - fuehrt aktuell 6x das MouseLeftClickEvent aus, da der den Handler dafür 3x registriert
@@ -78,6 +79,6 @@ public class RandomizerView extends View<RandomizerViewModel> {
     
     @FXML
     private void onToggle(ActionEvent actionEvent) {
-
+        getViewModel().reactToButtonWhatever();
     }
 }

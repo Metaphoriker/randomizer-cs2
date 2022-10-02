@@ -1,6 +1,8 @@
 package dev.luzifer.model.event;
 
+import dev.luzifer.model.ApplicationState;
 import dev.luzifer.model.event.cluster.EventClusterRepository;
+import dev.luzifer.model.stuff.WhateverThisFuckerIs;
 
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -15,7 +17,7 @@ public class EventExecutor extends Thread {
     @Override
     public void run() {
         
-        while (!isInterrupted()) { // TODO: check for application state
+        while (WhateverThisFuckerIs.getApplicationState() == ApplicationState.RUNNING) {
             
             EventDispatcher.dispatchCluster(eventClusterRepository.getClusters().get(ThreadLocalRandom.current().nextInt(0, eventClusterRepository.getClusters().size())));
             

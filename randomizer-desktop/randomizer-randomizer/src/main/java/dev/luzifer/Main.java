@@ -16,7 +16,7 @@ import dev.luzifer.model.event.events.MoveEvent;
 import dev.luzifer.model.event.events.ReloadEvent;
 import dev.luzifer.model.event.events.ShiftEvent;
 import dev.luzifer.model.exception.UncaughtExceptionLogger;
-import dev.luzifer.model.file.WhateverThisFuckerIs;
+import dev.luzifer.model.stuff.WhateverThisFuckerIs;
 import dev.luzifer.model.messages.Messages;
 import dev.luzifer.model.scheduler.Scheduler;
 import dev.luzifer.model.scheduler.SchedulerThread;

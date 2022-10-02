@@ -2,7 +2,7 @@ package dev.luzifer.model.event.cluster;
 
 import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.EventRegistry;
-import dev.luzifer.model.file.WhateverThisFuckerIs;
+import dev.luzifer.model.stuff.WhateverThisFuckerIs;
 
 import java.io.File;
 import java.io.IOException;
