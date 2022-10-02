@@ -233,11 +233,7 @@ public class BuilderView extends View<BuilderViewModel> {
     }
     
     private void setupStyling() {
-        
         root.getStylesheets().add(getClass().getResource("styling/BaseDesign.css").toExternalForm());
-        root.getStylesheets().add(getClass().getResource("styling/BuilderView.css").toExternalForm());
-        
-        root.getStyleClass().add("container");
     }
     
     private void setGraphics() {

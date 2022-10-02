@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.BuilderView">
+<VBox fx:id="root" styleClass="container" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.BuilderView">
    <children>
       <Label fx:id="currentlyViewingLabel" text="Currently Viewing:" />
       <SplitPane dividerPositions="0.6655518394648828" orientation="VERTICAL" prefHeight="425.0" prefWidth="775.0" VBox.vgrow="ALWAYS">
