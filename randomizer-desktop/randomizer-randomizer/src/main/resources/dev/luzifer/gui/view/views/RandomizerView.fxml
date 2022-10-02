@@ -8,7 +8,7 @@
 <VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="532.0" prefWidth="931.0" spacing="10.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.RandomizerView">
    <children>
       <VBox fx:id="logVBox" prefHeight="702.0" prefWidth="931.0" VBox.vgrow="ALWAYS" />
-      <Button fx:id="toggleButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#onToggle" text="Run" VBox.vgrow="NEVER">
+      <Button fx:id="toggleButton" alignment="TOP_LEFT" mnemonicParsing="false" onAction="#onToggle" text="Run" VBox.vgrow="NEVER" focusTraversable="false">
          <VBox.margin>
             <Insets bottom="10.0" />
          </VBox.margin>
