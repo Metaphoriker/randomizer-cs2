@@ -38,6 +38,7 @@ public class Main {
         setupAppdataFolder();
         
         registerEvents();
+        cacheCluster();
 
         startScheduler();
         startEventExecutor();
@@ -54,6 +55,10 @@ public class Main {
     
     public static EventClusterRepository getEventClusterRepository() {
         return EVENT_CLUSTER_REPOSITORY;
+    }
+    
+    private static void cacheCluster() {
+        EVENT_CLUSTER_REPOSITORY.loadClusters();
     }
     
     private static void startUpdaterIfNecessary(String path) throws IOException, URISyntaxException {

@@ -16,8 +16,11 @@ public class EventExecutor extends Thread {
     public void run() {
         
         while (!isInterrupted()) { // TODO: check for application state
+            
+            EventDispatcher.dispatchCluster(eventClusterRepository.getClusters().get(ThreadLocalRandom.current().nextInt(0, eventClusterRepository.getClusters().size())));
+            
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(10*1000, 45*1000));
+                Thread.sleep(ThreadLocalRandom.current().nextInt(10*1000, 11*1000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }

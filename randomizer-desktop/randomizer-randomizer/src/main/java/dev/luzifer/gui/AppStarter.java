@@ -18,7 +18,7 @@ public class AppStarter extends Application {
         
         ViewController viewController = new ViewController();
         viewController.showView(new SelectionView(new SelectionViewModel(
-                () -> viewController.showView(new RandomizerView(new RandomizerViewModel())),
+                () -> viewController.showView(new RandomizerView(new RandomizerViewModel(Main.getEventClusterRepository()))),
                 () -> viewController.showView(new BuilderView(new BuilderViewModel(Main.getEventClusterRepository()))))));
     }
     
