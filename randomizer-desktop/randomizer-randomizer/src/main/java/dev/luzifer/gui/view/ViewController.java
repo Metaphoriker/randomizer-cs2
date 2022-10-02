@@ -1,5 +1,6 @@
 package dev.luzifer.gui.view;
 
+import dev.luzifer.model.updater.Updater;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -32,7 +33,7 @@ public class ViewController {
         Scene scene = new Scene(root);
 
         view.setScene(scene);
-        view.setTitle(title);
+        view.setTitle(title + " - v" + Updater.getCurrentVersion());
         view.setOnHiding(event -> {
             view.onClose();
             viewMap.remove(title);
