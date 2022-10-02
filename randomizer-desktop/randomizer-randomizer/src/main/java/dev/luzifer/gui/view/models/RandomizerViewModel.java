@@ -2,6 +2,8 @@ package dev.luzifer.gui.view.models;
 
 import dev.luzifer.gui.view.ViewModel;
 import dev.luzifer.model.ApplicationState;
+import dev.luzifer.model.event.Event;
+import dev.luzifer.model.event.EventRegistry;
 import dev.luzifer.model.event.cluster.EventCluster;
 import dev.luzifer.model.event.cluster.EventClusterRepository;
 import dev.luzifer.model.stuff.WhateverThisFuckerIs;
@@ -9,6 +11,7 @@ import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 
 import java.util.List;
+import java.util.Set;
 
 public class RandomizerViewModel implements ViewModel {
     
@@ -27,6 +30,10 @@ public class RandomizerViewModel implements ViewModel {
             WhateverThisFuckerIs.setApplicationState(ApplicationState.IDLING);
             nextStateProperty.setValue("Run");
         }
+    }
+    
+    public Set<Event> getEvents() {
+        return EventRegistry.getEvents();
     }
     
     public List<EventCluster> getClusters() {
