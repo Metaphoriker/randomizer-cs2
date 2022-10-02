@@ -55,7 +55,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
         getViewModel().getClusters().forEach(cluster -> {
             EventDispatcher.registerGenericClusterHandler(cluster, ec -> Platform.runLater(() -> {
                 TitledClusterContainer titledClusterContainer = new TitledClusterContainer(cluster.getName(), cluster);
-                logVBox.getChildren().add(titledClusterContainer);
+                logVBox.getChildren().add(0, titledClusterContainer);
             }));
     
             EventDispatcher.registerOnFinish(cluster, ec -> Platform.runLater(() -> {

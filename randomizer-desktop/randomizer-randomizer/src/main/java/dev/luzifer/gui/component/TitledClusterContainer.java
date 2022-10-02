@@ -33,6 +33,7 @@ public class TitledClusterContainer extends TitledPane {
     
     public void finish() {
         setGraphic(ImageUtil.getImageView("images/checkmark_icon.png", ImageUtil.ImageResolution.MEDIUM));
+        setExpanded(false);
     }
     
     public void finish(Event event) {
