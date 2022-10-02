@@ -233,6 +233,7 @@ public class BuilderView extends View<BuilderViewModel> {
     }
     
     private void setupStyling() {
+        root.getStylesheets().add(getClass().getResource("styling/BaseDesign.css").toExternalForm());
         root.getStylesheets().add(getClass().getResource("styling/BuilderView.css").toExternalForm());
     }
     
@@ -258,6 +259,7 @@ public class BuilderView extends View<BuilderViewModel> {
             label.setFont(new Font("Arial", 16));
             label.setTooltip(new Tooltip(event.description()));
             label.setGraphic(ImageUtil.getImageView("images/drag_icon.png", ImageUtil.ImageResolution.SMALL));
+            label.getStyleClass().add("label");
             label.getGraphic().setOpacity(0);
     
             label.setOnMouseEntered(mouseEvent -> label.getGraphic().setOpacity(1));
