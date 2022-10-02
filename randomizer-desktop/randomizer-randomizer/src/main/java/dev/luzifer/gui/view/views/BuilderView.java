@@ -239,6 +239,7 @@ public class BuilderView extends View<BuilderViewModel> {
             label.setContentDisplay(ContentDisplay.RIGHT);
             label.setPadding(new Insets(0, 0, 0, 5));
             label.setFont(new Font("Arial", 16));
+            label.setTooltip(new Tooltip(event.description()));
             label.setGraphic(ImageUtil.getImageView("images/drag_icon.png", ImageUtil.ImageResolution.SMALL));
             label.getGraphic().setOpacity(0);
     
