@@ -6,20 +6,21 @@ import dev.luzifer.model.stuff.WhateverThisFuckerIs;
 
 import java.util.concurrent.ThreadLocalRandom;
 
-public class EventExecutor extends Thread {
+public class EventExecutorRunnable implements Runnable {
     
     private final EventClusterRepository eventClusterRepository;
     
-    public EventExecutor(EventClusterRepository eventClusterRepository) {
+    public EventExecutorRunnable(EventClusterRepository eventClusterRepository) {
         this.eventClusterRepository = eventClusterRepository;
     }
     
     @Override
     public void run() {
         
-        while (WhateverThisFuckerIs.getApplicationState() == ApplicationState.RUNNING) {
+        while (true) {
             
-            EventDispatcher.dispatchCluster(eventClusterRepository.getClusters().get(ThreadLocalRandom.current().nextInt(0, eventClusterRepository.getClusters().size())));
+            if(WhateverThisFuckerIs.getApplicationState() == ApplicationState.RUNNING)
+                EventDispatcher.dispatchCluster(eventClusterRepository.getClusters().get(ThreadLocalRandom.current().nextInt(0, eventClusterRepository.getClusters().size())));
             
             try {
                 Thread.sleep(ThreadLocalRandom.current().nextInt(10*1000, 11*1000));

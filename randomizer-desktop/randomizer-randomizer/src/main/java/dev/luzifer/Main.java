@@ -1,6 +1,6 @@
 package dev.luzifer;
 
-import dev.luzifer.model.event.EventExecutor;
+import dev.luzifer.model.event.EventExecutorRunnable;
 import dev.luzifer.model.event.EventRegistry;
 import dev.luzifer.model.event.cluster.EventClusterRepository;
 import dev.luzifer.model.event.events.CrouchEvent;
@@ -99,8 +99,8 @@ public class Main {
     }
     
     private static void startEventExecutor() {
-        
-        EventExecutor eventExecutor = new EventExecutor(EVENT_CLUSTER_REPOSITORY);
+    
+        Thread eventExecutor = new Thread(new EventExecutorRunnable(EVENT_CLUSTER_REPOSITORY));
         eventExecutor.setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
         eventExecutor.setDaemon(true);
         eventExecutor.start();

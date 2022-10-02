@@ -16,7 +16,7 @@ import java.io.File;
 public class WhateverThisFuckerIs {
     
     private static final File APPDATA_FOLDER = new File(System.getenv("APPDATA") + File.separator + "randomizer");
-    private static ApplicationState applicationState = ApplicationState.IDLING;
+    private static volatile ApplicationState applicationState = ApplicationState.IDLING;
     
     public static void setApplicationState(ApplicationState applicationState) {
         WhateverThisFuckerIs.applicationState = applicationState;
