@@ -12,6 +12,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
+// TODO: This class should not know any model stuff since its UI
 public class TitledClusterContainer extends TitledPane {
     
     private final VBox vBox = new VBox();
