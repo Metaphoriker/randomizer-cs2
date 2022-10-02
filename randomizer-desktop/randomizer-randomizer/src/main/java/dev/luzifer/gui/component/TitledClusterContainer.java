@@ -1,5 +1,6 @@
 package dev.luzifer.gui.component;
 
+import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.cluster.EventCluster;
@@ -19,6 +20,9 @@ public class TitledClusterContainer extends TitledPane {
     public TitledClusterContainer(String title, EventCluster eventCluster) {
         
         this.eventCluster = eventCluster;
+    
+        CSSUtil.applyBasicStyle(this);
+        getStyleClass().add("container");
         
         setText(title);
         setContent(vBox);

@@ -1,6 +1,7 @@
 package dev.luzifer.gui.view.views;
 
 import com.google.gson.JsonSyntaxException;
+import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.BuilderViewModel;
@@ -233,7 +234,7 @@ public class BuilderView extends View<BuilderViewModel> {
     }
     
     private void setupStyling() {
-        root.getStylesheets().add(getClass().getResource("styling/BaseDesign.css").toExternalForm());
+        CSSUtil.applyBasicStyle(root);
     }
     
     private void setGraphics() {
