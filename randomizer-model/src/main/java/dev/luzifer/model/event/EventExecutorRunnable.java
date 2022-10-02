@@ -23,7 +23,7 @@ public class EventExecutorRunnable implements Runnable {
                 EventDispatcher.dispatchCluster(eventClusterRepository.getClusters().get(ThreadLocalRandom.current().nextInt(0, eventClusterRepository.getClusters().size())));
             
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(5*1000, 11*1000));
+                Thread.sleep(ThreadLocalRandom.current().nextInt(20*1000, 60*1000));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
