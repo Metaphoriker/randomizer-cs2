@@ -30,7 +30,7 @@ public class FileSystemWatcher implements Runnable {
                     Path filename = ev.context();
 
                     if (filename.toString().endsWith(".cluster"))
-                        Speaker.notify(new Notification(getClass(), "Cluster " + filename + " was " + kind.name().toLowerCase()));
+                        Speaker.notify(new Notification(getClass(), filename.toString()));
                 }
                 key.reset();
             }

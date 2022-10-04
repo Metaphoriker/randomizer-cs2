@@ -31,7 +31,11 @@ public class RandomizerViewModel implements ViewModel {
             nextStateProperty.setValue("Run");
         }
     }
-    
+
+    public EventCluster getCluster(String name) {
+        return eventClusterRepository.getCluster(name);
+    }
+
     public Set<Event> getEvents() {
         return EventRegistry.getEvents();
     }

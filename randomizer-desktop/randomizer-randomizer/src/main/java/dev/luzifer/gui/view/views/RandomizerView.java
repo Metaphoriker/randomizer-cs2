@@ -6,7 +6,9 @@ import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.RandomizerViewModel;
 import dev.luzifer.model.event.EventDispatcher;
+import dev.luzifer.model.event.cluster.EventCluster;
 import dev.luzifer.model.notify.Speaker;
+import dev.luzifer.model.watcher.FileSystemWatcher;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -39,7 +41,33 @@ public class RandomizerView extends View<RandomizerViewModel> {
         getIcons().add(ImageUtil.getImage("images/shuffle_icon.png"));
 
         toggleButton.textProperty().bindBidirectional(getViewModel().getNextStateProperty());
-    
+
+        // what a bad design... & big fat boilerplate TODO: refact this + its viewmodel stuff as well
+        Speaker.addListener(notification -> {
+
+            if(notification.getNotifier() == FileSystemWatcher.class) {
+
+                EventCluster cluster = getViewModel().getCluster(notification.getKey().replace(".cluster", ""));
+
+                EventDispatcher.registerGenericClusterHandler(cluster, ec -> Platform.runLater(() -> {
+                    TitledClusterContainer titledClusterContainer = new TitledClusterContainer(cluster.getName(), cluster);
+                    logVBox.getChildren().add(0, titledClusterContainer);
+                }));
+
+                EventDispatcher.registerOnFinish(cluster, ec -> Platform.runLater(() -> {
+
+                    TitledClusterContainer titledClusterContainer = (TitledClusterContainer) logVBox.getChildren().stream()
+                            .filter(TitledClusterContainer.class::isInstance)
+                            .filter(node -> ((TitledClusterContainer) node).getEventCluster().equals(cluster))
+                            .reduce((first, second) -> second)
+                            .orElse(null);
+
+                    if(titledClusterContainer != null)
+                        titledClusterContainer.finish();
+                }));
+            }
+        });
+
         // TODO: viewmodel stuff
         getViewModel().getEvents().forEach(event -> {
             EventDispatcher.registerOnFinish(event, e -> {
