@@ -10,14 +10,14 @@ public class Main {
     
     public static void main(String[] args) throws IOException {
     
-        JFrame jFrame = new JFrame();
-        jFrame.pack();
+        JFrame jFrame = new JFrame("Updater");
+        jFrame.setSize(500, 100);
         jFrame.setLocationRelativeTo(null);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         jFrame.setVisible(true);
 
         JLabel jLabel = new JLabel();
-        jLabel.setIcon(new ImageIcon(Main.class.getResource("/images/loading_gif.gif")));
+        jLabel.setIcon(new ImageIcon(Main.class.getResource("images/loading_gif.gif")));
         jFrame.add(jLabel);
     
         jLabel.setText("Checking for updates...");
@@ -39,7 +39,7 @@ public class Main {
                     } else {
                         jLabel.setText("No update available!");
                     }
-                    jLabel.setIcon(new ImageIcon(Main.class.getResource("/images/checkmark_icon.png")));
+                    jLabel.setIcon(new ImageIcon(Main.class.getResource("images/checkmark_icon.png")));
                     Runtime.getRuntime().exec("java -jar " + randomizer.getAbsolutePath());
                     break;
                 }
@@ -47,7 +47,6 @@ public class Main {
         } else {
             jLabel.setText("No randomizer location specified! DONT OPEN THIS JAR DIRECTLY!");
         }
-    
         System.exit(0);
     }
 }
