@@ -234,7 +234,7 @@ public class BuilderView extends View<BuilderViewModel> {
     }
     
     private void setupStyling() {
-        CSSUtil.applyBasicStyle(root);
+        CSSUtil.applyDarkTheme(root);
     }
     
     private void setGraphics() {

@@ -1,6 +1,7 @@
 package dev.luzifer.gui.view.views;
 
 import dev.luzifer.gui.component.TitledClusterContainer;
+import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.RandomizerViewModel;
@@ -32,7 +33,8 @@ public class RandomizerView extends View<RandomizerViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
-    
+
+        CSSUtil.applyDarkTheme(root);
         getIcons().add(ImageUtil.getImage("images/shuffle_icon.png"));
         
         toggleButton.textProperty().bindBidirectional(getViewModel().getNextStateProperty());

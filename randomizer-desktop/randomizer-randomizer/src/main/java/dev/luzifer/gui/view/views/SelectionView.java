@@ -36,8 +36,7 @@ public class SelectionView extends View<SelectionViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        CSSUtil.applyBasicStyle(root);
-        root.getStyleClass().add("container");
+        CSSUtil.applyDarkTheme(root);
         
         setResizable(false);
 
