@@ -12,8 +12,9 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventClusterDao {
-    
-    private static final File CLUSTER_FOLDER = new File(WhateverThisFuckerIs.getAppdataFolder() + File.separator + "cluster");
+
+    // big no no to be public but i'm lazy
+    public static final File CLUSTER_FOLDER = new File(WhateverThisFuckerIs.getAppdataFolder() + File.separator + "cluster");
 
     static {
         CLUSTER_FOLDER.mkdirs();

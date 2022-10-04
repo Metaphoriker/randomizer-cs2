@@ -16,12 +16,14 @@ import dev.luzifer.model.event.events.MoveEvent;
 import dev.luzifer.model.event.events.ReloadEvent;
 import dev.luzifer.model.event.events.ShiftEvent;
 import dev.luzifer.model.exception.UncaughtExceptionLogger;
+import dev.luzifer.model.notify.Speaker;
 import dev.luzifer.model.stuff.WhateverThisFuckerIs;
 import dev.luzifer.model.messages.Messages;
 import dev.luzifer.model.scheduler.Scheduler;
 import dev.luzifer.model.scheduler.SchedulerThread;
 import dev.luzifer.gui.AppStarter;
 import dev.luzifer.model.updater.Updater;
+import dev.luzifer.model.watcher.FileSystemWatcher;
 import javafx.application.Application;
 
 import java.io.File;
@@ -42,6 +44,12 @@ public class Main {
 
         startScheduler();
         startEventExecutor();
+        startFileWatcher();
+
+        Speaker.addListener(notification -> {
+            if(notification.getNotifier() == FileSystemWatcher.class)
+                cacheCluster();
+        });
 
         Messages.cache();
         Thread.currentThread().setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
@@ -104,6 +112,14 @@ public class Main {
         eventExecutor.setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
         eventExecutor.setDaemon(true);
         eventExecutor.start();
+    }
+
+    private static void startFileWatcher() {
+
+        Thread fileWatcher = new Thread(new FileSystemWatcher());
+        fileWatcher.setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
+        fileWatcher.setDaemon(true);
+        fileWatcher.start();
     }
     
     private static void registerEvents() {

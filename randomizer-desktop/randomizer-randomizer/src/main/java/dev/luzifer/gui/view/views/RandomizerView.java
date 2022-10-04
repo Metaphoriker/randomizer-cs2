@@ -6,6 +6,7 @@ import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.RandomizerViewModel;
 import dev.luzifer.model.event.EventDispatcher;
+import dev.luzifer.model.notify.Speaker;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -36,7 +37,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
 
         CSSUtil.applyNightTheme(root);
         getIcons().add(ImageUtil.getImage("images/shuffle_icon.png"));
-        
+
         toggleButton.textProperty().bindBidirectional(getViewModel().getNextStateProperty());
     
         // TODO: viewmodel stuff
