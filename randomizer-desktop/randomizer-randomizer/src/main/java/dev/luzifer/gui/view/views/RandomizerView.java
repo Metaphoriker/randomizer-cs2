@@ -34,7 +34,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
 
-        CSSUtil.applyDarkTheme(root);
+        CSSUtil.applyNightTheme(root);
         getIcons().add(ImageUtil.getImage("images/shuffle_icon.png"));
         
         toggleButton.textProperty().bindBidirectional(getViewModel().getNextStateProperty());

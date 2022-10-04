@@ -36,10 +36,9 @@ public class SelectionView extends View<SelectionViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
 
-        CSSUtil.applyDarkTheme(root);
-        
         setResizable(false);
 
+        setupStyling();
         setupGraphics();
         setupMouseEvents();
     }
@@ -48,7 +47,15 @@ public class SelectionView extends View<SelectionViewModel> {
     public void onClose() {
         System.exit(0);
     }
-    
+
+    private void setupStyling() {
+
+        CSSUtil.applyNightTheme(root);
+        CSSUtil.applyBasicStyle(root);
+
+        root.getStyleClass().add("container");
+    }
+
     private void setupGraphics() {
     
         getIcons().add(ImageUtil.getImage("images/csgoremote_icon.png"));

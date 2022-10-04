@@ -1,46 +1,34 @@
 .root {
--fx-base: rgb(50, 50, 50);
--fx-background: rgb(50, 50, 50);
--fx-control-inner-background:  rgb(50, 50, 50);
+    -fx-accent: #1e74c6;
+    -fx-focus-color: -fx-accent;
+    -fx-base: #373e43;
+    -fx-control-inner-background: derive(-fx-base, 35%);
+    -fx-control-inner-background-alt: -fx-control-inner-background ;
 }
 
-.tab {
--fx-background-color: linear-gradient(to top, -fx-base, derive(-fx-base,30%));
+.label{
+    -fx-text-fill: lightgray;
 }
 
-.menu-bar {
--fx-background-color: linear-gradient(to bottom, -fx-base, derive(-fx-base,30%));
+.text-field {
+    -fx-prompt-text-fill: gray;
 }
 
-.tool-bar:horizontal {
--fx-background-color:
-linear-gradient(to bottom, derive(-fx-base,+50%), derive(-fx-base,-40%), derive(-fx-base,-20%));
+.titulo{
+    -fx-font-weight: bold;
+    -fx-font-size: 18px;
 }
 
-.button {
--fx-background-color: transparent;
+.button{
+    -fx-focus-traversable: false;
 }
 
-.button:hover {
--fx-background-color: -fx-shadow-highlight-color, -fx-outer-border, -fx-inner-border, -fx-body-color;
--fx-color: -fx-hover-base;
+.button:hover{
+    -fx-text-fill: white;
 }
 
-.table-view {
--fx-table-cell-border-color:derive(-fx-base,+10%);
--fx-table-header-border-color:derive(-fx-base,+20%);
-}
-
-.split-pane:horizontal > * > .split-pane-divider {
--fx-border-color: transparent -fx-base transparent -fx-base;
--fx-background-color: transparent, derive(-fx-base,20%);
--fx-background-insets: 0, 0 1 0 1;
-}
-
-.my-gridpane {
--fx-background-color: radial-gradient(radius 100%, derive(-fx-base,20%), derive(-fx-base,-20%));
-}
-
-.separator-label {
--fx-text-fill: orange;
+.separator *.line {
+    -fx-background-color: #3C3C3C;
+    -fx-border-style: solid;
+    -fx-border-width: 1px;
 }

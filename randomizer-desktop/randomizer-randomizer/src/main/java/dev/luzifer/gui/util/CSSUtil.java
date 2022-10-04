@@ -21,6 +21,14 @@ public class CSSUtil {
         applyTheme(node, Theme.DARK);
     }
 
+    public static void applyLightTheme(Parent node) {
+        applyTheme(node, Theme.LIGHT);
+    }
+
+    public static void applyNightTheme(Parent node) {
+        applyTheme(node, Theme.NIGHT);
+    }
+
     /**
      * Applies the CSS file with the same name as the class to the given node.
      * @param node The node to apply the CSS to.
@@ -61,7 +69,9 @@ public class CSSUtil {
 
     private enum Theme {
 
-        DARK("Dark", "DarkTheme");
+        DARK("Dark", "DarkTheme"),
+        LIGHT("LIGHT", "LightTheme"),
+        NIGHT("Night", "NightTheme");
 
         private final String name;
         private final String fileName;
