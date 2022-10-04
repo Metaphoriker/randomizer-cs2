@@ -1,5 +1,6 @@
 package dev.luzifer.updater;
 
+import dev.luzifer.model.exception.UncaughtExceptionLogger;
 import dev.luzifer.model.updater.Updater;
 
 import javax.swing.*;
@@ -9,7 +10,9 @@ import java.io.IOException;
 public class Main {
     
     public static void main(String[] args) throws IOException {
-    
+
+        Thread.currentThread().setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
+
         JFrame jFrame = new JFrame("Updater");
         jFrame.setSize(500, 100);
         jFrame.setLocationRelativeTo(null);
