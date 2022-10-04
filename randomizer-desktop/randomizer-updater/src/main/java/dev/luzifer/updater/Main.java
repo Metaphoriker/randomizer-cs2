@@ -11,11 +11,13 @@ public class Main {
     public static void main(String[] args) throws IOException {
     
         JFrame jFrame = new JFrame();
+        jFrame.pack();
+        jFrame.setLocationRelativeTo(null);
         jFrame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        jFrame.setSize(500, 50);
         jFrame.setVisible(true);
-    
+
         JLabel jLabel = new JLabel();
+        jLabel.setIcon(new ImageIcon(Main.class.getResource("/images/loading_gif.gif")));
         jFrame.add(jLabel);
     
         jLabel.setText("Checking for updates...");
@@ -37,6 +39,7 @@ public class Main {
                     } else {
                         jLabel.setText("No update available!");
                     }
+                    jLabel.setIcon(new ImageIcon(Main.class.getResource("/images/checkmark_icon.png")));
                     Runtime.getRuntime().exec("java -jar " + randomizer.getAbsolutePath());
                     break;
                 }
