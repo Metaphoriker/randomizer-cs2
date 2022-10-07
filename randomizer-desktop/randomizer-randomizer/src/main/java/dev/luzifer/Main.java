@@ -13,6 +13,7 @@ import dev.luzifer.model.event.events.MouseLeftClickEvent;
 import dev.luzifer.model.event.events.MouseMoveEvent;
 import dev.luzifer.model.event.events.MouseRightClickEvent;
 import dev.luzifer.model.event.events.MoveEvent;
+import dev.luzifer.model.event.events.PauseEvent;
 import dev.luzifer.model.event.events.ReloadEvent;
 import dev.luzifer.model.event.events.ShiftEvent;
 import dev.luzifer.model.exception.UncaughtExceptionLogger;
@@ -136,6 +137,7 @@ public class Main {
         EventRegistry.register(new DropWeaponEvent());
         EventRegistry.register(new EmptyMagazineEvent());
         EventRegistry.register(new IWannaKnifeEvent());
+        EventRegistry.register(new PauseEvent());
     }
     
 }
