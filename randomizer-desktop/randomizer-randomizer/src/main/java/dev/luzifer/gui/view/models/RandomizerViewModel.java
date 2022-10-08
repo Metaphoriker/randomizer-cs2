@@ -26,6 +26,7 @@ public class RandomizerViewModel implements ViewModel {
     private final IntegerProperty minWaitTimeProperty = new SimpleIntegerProperty();
     private final IntegerProperty maxWaitTimeProperty = new SimpleIntegerProperty();
     private final StringProperty nextStateProperty = new SimpleStringProperty("Run");
+    
     private final EventClusterRepository eventClusterRepository;
     
     public RandomizerViewModel(EventClusterRepository eventClusterRepository) {
