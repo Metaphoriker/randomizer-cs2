@@ -54,6 +54,9 @@ public class BuilderView extends View<BuilderViewModel> {
     @FXML
     private ScrollPane clusterVBoxScrollPane;
     
+    @FXML
+    private Label totalClusterLabel;
+    
     public BuilderView(BuilderViewModel viewModel) {
         super(viewModel);
     }
@@ -76,7 +79,7 @@ public class BuilderView extends View<BuilderViewModel> {
             
             EventCluster eventCluster = getViewModel().getCluster(newValue.getText());
             try {
-                Arrays.stream(eventCluster.getEvents()).forEach(event -> {
+                eventCluster.getEvents().forEach(event -> {
             
                     Label eventLabel = new Label(event.name());
                     setupDragAlreadyDropped(eventLabel);
@@ -153,6 +156,8 @@ public class BuilderView extends View<BuilderViewModel> {
     
             clusterListView.getItems().add(label);
         });
+        
+        totalClusterLabel.setText(String.valueOf(clusterListView.getItems().size()));
     }
     
     private void setupDrag(Label node) {

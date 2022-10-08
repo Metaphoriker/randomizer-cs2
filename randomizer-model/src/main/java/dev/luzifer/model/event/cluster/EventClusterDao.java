@@ -59,7 +59,7 @@ public class EventClusterDao {
                 String content = Files.readAllLines(file.toPath()).get(0);
                 String[] events = content.split(";");
                 
-                Event[] eventArray = new Event[events.length];
+                List<Event> eventList = new ArrayList<>(events.length);
                 
                 int index = 0;
                 for(String event : events) {
@@ -67,13 +67,13 @@ public class EventClusterDao {
                     Event eventInstance = EventRegistry.getByName(event);
                     if(eventInstance == null)
                         continue;
-                    
-                    eventArray[index] = eventInstance;
+    
+                    eventList.add(eventInstance);
                     index++;
                 }
 
                 String name = file.getName().replace(".cluster", "");
-                cluster = new EventCluster(name, eventArray);
+                cluster = new EventCluster(name, eventList);
             } catch (IOException e) {
                 throw new RuntimeException(e);
             }

@@ -5,11 +5,7 @@ import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.RandomizerViewModel;
-import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.EventDispatcher;
-import dev.luzifer.model.event.cluster.EventCluster;
-import dev.luzifer.model.notify.Speaker;
-import dev.luzifer.model.watcher.FileSystemWatcher;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -42,68 +38,34 @@ public class RandomizerView extends View<RandomizerViewModel> {
         getIcons().add(ImageUtil.getImage("images/shuffle_icon.png"));
 
         toggleButton.textProperty().bindBidirectional(getViewModel().getNextStateProperty());
-
-        // what a bad design... & big fat boilerplate TODO: refact this + its viewmodel stuff as well
-        Speaker.addListener(notification -> {
-
-            if(notification.getNotifier() == FileSystemWatcher.class) {
-
-                EventCluster cluster = getViewModel().getCluster(notification.getKey().replace(".cluster", ""));
-    
-                EventDispatcher.registerGenericClusterHandler(cluster, ec -> Platform.runLater(() -> {
-                    TitledClusterContainer titledClusterContainer = new TitledClusterContainer(cluster.getName(), cluster);
-                    logVBox.getChildren().add(0, titledClusterContainer);
-                }));
-    
-                EventDispatcher.registerOnFinish(cluster, ec -> Platform.runLater(() -> {
-                    logVBox.getChildren().stream()
-                            .filter(TitledClusterContainer.class::isInstance)
-                            .filter(node -> ((TitledClusterContainer) node).getEventCluster().equals(cluster))
-                            .reduce((first, second) -> second)
-                            .map(TitledClusterContainer.class::cast)
-                            .ifPresent(TitledClusterContainer::finish);
-                }));
-            }
-        });
-
-        // TODO: Viewmodel stuff
+        
         getViewModel().getClusters().forEach(cluster -> {
             
-            EventDispatcher.registerGenericClusterHandler(cluster, ec -> Platform.runLater(() -> {
-                TitledClusterContainer titledClusterContainer = new TitledClusterContainer(cluster.getName(), cluster);
-                logVBox.getChildren().add(0, titledClusterContainer);
-            }));
-    
-            EventDispatcher.registerOnFinish(cluster, ec -> Platform.runLater(() -> {
-                logVBox.getChildren().stream()
-                        .filter(TitledClusterContainer.class::isInstance)
-                        .filter(node -> ((TitledClusterContainer) node).getEventCluster().equals(cluster))
-                        .reduce((first, second) -> second)
-                        .map(TitledClusterContainer.class::cast)
-                        .ifPresent(TitledClusterContainer::finish);
-            }));
+            EventDispatcher.registerGenericClusterHandler(cluster, cl -> {
+                TitledClusterContainer container = new TitledClusterContainer(cl.getName(), cl);
+                Platform.runLater(() -> logVBox.getChildren().add(0, container));
+            });
+            
+            EventDispatcher.registerOnFinish(cluster, cl -> {
+                Platform.runLater(() -> {
+                    logVBox.getChildren().stream()
+                            .filter(TitledClusterContainer.class::isInstance)
+                            .map(TitledClusterContainer.class::cast)
+                            .filter(container -> container.getEventCluster().equals(cl))
+                            .forEach(TitledClusterContainer::finish);
+                });
+            });
         });
         
-        getViewModel().getEvents().forEach(event -> {
-            EventDispatcher.registerOnFinish(event, ec -> Platform.runLater(() -> {
+        EventDispatcher.registerGenericHandler(event -> {
+            Platform.runLater(() -> {
                 logVBox.getChildren().stream()
                         .filter(TitledClusterContainer.class::isInstance)
-                        .reduce((first, second) -> second)
                         .map(TitledClusterContainer.class::cast)
-                        .filter(titledClusterContainer -> {
-                            
-                            boolean contains = false;
-                            for(Event e : titledClusterContainer.getEventCluster().getEvents()) {
-                                if(e.equals(event)) {
-                                    contains = true;
-                                    break;
-                                }
-                            }
-                            
-                            return contains;
-                        })
-                        .ifPresent(titledClusterContainer -> titledClusterContainer.finish(event));
-            }));
+                        .filter(container -> !container.isFinished())
+                        .filter(container -> container.getEventCluster().getEvents().contains(event))
+                        .forEach(container -> container.finish(event));
+            });
         });
     }
     

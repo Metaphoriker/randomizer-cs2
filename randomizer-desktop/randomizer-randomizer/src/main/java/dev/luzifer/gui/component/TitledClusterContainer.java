@@ -8,7 +8,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +16,8 @@ public class TitledClusterContainer extends TitledPane {
     
     private final VBox vBox = new VBox();
     private final EventCluster eventCluster;
+    
+    private boolean finished;
     
     public TitledClusterContainer(String title, EventCluster eventCluster) {
         
@@ -38,6 +39,8 @@ public class TitledClusterContainer extends TitledPane {
     
     public void finish() {
         
+        this.finished = true;
+        
         setGraphic(ImageUtil.getImageView("images/checkmark_icon.png", ImageUtil.ImageResolution.MEDIUM));
         setExpanded(false);
         
@@ -52,12 +55,16 @@ public class TitledClusterContainer extends TitledPane {
         });
     }
     
+    public boolean isFinished() {
+        return finished;
+    }
+    
     public EventCluster getEventCluster() {
         return eventCluster;
     }
     
     private void fill(EventCluster eventCluster) {
-        Arrays.stream(eventCluster.getEvents()).forEach(event -> {
+        eventCluster.getEvents().forEach(event -> {
             
             Label label = new Label(event.name());
             label.setGraphic(ImageUtil.getImageView("images/loading_gif.gif", ImageUtil.ImageResolution.SMALL));
