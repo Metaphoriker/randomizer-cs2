@@ -8,11 +8,14 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
 // TODO: This class should not know any model stuff since its UI
 public class TitledClusterContainer extends TitledPane {
+    
+    private final List<Label> finishedEvents = new ArrayList<>();
     
     private final VBox vBox = new VBox();
     private final EventCluster eventCluster;
@@ -37,6 +40,15 @@ public class TitledClusterContainer extends TitledPane {
         return vBox.getChildren().stream().filter(Label.class::isInstance).map(Label.class::cast).collect(Collectors.toList());
     }
     
+    public void visualizeExecution(Event event) {
+        for(Label label : getEventLabels()) {
+            if(label.getText().equals(event.name()) && !finishedEvents.contains(label)) {
+                label.setGraphic(ImageUtil.getImageView("images/loading_gif.gif", ImageUtil.ImageResolution.SMALL));
+                break;
+            }
+        }
+    }
+    
     public void finish() {
         
         this.finished = true;
@@ -49,10 +61,13 @@ public class TitledClusterContainer extends TitledPane {
     }
     
     public void finish(Event event) {
-        getEventLabels().forEach(node -> {
-            if(node.getText().equals(event.name()))
-                node.setGraphic(ImageUtil.getImageView("images/checkmark_icon.png", ImageUtil.ImageResolution.SMALL));
-        });
+        for(Label label : getEventLabels()) {
+            if(label.getText().equals(event.name()) && !finishedEvents.contains(label)) {
+                label.setGraphic(ImageUtil.getImageView("images/checkmark_icon.png", ImageUtil.ImageResolution.SMALL));
+                finishedEvents.add(label);
+                break;
+            }
+        }
     }
     
     public boolean isFinished() {
@@ -67,7 +82,7 @@ public class TitledClusterContainer extends TitledPane {
         eventCluster.getEvents().forEach(event -> {
             
             Label label = new Label(event.name());
-            label.setGraphic(ImageUtil.getImageView("images/loading_gif.gif", ImageUtil.ImageResolution.SMALL));
+            label.setGraphic(ImageUtil.getImageView("images/squat_icon.png", ImageUtil.ImageResolution.SMALL));
             
             vBox.getChildren().add(label);
         });

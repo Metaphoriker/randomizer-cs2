@@ -5,6 +5,7 @@ import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.RandomizerViewModel;
+import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.EventDispatcher;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -56,6 +57,19 @@ public class RandomizerView extends View<RandomizerViewModel> {
                 });
             });
         });
+    
+        getViewModel().getEvents().forEach(event -> {
+            EventDispatcher.registerOnFinish(event, e -> {
+                Platform.runLater(() -> {
+                    logVBox.getChildren().stream()
+                            .filter(TitledClusterContainer.class::isInstance)
+                            .map(TitledClusterContainer.class::cast)
+                            .filter(container -> !container.isFinished())
+                            .filter(container -> container.getEventCluster().getEvents().contains(event))
+                            .forEach(container -> container.finish(event));
+                });
+            });
+        });
         
         EventDispatcher.registerGenericHandler(event -> {
             Platform.runLater(() -> {
@@ -64,7 +78,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
                         .map(TitledClusterContainer.class::cast)
                         .filter(container -> !container.isFinished())
                         .filter(container -> container.getEventCluster().getEvents().contains(event))
-                        .forEach(container -> container.finish(event));
+                        .forEach(container -> container.visualizeExecution(event));
             });
         });
     }
