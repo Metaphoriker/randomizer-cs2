@@ -1,6 +1,7 @@
 package dev.luzifer.gui.util;
 
 import dev.luzifer.gui.view.views.BuilderView;
+import dev.luzifer.gui.view.views.RandomizerView;
 import javafx.scene.Parent;
 
 import java.net.URL;
@@ -14,7 +15,7 @@ public class CSSUtil {
 
     // TODO: Maybe make this work with Scene for overall styling
     public static void applyBasicStyle(Parent node) {
-        applyStyle(node, BuilderView.class);
+        applyStyle(node, RandomizerView.class);
     }
 
     public static void applyDarkTheme(Parent node) {

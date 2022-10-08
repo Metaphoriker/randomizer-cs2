@@ -8,6 +8,17 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class EventExecutorRunnable implements Runnable {
     
+    private static volatile int minWaitTime = 30*1000;
+    private static volatile int maxWaitTime = 120*1000;
+    
+    public static void setMaxWaitTime(int maxWaitTime) {
+        EventExecutorRunnable.maxWaitTime = maxWaitTime;
+    }
+    
+    public static void setMinWaitTime(int minWaitTime) {
+        EventExecutorRunnable.minWaitTime = minWaitTime;
+    }
+    
     private final EventClusterRepository eventClusterRepository;
     
     public EventExecutorRunnable(EventClusterRepository eventClusterRepository) {
@@ -23,7 +34,7 @@ public class EventExecutorRunnable implements Runnable {
                 EventDispatcher.dispatchCluster(eventClusterRepository.getClusters().get(ThreadLocalRandom.current().nextInt(0, eventClusterRepository.getClusters().size())));
             
             try {
-                Thread.sleep(ThreadLocalRandom.current().nextInt(30*1000, 120*1000));
+                Thread.sleep(ThreadLocalRandom.current().nextInt(minWaitTime, maxWaitTime));
             } catch (InterruptedException e) {
                 throw new RuntimeException(e);
             }
