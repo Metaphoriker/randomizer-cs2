@@ -1,4 +1,4 @@
-package dev.luzifer.gui.component;
+package dev.luzifer.gui.util;
 
 import javafx.beans.binding.Bindings;
 import javafx.beans.binding.DoubleExpression;
@@ -137,7 +137,7 @@ public class FuckYouControl {
         @Override
         protected Point2D computeValue() {
             Point2D targetPosition = target.localToScene(target.getLayoutBounds().getMinX(), target.getLayoutBounds().getMinY());
-            return targetPosition.add(-100, -125); // TODO:
+            return targetPosition.add(-125, -125); // TODO:
         }
     
         private DoubleExpression asX() {

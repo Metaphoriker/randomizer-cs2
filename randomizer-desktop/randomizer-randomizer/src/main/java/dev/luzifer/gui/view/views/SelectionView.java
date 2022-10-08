@@ -68,7 +68,9 @@ public class SelectionView extends View<SelectionViewModel> {
     }
     
     private void setupMouseEvents() {
+        
         randomizerLabel.setOnMouseClicked(event -> getViewModel().openRandomizer());
         builderLabel.setOnMouseClicked(event -> getViewModel().openBuilder());
+        configLabel.setOnMouseClicked(event -> getViewModel().openConfig());
     }
 }
