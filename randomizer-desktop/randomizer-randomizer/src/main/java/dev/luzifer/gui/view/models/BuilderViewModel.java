@@ -27,6 +27,10 @@ public class BuilderViewModel implements ViewModel {
         eventClusterRepository.deleteCluster(eventClusterRepository.getCluster(name));
     }
     
+    public EventCluster getCluster(String name) {
+        return eventClusterRepository.getCluster(name);
+    }
+    
     public String serialize(Event event) {
         return JsonUtil.serialize(event);
     }

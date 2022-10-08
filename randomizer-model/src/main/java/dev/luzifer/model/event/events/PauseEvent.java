@@ -7,7 +7,7 @@ public class PauseEvent extends Event {
     @Override
     public void execute() {
         try {
-            Thread.sleep(50);
+            Thread.sleep(250);
         } catch (InterruptedException e) {
             throw new RuntimeException(e);
         }
@@ -15,6 +15,6 @@ public class PauseEvent extends Event {
     
     @Override
     public String description() {
-        return "A pause of 50ms";
+        return "A pause of 250ms";
     }
 }

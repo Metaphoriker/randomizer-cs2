@@ -5,6 +5,7 @@ import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.RandomizerViewModel;
+import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.EventDispatcher;
 import dev.luzifer.model.event.cluster.EventCluster;
 import dev.luzifer.model.notify.Speaker;
@@ -48,60 +49,60 @@ public class RandomizerView extends View<RandomizerViewModel> {
             if(notification.getNotifier() == FileSystemWatcher.class) {
 
                 EventCluster cluster = getViewModel().getCluster(notification.getKey().replace(".cluster", ""));
-
+    
                 EventDispatcher.registerGenericClusterHandler(cluster, ec -> Platform.runLater(() -> {
                     TitledClusterContainer titledClusterContainer = new TitledClusterContainer(cluster.getName(), cluster);
                     logVBox.getChildren().add(0, titledClusterContainer);
                 }));
-
+    
                 EventDispatcher.registerOnFinish(cluster, ec -> Platform.runLater(() -> {
-
-                    TitledClusterContainer titledClusterContainer = (TitledClusterContainer) logVBox.getChildren().stream()
+                    logVBox.getChildren().stream()
                             .filter(TitledClusterContainer.class::isInstance)
                             .filter(node -> ((TitledClusterContainer) node).getEventCluster().equals(cluster))
                             .reduce((first, second) -> second)
-                            .orElse(null);
-
-                    if(titledClusterContainer != null)
-                        titledClusterContainer.finish();
+                            .map(TitledClusterContainer.class::cast)
+                            .ifPresent(TitledClusterContainer::finish);
                 }));
             }
         });
 
-        // TODO: viewmodel stuff
-        getViewModel().getEvents().forEach(event -> {
-            EventDispatcher.registerOnFinish(event, e -> {
-                Platform.runLater(() -> {
-    
-                    TitledClusterContainer titledClusterContainer = (TitledClusterContainer) logVBox.getChildren().stream()
-                            .filter(TitledClusterContainer.class::isInstance)
-                            .filter(node -> ((TitledClusterContainer) node).getEventLabels().stream()
-                                    .anyMatch(label -> label.getText().equals(event.name())))
-                            .reduce((first, second) -> second)
-                            .orElse(null);
-    
-                    if(titledClusterContainer != null)
-                        titledClusterContainer.finish(event);
-                });
-            });
-        });
-    
+        // TODO: Viewmodel stuff
         getViewModel().getClusters().forEach(cluster -> {
+            
             EventDispatcher.registerGenericClusterHandler(cluster, ec -> Platform.runLater(() -> {
                 TitledClusterContainer titledClusterContainer = new TitledClusterContainer(cluster.getName(), cluster);
                 logVBox.getChildren().add(0, titledClusterContainer);
             }));
     
             EventDispatcher.registerOnFinish(cluster, ec -> Platform.runLater(() -> {
-                
-                TitledClusterContainer titledClusterContainer = (TitledClusterContainer) logVBox.getChildren().stream()
+                logVBox.getChildren().stream()
                         .filter(TitledClusterContainer.class::isInstance)
                         .filter(node -> ((TitledClusterContainer) node).getEventCluster().equals(cluster))
                         .reduce((first, second) -> second)
-                        .orElse(null);
-                
-                if(titledClusterContainer != null)
-                    titledClusterContainer.finish();
+                        .map(TitledClusterContainer.class::cast)
+                        .ifPresent(TitledClusterContainer::finish);
+            }));
+        });
+        
+        getViewModel().getEvents().forEach(event -> {
+            EventDispatcher.registerOnFinish(event, ec -> Platform.runLater(() -> {
+                logVBox.getChildren().stream()
+                        .filter(TitledClusterContainer.class::isInstance)
+                        .reduce((first, second) -> second)
+                        .map(TitledClusterContainer.class::cast)
+                        .filter(titledClusterContainer -> {
+                            
+                            boolean contains = false;
+                            for(Event e : titledClusterContainer.getEventCluster().getEvents()) {
+                                if(e.equals(event)) {
+                                    contains = true;
+                                    break;
+                                }
+                            }
+                            
+                            return contains;
+                        })
+                        .ifPresent(titledClusterContainer -> titledClusterContainer.finish(event));
             }));
         });
     }
