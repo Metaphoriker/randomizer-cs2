@@ -39,8 +39,8 @@ public class RandomizerViewModel implements ViewModel {
                 int minWaitTime = minWaitTimeProperty.get();
                 int maxWaitTime = maxWaitTimeProperty.get();
                 
-                if(maxWaitTime <= minWaitTime) {
-                    visibleProperty.setValue(false);
+                if(minWaitTime > maxWaitTime || minWaitTime == maxWaitTime) {
+                    visibleProperty.setValue(true);
                     return;
                 }
                 
