@@ -29,6 +29,20 @@ public class CSSUtil {
     public static void applyNightTheme(Parent node) {
         applyTheme(node, Theme.NIGHT);
     }
+    
+    /**
+     * Applies the CSS file of the given theme to the given node.
+     * @param node The node to apply the CSS to.
+     */
+    public static void applyTheme(Parent node, Theme theme) {
+        
+        URL resource = BuilderView.class.getResource(getThemePath(theme));
+        
+        if(resource != null)
+            node.getStylesheets().add(resource.toExternalForm());
+        else
+            throw new IllegalStateException(MessageFormat.format("Theme file could not get loaded for theme: {0}", theme));
+    }
 
     /**
      * Applies the CSS file with the same name as the class to the given node.
@@ -46,20 +60,6 @@ public class CSSUtil {
             throw new IllegalStateException(MessageFormat.format("CSS file could not get loaded for class: {0}", clazz));
     }
 
-    /**
-     * Applies the CSS file of the given theme to the given node.
-     * @param node The node to apply the CSS to.
-     */
-    private static void applyTheme(Parent node, Theme theme) {
-
-        URL resource = BuilderView.class.getResource(getThemePath(theme));
-
-        if(resource != null)
-            node.getStylesheets().add(resource.toExternalForm());
-        else
-            throw new IllegalStateException(MessageFormat.format("Theme file could not get loaded for theme: {0}", theme));
-    }
-
     private static String getStylePath(Class<?> clazz) {
         return STYLING_PATH + clazz.getSimpleName() + STYLING_EXTENSION;
     }
@@ -68,9 +68,10 @@ public class CSSUtil {
         return STYLING_THEMES_PATH + theme.fileName + STYLING_EXTENSION;
     }
 
-    private enum Theme {
+    public enum Theme {
 
-        DARK("Dark", "DarkTheme"),
+        FLAT_RED("FLAT_RED", "FlatRedTheme"),
+        DARK("DARK", "DarkTheme"),
         LIGHT("LIGHT", "LightTheme"),
         NIGHT("Night", "NightTheme");
 

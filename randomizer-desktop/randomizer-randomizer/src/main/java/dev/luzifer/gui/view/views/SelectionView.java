@@ -49,11 +49,7 @@ public class SelectionView extends View<SelectionViewModel> {
     }
 
     private void setupStyling() {
-
         CSSUtil.applyNightTheme(root);
-        CSSUtil.applyBasicStyle(root);
-
-        root.getStyleClass().add("container");
     }
 
     private void setupGraphics() {
