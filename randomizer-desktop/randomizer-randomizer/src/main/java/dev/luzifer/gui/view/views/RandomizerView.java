@@ -72,8 +72,8 @@ public class RandomizerView extends View<RandomizerViewModel> {
     }
     
     private void setupStylingAndGraphics() {
-        
-        CSSUtil.applyNightTheme(root);
+    
+        CSSUtil.applyTheme(root, CSSUtil.Theme.MISTER_SILVER);
         
         getIcons().add(ImageUtil.getImage("images/shuffle_icon.png"));
         settingsButton.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.SMALL));

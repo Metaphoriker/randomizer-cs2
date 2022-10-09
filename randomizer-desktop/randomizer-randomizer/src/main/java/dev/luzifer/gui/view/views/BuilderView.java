@@ -243,7 +243,7 @@ public class BuilderView extends View<BuilderViewModel> {
     }
     
     private void setupStyling() {
-        CSSUtil.applyNightTheme(root);
+        CSSUtil.applyTheme(root, CSSUtil.Theme.MISTER_SILVER);
     }
     
     private void setGraphics() {

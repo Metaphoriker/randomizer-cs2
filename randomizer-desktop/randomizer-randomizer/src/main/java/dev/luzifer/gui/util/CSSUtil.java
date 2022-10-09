@@ -71,6 +71,8 @@ public class CSSUtil {
     public enum Theme {
 
         FLAT_RED("FLAT_RED", "FlatRedTheme"),
+        MISTER_SILVER("MISTER_SILVER", "MisterSilverTheme"),
+        SKY("SKY", "SkyTheme"),
         DARK("DARK", "DarkTheme"),
         LIGHT("LIGHT", "LightTheme"),
         NIGHT("Night", "NightTheme");
