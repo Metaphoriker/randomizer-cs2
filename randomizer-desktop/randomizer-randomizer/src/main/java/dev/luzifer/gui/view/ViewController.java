@@ -1,5 +1,6 @@
 package dev.luzifer.gui.view;
 
+import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.model.updater.Updater;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -15,6 +16,8 @@ import java.util.Map;
 public class ViewController {
 
     private final Map<String, View> viewMap = new HashMap<>();
+    
+    private CSSUtil.Theme currentTheme = CSSUtil.Theme.MISTER_SILVER;
 
     public void showView(View view) {
 
@@ -25,6 +28,18 @@ public class ViewController {
             viewMap.put(name, view);
             loadAndShowView(view, (Class<?> param) -> view, name);
         }
+    }
+    
+    public void switchTheme(CSSUtil.Theme theme) {
+        
+        for(View view : viewMap.values()) {
+            if(view.getScene() != null) {
+                view.getScene().getStylesheets().clear();
+                CSSUtil.applyTheme(view.getScene(), theme);
+            }
+        }
+        
+        currentTheme = theme;
     }
     
     private void loadAndShowView(View view, Callback<Class<?>, Object> controllerFactory, String title) {
@@ -40,6 +55,8 @@ public class ViewController {
         });
         view.setResizable(true);
         view.show();
+        
+        CSSUtil.applyTheme(view.getScene(), currentTheme);
     }
     
     private <T> Parent loadView(Class<T> clazz, Callback<Class<?>, Object> controllerFactory) {

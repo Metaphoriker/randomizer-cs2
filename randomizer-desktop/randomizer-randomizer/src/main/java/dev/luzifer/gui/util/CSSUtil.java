@@ -3,6 +3,7 @@ package dev.luzifer.gui.util;
 import dev.luzifer.gui.view.views.BuilderView;
 import dev.luzifer.gui.view.views.RandomizerView;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 
 import java.net.URL;
 import java.text.MessageFormat;
@@ -17,24 +18,12 @@ public class CSSUtil {
     public static void applyBasicStyle(Parent node) {
         applyStyle(node, RandomizerView.class);
     }
-
-    public static void applyDarkTheme(Parent node) {
-        applyTheme(node, Theme.DARK);
-    }
-
-    public static void applyLightTheme(Parent node) {
-        applyTheme(node, Theme.LIGHT);
-    }
-
-    public static void applyNightTheme(Parent node) {
-        applyTheme(node, Theme.NIGHT);
-    }
     
     /**
      * Applies the CSS file of the given theme to the given node.
      * @param node The node to apply the CSS to.
      */
-    public static void applyTheme(Parent node, Theme theme) {
+    public static void applyTheme(Scene node, Theme theme) {
         
         URL resource = BuilderView.class.getResource(getThemePath(theme));
         

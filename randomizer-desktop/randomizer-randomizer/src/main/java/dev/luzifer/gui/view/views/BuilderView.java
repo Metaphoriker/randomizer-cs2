@@ -1,7 +1,6 @@
 package dev.luzifer.gui.view.views;
 
 import com.google.gson.JsonSyntaxException;
-import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.BuilderViewModel;
@@ -63,7 +62,6 @@ public class BuilderView extends View<BuilderViewModel> {
     @Override
     public void initialize(URL url, ResourceBundle resourceBundle) {
         
-        setupStyling();
         setGraphics();
         fillEventHBox();
         refreshCluster();
@@ -240,10 +238,6 @@ public class BuilderView extends View<BuilderViewModel> {
             dragEvent.setDropCompleted(success);
             dragEvent.consume();
         });
-    }
-    
-    private void setupStyling() {
-        CSSUtil.applyTheme(root, CSSUtil.Theme.MISTER_SILVER);
     }
     
     private void setGraphics() {

@@ -5,17 +5,14 @@ import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.SelectionViewModel;
 import javafx.fxml.FXML;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
-import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class SelectionView extends View<SelectionViewModel> {
-    
-    @FXML
-    private GridPane root;
     
     @FXML
     private Circle logoShape;
@@ -28,6 +25,9 @@ public class SelectionView extends View<SelectionViewModel> {
     
     @FXML
     private Label configLabel;
+    
+    @FXML
+    private ComboBox<CSSUtil.Theme> themeComboBox;
 
     public SelectionView(SelectionViewModel selectionViewModel) {
         super(selectionViewModel);
@@ -38,18 +38,14 @@ public class SelectionView extends View<SelectionViewModel> {
 
         setResizable(false);
 
-        setupStyling();
         setupGraphics();
         setupMouseEvents();
+        setupThemeComboBox();
     }
     
     @Override
     public void onClose() {
         System.exit(0);
-    }
-
-    private void setupStyling() {
-        CSSUtil.applyTheme(root, CSSUtil.Theme.MISTER_SILVER);
     }
 
     private void setupGraphics() {
@@ -68,5 +64,15 @@ public class SelectionView extends View<SelectionViewModel> {
         randomizerLabel.setOnMouseClicked(event -> getViewModel().openRandomizer());
         builderLabel.setOnMouseClicked(event -> getViewModel().openBuilder());
         configLabel.setOnMouseClicked(event -> getViewModel().openConfig());
+    }
+    
+    private void setupThemeComboBox() {
+        
+        getViewModel().getThemeProperty().bindBidirectional(themeComboBox.valueProperty());
+    
+        themeComboBox.getSelectionModel().selectedItemProperty().addListener((observableValue, oldTheme, newTheme) -> getViewModel().switchTheme());
+        
+        themeComboBox.getItems().addAll(CSSUtil.Theme.values());
+        themeComboBox.getSelectionModel().select(CSSUtil.Theme.MISTER_SILVER);
     }
 }

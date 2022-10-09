@@ -3,7 +3,6 @@ package dev.luzifer.gui.view.views;
 import dev.luzifer.gui.util.FuckYouControl;
 import dev.luzifer.gui.component.SliderLabelComponent;
 import dev.luzifer.gui.component.TitledClusterContainer;
-import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.RandomizerViewModel;
@@ -72,9 +71,6 @@ public class RandomizerView extends View<RandomizerViewModel> {
     }
     
     private void setupStylingAndGraphics() {
-    
-        CSSUtil.applyTheme(root, CSSUtil.Theme.MISTER_SILVER);
-        
         getIcons().add(ImageUtil.getImage("images/shuffle_icon.png"));
         settingsButton.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.SMALL));
     }

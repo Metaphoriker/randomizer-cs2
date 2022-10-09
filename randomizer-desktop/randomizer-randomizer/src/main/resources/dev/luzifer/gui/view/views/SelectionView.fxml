@@ -11,6 +11,7 @@
 <?import javafx.scene.text.Font?>
 
 <?import javafx.scene.shape.Circle?>
+<?import javafx.scene.control.ComboBox?>
 <GridPane fx:id="root" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.SelectionView">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -19,7 +20,7 @@
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <AnchorPane>
+      <AnchorPane prefWidth="225" prefHeight="400">
          <children>
             <VBox alignment="TOP_CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -48,6 +49,7 @@
                   <Insets top="10.0" />
                </padding>
             </VBox>
+            <ComboBox fx:id="themeComboBox" promptText="Choose a theme" prefWidth="200.0" AnchorPane.bottomAnchor="10.0" AnchorPane.leftAnchor="10.0" />
          </children>
       </AnchorPane>
    </children>
