@@ -34,7 +34,7 @@ public class RandomizerViewModel implements ViewModel {
         this.eventClusterRepository = eventClusterRepository;
     
         visibleProperty.addListener((observableValue, aBoolean, t1) -> {
-            if(t1) {
+            if(!t1) {
     
                 int minWaitTime = minWaitTimeProperty.get();
                 int maxWaitTime = maxWaitTimeProperty.get();
