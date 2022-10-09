@@ -5,11 +5,8 @@
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 <?import javafx.scene.layout.Pane?>
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Slider?>
-<?import dev.luzifer.gui.component.SliderLabelComponent?>
+
 <VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
       minWidth="-Infinity" prefHeight="532.0" prefWidth="931.0" spacing="10.0" xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.RandomizerView">
@@ -33,11 +30,11 @@
                 </HBox.margin>
             </Button>
         </HBox>
-        <Pane fx:id="settingsOverlay" prefHeight="200" prefWidth="200" visible="false" styleClass="settings">
+        <Pane fx:id="settingsOverlay" prefHeight="400" prefWidth="400" visible="false" styleClass="settings">
             <children>
                 <VBox alignment="CENTER">
                     <children>
-                        <VBox fx:id="fuckYourselfVBox"/>
+                        <VBox fx:id="fuckYourselfVBox" prefWidth="200"/>
                         <Button fx:id="closeSettingsButton" focusTraversable="false" mnemonicParsing="false"
                                 onAction="#onCloseSettings" text="Close">
                             <VBox.margin>
