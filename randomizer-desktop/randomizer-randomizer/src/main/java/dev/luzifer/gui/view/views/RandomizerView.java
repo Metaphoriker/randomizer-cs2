@@ -101,7 +101,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
     
         getViewModel().setOnClusterExecution(cluster -> Platform.runLater(() -> {
             TitledClusterContainer titledClusterContainer = new TitledClusterContainer(cluster.getName(), cluster);
-            logVBox.getChildren().add(titledClusterContainer);
+            logVBox.getChildren().add(0, titledClusterContainer);
         }));
     
         getViewModel().setOnClusterExecutionFinished(cluster -> Platform.runLater(() -> {
