@@ -13,8 +13,11 @@ public class CSSUtil {
     private static final String STYLING_PATH = "styling/";
     private static final String STYLING_THEMES_PATH = STYLING_PATH + "themes/";
     private static final String STYLING_EXTENSION = ".css";
-
-    // TODO: Maybe make this work with Scene for overall styling
+    
+    /**
+     * @deprecated there is no basic style file anymore
+     */
+    @Deprecated
     public static void applyBasicStyle(Parent node) {
         applyStyle(node, RandomizerView.class);
     }
