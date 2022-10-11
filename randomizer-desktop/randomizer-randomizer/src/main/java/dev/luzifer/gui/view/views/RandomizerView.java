@@ -1,5 +1,6 @@
 package dev.luzifer.gui.view.views;
 
+import dev.luzifer.gui.component.SettingsOverlayComponent;
 import dev.luzifer.gui.util.FuckYouControl;
 import dev.luzifer.gui.component.SliderLabelComponent;
 import dev.luzifer.gui.component.TitledClusterContainer;
@@ -10,13 +11,14 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
 import java.util.ResourceBundle;
 
 public class RandomizerView extends View<RandomizerViewModel> {
+    
+    private final SettingsOverlayComponent settingsOverlay = new SettingsOverlayComponent();
     
     @FXML
     private VBox root;
@@ -30,12 +32,6 @@ public class RandomizerView extends View<RandomizerViewModel> {
     @FXML
     private Button settingsButton;
     
-    @FXML
-    private Pane settingsOverlay;
-    
-    @FXML
-    private VBox fuckYourselfVBox;
-    
     public RandomizerView(RandomizerViewModel viewModel) {
         super(viewModel);
     }
@@ -44,14 +40,11 @@ public class RandomizerView extends View<RandomizerViewModel> {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
         
+        root.getChildren().add(settingsOverlay);
+        
         setupStylingAndGraphics();
-        
-        SliderLabelComponent minSlider = new SliderLabelComponent("Min", 0, 120, 30);
-        SliderLabelComponent maxSlider = new SliderLabelComponent("Max", 0, 120, 120);
-        
-        setupOverlay(minSlider, maxSlider);
-        setupBindings(minSlider, maxSlider);
-        
+        setupOverlay();
+        setupBindings();
         setupExecutionReactions();
     }
     
@@ -65,26 +58,22 @@ public class RandomizerView extends View<RandomizerViewModel> {
         FuckYouControl.show(settingsOverlay, settingsButton);
     }
     
-    @FXML
-    private void onCloseSettings(ActionEvent actionEvent) {
-        FuckYouControl.hide(settingsOverlay);
-    }
-    
     private void setupStylingAndGraphics() {
         getIcons().add(ImageUtil.getImage("images/shuffle_icon.png"));
         settingsButton.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.SMALL));
     }
     
-    private void setupOverlay(SliderLabelComponent minSlider, SliderLabelComponent maxSlider) {
-        
-        fuckYourselfVBox.getChildren().add(minSlider);
-        fuckYourselfVBox.getChildren().add(maxSlider);
-        
+    private void setupOverlay() {
         FuckYouControl fuckYouControl = new FuckYouControl(root);
         fuckYouControl.addOverlay(settingsOverlay);
     }
     
-    private void setupBindings(SliderLabelComponent minSlider, SliderLabelComponent maxSlider) {
+    private void setupBindings() {
+        
+        SliderLabelComponent minSlider = settingsOverlay.getMinSlider();
+        SliderLabelComponent maxSlider = settingsOverlay.getMaxSlider();
+        
+        settingsOverlay.getApplyButton().setOnAction(action -> FuckYouControl.hide(settingsOverlay));
         
         getViewModel().getVisibleProperty().bindBidirectional(settingsOverlay.visibleProperty());
         getViewModel().getNextStateProperty().bindBidirectional(toggleButton.textProperty());

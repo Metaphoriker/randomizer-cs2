@@ -137,7 +137,7 @@ public class FuckYouControl {
         @Override
         protected Point2D computeValue() {
             Point2D targetPosition = target.localToScene(target.getLayoutBounds().getMinX(), target.getLayoutBounds().getMinY());
-            return targetPosition.add(-125, -125); // TODO:
+            return targetPosition.add(-150, -150); // TODO: hardcoded offset
         }
     
         private DoubleExpression asX() {
