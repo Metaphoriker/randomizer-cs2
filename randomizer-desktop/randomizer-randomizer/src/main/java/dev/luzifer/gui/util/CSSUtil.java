@@ -64,9 +64,6 @@ public class CSSUtil {
 
         FLAT_RED("FLAT_RED", "FlatRedTheme"),
         MISTER_SILVER("MISTER_SILVER", "MisterSilverTheme"),
-        SKY("SKY", "SkyTheme"),
-        DARK("DARK", "DarkTheme"),
-        LIGHT("LIGHT", "LightTheme"),
         NIGHT("Night", "NightTheme");
 
         private final String name;
