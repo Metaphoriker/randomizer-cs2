@@ -44,8 +44,8 @@ public class RandomizerViewModel implements ViewModel {
                     return;
                 }
                 
-                EventExecutorRunnable.setMinWaitTime(minWaitTimeProperty.get());
-                EventExecutorRunnable.setMaxWaitTime(maxWaitTimeProperty.get());
+                EventExecutorRunnable.setMinWaitTime(minWaitTimeProperty.get() * 1000);
+                EventExecutorRunnable.setMaxWaitTime(maxWaitTimeProperty.get() * 1000);
             }
         });
     }
