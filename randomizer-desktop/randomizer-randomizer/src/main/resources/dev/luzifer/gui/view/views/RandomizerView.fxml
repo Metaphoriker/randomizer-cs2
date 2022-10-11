@@ -6,28 +6,28 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<VBox fx:id="root" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
-      minWidth="-Infinity" prefHeight="532.0" prefWidth="931.0" spacing="10.0" xmlns="http://javafx.com/javafx/18"
+<HBox fx:id="root" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
+      prefHeight="400.0" prefWidth="600.0" spacing="50.0" xmlns="http://javafx.com/javafx/18"
       xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.RandomizerView">
     <children>
-        <ScrollPane hbarPolicy="NEVER" nodeOrientation="LEFT_TO_RIGHT" pannable="true" VBox.vgrow="ALWAYS">
+        <ScrollPane nodeOrientation="RIGHT_TO_LEFT" prefHeight="400.0" prefWidth="420.0" style="-fx-border-color: black;" HBox.hgrow="ALWAYS">
             <content>
-                <VBox fx:id="logVBox" prefHeight="484.0" prefWidth="931.0"/>
+                <VBox fx:id="logVBox"/>
             </content>
         </ScrollPane>
-        <HBox alignment="CENTER" prefHeight="33.0" prefWidth="931.0" spacing="750.0" VBox.vgrow="NEVER">
-            <Button fx:id="toggleButton" alignment="TOP_LEFT" focusTraversable="false" mnemonicParsing="false"
-                    onAction="#onToggle" text="Run" VBox.vgrow="NEVER">
-                <VBox.margin>
-                    <Insets bottom="10.0"/>
-                </VBox.margin>
-            </Button>
-            <Button fx:id="settingsButton" alignment="TOP_LEFT" focusTraversable="false" mnemonicParsing="false"
-                    onAction="#onOpenSettings" VBox.vgrow="NEVER">
-                <HBox.margin>
-                    <Insets/>
-                </HBox.margin>
-            </Button>
-        </HBox>
+        <VBox prefHeight="400.0" prefWidth="187.0" spacing="50.0" VBox.vgrow="NEVER" HBox.hgrow="NEVER">
+            <children>
+                <VBox fx:id="configVBox" prefHeight="375.0" prefWidth="139.0" style="-fx-border-color: black;" />
+                <HBox fx:id="buttonsHBox" alignment="CENTER" prefHeight="100.0" prefWidth="200.0" spacing="40.0" style="-fx-border-color: black;">
+                    <children>
+                        <Button fx:id="toggleButton" mnemonicParsing="false" onAction="#onToggle" text="Run"/>
+                        <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#onOpenSettings" text="Settings"/>
+                    </children>
+                </HBox>
+            </children>
+        </VBox>
     </children>
-</VBox>
+    <padding>
+        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+    </padding>
+</HBox>

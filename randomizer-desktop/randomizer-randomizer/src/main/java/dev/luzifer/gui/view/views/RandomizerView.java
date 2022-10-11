@@ -11,6 +11,7 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 import java.net.URL;
@@ -21,7 +22,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
     private final SettingsOverlayComponent settingsOverlay = new SettingsOverlayComponent();
     
     @FXML
-    private VBox root;
+    private HBox root;
     
     @FXML
     private VBox logVBox;
