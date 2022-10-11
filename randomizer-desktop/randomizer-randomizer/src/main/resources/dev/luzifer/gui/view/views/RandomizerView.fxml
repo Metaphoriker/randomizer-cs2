@@ -23,7 +23,7 @@
                 <HBox fx:id="buttonsHBox" alignment="BOTTOM_CENTER" prefHeight="200.0" prefWidth="300.0" spacing="40.0">
                     <children>
                         <Button fx:id="toggleButton" mnemonicParsing="false" onAction="#onToggle" text="Run" />
-                        <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#onOpenSettings" text="Settings" />
+                        <Button fx:id="settingsButton" mnemonicParsing="false" onAction="#onOpenSettings" />
                     </children>
                <VBox.margin>
                   <Insets />
