@@ -76,6 +76,11 @@ public class RandomizerView extends View<RandomizerViewModel> {
         
         settingsOverlay.getApplyButton().setOnAction(action -> FuckYouControl.hide(settingsOverlay));
         
+        getViewModel().setOnFailed(() -> {
+            settingsOverlay.getFailedLabel().setOpacity(1);
+            FuckYouControl.show(settingsOverlay, settingsButton);
+        });
+        
         getViewModel().getVisibleProperty().bindBidirectional(settingsOverlay.visibleProperty());
         getViewModel().getNextStateProperty().bindBidirectional(toggleButton.textProperty());
         

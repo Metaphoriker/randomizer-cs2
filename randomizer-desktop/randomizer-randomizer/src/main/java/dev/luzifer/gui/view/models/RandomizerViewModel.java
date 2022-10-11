@@ -29,18 +29,21 @@ public class RandomizerViewModel implements ViewModel {
     
     private final EventClusterRepository eventClusterRepository;
     
+    private Runnable onFailed;
+    
     public RandomizerViewModel(EventClusterRepository eventClusterRepository) {
         
         this.eventClusterRepository = eventClusterRepository;
     
         visibleProperty.addListener((observableValue, aBoolean, t1) -> {
-            if(!t1) {
+            if(Boolean.FALSE.equals(t1)) {
     
                 int minWaitTime = minWaitTimeProperty.get();
                 int maxWaitTime = maxWaitTimeProperty.get();
                 
                 if(minWaitTime > maxWaitTime || minWaitTime == maxWaitTime) {
-                    visibleProperty.setValue(true);
+                    if(onFailed !=  null)
+                        onFailed.run();
                     return;
                 }
                 
@@ -76,6 +79,10 @@ public class RandomizerViewModel implements ViewModel {
     public void setOnEventExecutionFinished(Consumer<Event> callback) {
         Consumer<Object> wrappedCallback = o -> callback.accept((Event) o);
         getEvents().forEach(event -> EventDispatcher.registerOnFinish(event, wrappedCallback));
+    }
+    
+    public void setOnFailed(Runnable onFailed) {
+        this.onFailed = onFailed;
     }
 
     public Set<Event> getEvents() {
