@@ -5,10 +5,6 @@ import dev.luzifer.gui.view.ViewModel;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 
-import java.awt.Desktop;
-import java.io.IOException;
-import java.net.URISyntaxException;
-import java.net.URL;
 import java.util.function.Consumer;
 
 public class SelectionViewModel implements ViewModel {
@@ -32,14 +28,6 @@ public class SelectionViewModel implements ViewModel {
     
     public void openBuilder() {
         builderCallback.run();
-    }
-    
-    public void openConfig() {
-        try {
-            Desktop.getDesktop().browse(new URL("https://www.youtube.com/watch?v=dQw4w9WgXcQ&ab_channel=RickAstley").toURI());
-        } catch (IOException | URISyntaxException e) {
-            throw new RuntimeException(e);
-        }
     }
     
     public void switchTheme() {

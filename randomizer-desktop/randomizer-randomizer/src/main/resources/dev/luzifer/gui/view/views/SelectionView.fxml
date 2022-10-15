@@ -38,12 +38,6 @@
                      </font>
                   </Label>
                   <Separator prefWidth="200.0" />
-                  <Label fx:id="configLabel" prefHeight="43.0" prefWidth="170.0" text="Config" textAlignment="CENTER">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
-                  <Separator prefWidth="200.0" />
                </children>
                <padding>
                   <Insets top="10.0" />

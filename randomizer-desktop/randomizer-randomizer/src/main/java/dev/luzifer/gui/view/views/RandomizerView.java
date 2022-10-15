@@ -61,7 +61,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
     
     private void setupStylingAndGraphics() {
         getIcons().add(ImageUtil.getImage("images/shuffle_icon.png"));
-        settingsButton.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+        settingsButton.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.SMALL));
     }
     
     private void setupOverlay() {

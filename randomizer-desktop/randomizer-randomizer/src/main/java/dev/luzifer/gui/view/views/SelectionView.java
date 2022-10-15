@@ -24,9 +24,6 @@ public class SelectionView extends View<SelectionViewModel> {
     private Label builderLabel;
     
     @FXML
-    private Label configLabel;
-    
-    @FXML
     private ComboBox<CSSUtil.Theme> themeComboBox;
 
     public SelectionView(SelectionViewModel selectionViewModel) {
@@ -56,14 +53,11 @@ public class SelectionView extends View<SelectionViewModel> {
         
         randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
         builderLabel.setGraphic(ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));
-        configLabel.setGraphic(ImageUtil.getImageView("images/settings_icon.png", ImageUtil.ImageResolution.SMALL));
     }
     
     private void setupMouseEvents() {
-        
         randomizerLabel.setOnMouseClicked(event -> getViewModel().openRandomizer());
         builderLabel.setOnMouseClicked(event -> getViewModel().openBuilder());
-        configLabel.setOnMouseClicked(event -> getViewModel().openConfig());
     }
     
     private void setupThemeComboBox() {
