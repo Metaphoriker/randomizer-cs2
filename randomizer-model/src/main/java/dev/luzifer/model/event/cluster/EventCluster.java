@@ -1,7 +1,7 @@
 package dev.luzifer.model.event.cluster;
 
 import dev.luzifer.model.event.Event;
-import dev.luzifer.model.event.EventRegistry;
+import dev.luzifer.model.json.JsonUtil;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -13,12 +13,12 @@ public class EventCluster {
     public static EventCluster formatEventCluster(String name, String content) {
 
         String[] events = content.split(";");
-        List<Event> eventSet = new ArrayList<>();
+        List<Event> eventList = new ArrayList<>();
 
         for(String event : events)
-            eventSet.add(EventRegistry.getByName(event));
+            eventList.add(JsonUtil.deserialize(event));
 
-        return new EventCluster(name, eventSet);
+        return new EventCluster(name, eventList);
     }
 
     private final String name;

@@ -47,6 +47,10 @@ public class EventComponent extends VBox {
         getChildren().addAll(innerHBox);
     }
     
+    public void apply() {
+        eventSettingsComponent.apply();
+    }
+    
     public Event getRepresent() {
         return represent;
     }

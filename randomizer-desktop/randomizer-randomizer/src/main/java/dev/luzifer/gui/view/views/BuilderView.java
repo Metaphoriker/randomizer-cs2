@@ -6,6 +6,7 @@ import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.BuilderViewModel;
 import dev.luzifer.model.event.cluster.EventCluster;
+import dev.luzifer.model.json.JsonUtil;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
@@ -109,8 +110,11 @@ public class BuilderView extends View<BuilderViewModel> {
             return;
     
         StringBuilder stringBuilder = new StringBuilder();
-        for(Node node : clusterBuilderVBox.getChildren())
-            stringBuilder.append(((Labeled) node).getText()).append(";");
+        clusterBuilderVBox.getChildren().stream().map(EventComponent.class::cast)
+                .forEach(eventComponent -> {
+                    eventComponent.apply();
+                    stringBuilder.append(JsonUtil.serialize(eventComponent.getRepresent())).append(";");
+                });
 
         String clusterName = awaitClusterName();
         if(clusterName == null)

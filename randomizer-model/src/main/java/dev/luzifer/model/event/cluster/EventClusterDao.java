@@ -2,6 +2,7 @@ package dev.luzifer.model.event.cluster;
 
 import dev.luzifer.model.event.Event;
 import dev.luzifer.model.event.EventRegistry;
+import dev.luzifer.model.json.JsonUtil;
 import dev.luzifer.model.stuff.WhateverThisFuckerIs;
 
 import java.io.File;
@@ -27,7 +28,7 @@ public class EventClusterDao {
             
             StringBuilder stringBuilder = new StringBuilder();
             for(Event event : cluster.getEvents())
-                stringBuilder.append(event.name()).append(";");
+                stringBuilder.append(JsonUtil.serialize(event)).append(";");
             
             writer.println(stringBuilder);
             writer.flush();
@@ -61,16 +62,8 @@ public class EventClusterDao {
                 
                 List<Event> eventList = new ArrayList<>(events.length);
                 
-                int index = 0;
-                for(String event : events) {
-                    
-                    Event eventInstance = EventRegistry.getByName(event);
-                    if(eventInstance == null)
-                        continue;
-    
-                    eventList.add(eventInstance);
-                    index++;
-                }
+                for(String event : events)
+                    eventList.add(JsonUtil.deserialize(event));
 
                 String name = file.getName().replace(".cluster", "");
                 cluster = new EventCluster(name, eventList);
