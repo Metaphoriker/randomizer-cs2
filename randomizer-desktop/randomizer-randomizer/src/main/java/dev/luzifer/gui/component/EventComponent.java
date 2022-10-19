@@ -15,13 +15,13 @@ public class EventComponent extends VBox {
     private final Label nameLabel = new Label();
     private final Button button = new Button("Settings");
     
-    private final SettingsOverlayComponent pane = new SettingsOverlayComponent();
-    
     private final Event represent;
+    private final EventSettingsComponent eventSettingsComponent;
     
     public EventComponent(Event event) {
         
         this.represent = event;
+        this.eventSettingsComponent = new EventSettingsComponent(represent);
         
         innerHBox.setSpacing(75);
         
@@ -30,15 +30,15 @@ public class EventComponent extends VBox {
         button.setFont(new Font("Arial", 8));
         button.setOnAction(click -> {
             
-            pane.setVisible(!pane.isVisible());
+            eventSettingsComponent.setVisible(!eventSettingsComponent.isVisible());
             
-            if(pane.isVisible())
-                getChildren().add(pane);
+            if(eventSettingsComponent.isVisible())
+                getChildren().add(eventSettingsComponent);
             else
-                getChildren().remove(pane);
+                getChildren().remove(eventSettingsComponent);
         });
     
-        pane.setVisible(false);
+        eventSettingsComponent.setVisible(false);
     
         Region placeHolder = new Region();
         HBox.setHgrow(placeHolder, Priority.ALWAYS);
