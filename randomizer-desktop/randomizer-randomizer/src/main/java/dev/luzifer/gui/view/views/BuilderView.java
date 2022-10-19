@@ -1,6 +1,7 @@
 package dev.luzifer.gui.view.views;
 
 import com.google.gson.JsonSyntaxException;
+import dev.luzifer.gui.component.EventComponent;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.BuilderViewModel;
@@ -34,9 +35,6 @@ public class BuilderView extends View<BuilderViewModel> {
     
     @FXML
     private FlowPane eventFlowPane;
-    
-    @FXML
-    private VBox root;
     
     @FXML
     private Button randomizerButton;
@@ -78,10 +76,11 @@ public class BuilderView extends View<BuilderViewModel> {
             EventCluster eventCluster = getViewModel().getCluster(newValue.getText());
             try {
                 eventCluster.getEvents().forEach(event -> {
-            
-                    Label eventLabel = new Label(event.name());
-                    setupDragAlreadyDropped(eventLabel);
-                    clusterBuilderVBox.getChildren().add(eventLabel);
+    
+                    EventComponent eventComponent = new EventComponent(event);
+                    setupDragAlreadyDropped(eventComponent);
+                    
+                    clusterBuilderVBox.getChildren().add(eventComponent);
                 });
             } catch (JsonSyntaxException e) {
                 e.printStackTrace();
@@ -96,10 +95,10 @@ public class BuilderView extends View<BuilderViewModel> {
         
         for (int i = 0; i < ThreadLocalRandom.current().nextInt(1, 10); i++) {
             
-            Label label = new Label(getViewModel().getRandomEvent().name());
-            setupDragAlreadyDropped(label);
+            EventComponent eventComponent = new EventComponent(getViewModel().getRandomEvent());
+            setupDragAlreadyDropped(eventComponent);
             
-            clusterBuilderVBox.getChildren().add(label);
+            clusterBuilderVBox.getChildren().add(eventComponent);
         }
     }
     
@@ -158,6 +157,21 @@ public class BuilderView extends View<BuilderViewModel> {
         totalClusterLabel.setText(String.valueOf(clusterListView.getItems().size()));
     }
     
+    private void setupDrag(EventComponent node) {
+        node.setOnDragDetected(dragEvent -> {
+        
+            Dragboard dragboard = node.startDragAndDrop(TransferMode.ANY);
+            dragboard.setDragView(node.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
+        
+            ClipboardContent content = new ClipboardContent();
+            content.putString(getViewModel().serialize(node.getRepresent()));
+        
+            dragboard.setContent(content);
+            dragEvent.consume();
+        });
+    }
+    
+    // TODO: BOILERPLATE
     private void setupDrag(Label node) {
         node.setOnDragDetected(dragEvent -> {
         
@@ -172,10 +186,9 @@ public class BuilderView extends View<BuilderViewModel> {
         });
     }
     
-    private void setupDragAlreadyDropped(Label node) {
+    private void setupDragAlreadyDropped(EventComponent node) {
     
         setupDrag(node);
-        
         node.setCursor(Cursor.OPEN_HAND);
     
         node.setOnDragDropped(dragEvent -> {
@@ -186,8 +199,12 @@ public class BuilderView extends View<BuilderViewModel> {
             if (dragboard.hasString()) {
             
                 int index = clusterBuilderVBox.getChildren().indexOf(node);
+                
                 // offset -1 because then it gets set before the separator which gets removed in the next step
-                clusterBuilderVBox.getChildren().add(index - 1, new Label(getViewModel().deserialize(dragboard.getString()).name()));
+                EventComponent eventComponent = new EventComponent(getViewModel().deserialize(dragboard.getString()));
+                clusterBuilderVBox.getChildren().add(index - 1, eventComponent);
+                
+                setupDragAlreadyDropped(eventComponent);
             
                 success = true;
             }
@@ -228,10 +245,10 @@ public class BuilderView extends View<BuilderViewModel> {
             
                 try {
                 
-                    Label label = new Label(getViewModel().deserialize(dragboard.getString()).name());
-                    setupDragAlreadyDropped(label);
+                    EventComponent eventComponent = new EventComponent(getViewModel().deserialize(dragboard.getString()));
+                    setupDragAlreadyDropped(eventComponent);
                     
-                    clusterBuilderVBox.getChildren().add(label);
+                    clusterBuilderVBox.getChildren().add(eventComponent);
                 
                     success = true;
                 } catch (JsonSyntaxException ignored) { // this could be probably done better
