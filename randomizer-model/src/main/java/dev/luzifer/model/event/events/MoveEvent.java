@@ -1,11 +1,12 @@
 package dev.luzifer.model.event.events;
 
 import dev.luzifer.model.event.Event;
+import dev.luzifer.model.event.Interval;
 
 import java.awt.event.KeyEvent;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class MoveEvent extends Event {
+public class MoveEvent extends Event implements Interval {
     
     @Override
     public void execute() {
@@ -19,7 +20,7 @@ public class MoveEvent extends Event {
         while(index++ < amount) {
             
             robot.keyPress(key);
-            robot.delay(ThreadLocalRandom.current().nextInt(40, 120));
+            robot.delay(ThreadLocalRandom.current().nextInt(min(), max()));
             robot.keyRelease(key);
         }
     }
@@ -27,5 +28,15 @@ public class MoveEvent extends Event {
     @Override
     public String description() {
         return "Presses either W-A-S-D 1~5 times to move";
+    }
+    
+    @Override
+    public int min() {
+        return 40;
+    }
+    
+    @Override
+    public int max() {
+        return 120;
     }
 }
