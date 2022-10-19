@@ -50,13 +50,11 @@ public class EventCluster {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         EventCluster that = (EventCluster) o;
-        return Objects.equals(name, that.name) && events.equals(that.events);
+        return Objects.equals(name, that.name);
     }
     
     @Override
     public int hashCode() {
-        int result = Objects.hash(name);
-        result = 31 * result + events.hashCode();
-        return result;
+        return Objects.hash(name);
     }
 }
