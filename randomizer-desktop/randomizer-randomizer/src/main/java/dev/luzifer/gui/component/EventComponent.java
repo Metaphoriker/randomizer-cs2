@@ -4,7 +4,6 @@ import dev.luzifer.model.event.Event;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
-import javafx.scene.layout.Pane;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
@@ -16,7 +15,7 @@ public class EventComponent extends VBox {
     private final Label nameLabel = new Label();
     private final Button button = new Button("Settings");
     
-    private final Pane pane = new Pane();
+    private final SettingsOverlayComponent pane = new SettingsOverlayComponent();
     
     private final Event represent;
     
@@ -39,7 +38,6 @@ public class EventComponent extends VBox {
                 getChildren().remove(pane);
         });
     
-        pane.getChildren().add(new Label(event.description()));
         pane.setVisible(false);
     
         Region placeHolder = new Region();
