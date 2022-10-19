@@ -8,6 +8,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class EmptyMagazineEvent extends Event implements Interval {
     
+    private int min = 3000;
+    private int max = 5000;
+    
     @Override
     public void execute() {
         
@@ -25,11 +28,21 @@ public class EmptyMagazineEvent extends Event implements Interval {
     
     @Override
     public int min() {
-        return 3000;
+        return min;
     }
     
     @Override
     public int max() {
-        return 5000;
+        return max;
+    }
+    
+    @Override
+    public void setMin(int min) {
+        this.min = min;
+    }
+    
+    @Override
+    public void setMax(int max) {
+        this.max = max;
     }
 }

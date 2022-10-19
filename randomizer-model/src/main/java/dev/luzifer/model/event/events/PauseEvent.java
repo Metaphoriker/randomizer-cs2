@@ -5,6 +5,9 @@ import dev.luzifer.model.event.Interval;
 
 public class PauseEvent extends Event implements Interval {
 
+    private int min = 250;
+    private int max = 250;
+    
     @Override
     public void execute() {
         try {
@@ -21,11 +24,21 @@ public class PauseEvent extends Event implements Interval {
     
     @Override
     public int min() {
-        return 250;
+        return min;
     }
     
     @Override
     public int max() {
-        return 250;
+        return max;
+    }
+    
+    @Override
+    public void setMin(int min) {
+        this.min = min;
+    }
+    
+    @Override
+    public void setMax(int max) {
+        this.max = max;
     }
 }

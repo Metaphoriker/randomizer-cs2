@@ -11,7 +11,11 @@ public class EventSettingsComponent extends VBox {
     
     private final VBox vBox = new VBox();
     
+    private final Event event;
+    
     public EventSettingsComponent(Event event) {
+        
+        this.event = event;
         
         setStyle("-fx-border-color: black; -fx-border-width: 1px; -fx-border-radius: 5px; -fx-padding: 5px;");
         
@@ -32,6 +36,13 @@ public class EventSettingsComponent extends VBox {
         }
         
         getChildren().addAll(title, vBox);
+    }
+    
+    public void apply() {
+        if(event instanceof Interval) {
+            ((Interval) event).setMin((int) ((SliderLabelComponent) vBox.getChildren().get(0)).getSlider().getValue());
+            ((Interval) event).setMax((int) ((SliderLabelComponent) vBox.getChildren().get(1)).getSlider().getValue());
+        }
     }
     
 }

@@ -8,6 +8,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class MoveEvent extends Event implements Interval {
     
+    private int min = 40;
+    private int max = 120;
+    
     @Override
     public void execute() {
     
@@ -32,11 +35,21 @@ public class MoveEvent extends Event implements Interval {
     
     @Override
     public int min() {
-        return 40;
+        return min;
     }
     
     @Override
     public int max() {
-        return 120;
+        return max;
+    }
+    
+    @Override
+    public void setMin(int min) {
+        this.min = min;
+    }
+    
+    @Override
+    public void setMax(int max) {
+        this.max = max;
     }
 }
