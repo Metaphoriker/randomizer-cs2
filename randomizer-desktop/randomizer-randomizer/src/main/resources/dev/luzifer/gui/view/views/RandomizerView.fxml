@@ -10,7 +10,7 @@
     <children>
         <ScrollPane prefHeight="400.0" prefWidth="420.0" style="-fx-border-color: black;" HBox.hgrow="ALWAYS">
             <content>
-                <VBox fx:id="logVBox" prefWidth="371.0" />
+                <VBox fx:id="logVBox" />
             </content>
         </ScrollPane>
       <HBox alignment="BOTTOM_CENTER" prefHeight="100.0" prefWidth="200.0" spacing="50.0">

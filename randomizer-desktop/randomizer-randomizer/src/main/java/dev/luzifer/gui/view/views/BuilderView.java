@@ -8,6 +8,7 @@ import dev.luzifer.model.event.cluster.EventCluster;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Insets;
+import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.*;
 import javafx.scene.input.ClipboardContent;
@@ -174,6 +175,8 @@ public class BuilderView extends View<BuilderViewModel> {
     private void setupDragAlreadyDropped(Label node) {
     
         setupDrag(node);
+        
+        node.setCursor(Cursor.OPEN_HAND);
     
         node.setOnDragDropped(dragEvent -> {
         
@@ -257,6 +260,7 @@ public class BuilderView extends View<BuilderViewModel> {
         getViewModel().getEvents().forEach(event -> {
     
             Label label = new Label(event.name());
+            label.setCursor(Cursor.OPEN_HAND);
             label.setContentDisplay(ContentDisplay.RIGHT);
             label.setPadding(new Insets(0, 0, 0, 5));
             label.setFont(new Font("Arial", 16));

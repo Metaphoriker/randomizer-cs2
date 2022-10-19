@@ -25,7 +25,6 @@
     </modules>
 
     <dependencyManagement>
-
         <dependencies>
             <dependency>
                 <groupId>org.openjfx</groupId>
