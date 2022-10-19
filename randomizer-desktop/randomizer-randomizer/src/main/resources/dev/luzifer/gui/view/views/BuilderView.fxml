@@ -31,8 +31,6 @@
                                        </padding>
                                        <children>
                                           <Button fx:id="deleteClusterButton" mnemonicParsing="false" onAction="#onDeleteCluster" />
-                                          <Button mnemonicParsing="false" text="Button" />
-                                          <Button mnemonicParsing="false" text="Button" />
                                        </children>
                                     </HBox>
                                     <StackPane AnchorPane.bottomAnchor="46.666666666666686" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-2.0" AnchorPane.topAnchor="0.0">
