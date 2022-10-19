@@ -1,6 +1,7 @@
 package dev.luzifer.gui.component;
 
 import dev.luzifer.model.event.Event;
+import dev.luzifer.model.event.Interval;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -13,7 +14,7 @@ public class EventComponent extends VBox {
     
     private final HBox innerHBox = new HBox();
     private final Label nameLabel = new Label();
-    private final Button button = new Button("Settings");
+    private final Button button = new Button("Interval-Settings");
     
     private final Event represent;
     private final EventSettingsComponent eventSettingsComponent;
@@ -43,7 +44,9 @@ public class EventComponent extends VBox {
         Region placeHolder = new Region();
         HBox.setHgrow(placeHolder, Priority.ALWAYS);
         
-        innerHBox.getChildren().addAll(nameLabel, placeHolder, button);
+        innerHBox.getChildren().addAll(nameLabel, placeHolder);
+        if(event instanceof Interval) innerHBox.getChildren().add(button);
+        
         getChildren().addAll(innerHBox);
     }
     
