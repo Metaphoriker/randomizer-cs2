@@ -1,4 +1,4 @@
-2.0.18-ALPHA
+2.0.19-ALPHA
 /*
  * The first number of the version is the major version number.
  * The second number of the version is the minor version number.
