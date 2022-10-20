@@ -32,10 +32,12 @@ public class EventSettingsComponent extends VBox {
             SliderLabelComponent minSlider = new SliderLabelComponent("Min", 1, 9999, ((Interval) event).min());
             SliderLabelComponent maxSlider = new SliderLabelComponent("Max", 2, 10000, ((Interval) event).max());
             
-            Label infoLabel = new Label("unit in milliseconds. sets the interval between the press and release of a key. min cant be bigger than max");
+            Label infoLabel = new Label("unit = milliseconds.\nsets the interval between the press and release of a key.");
+            infoLabel.setStyle("-fx-font-size: 10px; -fx-padding: 10px 0 0 0; -fx-text-fill: red; -fx-font-weight: bold;");
+            infoLabel.setOpacity(0.5);
             infoLabel.setWrapText(true);
             
-            vBox.getChildren().addAll(minSlider, maxSlider);
+            vBox.getChildren().addAll(minSlider, maxSlider, infoLabel);
         }
         
         getChildren().addAll(title, vBox);
