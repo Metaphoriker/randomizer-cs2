@@ -162,6 +162,8 @@ public class BuilderView extends View<BuilderViewModel> {
     private void setupDrag(EventComponent node) {
         node.setOnDragDetected(dragEvent -> {
         
+            node.apply();
+            
             Dragboard dragboard = node.startDragAndDrop(TransferMode.ANY);
             dragboard.setDragView(node.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
         
