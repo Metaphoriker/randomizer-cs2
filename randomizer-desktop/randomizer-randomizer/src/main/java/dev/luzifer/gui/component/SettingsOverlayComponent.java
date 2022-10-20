@@ -8,8 +8,8 @@ import javafx.scene.layout.VBox;
 
 public class SettingsOverlayComponent extends Pane {
     
-    private final SliderLabelComponent minSlider = new SliderLabelComponent("Min", 0, 120, 30);
-    private final SliderLabelComponent maxSlider = new SliderLabelComponent("Max", 0, 120, 120);
+    private final SliderLabelComponent minSlider = new SliderLabelComponent("Min", 1, 119, 30);
+    private final SliderLabelComponent maxSlider = new SliderLabelComponent("Max", 2, 120, 120);
 
     private final Button applyButton = new Button("Apply");
     
