@@ -29,12 +29,12 @@ import dev.luzifer.gui.view.models.GameViewModel;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -52,6 +52,7 @@ public class GameView extends View<GameViewModel> {
     private final List<Enemy> enemies = new ArrayList<>();
     private final List<Bullet> bullets = new ArrayList<>();
     private final List<Weapon> weapons = new ArrayList<>();
+    private final List<AmmoBox> ammoBoxes = new ArrayList<>();
     private final List<Molotov> molotovs = new ArrayList<>();
     private final List<Molotov> flyingMolotov = new ArrayList<>();
     private final List<Fire> fires = new ArrayList<>();
@@ -90,8 +91,11 @@ public class GameView extends View<GameViewModel> {
         gameField.getChildren().add(rectangle);
         
         Player player = new Player();
-        Platform.runLater(() -> getScene().setOnKeyPressed(player::onMove));
-        Platform.runLater(() -> getScene().setOnMouseClicked(player::onClick));
+        Platform.runLater(() -> {
+            getScene().setOnKeyPressed(player::onMove);
+            getScene().setOnKeyReleased(player::onUnMove);
+            getScene().setOnMouseClicked(player::onClick);
+        });
     
         update(player);
     
@@ -104,12 +108,8 @@ public class GameView extends View<GameViewModel> {
         molotovLabel.setText("x" + player.getMolotovs().size());
         molotovLabel.setFont(molotovLabel.getFont().font(24));
         molotovLabel.setGraphic(ImageUtil.getImageView("images/molotov_icon.png"));
+        molotovLabel.setContentDisplay(ContentDisplay.RIGHT);
         gameField.getChildren().add(molotovLabel);
-    
-        player.addMolotov(new Molotov());
-        player.addMolotov(new Molotov());
-        player.addMolotov(new Molotov());
-        player.addMolotov(new Molotov());
     }
     
     private AnimationTimer update(Player player) {
@@ -117,6 +117,8 @@ public class GameView extends View<GameViewModel> {
         AnimationTimer animationTimer = new AnimationTimer() {
             @Override
             public void handle(long l) {
+                
+                player.update();
                 
                 enemies.forEach(enemy -> {
                     
@@ -174,6 +176,20 @@ public class GameView extends View<GameViewModel> {
                         
                         it.remove();
                         gameField.getChildren().remove(weapon);
+                    }
+                }
+                
+                for(Iterator<AmmoBox> it = ammoBoxes.iterator(); it.hasNext(); ) {
+                    
+                    AmmoBox ammoBox = it.next();
+                    
+                    if(ammoBox.getBoundsInParent().intersects(player.getBoundsInParent())) {
+                        
+                        if(player.hasWeapon())
+                            player.getWeapon().refill();
+                        
+                        it.remove();
+                        gameField.getChildren().remove(ammoBox);
                     }
                 }
                 
@@ -247,10 +263,18 @@ public class GameView extends View<GameViewModel> {
                 if(ThreadLocalRandom.current().nextInt(100) <= 1)
                     gameField.getChildren().add(new Enemy(player));
                 
-                if(ThreadLocalRandom.current().nextDouble(100) <= 0.5)
+                if(ThreadLocalRandom.current().nextDouble(100) <= 0.25)
                     gameField.getChildren().add(new Bomb());
                 
                 if(ThreadLocalRandom.current().nextDouble(100) <= 0.5) {
+                    
+                    AmmoBox ammoBox = new AmmoBox();
+                    
+                    gameField.getChildren().add(ammoBox);
+                    ammoBoxes.add(ammoBox);
+                }
+                
+                if(ThreadLocalRandom.current().nextDouble(100) <= 0.1) {
                     
                     Molotov molotov = new Molotov();
                     
@@ -258,12 +282,11 @@ public class GameView extends View<GameViewModel> {
                     molotovs.add(molotov);
                 }
                 
-                if(!player.hasWeapon()) {
-    
-                    if(ThreadLocalRandom.current().nextDouble(100) <= 0.5) {
-        
+                if(ThreadLocalRandom.current().nextDouble(100) <= 1) {
+                    if(weapons.isEmpty() && !player.hasWeapon()) {
+                        
                         Weapon weapon = new Weapon();
-        
+    
                         gameField.getChildren().add(weapon);
                         weapons.add(weapon);
                     }
@@ -359,7 +382,23 @@ public class GameView extends View<GameViewModel> {
         }
     }
     
+    private class AmmoBox extends Rectangle {
+        
+        public AmmoBox() {
+            super(30, 30);
+            
+            setFill(ImageUtil.getImagePattern("images/ammo_box_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+            
+            setTranslateX(ThreadLocalRandom.current().nextInt(600));
+            setTranslateY(ThreadLocalRandom.current().nextInt(600));
+        }
+    }
+    
     private class Weapon extends Rectangle {
+        
+        private final Label ammoLabel;
+        
+        private int ammo = 30;
         
         public Weapon() {
             super(100, 100);
@@ -368,6 +407,41 @@ public class GameView extends View<GameViewModel> {
             
             setTranslateX(ThreadLocalRandom.current().nextInt(600));
             setTranslateY(ThreadLocalRandom.current().nextInt(600));
+    
+            ammoLabel = new Label();
+            ammoLabel.setTranslateX(500);
+            ammoLabel.setTranslateY(530);
+            ammoLabel.setVisible(true);
+            ammoLabel.setText("x" + ammo);
+            ammoLabel.setFont(ammoLabel.getFont().font(24));
+            ammoLabel.setGraphic(ImageUtil.getImageView("images/ammo_box_icon.png"));
+            ammoLabel.setContentDisplay(ContentDisplay.RIGHT);
+            gameField.getChildren().add(ammoLabel);
+        }
+        
+        public void refill() {
+            ammo = 30;
+            ammoLabel.setText("x" + ammo);
+        }
+        
+        public void shoot(Point2D location, double rotate) {
+            
+            if(ammo == 0)
+                return;
+            
+            double angle = Math.toRadians(rotate);
+            double x = Math.cos(angle);
+            double y = Math.sin(angle);
+    
+            Point2D velocity = new Point2D.Double(x, y);
+    
+            Bullet bullet = new Bullet(location, velocity, rotate);
+            bullets.add(bullet);
+    
+            gameField.getChildren().add(bullet);
+            
+            ammo--;
+            ammoLabel.setText("x" + ammo);
         }
     }
     
@@ -469,11 +543,12 @@ public class GameView extends View<GameViewModel> {
         }
     }
     
-    private class Player extends VBox {
+    private class Player extends Rectangle {
+        
+        private final List<KeyCode> pressingKeys = new ArrayList<>();
         
         private final List<Molotov> molotovs = new ArrayList<>();
         
-        private final Circle playerRepresentation = new Circle();
         private final HealthBar healthBar = new HealthBar();
         
         private int health = 20;
@@ -482,19 +557,22 @@ public class GameView extends View<GameViewModel> {
         private boolean animationBoolean = false;
         
         public Player() {
+            super(50, 50);
+            
+            setFill(ImageUtil.getImagePattern("images/figure_icon.png", ImageUtil.ImageResolution.MEDIUM));
     
-            playerRepresentation.setFill(ImageUtil.getImagePattern("images/figure_icon.png", ImageUtil.ImageResolution.MEDIUM));
-            playerRepresentation.setRadius(25);
+            healthBar.translateXProperty().bind(translateXProperty());
+            healthBar.translateYProperty().bind(translateYProperty().subtract(10));
             
             setTranslateX(300);
             setTranslateY(300);
             
-            getChildren().addAll(healthBar, playerRepresentation);
+            gameField.getChildren().add(healthBar);
         }
-    
+        
         public void addMolotov(Molotov molotov) {
             molotovs.add(molotov);
-            ((Label) gameField.getChildren().get(4)).setText("x" + molotovs.size());
+            ((Label) gameField.getChildren().get(5)).setText("x" + molotovs.size());
         }
         
         public void setWeapon(Weapon weapon) {
@@ -507,7 +585,52 @@ public class GameView extends View<GameViewModel> {
             healthBar.updateHealth(health);
             
             if(health <= 0)
-                playerRepresentation.setFill(ImageUtil.getImagePattern("images/figure_dead_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+                setFill(ImageUtil.getImagePattern("images/figure_dead_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+        }
+        
+        public void update() {
+            
+/*
+            if(!pressingKeys.isEmpty()) {
+                if(animationBoolean) {
+                    playerRepresentation.setRadius(playerRepresentation.getRadius() + 2);
+                    animationBoolean = false;
+                } else {
+                    playerRepresentation.setRadius(playerRepresentation.getRadius() - 2);
+                    animationBoolean = true;
+                }
+            }
+ */
+            
+            pressingKeys.forEach(key -> {
+                
+                if(isBorderInThatDirection(key))
+                    return;
+                
+                switch (key) {
+                    case W:
+                        moveUp();
+                        break;
+                    case S:
+                        moveDown();
+                        break;
+                    case A:
+                        moveLeft();
+                        break;
+                    case D:
+                        moveRight();
+                        break;
+                    case Q:
+                        rotateLeft();
+                        break;
+                    case R:
+                        rotateRight();
+                        break;
+                    case SPACE:
+                        shoot();
+                        break;
+                }
+            });
         }
         
         public void onMove(KeyEvent keyEvent) {
@@ -515,37 +638,12 @@ public class GameView extends View<GameViewModel> {
             if(isBorderInThatDirection(keyEvent.getCode()) || isDead())
                 return;
             
-            switch (keyEvent.getCode()) {
-                case W:
-                    moveUp();
-                    break;
-                case A:
-                    moveLeft();
-                    break;
-                case S:
-                    moveDown();
-                    break;
-                case D:
-                    moveRight();
-                    break;
-                case Q:
-                    rotateLeft();
-                    break;
-                case R:
-                    rotateRight();
-                    break;
-                case SPACE:
-                    shoot();
-                    break;
-            }
-            
-            if(animationBoolean) {
-                playerRepresentation.setRadius(playerRepresentation.getRadius() + 2);
-                animationBoolean = false;
-            } else {
-                playerRepresentation.setRadius(playerRepresentation.getRadius() - 2);
-                animationBoolean = true;
-            }
+            if(!pressingKeys.contains(keyEvent.getCode())) // Check for only-accept keycodes
+                pressingKeys.add(keyEvent.getCode());
+        }
+        
+        public void onUnMove(KeyEvent keyEvent) {
+            pressingKeys.remove(keyEvent.getCode());
         }
         
         public void onClick(MouseEvent mouseEvent) {
@@ -556,7 +654,7 @@ public class GameView extends View<GameViewModel> {
             if(!molotovs.isEmpty()) {
                 
                 Molotov molotov = molotovs.remove(0);
-                ((Label) gameField.getChildren().get(4)).setText("x" + molotovs.size());
+                ((Label) gameField.getChildren().get(5)).setText("x" + molotovs.size());
     
                 double angle = Math.toRadians(getRotate());
                 double x = Math.cos(angle);
@@ -570,43 +668,32 @@ public class GameView extends View<GameViewModel> {
         }
         
         public void shoot() {
-            if(hasWeapon()) {
-        
-                double angle = Math.toRadians(getRotate());
-                double x = Math.cos(angle);
-                double y = Math.sin(angle);
-        
-                Point2D velocity = new Point2D.Double(x, y);
-        
-                Bullet bullet = new Bullet(getLocation(), velocity, getRotate());
-                bullets.add(bullet);
-        
-                gameField.getChildren().add(bullet);
-            }
+            if(hasWeapon())
+                weapon.shoot(getLocation(), getRotate());
         }
         
         public void moveRight() {
-            setTranslateX(getTranslateX() + 10);
+            setTranslateX(getTranslateX() + 5);
         }
         
         public void moveLeft() {
-            setTranslateX(getTranslateX() - 10);
+            setTranslateX(getTranslateX() - 5);
         }
         
         public void moveUp() {
-            setTranslateY(getTranslateY() - 10);
+            setTranslateY(getTranslateY() - 5);
         }
         
         public void moveDown() {
-            setTranslateY(getTranslateY() + 10);
+            setTranslateY(getTranslateY() + 5);
         }
         
         public void rotateLeft() {
-            setRotate(getRotate() - 10);
+            setRotate(getRotate() - 5);
         }
         
         public void rotateRight() {
-            setRotate(getRotate() + 10);
+            setRotate(getRotate() + 5);
         }
     
         public boolean isBorderInThatDirection(KeyCode keyCode) {
