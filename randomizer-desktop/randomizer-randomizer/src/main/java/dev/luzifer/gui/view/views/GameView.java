@@ -664,7 +664,7 @@ public class GameView extends View<GameViewModel> {
             
             pressingKeys.forEach(key -> {
                 
-                if(isBorderInThatDirection(key) || isObstacleInThatDirection(key))
+                if(isBorderInThatDirection(key, 5) || isObstacleInThatDirection(key, 5))
                     return;
                 
                 switch (key) {
@@ -698,7 +698,7 @@ public class GameView extends View<GameViewModel> {
         
         public void onMove(KeyEvent keyEvent) {
     
-            if(isBorderInThatDirection(keyEvent.getCode()) || isDead())
+            if(isBorderInThatDirection(keyEvent.getCode(), 5) || isDead())
                 return;
             
             if(!pressingKeys.contains(keyEvent.getCode())) // Check for only-accept keycodes
@@ -759,6 +759,10 @@ public class GameView extends View<GameViewModel> {
     
             Point2D velocity = new Point2D.Double(x, y);
     
+            if(isBorderInThatDirection(KeyCode.SHIFT, velocity.getX() * 10)
+                    || isObstacleInThatDirection(KeyCode.SHIFT, velocity.getX() * 10))
+                return;
+            
             setTranslateX(getTranslateX() + velocity.getX() * 10);
             setTranslateY(getTranslateY() + velocity.getY() * 10);
         }
@@ -771,38 +775,53 @@ public class GameView extends View<GameViewModel> {
             setRotate(getRotate() + 5);
         }
     
-        public boolean isBorderInThatDirection(KeyCode keyCode) {
+        public boolean isBorderInThatDirection(KeyCode keyCode, double distance) {
             switch (keyCode) {
                 case W:
-                    return getTranslateY() <= 5;
+                    return getTranslateY() <= distance;
                 case A:
-                    return getTranslateX() <= 5;
+                    return getTranslateX() <= distance;
                 case S:
-                    return getTranslateY() >= HEIGHT-5;
+                    return getTranslateY() >= HEIGHT-distance;
                 case D:
-                    return getTranslateX() >= WIDTH-5;
+                    return getTranslateX() >= WIDTH-distance;
+                case SHIFT:
+                    return getTranslateY() <= distance || getTranslateX() <= distance
+                            || getTranslateY() >= HEIGHT-distance || getTranslateX() >= WIDTH-distance;
             }
             
             return false;
         }
         
-        public boolean isObstacleInThatDirection(KeyCode keyCode) {
+        public boolean isObstacleInThatDirection(KeyCode keyCode, double distance) {
             
             double predictedX = getTranslateX();
             double predictedY = getTranslateY();
             
             switch (keyCode) {
                 case W:
-                    predictedY -= 5;
+                    predictedY -= distance;
                     break;
                 case A:
-                    predictedX -= 5;
+                    predictedX -= distance;
                     break;
                 case S:
-                    predictedY += 5;
+                    predictedY += distance;
                     break;
                 case D:
-                    predictedX += 5;
+                    predictedX += distance;
+                    break;
+                case SHIFT:
+                    
+                    double angle = Math.toRadians(getRotate());
+                    double x = Math.cos(angle);
+                    double y = Math.sin(angle);
+    
+                    Point2D velocity = new Point2D.Double(x, y);
+    
+                    predictedX += velocity.getX() * 10;
+                    predictedY += velocity.getY() * 10;
+                    
                     break;
             }
             
