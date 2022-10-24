@@ -1,3 +1,25 @@
+/*
+ * xD
+ * D
+ * D
+ * D
+ * D
+ * D
+ * D
+ * D
+ * D
+ * D
+ * D
+ * D
+ * D
+ * xxdd
+ * xD
+ *
+ *
+ * lmao
+ */
+
+
 package dev.luzifer.gui.view.views;
 
 import dev.luzifer.Main;
@@ -8,12 +30,10 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
@@ -31,6 +51,10 @@ public class GameView extends View<GameViewModel> {
     
     private final List<Enemy> enemies = new ArrayList<>();
     private final List<Bullet> bullets = new ArrayList<>();
+    private final List<Weapon> weapons = new ArrayList<>();
+    private final List<Molotov> molotovs = new ArrayList<>();
+    private final List<Molotov> flyingMolotov = new ArrayList<>();
+    private final List<Fire> fires = new ArrayList<>();
     
     private int score = 0;
     
@@ -67,11 +91,25 @@ public class GameView extends View<GameViewModel> {
         
         Player player = new Player();
         Platform.runLater(() -> getScene().setOnKeyPressed(player::onMove));
-        Platform.runLater(() -> getScene().setOnMouseClicked(player::onShoot));
+        Platform.runLater(() -> getScene().setOnMouseClicked(player::onClick));
     
         update(player);
     
         gameField.getChildren().add(player);
+        
+        Label molotovLabel = new Label();
+        molotovLabel.setTranslateX(500);
+        molotovLabel.setTranslateY(550);
+        molotovLabel.setVisible(true);
+        molotovLabel.setText("x" + player.getMolotovs().size());
+        molotovLabel.setFont(molotovLabel.getFont().font(24));
+        molotovLabel.setGraphic(ImageUtil.getImageView("images/molotov_icon.png"));
+        gameField.getChildren().add(molotovLabel);
+    
+        player.addMolotov(new Molotov());
+        player.addMolotov(new Molotov());
+        player.addMolotov(new Molotov());
+        player.addMolotov(new Molotov());
     }
     
     private AnimationTimer update(Player player) {
@@ -125,12 +163,111 @@ public class GameView extends View<GameViewModel> {
                         }
                     }
                 }
+                
+                for(Iterator<Weapon> it = weapons.iterator(); it.hasNext(); ) {
+                    
+                    Weapon weapon = it.next();
+                    
+                    if(weapon.getBoundsInParent().intersects(player.getBoundsInParent())) {
+                        
+                        player.setWeapon(weapon);
+                        
+                        it.remove();
+                        gameField.getChildren().remove(weapon);
+                    }
+                }
+                
+                for(Iterator<Molotov> it = molotovs.iterator(); it.hasNext(); ) {
+                    
+                    Molotov molotov = it.next();
+                    
+                    if(molotov.getBoundsInParent().intersects(player.getBoundsInParent())) {
+                        
+                        player.addMolotov(molotov);
+                        
+                        it.remove();
+                        gameField.getChildren().remove(molotov);
+                    }
+                }
+                
+                for(Iterator<Molotov> it = flyingMolotov.iterator(); it.hasNext(); ) {
+                    
+                    Molotov molotov = it.next();
+                    molotov.update();
+                    
+                    for(Iterator<Enemy> it2 = enemies.iterator(); it2.hasNext(); ) {
+                        
+                        Enemy enemy = it2.next();
+                        
+                        if (molotov.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
+                            
+                            it.remove();
+                            gameField.getChildren().remove(molotov);
+                            
+                            Fire fire = new Fire(enemy.getLocation());
+                            fires.add(fire);
+                            
+                            gameField.getChildren().add(fire);
+                            
+                            break;
+                        }
+                    }
+                }
+                
+                for(Iterator<Fire> it = fires.iterator(); it.hasNext(); ) {
+                    
+                    Fire fire = it.next();
+                    fire.update();
+                    
+                    if(fire.isExpired()) {
+    
+                        it.remove();
+                        gameField.getChildren().remove(fire);
+                        
+                        return;
+                    }
+                    
+                    for(Iterator<Enemy> it2 = enemies.iterator(); it2.hasNext(); ) {
+                        
+                        Enemy enemy = it2.next();
+                        
+                        if (fire.getBoundsInParent().intersects(enemy.getBoundsInParent())) {
+                            
+                            it2.remove();
+                            gameField.getChildren().remove(enemy);
+                            
+                            score+=10;
+                            ((Label) gameField.getChildren().get(1)).setText("Score: " + score);
+                            
+                            break;
+                        }
+                    }
+                }
     
                 if(ThreadLocalRandom.current().nextInt(100) <= 1)
                     gameField.getChildren().add(new Enemy(player));
                 
                 if(ThreadLocalRandom.current().nextDouble(100) <= 0.5)
                     gameField.getChildren().add(new Bomb());
+                
+                if(ThreadLocalRandom.current().nextDouble(100) <= 0.5) {
+                    
+                    Molotov molotov = new Molotov();
+                    
+                    gameField.getChildren().add(molotov);
+                    molotovs.add(molotov);
+                }
+                
+                if(!player.hasWeapon()) {
+    
+                    if(ThreadLocalRandom.current().nextDouble(100) <= 0.5) {
+        
+                        Weapon weapon = new Weapon();
+        
+                        gameField.getChildren().add(weapon);
+                        weapons.add(weapon);
+                    }
+                }
             }
         };
         animationTimer.start();
@@ -138,12 +275,40 @@ public class GameView extends View<GameViewModel> {
         return animationTimer;
     }
     
+    private class Fire extends Circle {
+        
+        private final double speed = 0.25;
+        
+        private boolean expired = false;
+        
+        public Fire(Point2D point2D) {
+            super(50);
+            
+            setTranslateX(point2D.getX());
+            setTranslateY(point2D.getY());
+            
+            setFill(ImageUtil.getImagePattern("images/fire_icon.gif"));
+        }
+        
+        public void update() {
+            
+            setRadius(getRadius() - speed);
+            
+            if(getRadius() <= 0)
+                expired = true;
+        }
+    
+        public boolean isExpired() {
+            return expired;
+        }
+    }
+    
     private class Enemy extends Rectangle {
     
         private final Player player;
         
         public Enemy(Player toChase) {
-            super(100, 30);
+            super(30, 30);
             
             this.player = toChase;
             
@@ -173,7 +338,7 @@ public class GameView extends View<GameViewModel> {
         }
         
         public Point2D getLocation() {
-            return new Point2D.Double(getX(), getY());
+            return new Point2D.Double(getTranslateX(), getTranslateY());
         }
     }
     
@@ -191,6 +356,18 @@ public class GameView extends View<GameViewModel> {
                 gameField.getChildren().remove(this);
                 gameField.getChildren().add(new BombExplosion(new Point2D.Double(getTranslateX(), getTranslateY())));
             }), 3000);
+        }
+    }
+    
+    private class Weapon extends Rectangle {
+        
+        public Weapon() {
+            super(100, 100);
+            
+            setFill(ImageUtil.getImagePattern("images/weapon_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+            
+            setTranslateX(ThreadLocalRandom.current().nextInt(600));
+            setTranslateY(ThreadLocalRandom.current().nextInt(600));
         }
     }
     
@@ -261,12 +438,48 @@ public class GameView extends View<GameViewModel> {
         }
     }
     
+    private class Molotov extends Rectangle {
+        
+        private Point2D velocity;
+        
+        public Molotov() {
+            super(20, 20);
+            
+            setFill(ImageUtil.getImagePattern("images/molotov_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+            
+            setTranslateX(ThreadLocalRandom.current().nextInt(600));
+            setTranslateY(ThreadLocalRandom.current().nextInt(600));
+        }
+        
+        public void fly(Point2D start, Point2D velocity, double rotate) {
+            
+            this.velocity = velocity;
+            
+            setTranslateX(start.getX());
+            setTranslateY(start.getY());
+            
+            setRotate(rotate);
+            
+            flyingMolotov.add(this);
+        }
+        
+        public void update() {
+            setTranslateX(getTranslateX() + velocity.getX());
+            setTranslateY(getTranslateY() + velocity.getY());
+        }
+    }
+    
     private class Player extends VBox {
+        
+        private final List<Molotov> molotovs = new ArrayList<>();
         
         private final Circle playerRepresentation = new Circle();
         private final HealthBar healthBar = new HealthBar();
         
         private int health = 20;
+        private Weapon weapon;
+        
+        private boolean animationBoolean = false;
         
         public Player() {
     
@@ -278,40 +491,41 @@ public class GameView extends View<GameViewModel> {
             
             getChildren().addAll(healthBar, playerRepresentation);
         }
+    
+        public void addMolotov(Molotov molotov) {
+            molotovs.add(molotov);
+            ((Label) gameField.getChildren().get(4)).setText("x" + molotovs.size());
+        }
         
+        public void setWeapon(Weapon weapon) {
+            this.weapon = weapon;
+        }
+    
         public void damage(int amount) {
+            
             health -= amount;
             healthBar.updateHealth(health);
+            
+            if(health <= 0)
+                playerRepresentation.setFill(ImageUtil.getImagePattern("images/figure_dead_icon.png", ImageUtil.ImageResolution.ORIGINAL));
         }
         
         public void onMove(KeyEvent keyEvent) {
+    
+            if(isBorderInThatDirection(keyEvent.getCode()) || isDead())
+                return;
+            
             switch (keyEvent.getCode()) {
                 case W:
-    
-                    if(isBorderInThatDirection(keyEvent.getCode()) || isDead())
-                        return;
-                    
                     moveUp();
                     break;
                 case A:
-    
-                    if(isBorderInThatDirection(keyEvent.getCode()) || isDead())
-                        return;
-                    
                     moveLeft();
                     break;
                 case S:
-    
-                    if(isBorderInThatDirection(keyEvent.getCode()) || isDead())
-                        return;
-                    
                     moveDown();
                     break;
                 case D:
-    
-                    if(isBorderInThatDirection(keyEvent.getCode()) || isDead())
-                        return;
-                    
                     moveRight();
                     break;
                 case Q:
@@ -320,24 +534,55 @@ public class GameView extends View<GameViewModel> {
                 case R:
                     rotateRight();
                     break;
+                case SPACE:
+                    shoot();
+                    break;
+            }
+            
+            if(animationBoolean) {
+                playerRepresentation.setRadius(playerRepresentation.getRadius() + 2);
+                animationBoolean = false;
+            } else {
+                playerRepresentation.setRadius(playerRepresentation.getRadius() - 2);
+                animationBoolean = true;
             }
         }
         
-        public void onShoot(MouseEvent event) {
+        public void onClick(MouseEvent mouseEvent) {
             
             if(isDead())
                 return;
+            
+            if(!molotovs.isEmpty()) {
+                
+                Molotov molotov = molotovs.remove(0);
+                ((Label) gameField.getChildren().get(4)).setText("x" + molotovs.size());
     
-            double angle = Math.toRadians(getRotate());
-            double x = Math.cos(angle);
-            double y = Math.sin(angle);
-            
-            Point2D velocity = new Point2D.Double(x, y);
-            
-            Bullet bullet = new Bullet(getLocation(), velocity, getRotate());
-            bullets.add(bullet);
-            
-            gameField.getChildren().add(bullet);
+                double angle = Math.toRadians(getRotate());
+                double x = Math.cos(angle);
+                double y = Math.sin(angle);
+    
+                Point2D velocity = new Point2D.Double(x, y);
+                molotov.fly(new Point2D.Double(getTranslateX(), getTranslateY()), velocity, getRotate());
+                
+                gameField.getChildren().add(molotov);
+            }
+        }
+        
+        public void shoot() {
+            if(hasWeapon()) {
+        
+                double angle = Math.toRadians(getRotate());
+                double x = Math.cos(angle);
+                double y = Math.sin(angle);
+        
+                Point2D velocity = new Point2D.Double(x, y);
+        
+                Bullet bullet = new Bullet(getLocation(), velocity, getRotate());
+                bullets.add(bullet);
+        
+                gameField.getChildren().add(bullet);
+            }
         }
         
         public void moveRight() {
@@ -386,9 +631,21 @@ public class GameView extends View<GameViewModel> {
         public boolean isDead() {
             return health <= 0;
         }
+        
+        public boolean hasWeapon() {
+            return weapon != null;
+        }
     
         public Point2D getLocation() {
             return new Point2D.Double(getTranslateX(), getTranslateY());
+        }
+    
+        public List<Molotov> getMolotovs() {
+            return molotovs;
+        }
+    
+        public Weapon getWeapon() {
+            return weapon;
         }
     }
     
@@ -402,11 +659,11 @@ public class GameView extends View<GameViewModel> {
         public HealthBar() {
             
             healthBarBackground.setWidth(100);
-            healthBarBackground.setHeight(20);
+            healthBarBackground.setHeight(15);
             healthBarBackground.setFill(Color.RED);
             
             healthBar.setWidth(100);
-            healthBar.setHeight(20);
+            healthBar.setHeight(15);
             healthBar.setFill(Color.GREEN);
             
             healthLabel.setText("Health: 20");
