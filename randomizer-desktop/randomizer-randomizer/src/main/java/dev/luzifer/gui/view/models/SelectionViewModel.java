@@ -13,12 +13,15 @@ public class SelectionViewModel implements ViewModel {
     
     private final Runnable randomizerCallback;
     private final Runnable builderCallback;
+    private final Runnable gameCallback;
     private final Consumer<CSSUtil.Theme> switchThemeCallback;
     
-    public SelectionViewModel(Runnable randomizerCallback, Runnable builderCallback, Consumer<CSSUtil.Theme> switchThemeCallback) {
+    public SelectionViewModel(Runnable randomizerCallback, Runnable builderCallback, Runnable gameCallback, Consumer<CSSUtil.Theme> switchThemeCallback) {
         
         this.randomizerCallback = randomizerCallback;
         this.builderCallback = builderCallback;
+        this.gameCallback = gameCallback;
+        
         this.switchThemeCallback = switchThemeCallback;
     }
     
@@ -28,6 +31,10 @@ public class SelectionViewModel implements ViewModel {
     
     public void openBuilder() {
         builderCallback.run();
+    }
+    
+    public void openGame() {
+        gameCallback.run();
     }
     
     public void switchTheme() {
