@@ -57,6 +57,8 @@ public class GameView extends View<GameViewModel> {
     private final List<Molotov> flyingMolotov = new ArrayList<>();
     private final List<Fire> fires = new ArrayList<>();
     
+    private final List<Obstacle> obstacles = new ArrayList<>();
+    
     private int score = 0;
     
     @FXML
@@ -110,6 +112,14 @@ public class GameView extends View<GameViewModel> {
         molotovLabel.setGraphic(ImageUtil.getImageView("images/molotov_icon.png"));
         molotovLabel.setContentDisplay(ContentDisplay.RIGHT);
         gameField.getChildren().add(molotovLabel);
+        
+        for(int i = 0; i < ThreadLocalRandom.current().nextInt(5); i++) {
+            
+            Obstacle obstacle = new Obstacle();
+            
+            obstacles.add(obstacle);
+            gameField.getChildren().add(obstacle);
+        }
     }
     
     private AnimationTimer update(Player player) {
@@ -365,6 +375,18 @@ public class GameView extends View<GameViewModel> {
         }
     }
     
+    private class Obstacle extends Rectangle {
+        
+        public Obstacle() {
+            super(ThreadLocalRandom.current().nextInt(50, 151), ThreadLocalRandom.current().nextInt(50, 76));
+            
+            setTranslateX(ThreadLocalRandom.current().nextInt(600));
+            setTranslateY(ThreadLocalRandom.current().nextInt(600));
+            
+            setFill(ImageUtil.getImagePattern("images/obstacle_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+        }
+    }
+    
     private class Bomb extends Circle {
         
         public Bomb() {
@@ -604,7 +626,7 @@ public class GameView extends View<GameViewModel> {
             
             pressingKeys.forEach(key -> {
                 
-                if(isBorderInThatDirection(key))
+                if(isBorderInThatDirection(key) || isObstacleInThatDirection(key))
                     return;
                 
                 switch (key) {
@@ -707,6 +729,33 @@ public class GameView extends View<GameViewModel> {
                 case D:
                     return getTranslateX() >= 585;
             }
+            
+            return false;
+        }
+        
+        public boolean isObstacleInThatDirection(KeyCode keyCode) {
+            
+            double predictedX = getTranslateX();
+            double predictedY = getTranslateY();
+            
+            switch (keyCode) {
+                case W:
+                    predictedY -= 5;
+                    break;
+                case A:
+                    predictedX -= 5;
+                    break;
+                case S:
+                    predictedY += 5;
+                    break;
+                case D:
+                    predictedX += 5;
+                    break;
+            }
+            
+            for(Obstacle obstacle : obstacles)
+                if(obstacle.getBoundsInParent().contains(predictedX, predictedY))
+                    return true;
             
             return false;
         }
