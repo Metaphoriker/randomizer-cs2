@@ -121,6 +121,9 @@ public class GameView extends View<GameViewModel> {
     
                 if(ThreadLocalRandom.current().nextInt(100) <= 1)
                     gameField.getChildren().add(new Enemy(player));
+                
+                if(ThreadLocalRandom.current().nextInt(100) <= 1)
+                    gameField.getChildren().add(new Bomb());
             }
         };
         animationTimer.start();
@@ -164,6 +167,51 @@ public class GameView extends View<GameViewModel> {
         
         public Point2D getLocation() {
             return new Point2D.Double(getX(), getY());
+        }
+    }
+    
+    private class Bomb extends Circle {
+        
+        public Bomb() {
+            super(16);
+            
+            setFill(ImageUtil.getImagePattern("images/bomb_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+            
+            setTranslateX(ThreadLocalRandom.current().nextInt(600));
+            setTranslateY(ThreadLocalRandom.current().nextInt(600));
+            
+            Main.getScheduler().schedule(() -> Platform.runLater(() -> {
+                gameField.getChildren().remove(this);
+                gameField.getChildren().add(new BombExplosion(new Point2D.Double(getTranslateX(), getTranslateY())));
+            }), 3000);
+        }
+    }
+    
+    private class BombExplosion extends Circle {
+        
+        public BombExplosion(Point2D location) {
+            super(ThreadLocalRandom.current().nextInt(10, 101));
+            
+            setFill(ImageUtil.getImagePattern("images/bomb_boom_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+            
+            setTranslateX(location.getX());
+            setTranslateY(location.getY());
+            
+            for(Iterator<Enemy> it = enemies.iterator(); it.hasNext(); ) {
+                
+                Enemy enemy = it.next();
+                
+                if (getBoundsInParent().intersects(enemy.getBoundsInParent())) {
+                    
+                    it.remove();
+                    gameField.getChildren().remove(enemy);
+                    
+                    score+=10;
+                    ((Label) gameField.getChildren().get(1)).setText("Score: " + score);
+                }
+            }
+            
+            Main.getScheduler().schedule(() -> Platform.runLater(() -> gameField.getChildren().remove(this)), 1000);
         }
     }
     
