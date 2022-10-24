@@ -8,10 +8,13 @@ import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
+import javafx.scene.layout.StackPane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Circle;
 import javafx.scene.shape.Rectangle;
@@ -81,13 +84,17 @@ public class GameView extends View<GameViewModel> {
                     
                     if (enemy.getBoundsInParent().intersects(player.getBoundsInParent())) {
                         
-                        player.setDead(true);
-                        player.setRotate(0);
+                        player.damage(2);
                         
-                        gameField.getChildren().get(0).setVisible(true);
-                        Main.getScheduler().schedule(() -> Platform.runLater(() -> close()), 2000);
-                        
-                        return;
+                        if(player.isDead()) {
+                            
+                            player.setRotate(0);
+    
+                            gameField.getChildren().get(0).setVisible(true);
+                            Main.getScheduler().schedule(() -> Platform.runLater(() -> close()), 2000);
+                            
+                            return;
+                        }
                     }
                     
                     enemy.followPlayer();
@@ -201,11 +208,16 @@ public class GameView extends View<GameViewModel> {
                 
                 Player player = (Player) gameField.getChildren().get(3);
                 
-                player.setDead(true);
-                player.setRotate(0);
+                player.damage(2);
+                if(player.isDead()) {
+                    
+                    player.setRotate(0);
     
-                gameField.getChildren().get(0).setVisible(true);
-                Main.getScheduler().schedule(() -> Platform.runLater(() -> close()), 2000);
+                    gameField.getChildren().get(0).setVisible(true);
+                    Main.getScheduler().schedule(() -> Platform.runLater(() -> close()), 2000);
+                    
+                    return;
+                }
             }
             
             for(Iterator<Enemy> it = enemies.iterator(); it.hasNext(); ) {
@@ -249,17 +261,27 @@ public class GameView extends View<GameViewModel> {
         }
     }
     
-    private class Player extends Circle {
-    
-        private boolean dead;
+    private class Player extends VBox {
+        
+        private final Circle playerRepresentation = new Circle();
+        private final HealthBar healthBar = new HealthBar();
+        
+        private int health = 20;
         
         public Player() {
-            super(25);
-            
-            setFill(ImageUtil.getImagePattern("images/figure_icon.png", ImageUtil.ImageResolution.MEDIUM));
+    
+            playerRepresentation.setFill(ImageUtil.getImagePattern("images/figure_icon.png", ImageUtil.ImageResolution.MEDIUM));
+            playerRepresentation.setRadius(25);
             
             setTranslateX(300);
             setTranslateY(300);
+            
+            getChildren().addAll(healthBar, playerRepresentation);
+        }
+        
+        public void damage(int amount) {
+            health -= amount;
+            healthBar.updateHealth(health);
         }
         
         public void onMove(KeyEvent keyEvent) {
@@ -342,10 +364,6 @@ public class GameView extends View<GameViewModel> {
             setRotate(getRotate() + 10);
         }
     
-        public void setDead(boolean dead) {
-            this.dead = dead;
-        }
-    
         public boolean isBorderInThatDirection(KeyCode keyCode) {
             switch (keyCode) {
                 case W:
@@ -361,12 +379,45 @@ public class GameView extends View<GameViewModel> {
             return false;
         }
     
+        public int getHealth() {
+            return health;
+        }
+    
         public boolean isDead() {
-            return dead;
+            return health <= 0;
         }
     
         public Point2D getLocation() {
             return new Point2D.Double(getTranslateX(), getTranslateY());
+        }
+    }
+    
+    private class HealthBar extends Pane {
+        
+        private final Rectangle healthBar = new Rectangle();
+        private final Rectangle healthBarBackground = new Rectangle();
+        
+        private final Label healthLabel = new Label();
+        
+        public HealthBar() {
+            
+            healthBarBackground.setWidth(100);
+            healthBarBackground.setHeight(20);
+            healthBarBackground.setFill(Color.RED);
+            
+            healthBar.setWidth(100);
+            healthBar.setHeight(20);
+            healthBar.setFill(Color.GREEN);
+            
+            healthLabel.setText("Health: 20");
+            healthLabel.setTextFill(Color.WHITE);
+            
+            getChildren().addAll(healthBarBackground, healthBar, healthLabel);
+        }
+        
+        public void updateHealth(int health) {
+            healthBar.setWidth(health * 5);
+            healthLabel.setText("Health: " + health);
         }
     }
 }
