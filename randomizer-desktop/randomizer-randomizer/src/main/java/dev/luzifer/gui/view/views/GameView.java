@@ -280,7 +280,7 @@ public class GameView extends View<GameViewModel> {
                     }
                 }
     
-                if(ThreadLocalRandom.current().nextInt(100) <= 1)
+                if(ThreadLocalRandom.current().nextInt(100) <= 2)
                     gameField.getChildren().add(new Enemy(player));
                 
                 if(ThreadLocalRandom.current().nextDouble(100) <= 0.25)
