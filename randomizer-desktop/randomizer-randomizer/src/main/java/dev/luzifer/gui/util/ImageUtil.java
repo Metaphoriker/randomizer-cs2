@@ -8,12 +8,20 @@ public final class ImageUtil {
 
     private static final ImageResolution DEFAULT_RESOLUTION = ImageResolution.MEDIUM;
 
+    public static Image getRawImage(String path) {
+        return new Image(path);
+    }
+    
     public static Image getImage(String path) {
         return getImage(path, DEFAULT_RESOLUTION);
     }
 
     public static Image getImage(String path, ImageResolution resolution) {
         return new Image(path, resolution.getWidth(), resolution.getHeight(), true, true);
+    }
+    
+    public static ImageView getRawImageView(String path) {
+        return new ImageView(getRawImage(path));
     }
 
     public static ImageView getImageView(String path) {
@@ -22,6 +30,10 @@ public final class ImageUtil {
 
     public static ImageView getImageView(String path, ImageResolution resolution) {
         return new ImageView(getImage(path, resolution));
+    }
+    
+    public static ImagePattern getRawImagePattern(String path) {
+        return new ImagePattern(getRawImage(path));
     }
     
     public static ImagePattern getImagePattern(String path) {

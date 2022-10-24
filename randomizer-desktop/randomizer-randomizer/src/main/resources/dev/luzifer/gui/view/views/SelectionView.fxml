@@ -12,6 +12,7 @@
 
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.control.ComboBox?>
+<?import javafx.scene.image.ImageView?>
 <GridPane fx:id="root" xmlns="http://javafx.com/javafx/18" xmlns:fx="http://javafx.com/fxml/1" fx:controller="dev.luzifer.gui.view.views.SelectionView">
    <columnConstraints>
       <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" />
@@ -38,11 +39,7 @@
                      </font>
                   </Label>
                   <Separator prefWidth="200.0" />
-                  <Label fx:id="gameLabel" prefHeight="43.0" prefWidth="170.0" text="cool shit" textAlignment="CENTER">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
+                  <ImageView fx:id="gameBanner" fitHeight="50" fitWidth="200" />
                   <Separator prefWidth="200.0" />
                </children>
                <padding>

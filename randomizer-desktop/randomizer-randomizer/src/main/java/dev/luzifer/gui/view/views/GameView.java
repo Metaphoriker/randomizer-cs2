@@ -50,6 +50,9 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class GameView extends View<GameViewModel> {
     
+    private static int WIDTH = 1200;
+    private static int HEIGHT = 600;
+    
     private final List<Enemy> enemies = new ArrayList<>();
     private final List<Bullet> bullets = new ArrayList<>();
     private final List<Weapon> weapons = new ArrayList<>();
@@ -73,11 +76,13 @@ public class GameView extends View<GameViewModel> {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
     
+        gameField.setPrefSize(WIDTH, HEIGHT);
+        
         Label gameOverLabel = new Label("GAME OVER");
         gameOverLabel.setStyle("-fx-font-size: 48px; -fx-text-fill: red; -fx-font-weight: bold;");
         gameOverLabel.setVisible(false);
-        gameOverLabel.setTranslateX(300);
-        gameOverLabel.setTranslateY(300);
+        gameOverLabel.setTranslateX(WIDTH-(WIDTH/2));
+        gameOverLabel.setTranslateY(HEIGHT-(HEIGHT/2));
         gameField.getChildren().add(gameOverLabel);
         
         Label scoreLabel = new Label("Score: " + score);
@@ -87,7 +92,7 @@ public class GameView extends View<GameViewModel> {
         scoreLabel.setVisible(true);
         gameField.getChildren().add(scoreLabel);
         
-        Rectangle rectangle = new Rectangle(0, 0, 600, 600);
+        Rectangle rectangle = new Rectangle(0, 0, WIDTH, HEIGHT);
         rectangle.setFill(null);
         rectangle.setStroke(new Color(0.5, 0.5, 0.5, 1));
         
@@ -105,8 +110,8 @@ public class GameView extends View<GameViewModel> {
         gameField.getChildren().add(player);
         
         Label molotovLabel = new Label();
-        molotovLabel.setTranslateX(500);
-        molotovLabel.setTranslateY(550);
+        molotovLabel.setTranslateX(WIDTH-100);
+        molotovLabel.setTranslateY(HEIGHT-50);
         molotovLabel.setVisible(true);
         molotovLabel.setText("x" + player.getMolotovs().size());
         molotovLabel.setFont(molotovLabel.getFont().font(24));
@@ -117,7 +122,7 @@ public class GameView extends View<GameViewModel> {
         Label howToPlayLabel = new Label("WASD->move\nSPACE->shoot\nclick->molotov");
         howToPlayLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black");
         howToPlayLabel.setAlignment(Pos.CENTER);
-        howToPlayLabel.setTranslateX(500);
+        howToPlayLabel.setTranslateX(WIDTH-100);
         howToPlayLabel.setTranslateY(10);
         howToPlayLabel.setVisible(true);
         howToPlayLabel.setOpacity(0.4);
@@ -140,6 +145,17 @@ public class GameView extends View<GameViewModel> {
                 
                 player.update();
                 
+                if(player.isDead()) {
+                    
+                    Label gameOverLabel = (Label) gameField.getChildren().get(0);
+                    gameOverLabel.setVisible(true);
+                    gameField.getChildren().remove(0);
+                    gameField.getChildren().add(gameOverLabel);
+                    
+                    Main.getScheduler().schedule(() -> Platform.runLater(() -> close()), 2000);
+                    stop();
+                }
+                
                 enemies.forEach(enemy -> {
                     
                     if (enemy.getBoundsInParent().intersects(player.getBoundsInParent())) {
@@ -147,12 +163,7 @@ public class GameView extends View<GameViewModel> {
                         player.damage(2);
                         
                         if(player.isDead()) {
-                            
                             player.setRotate(0);
-    
-                            gameField.getChildren().get(0).setVisible(true);
-                            Main.getScheduler().schedule(() -> Platform.runLater(() -> close()), 2000);
-                            
                             return;
                         }
                     }
@@ -165,6 +176,17 @@ public class GameView extends View<GameViewModel> {
                     Bullet bullet = it.next();
                     
                     bullet.update();
+                    
+                    for(Obstacle obstacle : obstacles) {
+                        
+                        if (bullet.getBoundsInParent().intersects(obstacle.getBoundsInParent())) {
+                            
+                            it.remove();
+                            gameField.getChildren().remove(bullet);
+                            
+                            break;
+                        }
+                    }
     
                     for(Iterator<Enemy> it2 = enemies.iterator(); it2.hasNext(); ) {
                         
@@ -280,7 +302,7 @@ public class GameView extends View<GameViewModel> {
                     }
                 }
     
-                if(ThreadLocalRandom.current().nextInt(100) <= 2)
+                if(ThreadLocalRandom.current().nextDouble(100) <= 1.5)
                     gameField.getChildren().add(new Enemy(player));
                 
                 if(ThreadLocalRandom.current().nextDouble(100) <= 0.25)
@@ -355,8 +377,11 @@ public class GameView extends View<GameViewModel> {
             
             this.player = toChase;
             
-            setTranslateX(150);
-            setTranslateY(150);
+            setTranslateX(ThreadLocalRandom.current().nextInt(WIDTH));
+            setTranslateY(ThreadLocalRandom.current().nextInt(HEIGHT));
+            
+            if(getLocation().distance(player.getLocation()) <= 100)
+                setTranslateX(getTranslateX() + 100);
             
             setFill(ImageUtil.getImagePattern("images/enemy_icon.png", ImageUtil.ImageResolution.ORIGINAL));
             
@@ -390,8 +415,8 @@ public class GameView extends View<GameViewModel> {
         public Obstacle() {
             super(ThreadLocalRandom.current().nextInt(50, 151), ThreadLocalRandom.current().nextInt(50, 76));
             
-            setTranslateX(ThreadLocalRandom.current().nextInt(600));
-            setTranslateY(ThreadLocalRandom.current().nextInt(600));
+            setTranslateX(ThreadLocalRandom.current().nextInt(WIDTH));
+            setTranslateY(ThreadLocalRandom.current().nextInt(HEIGHT));
             
             setFill(ImageUtil.getImagePattern("images/obstacle_icon.png", ImageUtil.ImageResolution.ORIGINAL));
         }
@@ -404,8 +429,8 @@ public class GameView extends View<GameViewModel> {
             
             setFill(ImageUtil.getImagePattern("images/bomb_icon.png", ImageUtil.ImageResolution.ORIGINAL));
             
-            setTranslateX(ThreadLocalRandom.current().nextInt(600));
-            setTranslateY(ThreadLocalRandom.current().nextInt(600));
+            setTranslateX(ThreadLocalRandom.current().nextInt(WIDTH));
+            setTranslateY(ThreadLocalRandom.current().nextInt(HEIGHT));
             
             Main.getScheduler().schedule(() -> Platform.runLater(() -> {
                 gameField.getChildren().remove(this);
@@ -421,8 +446,8 @@ public class GameView extends View<GameViewModel> {
             
             setFill(ImageUtil.getImagePattern("images/ammo_box_icon.png", ImageUtil.ImageResolution.ORIGINAL));
             
-            setTranslateX(ThreadLocalRandom.current().nextInt(600));
-            setTranslateY(ThreadLocalRandom.current().nextInt(600));
+            setTranslateX(ThreadLocalRandom.current().nextInt(WIDTH));
+            setTranslateY(ThreadLocalRandom.current().nextInt(HEIGHT));
         }
     }
     
@@ -430,19 +455,19 @@ public class GameView extends View<GameViewModel> {
         
         private final Label ammoLabel;
         
-        private int ammo = 30;
+        private int ammo = 120;
         
         public Weapon() {
             super(100, 100);
             
             setFill(ImageUtil.getImagePattern("images/weapon_icon.png", ImageUtil.ImageResolution.ORIGINAL));
             
-            setTranslateX(ThreadLocalRandom.current().nextInt(600));
-            setTranslateY(ThreadLocalRandom.current().nextInt(600));
+            setTranslateX(ThreadLocalRandom.current().nextInt(WIDTH));
+            setTranslateY(ThreadLocalRandom.current().nextInt(HEIGHT));
     
             ammoLabel = new Label();
-            ammoLabel.setTranslateX(500);
-            ammoLabel.setTranslateY(530);
+            ammoLabel.setTranslateX(WIDTH-100);
+            ammoLabel.setTranslateY(HEIGHT-70);
             ammoLabel.setVisible(true);
             ammoLabel.setText("x" + ammo);
             ammoLabel.setFont(ammoLabel.getFont().font(24));
@@ -452,7 +477,7 @@ public class GameView extends View<GameViewModel> {
         }
         
         public void refill() {
-            ammo = 30;
+            ammo += 30;
             ammoLabel.setText("x" + ammo);
         }
         
@@ -491,12 +516,15 @@ public class GameView extends View<GameViewModel> {
                 
                 Player player = (Player) gameField.getChildren().get(4);
                 
-                player.damage(2);
+                player.damage(7);
                 if(player.isDead()) {
                     
                     player.setRotate(0);
     
-                    gameField.getChildren().get(0).setVisible(true);
+                    Label gameOverLabel = (Label) gameField.getChildren().get(0);
+                    gameOverLabel.setVisible(true);
+                    gameField.getChildren().remove(0);
+                    gameField.getChildren().add(gameOverLabel);
                     Main.getScheduler().schedule(() -> Platform.runLater(() -> close()), 2000);
                     
                     return;
@@ -731,13 +759,13 @@ public class GameView extends View<GameViewModel> {
         public boolean isBorderInThatDirection(KeyCode keyCode) {
             switch (keyCode) {
                 case W:
-                    return getTranslateY() <= 15;
+                    return getTranslateY() <= 5;
                 case A:
-                    return getTranslateX() <= 15;
+                    return getTranslateX() <= 5;
                 case S:
-                    return getTranslateY() >= 585;
+                    return getTranslateY() >= HEIGHT-5;
                 case D:
-                    return getTranslateX() >= 585;
+                    return getTranslateX() >= WIDTH-5;
             }
             
             return false;
