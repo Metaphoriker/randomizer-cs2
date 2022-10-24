@@ -122,7 +122,7 @@ public class GameView extends View<GameViewModel> {
                 if(ThreadLocalRandom.current().nextInt(100) <= 1)
                     gameField.getChildren().add(new Enemy(player));
                 
-                if(ThreadLocalRandom.current().nextInt(100) <= 1)
+                if(ThreadLocalRandom.current().nextDouble(100) <= 0.5)
                     gameField.getChildren().add(new Bomb());
             }
         };
@@ -196,6 +196,17 @@ public class GameView extends View<GameViewModel> {
             
             setTranslateX(location.getX());
             setTranslateY(location.getY());
+            
+            if(gameField.getChildren().get(3).getBoundsInParent().intersects(getBoundsInParent())) {
+                
+                Player player = (Player) gameField.getChildren().get(3);
+                
+                player.setDead(true);
+                player.setRotate(0);
+    
+                gameField.getChildren().get(0).setVisible(true);
+                Main.getScheduler().schedule(() -> Platform.runLater(() -> close()), 2000);
+            }
             
             for(Iterator<Enemy> it = enemies.iterator(); it.hasNext(); ) {
                 
