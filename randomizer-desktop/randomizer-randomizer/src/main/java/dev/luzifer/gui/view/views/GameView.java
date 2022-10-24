@@ -119,7 +119,7 @@ public class GameView extends View<GameViewModel> {
         molotovLabel.setContentDisplay(ContentDisplay.RIGHT);
         gameField.getChildren().add(molotovLabel);
         
-        Label howToPlayLabel = new Label("WASD->move\nSPACE->shoot\nclick->molotov");
+        Label howToPlayLabel = new Label("WASD->move\nSPACE->shoot\nclick->molotov\nQ/R->rotate\nSHIFT->dash");
         howToPlayLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black");
         howToPlayLabel.setAlignment(Pos.CENTER);
         howToPlayLabel.setTranslateX(WIDTH-100);
@@ -689,6 +689,9 @@ public class GameView extends View<GameViewModel> {
                     case SPACE:
                         shoot();
                         break;
+                    case SHIFT:
+                        dash();
+                        break;
                 }
             });
         }
@@ -743,11 +746,23 @@ public class GameView extends View<GameViewModel> {
         public void moveUp() {
             setTranslateY(getTranslateY() - 5);
         }
-        
+    
         public void moveDown() {
             setTranslateY(getTranslateY() + 5);
         }
-        
+    
+        public void dash() {
+            
+            double angle = Math.toRadians(getRotate());
+            double x = Math.cos(angle);
+            double y = Math.sin(angle);
+    
+            Point2D velocity = new Point2D.Double(x, y);
+    
+            setTranslateX(getTranslateX() + velocity.getX() * 10);
+            setTranslateY(getTranslateY() + velocity.getY() * 10);
+        }
+    
         public void rotateLeft() {
             setRotate(getRotate() - 5);
         }
