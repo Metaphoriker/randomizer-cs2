@@ -29,6 +29,7 @@ import dev.luzifer.gui.view.models.GameViewModel;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
@@ -112,6 +113,15 @@ public class GameView extends View<GameViewModel> {
         molotovLabel.setGraphic(ImageUtil.getImageView("images/molotov_icon.png"));
         molotovLabel.setContentDisplay(ContentDisplay.RIGHT);
         gameField.getChildren().add(molotovLabel);
+        
+        Label howToPlayLabel = new Label("WASD->move\nSPACE->shoot\nclick->molotov");
+        howToPlayLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black");
+        howToPlayLabel.setAlignment(Pos.CENTER);
+        howToPlayLabel.setTranslateX(500);
+        howToPlayLabel.setTranslateY(10);
+        howToPlayLabel.setVisible(true);
+        howToPlayLabel.setOpacity(0.4);
+        gameField.getChildren().add(howToPlayLabel);
         
         for(int i = 0; i < ThreadLocalRandom.current().nextInt(5); i++) {
             
@@ -470,16 +480,16 @@ public class GameView extends View<GameViewModel> {
     private class BombExplosion extends Circle {
         
         public BombExplosion(Point2D location) {
-            super(ThreadLocalRandom.current().nextInt(10, 101));
+            super(ThreadLocalRandom.current().nextInt(10, 250));
             
             setFill(ImageUtil.getImagePattern("images/bomb_boom_icon.png", ImageUtil.ImageResolution.ORIGINAL));
             
             setTranslateX(location.getX());
             setTranslateY(location.getY());
             
-            if(gameField.getChildren().get(3).getBoundsInParent().intersects(getBoundsInParent())) {
+            if(gameField.getChildren().get(4).getBoundsInParent().intersects(getBoundsInParent())) {
                 
-                Player player = (Player) gameField.getChildren().get(3);
+                Player player = (Player) gameField.getChildren().get(4);
                 
                 player.damage(2);
                 if(player.isDead()) {
