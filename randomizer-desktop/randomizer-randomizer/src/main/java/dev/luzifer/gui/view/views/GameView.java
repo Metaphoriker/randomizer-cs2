@@ -133,14 +133,14 @@ public class GameView extends View<GameViewModel> {
         private final Player player;
         
         public Enemy(Player toChase) {
-            super(20, 20);
+            super(100, 30);
             
             this.player = toChase;
             
             setTranslateX(150);
             setTranslateY(150);
             
-            setFill(Color.BLACK);
+            setFill(ImageUtil.getImagePattern("images/enemy_icon.png", ImageUtil.ImageResolution.ORIGINAL));
             
             enemies.add(this);
         }
@@ -171,7 +171,7 @@ public class GameView extends View<GameViewModel> {
         
         private final Point2D velocity;
         
-        public Bullet(Point2D start, Point2D velocity) {
+        public Bullet(Point2D start, Point2D velocity, double rotate) {
             super(20, 20);
             
             this.velocity = velocity;
@@ -179,7 +179,9 @@ public class GameView extends View<GameViewModel> {
             setTranslateX(start.getX());
             setTranslateY(start.getY());
             
-            setFill(Color.RED);
+            setRotate(rotate);
+            
+            setFill(ImageUtil.getImagePattern("images/bullet_icon.png", ImageUtil.ImageResolution.ORIGINAL));
         }
         
         public void update() {
@@ -251,7 +253,7 @@ public class GameView extends View<GameViewModel> {
             
             Point2D velocity = new Point2D.Double(x, y);
             
-            Bullet bullet = new Bullet(getLocation(), velocity);
+            Bullet bullet = new Bullet(getLocation(), velocity, getRotate());
             bullets.add(bullet);
             
             gameField.getChildren().add(bullet);
