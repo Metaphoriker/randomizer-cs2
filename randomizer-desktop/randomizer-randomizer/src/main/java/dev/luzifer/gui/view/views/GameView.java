@@ -7,7 +7,6 @@ import dev.luzifer.gui.view.models.GameViewModel;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
@@ -83,6 +82,7 @@ public class GameView extends View<GameViewModel> {
                     if (enemy.getBoundsInParent().intersects(player.getBoundsInParent())) {
                         
                         player.setDead(true);
+                        player.setRotate(0);
                         
                         gameField.getChildren().get(0).setVisible(true);
                         Main.getScheduler().schedule(() -> Platform.runLater(() -> close()), 2000);
