@@ -33,7 +33,7 @@ public class GameSequence extends AnimationTimer {
             gameField.getEntities().add(enemy);
         }
         
-        if(ThreadLocalRandom.current().nextDouble(100) <= 0.25) {
+        if(ThreadLocalRandom.current().nextDouble(100) <= 0.025) {
             
             EnemyObject enemy = new EnemyObject(new Position(gameField, new Point2D(
                     ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getWidth()),
