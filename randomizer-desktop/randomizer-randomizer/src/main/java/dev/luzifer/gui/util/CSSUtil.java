@@ -15,14 +15,6 @@ public class CSSUtil {
     private static final String STYLING_EXTENSION = ".css";
     
     /**
-     * @deprecated there is no basic style file anymore
-     */
-    @Deprecated
-    public static void applyBasicStyle(Parent node) {
-        applyStyle(node, RandomizerView.class);
-    }
-    
-    /**
      * Applies the CSS file of the given theme to the given node.
      * @param node The node to apply the CSS to.
      */
@@ -42,7 +34,7 @@ public class CSSUtil {
      *             The node must have a class with the same name as the CSS file.
      *             The CSS file must be located in the {@link #STYLING_PATH}.
      */
-    private static void applyStyle(Parent node, Class<?> clazz) {
+    public static void applyStyle(Parent node, Class<?> clazz) {
 
         URL resource = clazz.getResource(getStylePath(clazz));
 

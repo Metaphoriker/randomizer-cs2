@@ -26,6 +26,7 @@ import dev.luzifer.Main;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.View;
 import dev.luzifer.gui.view.models.GameViewModel;
+import dev.luzifer.gui.view.views.game.GameWindow;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
@@ -76,6 +77,15 @@ public class GameView extends View<GameViewModel> {
     public void initialize(URL url, ResourceBundle resourceBundle) {
         super.initialize(url, resourceBundle);
     
+        GameWindow gameWindow = new GameWindow();
+        gameField.getChildren().add(gameWindow);
+        
+        Platform.runLater(() -> {
+            gameWindow.initGame();
+            gameWindow.start();
+        });
+        
+        /*
         gameField.setPrefSize(WIDTH, HEIGHT);
         
         Label gameOverLabel = new Label("GAME OVER");
@@ -135,6 +145,7 @@ public class GameView extends View<GameViewModel> {
             obstacles.add(obstacle);
             gameField.getChildren().add(obstacle);
         }
+         */
     }
     
     private AnimationTimer update(Player player) {
