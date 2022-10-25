@@ -1,6 +1,7 @@
 package dev.luzifer.gui.view.views.game.objects;
 
 import dev.luzifer.gui.view.views.game.Position;
+import dev.luzifer.gui.view.views.game.objects.entity.LivingEntity;
 import dev.luzifer.gui.view.views.game.objects.entity.Projectile;
 import javafx.geometry.Point2D;
 import javafx.scene.shape.Rectangle;
@@ -27,6 +28,12 @@ public class ProjectileObject extends Rectangle implements Projectile { // 1
         
         setTranslateX(getTranslateX() + velocity.getX());
         setTranslateY(getTranslateY() + velocity.getY());
+        
+        getPosition().getGameField().getEntities().stream()
+                .filter(ObstacleObject.class::isInstance)
+                .map(ObstacleObject.class::cast)
+                .filter(entity -> entity.getBoundsInParent().intersects(getBoundsInParent()))
+                .forEach(entity -> damage(1));
     }
     
     @Override
