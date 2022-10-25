@@ -10,12 +10,12 @@ import javafx.scene.layout.Pane;
 import java.net.URL;
 import java.util.ResourceBundle;
 
-public class GameView extends View<GameViewModel> {
+public class InvasionGameView extends View<GameViewModel> {
     
     @FXML
     private Pane gameField;
     
-    public GameView(GameViewModel viewModel) {
+    public InvasionGameView(GameViewModel viewModel) {
         super(viewModel);
     }
     
