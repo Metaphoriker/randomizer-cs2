@@ -23,10 +23,28 @@ public class GameSequence extends AnimationTimer {
     public void handle(long now) {
     
         if(ThreadLocalRandom.current().nextDouble(100) <= 1.5) {
-            EnemyObject enemy = new EnemyObject(2, new Position(gameField, new Point2D(
+            
+            EnemyObject enemy = new EnemyObject(new Position(gameField, new Point2D(
                     ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getWidth()),
                     ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))));
+            
             enemy.setTarget((LivingEntity) gameField.getEntities().get(1)); // Player
+            
+            gameField.getEntities().add(enemy);
+        }
+        
+        if(ThreadLocalRandom.current().nextDouble(100) <= 0.25) {
+            
+            EnemyObject enemy = new EnemyObject(new Position(gameField, new Point2D(
+                    ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getWidth()),
+                    ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))));
+            
+            enemy.setWidth(200);
+            enemy.setHeight(200);
+            enemy.setHealth(420);
+            enemy.setRange(100);
+            enemy.setTarget((LivingEntity) gameField.getEntities().get(1)); // Player
+            
             gameField.getEntities().add(enemy);
         }
     

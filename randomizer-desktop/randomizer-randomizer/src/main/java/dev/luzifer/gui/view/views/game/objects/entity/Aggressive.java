@@ -6,6 +6,14 @@ public interface Aggressive {
     
     void setTarget(LivingEntity entity);
     
+    void setRange(int range);
+    
+    void setDamage(int damage);
+    
+    int getDamage();
+    
+    int getRange();
+    
     LivingEntity getTarget();
 
 }

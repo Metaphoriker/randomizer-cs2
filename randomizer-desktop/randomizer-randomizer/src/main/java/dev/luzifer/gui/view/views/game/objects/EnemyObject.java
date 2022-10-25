@@ -11,14 +11,13 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
     
     private static final int DEFAULT_ENEMY_HEALTH = 10;
     
-    private final int damage;
-    
     private LivingEntity target;
+    private int range = 10;
+    private int damage = 2;
     
-    public EnemyObject(int damage, Position position) {
+    public EnemyObject(Position position) {
         super(position);
     
-        this.damage = damage;
         healthProperty.set(DEFAULT_ENEMY_HEALTH);
         
         setFill(ImageUtil.getImagePattern("images/enemy_icon.png", ImageUtil.ImageResolution.ORIGINAL));
@@ -34,7 +33,7 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
             
             followTarget();
             
-            if (getPosition().getPosition().distance(target.getPosition().getPosition()) <= 10)
+            if (getPosition().getPosition().distance(target.getPosition().getPosition()) <= range)
                 attack(target);
         }
     }
@@ -47,6 +46,26 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
     @Override
     public void setTarget(LivingEntity target) {
         this.target = target;
+    }
+    
+    @Override
+    public void setRange(int range) {
+        this.range = range;
+    }
+    
+    @Override
+    public void setDamage(int damage) {
+        this.damage = damage;
+    }
+    
+    @Override
+    public int getDamage() {
+        return damage;
+    }
+    
+    @Override
+    public int getRange() {
+        return range;
     }
     
     @Override
