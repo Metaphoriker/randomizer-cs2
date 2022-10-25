@@ -13,9 +13,12 @@ public class HealthBar extends Pane implements LivingEntity { // TODO: Very dirt
     
     private final Label healthLabel = new Label();
     
+    private int highestHealth = 0;
     private int health = 1;
     
     public HealthBar(int initialHealth) {
+        
+        highestHealth = initialHealth;
         
         healthBarBackground.setWidth(initialHealth);
         healthBarBackground.setHeight(15);
@@ -31,6 +34,11 @@ public class HealthBar extends Pane implements LivingEntity { // TODO: Very dirt
     }
     
     public void updateHealth(int health) {
+        
+        if(health > highestHealth) {
+            highestHealth = health;
+            healthBarBackground.setWidth(highestHealth);
+        }
         
         healthBar.setWidth(health);
         healthLabel.setText("Health: " + health);
