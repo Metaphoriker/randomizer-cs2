@@ -9,7 +9,7 @@ import java.util.function.Consumer;
 
 public class SelectionViewModel implements ViewModel {
     
-    private final ObjectProperty<CSSUtil.Theme> themeProperty = new SimpleObjectProperty<>(CSSUtil.Theme.MISTER_SILVER);
+    private final ObjectProperty<CSSUtil.Theme> themeProperty = new SimpleObjectProperty<>(CSSUtil.Theme.RANDOMIZER);
     
     private final Runnable randomizerCallback;
     private final Runnable builderCallback;

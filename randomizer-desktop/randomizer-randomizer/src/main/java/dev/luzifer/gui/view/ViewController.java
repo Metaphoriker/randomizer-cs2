@@ -17,7 +17,7 @@ public class ViewController {
 
     private final Map<String, View> viewMap = new HashMap<>();
     
-    private CSSUtil.Theme currentTheme = CSSUtil.Theme.MISTER_SILVER;
+    private CSSUtil.Theme currentTheme = CSSUtil.Theme.RANDOMIZER;
 
     public void showView(View view) {
 

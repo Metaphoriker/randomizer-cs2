@@ -17,7 +17,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
-import javafx.scene.text.Font;
 
 import java.net.URL;
 import java.util.Optional;
@@ -151,7 +150,6 @@ public class BuilderView extends View<BuilderViewModel> {
             
             Label label = new Label(eventCluster.getName(),
                     ImageUtil.getImageView("images/bundle_icon.png", ImageUtil.ImageResolution.SMALL));
-            label.setFont(new Font("Arial", 14));
     
             clusterListView.getItems().add(label);
         });
@@ -284,7 +282,6 @@ public class BuilderView extends View<BuilderViewModel> {
             label.setCursor(Cursor.OPEN_HAND);
             label.setContentDisplay(ContentDisplay.RIGHT);
             label.setPadding(new Insets(0, 0, 0, 5));
-            label.setFont(new Font("Arial", 16));
             label.setTooltip(new Tooltip(event.description()));
             label.setGraphic(ImageUtil.getImageView("images/drag_icon.png", ImageUtil.ImageResolution.SMALL));
             label.getGraphic().setOpacity(0);

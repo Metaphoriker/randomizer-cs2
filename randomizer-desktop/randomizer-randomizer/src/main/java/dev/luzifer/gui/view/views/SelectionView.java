@@ -74,6 +74,6 @@ public class SelectionView extends View<SelectionViewModel> {
         themeComboBox.getSelectionModel().selectedItemProperty().addListener((observableValue, oldTheme, newTheme) -> getViewModel().switchTheme());
         
         themeComboBox.getItems().addAll(CSSUtil.Theme.values());
-        themeComboBox.getSelectionModel().select(CSSUtil.Theme.MISTER_SILVER);
+        themeComboBox.getSelectionModel().select(CSSUtil.Theme.RANDOMIZER);
     }
 }

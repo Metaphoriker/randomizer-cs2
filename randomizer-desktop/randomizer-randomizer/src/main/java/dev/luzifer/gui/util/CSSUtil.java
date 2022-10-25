@@ -62,8 +62,7 @@ public class CSSUtil {
 
     public enum Theme {
 
-        FLAT_RED("FLAT_RED", "FlatRedTheme"),
-        MISTER_SILVER("MISTER_SILVER", "MisterSilverTheme"),
+        RANDOMIZER("Randomizer", "RandomizerTheme"),
         NIGHT("Night", "NightTheme");
 
         private final String name;

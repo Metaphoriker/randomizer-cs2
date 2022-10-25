@@ -8,7 +8,6 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
 <?import javafx.scene.shape.Circle?>
 <?import javafx.scene.control.ComboBox?>
@@ -27,17 +26,9 @@
                <children>
                   <Circle fx:id="logoShape" radius="50.0" />
                   <Separator prefWidth="200.0" />
-                  <Label fx:id="randomizerLabel" prefHeight="43.0" prefWidth="170.0" text="Randomizer" textAlignment="CENTER" VBox.vgrow="ALWAYS">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
+                  <Label fx:id="randomizerLabel" prefHeight="43.0" prefWidth="170.0" text="Randomizer" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
                   <Separator prefWidth="200.0" />
-                  <Label fx:id="builderLabel" prefHeight="43.0" prefWidth="170.0" text="Builder" textAlignment="CENTER">
-                     <font>
-                        <Font size="16.0" />
-                     </font>
-                  </Label>
+                  <Label fx:id="builderLabel" prefHeight="43.0" prefWidth="170.0" text="Builder" textAlignment="CENTER" />
                   <Separator prefWidth="200.0" />
                   <ImageView fx:id="gameBanner" fitHeight="50" fitWidth="200" />
                   <Separator prefWidth="200.0" />
