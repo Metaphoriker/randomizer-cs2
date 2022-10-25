@@ -531,7 +531,7 @@ public class GameView extends View<GameViewModel> {
                 
                 Player player = (Player) gameField.getChildren().get(4);
                 
-                player.damage(7);
+                player.damage(ThreadLocalRandom.current().nextInt(10, 50));
                 if(player.isDead()) {
                     
                     player.setRotate(0);
@@ -626,7 +626,7 @@ public class GameView extends View<GameViewModel> {
         
         private final HealthBar healthBar = new HealthBar();
         
-        private int health = 20;
+        private int health = 100;
         private Weapon weapon;
         
         private boolean animationBoolean = false;
@@ -892,14 +892,14 @@ public class GameView extends View<GameViewModel> {
             healthBar.setHeight(15);
             healthBar.setFill(Color.GREEN);
             
-            healthLabel.setText("Health: 20");
+            healthLabel.setText("Health: 100");
             healthLabel.setTextFill(Color.WHITE);
             
             getChildren().addAll(healthBarBackground, healthBar, healthLabel);
         }
         
         public void updateHealth(int health) {
-            healthBar.setWidth(health * 5);
+            healthBar.setWidth(health);
             healthLabel.setText("Health: " + health);
         }
     }
