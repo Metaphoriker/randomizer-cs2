@@ -29,6 +29,10 @@ public class GameSequence extends AnimationTimer {
     @Override
     public void handle(long now) {
     
+        // Limit the game to 60 FPS
+        if(now - lastUpdate < 16_666_666/2)
+            return;
+    
         fpsProperty.set((int) (1_000_000_000.0 / (now - lastUpdate)));
         lastUpdate = now;
         
@@ -77,8 +81,6 @@ public class GameSequence extends AnimationTimer {
             gameField.getEntities().add(new ItemObject(new Position(gameField, new Point2D(
                     ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getWidth()),
                     ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))), ItemObject.ItemType.WEAPON));
-        
-        // TODO: Obstacle + Movement & Projectile block by them
         
         for(int i = 0; i < gameField.getEntities().size(); i++) {
             
