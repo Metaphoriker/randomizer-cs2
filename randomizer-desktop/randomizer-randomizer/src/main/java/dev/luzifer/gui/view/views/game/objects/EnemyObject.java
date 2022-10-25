@@ -34,7 +34,7 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
             
             followTarget();
             
-            if (getPosition().getPosition().distance(target.getPosition().getPosition()) <= 5)
+            if (getPosition().getPosition().distance(target.getPosition().getPosition()) <= 10)
                 attack(target);
         }
     }
