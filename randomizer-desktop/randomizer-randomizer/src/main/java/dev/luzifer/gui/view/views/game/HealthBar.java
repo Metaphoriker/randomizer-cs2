@@ -17,7 +17,7 @@ public class HealthBar extends Pane implements LivingEntity { // TODO: Very dirt
     
     public HealthBar(int initialHealth) {
         
-        healthBarBackground.setWidth(100);
+        healthBarBackground.setWidth(initialHealth);
         healthBarBackground.setHeight(15);
         healthBarBackground.setFill(Color.RED);
         
