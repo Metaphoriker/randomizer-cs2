@@ -174,7 +174,6 @@ public class GameView extends View<GameViewModel> {
                 for (Iterator<Bullet> it = bullets.iterator(); it.hasNext(); ) {
                     
                     Bullet bullet = it.next();
-                    
                     bullet.update();
                     
                     for(Obstacle obstacle : obstacles) {
@@ -197,7 +196,7 @@ public class GameView extends View<GameViewModel> {
                             it2.remove();
                             gameField.getChildren().remove(enemy);
                             
-                            it.remove();
+                            it.remove(); // If it hits a wall before, it will ISE. TODO
                             gameField.getChildren().remove(bullet);
                             
                             score+=10;

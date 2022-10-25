@@ -26,9 +26,9 @@
                <children>
                   <Circle fx:id="logoShape" radius="50.0" />
                   <Separator prefWidth="200.0" />
-                  <Label fx:id="randomizerLabel" prefHeight="43.0" prefWidth="170.0" text="Randomizer" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
+                  <Label fx:id="randomizerLabel" styleClass="button-fake" prefHeight="43.0" prefWidth="170.0" text="Randomizer" textAlignment="CENTER" VBox.vgrow="ALWAYS" />
                   <Separator prefWidth="200.0" />
-                  <Label fx:id="builderLabel" prefHeight="43.0" prefWidth="170.0" text="Builder" textAlignment="CENTER" />
+                  <Label fx:id="builderLabel" styleClass="button-fake" prefHeight="43.0" prefWidth="170.0" text="Builder" textAlignment="CENTER" />
                   <Separator prefWidth="200.0" />
                   <ImageView fx:id="gameBanner" fitHeight="50" fitWidth="200" />
                   <Separator prefWidth="200.0" />

@@ -1,17 +1,78 @@
 /*
  Darkslategray: #2f4f4f
+    Darkslategray 25% lighter: #3b6363
+    Darkslategray 25% darker: #263f3f
+
  Purpurviolett: #4a192c
+    Purpurviolett 25% lighter: #5d1f37
+    Purpurviolett 25% darker: #3b1423
 */
 
 /* General */
 .root {
-    -fx-font-family: "Segoe UI";
-    -fx-font-size: 16px;
-    -fx-accent: #4a192c;
-    -fx-focus-color: -fx-accent;
     -fx-base: #2f4f4f;
 }
 
 .combo-box {
     -fx-background-color: #4a192c;
+}
+
+.combo-box .list-cell {
+    -fx-background-color: #5d1f37;
+    -fx-text-fill: white;
+}
+
+.combo-box .list-cell:selected {
+    -fx-background-color: #4a192c;
+}
+
+.combo-box .list-cell:hover {
+    -fx-background-color: #4a192c;
+}
+
+.slider .thumb {
+    -fx-background-color: #5d1f37;
+}
+
+.slider .track {
+    -fx-background-color: #4a192c;
+}
+
+/*
+.scroll-pane .scroll-bar {
+    -fx-background-color: #4a192c;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #5d1f37;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #5d1f37;
+    -fx-text-fill: white;
+}
+
+.list-view .list-cell:selected {
+    -fx-background-color: #4a192c;
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #4a192c;
+}
+*/
+
+.button {
+    -fx-font-size: 12px;
+    -fx-background-color: #4a192c;
+    -fx-focus-traversable: false;
+}
+
+.label {
+    -fx-font-size: 16px;
+    -fx-text-fill: white;
+}
+
+.button-fake {
+    -fx-background-color: #3b6363;
+    -fx-background-radius: 5px;
 }
