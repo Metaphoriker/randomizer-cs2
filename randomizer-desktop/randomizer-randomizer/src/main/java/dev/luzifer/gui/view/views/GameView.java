@@ -29,11 +29,11 @@ import dev.luzifer.gui.view.models.GameViewModel;
 import javafx.animation.AnimationTimer;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.geometry.Pos;
 import javafx.scene.control.ContentDisplay;
 import javafx.scene.control.Label;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseButton;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -101,6 +101,7 @@ public class GameView extends View<GameViewModel> {
         Player player = new Player();
         Platform.runLater(() -> {
             getScene().setOnKeyPressed(player::onMove);
+            getScene().setOnMouseMoved(player::onMouseMove);
             getScene().setOnKeyReleased(player::onUnMove);
             getScene().setOnMouseClicked(player::onClick);
         });
@@ -119,10 +120,9 @@ public class GameView extends View<GameViewModel> {
         molotovLabel.setContentDisplay(ContentDisplay.RIGHT);
         gameField.getChildren().add(molotovLabel);
         
-        Label howToPlayLabel = new Label("WASD->move\nSPACE->shoot\nclick->molotov\nQ/R->rotate\nSHIFT->dash");
-        howToPlayLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black");
-        howToPlayLabel.setAlignment(Pos.CENTER);
-        howToPlayLabel.setTranslateX(WIDTH-100);
+        Label howToPlayLabel = new Label("WASD->move\nLCLICK->shoot\nRCLICK->molotov\nMOUSE->rotate\nSHIFT->dash");
+        howToPlayLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black; -fx-text-alignment: right;");
+        howToPlayLabel.setTranslateX(WIDTH-120);
         howToPlayLabel.setTranslateY(10);
         howToPlayLabel.setVisible(true);
         howToPlayLabel.setOpacity(0.4);
@@ -455,7 +455,8 @@ public class GameView extends View<GameViewModel> {
         
         private final Label ammoLabel;
         
-        private int ammo = 120;
+        private int ammo_boxes = 0;
+        private int ammo = 30;
         
         public Weapon() {
             super(100, 100);
@@ -469,7 +470,7 @@ public class GameView extends View<GameViewModel> {
             ammoLabel.setTranslateX(WIDTH-100);
             ammoLabel.setTranslateY(HEIGHT-70);
             ammoLabel.setVisible(true);
-            ammoLabel.setText("x" + ammo);
+            ammoLabel.setText("x" + ammo_boxes);
             ammoLabel.setFont(ammoLabel.getFont().font(24));
             ammoLabel.setGraphic(ImageUtil.getImageView("images/ammo_box_icon.png"));
             ammoLabel.setContentDisplay(ContentDisplay.RIGHT);
@@ -477,13 +478,28 @@ public class GameView extends View<GameViewModel> {
         }
         
         public void refill() {
-            ammo += 30;
-            ammoLabel.setText("x" + ammo);
+            ammo_boxes++;
+            ammoLabel.setText("x" + ammo_boxes);
+        }
+        
+        public boolean reload() {
+            
+            if(ammo_boxes > 0) {
+                
+                ammo_boxes--;
+                ammo = 30;
+                
+                ammoLabel.setText("x" + ammo_boxes);
+                
+                return true;
+            }
+            
+            return false;
         }
         
         public void shoot(Point2D location, double rotate) {
             
-            if(ammo == 0)
+            if(ammo == 0 && !reload())
                 return;
             
             double angle = Math.toRadians(rotate);
@@ -498,7 +514,6 @@ public class GameView extends View<GameViewModel> {
             gameField.getChildren().add(bullet);
             
             ammo--;
-            ammoLabel.setText("x" + ammo);
         }
     }
     
@@ -680,15 +695,6 @@ public class GameView extends View<GameViewModel> {
                     case D:
                         moveRight();
                         break;
-                    case Q:
-                        rotateLeft();
-                        break;
-                    case R:
-                        rotateRight();
-                        break;
-                    case SPACE:
-                        shoot();
-                        break;
                     case SHIFT:
                         dash();
                         break;
@@ -705,6 +711,15 @@ public class GameView extends View<GameViewModel> {
                 pressingKeys.add(keyEvent.getCode());
         }
         
+        public void onMouseMove(MouseEvent mouseEvent) {
+            
+            if(isDead())
+                return;
+            
+            double angle = Math.toDegrees(Math.atan2(mouseEvent.getY() - getTranslateY(), mouseEvent.getX() - getTranslateX()));
+            setRotate(angle);
+        }
+        
         public void onUnMove(KeyEvent keyEvent) {
             pressingKeys.remove(keyEvent.getCode());
         }
@@ -714,7 +729,7 @@ public class GameView extends View<GameViewModel> {
             if(isDead())
                 return;
             
-            if(!molotovs.isEmpty()) {
+            if(mouseEvent.getButton() == MouseButton.SECONDARY && !molotovs.isEmpty()) {
                 
                 Molotov molotov = molotovs.remove(0);
                 ((Label) gameField.getChildren().get(5)).setText("x" + molotovs.size());
@@ -728,6 +743,9 @@ public class GameView extends View<GameViewModel> {
                 
                 gameField.getChildren().add(molotov);
             }
+            
+            if(mouseEvent.getButton() == MouseButton.PRIMARY && hasWeapon())
+                shoot();
         }
         
         public void shoot() {
