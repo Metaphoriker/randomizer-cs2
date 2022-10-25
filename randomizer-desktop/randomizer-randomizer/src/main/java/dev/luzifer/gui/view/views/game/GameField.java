@@ -26,9 +26,13 @@ public class GameField {
     
     public void spawnObstacles() {
         for(int i = 0; i < ThreadLocalRandom.current().nextInt(3, 10); i++) {
+            
             ObstacleObject obstacleObject = new ObstacleObject(new Position(this, new Point2D(
                     ThreadLocalRandom.current().nextDouble(0, border.getWidth()),
                     ThreadLocalRandom.current().nextDouble(0, border.getHeight()))));
+            
+            if(ThreadLocalRandom.current().nextBoolean())
+                obstacleObject.setRotate(90);
             
             entities.add(obstacleObject);
         }
