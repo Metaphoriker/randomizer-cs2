@@ -24,6 +24,7 @@ public class GameView extends View<GameViewModel> {
         super.initialize(url, resourceBundle);
         
         GameWindow gameWindow = new GameWindow();
+        gameField.setPrefSize(gameWindow.getPrefWidth(), gameWindow.getPrefHeight());
         gameField.getChildren().add(gameWindow);
         
         Platform.runLater(() -> {
