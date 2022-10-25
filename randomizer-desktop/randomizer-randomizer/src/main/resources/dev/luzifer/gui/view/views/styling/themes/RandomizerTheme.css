@@ -1,6 +1,17 @@
 /*
-
- Default color 1: #1e1e1e
- Default color 2: #2b2b2b
-
+ Darkslategray: #2f4f4f
+ Purpurviolett: #4a192c
 */
+
+/* General */
+.root {
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 16px;
+    -fx-accent: #4a192c;
+    -fx-focus-color: -fx-accent;
+    -fx-base: #2f4f4f;
+}
+
+.combo-box {
+    -fx-background-color: #4a192c;
+}
