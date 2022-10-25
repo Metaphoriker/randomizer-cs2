@@ -507,6 +507,8 @@ public class GameView extends View<GameViewModel> {
             double y = Math.sin(angle);
     
             Point2D velocity = new Point2D.Double(x, y);
+            
+            velocity.setLocation(velocity.getX() * 10, velocity.getY() * 10);
     
             Bullet bullet = new Bullet(location, velocity, rotate);
             bullets.add(bullet);
@@ -613,8 +615,8 @@ public class GameView extends View<GameViewModel> {
         }
         
         public void update() {
-            setTranslateX(getTranslateX() + velocity.getX());
-            setTranslateY(getTranslateY() + velocity.getY());
+            setTranslateX(getTranslateX() + (velocity.getX() * 5));
+            setTranslateY(getTranslateY() + (velocity.getY() * 5));
         }
     }
     
