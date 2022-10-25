@@ -72,6 +72,7 @@ public class GameWindow extends Pane {
         
         gameField.setBorder(border);
         gameField.spawnPlayer();
+        gameField.spawnObstacles();
     }
     
     private void syncWithGame() {

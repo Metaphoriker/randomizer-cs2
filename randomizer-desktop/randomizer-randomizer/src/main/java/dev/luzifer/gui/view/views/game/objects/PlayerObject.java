@@ -2,6 +2,7 @@ package dev.luzifer.gui.view.views.game.objects;
 
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.Position;
+import dev.luzifer.gui.view.views.game.objects.entity.Entity;
 import dev.luzifer.gui.view.views.game.objects.entity.Item;
 import dev.luzifer.gui.view.views.game.objects.entity.Player;
 import dev.luzifer.gui.view.views.game.objects.inventory.Weapon;
@@ -48,6 +49,14 @@ public class PlayerObject extends AbstractLivingGameObject implements Player {
             
             if(!getPosition().getGameField().getBorder().getBoundsInParent().contains(predictedPosition))
                 return;
+            
+            for (Entity entity : getPosition().getGameField().getEntities()) {
+                if (entity == this)
+                    continue;
+    
+                if (entity instanceof ObstacleObject && ((ObstacleObject) entity).getBoundsInParent().contains(predictedPosition))
+                    return;
+            }
             
             switch (key) {
                 case W:
