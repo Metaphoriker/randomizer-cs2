@@ -3,6 +3,7 @@ package dev.luzifer.gui.view.views.game;
 import dev.luzifer.Main;
 import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
+import dev.luzifer.gui.view.views.game.objects.EnemyObject;
 import dev.luzifer.gui.view.views.game.objects.ItemObject;
 import dev.luzifer.gui.view.views.game.objects.PlayerObject;
 import dev.luzifer.gui.view.views.game.objects.entity.Entity;
@@ -41,6 +42,8 @@ public class GameWindow extends Pane {
     }
     
     private final GameField gameField = new GameField();
+    
+    private int score = 0; // Property
     
     public GameWindow() {
     
@@ -109,7 +112,15 @@ public class GameWindow extends Pane {
                             });
                 } else if(c.wasRemoved()) {
                     c.getRemoved().stream()
-                            .filter(Node.class::isInstance).forEach(entity -> getChildren().remove((Node) entity));
+                            .filter(Node.class::isInstance).forEach(entity -> {
+                                
+                                if(entity instanceof EnemyObject) {
+                                    score += 10;
+                                    scoreLabel.setText("Score: " + score);
+                                }
+                                
+                                getChildren().remove((Node) entity);
+                            });
                 }
             }
         });
