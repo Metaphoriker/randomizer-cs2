@@ -85,7 +85,7 @@ public class GameWindow extends Pane {
                 if(c.wasAdded()) {
                     c.getAddedSubList().stream()
                             .filter(Node.class::isInstance).forEach(entity -> {
-                                getChildren().add((Node) entity);
+                                getChildren().add(0, (Node) entity);
                                 
                                 if(entity instanceof Player) {
                                     
