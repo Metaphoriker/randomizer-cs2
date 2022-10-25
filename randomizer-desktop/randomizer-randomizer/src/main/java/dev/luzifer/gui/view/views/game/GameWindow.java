@@ -25,6 +25,7 @@ public class GameWindow extends Pane {
     
     private final Label gameOverLabel = new Label("Game Over");
     private final Label scoreLabel = new Label("Score: 0");
+    private final Label fpsLabel = new Label("FPS: 0");
     private final Label howToPlayLabel = new Label("WASD\nM-CLICK\nMOUSE");
     
     private final Label ammoBoxesLabel = new Label("x0");
@@ -32,9 +33,10 @@ public class GameWindow extends Pane {
     
     {
         CSSUtil.applyStyle(this, GameWindow.class);
-    
+        
         gameOverLabel.getStyleClass().add("game-over");
         scoreLabel.getStyleClass().add("score");
+        fpsLabel.getStyleClass().add("fps");
         howToPlayLabel.getStyleClass().add("how-to-play");
         
         ammoBoxesLabel.getStyleClass().add("ammo-box");
@@ -52,7 +54,7 @@ public class GameWindow extends Pane {
         setupBorder();
         setupLabelPictures();
     
-        getChildren().addAll(border, gameOverLabel, scoreLabel, howToPlayLabel, ammoBoxesLabel, molotovLabel);
+        getChildren().addAll(border, gameOverLabel, scoreLabel, fpsLabel, howToPlayLabel, ammoBoxesLabel, molotovLabel);
     }
     
     public void initGame() {
@@ -73,6 +75,7 @@ public class GameWindow extends Pane {
     
         gameField.setOnGameOver(() -> gameOverLabel.setOpacity(1));
         
+        gameField.fpsProperty().addListener((observable, oldValue, newValue) -> fpsLabel.setText("FPS: " + newValue.intValue()));
         gameField.setBorder(border);
         gameField.spawnPlayer();
         gameField.spawnObstacles();

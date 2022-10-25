@@ -3,6 +3,7 @@ package dev.luzifer.gui.view.views.game;
 import dev.luzifer.gui.view.views.game.objects.ObstacleObject;
 import dev.luzifer.gui.view.views.game.objects.PlayerObject;
 import dev.luzifer.gui.view.views.game.objects.entity.Entity;
+import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
@@ -62,6 +63,10 @@ public class GameField {
     
     public Rectangle getBorder() {
         return border;
+    }
+    
+    public ReadOnlyIntegerProperty fpsProperty() {
+        return gameSequence.getFpsProperty();
     }
     
     public ObservableList<Entity> getEntities() {

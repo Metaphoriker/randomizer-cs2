@@ -24,6 +24,18 @@
     -fx-translate-y: 10px;
 }
 
+.fps {
+    -fx-font-size: 12px;
+    -fx-text-fill: white;
+    -fx-font-weight: bold;
+    /* Layout */
+    -fx-alignment: center;
+    -fx-padding: 10px;
+    /* Position */
+    -fx-translate-x: 10px;
+    -fx-translate-y: 40px;
+}
+
 .how-to-play {
     -fx-font-size: 14px;
     -fx-text-fill: black;

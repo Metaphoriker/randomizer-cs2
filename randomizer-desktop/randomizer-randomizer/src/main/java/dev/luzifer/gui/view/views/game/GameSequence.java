@@ -7,13 +7,20 @@ import dev.luzifer.gui.view.views.game.objects.entity.Entity;
 import dev.luzifer.gui.view.views.game.objects.entity.LivingEntity;
 import dev.luzifer.gui.view.views.game.objects.entity.Player;
 import javafx.animation.AnimationTimer;
+import javafx.beans.property.IntegerProperty;
+import javafx.beans.property.ReadOnlyIntegerProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
 
 import java.util.concurrent.ThreadLocalRandom;
 
 public class GameSequence extends AnimationTimer {
     
+    private final IntegerProperty fpsProperty = new SimpleIntegerProperty();
+    
     private final GameField gameField;
+    
+    private long lastUpdate;
     
     public GameSequence(GameField gameField) {
         this.gameField = gameField;
@@ -22,6 +29,9 @@ public class GameSequence extends AnimationTimer {
     @Override
     public void handle(long now) {
     
+        fpsProperty.set((int) (1_000_000_000.0 / (now - lastUpdate)));
+        lastUpdate = now;
+        
         if(ThreadLocalRandom.current().nextDouble(100) <= 1.5) {
             
             EnemyObject enemy = new EnemyObject(new Position(gameField, new Point2D(
@@ -85,5 +95,9 @@ public class GameSequence extends AnimationTimer {
                 }
             }
         }
+    }
+    
+    public ReadOnlyIntegerProperty getFpsProperty() {
+        return fpsProperty; // TODO: ReadOnlyIntegerWrapper
     }
 }
