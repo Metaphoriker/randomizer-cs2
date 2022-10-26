@@ -1,28 +1,21 @@
-package dev.luzifer.gui.view.views.game.objects;
+package dev.luzifer.gui.view.views.game.objects.sup;
 
 import dev.luzifer.gui.view.views.game.HealthBar;
 import dev.luzifer.gui.view.views.game.Position;
-import dev.luzifer.gui.view.views.game.objects.entity.LivingEntity;
-import dev.luzifer.gui.view.views.game.objects.entity.Moveable;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.LivingEntity;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Moveable;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
-import javafx.scene.shape.Rectangle;
 
-public abstract class AbstractLivingGameObject extends Rectangle implements LivingEntity, Moveable {
+public abstract class AbstractLivingGameObject extends GameObject implements LivingEntity, Moveable {
     
     protected final IntegerProperty healthProperty = new SimpleIntegerProperty(10);
     
-    protected final Position position;
-    
     protected AbstractLivingGameObject(Position position) {
+        super(position, 20, 20);
         
-        this.position = position;
-        
-        setTranslateX(position.getPosition().getX());
-        setTranslateY(position.getPosition().getY());
-    
         HealthBar healthBar = new HealthBar(getHealth());
         healthBar.translateXProperty().bind(translateXProperty());
         healthBar.translateYProperty().bind(translateYProperty().subtract(10));
@@ -44,11 +37,6 @@ public abstract class AbstractLivingGameObject extends Rectangle implements Livi
     @Override
     public void damage(int amount) {
         healthProperty.set(getHealth()-amount);
-    }
-    
-    @Override
-    public Position getPosition() {
-        return new Position(position.getGameField(), new Point2D(getTranslateX(), getTranslateY()));
     }
     
     @Override

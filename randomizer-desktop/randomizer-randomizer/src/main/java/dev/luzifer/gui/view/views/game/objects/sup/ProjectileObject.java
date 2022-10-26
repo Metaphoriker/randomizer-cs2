@@ -1,26 +1,20 @@
-package dev.luzifer.gui.view.views.game.objects;
+package dev.luzifer.gui.view.views.game.objects.sup;
 
 import dev.luzifer.gui.view.views.game.Position;
-import dev.luzifer.gui.view.views.game.objects.entity.LivingEntity;
-import dev.luzifer.gui.view.views.game.objects.entity.Projectile;
+import dev.luzifer.gui.view.views.game.objects.sub.ObstacleObject;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Projectile;
 import javafx.geometry.Point2D;
-import javafx.scene.shape.Rectangle;
 
-public class ProjectileObject extends Rectangle implements Projectile { // 1
+public class ProjectileObject extends GameObject implements Projectile { // 1
 
     private final Point2D velocity;
-    private final Position position;
     
     private int health = 1;
     
     public ProjectileObject(Position position, Point2D velocity) { // 2
-        super(20, 20);
+        super(position, 20, 20);
         
-        this.position = position;
         this.velocity = velocity;
-        
-        setTranslateX(position.getPosition().getX());
-        setTranslateY(position.getPosition().getY());
     }
     
     @Override
@@ -34,11 +28,6 @@ public class ProjectileObject extends Rectangle implements Projectile { // 1
                 .map(ObstacleObject.class::cast)
                 .filter(entity -> entity.getBoundsInParent().intersects(getBoundsInParent()))
                 .forEach(entity -> damage(1));
-    }
-    
-    @Override
-    public Position getPosition() {
-        return new Position(position.getGameField(), new Point2D(getTranslateX(), getTranslateY()));
     }
     
     @Override

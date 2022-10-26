@@ -1,6 +1,6 @@
-package dev.luzifer.gui.view.views.game.objects.entity;
+package dev.luzifer.gui.view.views.game.objects.sup.entity;
 
-import dev.luzifer.gui.view.views.game.objects.ItemObject;
+import dev.luzifer.gui.view.views.game.objects.sup.ItemObject;
 
 public interface Item extends LivingEntity {
     

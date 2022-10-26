@@ -1,33 +1,27 @@
-package dev.luzifer.gui.view.views.game.objects;
+package dev.luzifer.gui.view.views.game.objects.sup;
 
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.Position;
-import dev.luzifer.gui.view.views.game.objects.entity.Item;
-import dev.luzifer.gui.view.views.game.objects.entity.Player;
+import dev.luzifer.gui.view.views.game.objects.sub.PlayerObject;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Item;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
 
-public class ItemObject extends Rectangle implements Item {
+public class ItemObject extends GameObject implements Item {
     
     private static final int DEFAULT_ITEM_HEALTH = 1;
     
     private final ItemType itemType;
-    private final Position position;
     
     private int health;
     
     public ItemObject(Position position, ItemType itemType) {
+        super(position, 32, 32);
         
         this.health = DEFAULT_ITEM_HEALTH;
-        this.position = position;
         this.itemType = itemType;
         
-        setWidth(32);
-        setHeight(32);
-        
-        setTranslateX(position.getPosition().getX());
-        setTranslateY(position.getPosition().getY());
-        
+        // TODO: Remove this and make subtypes
         switch (itemType) {
             case WEAPON:
                 setFill(ImageUtil.getImagePattern("images/weapon_icon.png", ImageUtil.ImageResolution.ORIGINAL));
@@ -61,7 +55,7 @@ public class ItemObject extends Rectangle implements Item {
     
     @Override
     public Position getPosition() {
-        return position;
+        return position; // Since it will never change
     }
     
     @Override

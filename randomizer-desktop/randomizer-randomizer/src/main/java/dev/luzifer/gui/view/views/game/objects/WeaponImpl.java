@@ -1,8 +1,8 @@
 package dev.luzifer.gui.view.views.game.objects;
 
-import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.Position;
-import dev.luzifer.gui.view.views.game.objects.inventory.Weapon;
+import dev.luzifer.gui.view.views.game.objects.sup.inventory.Weapon;
+import dev.luzifer.gui.view.views.game.objects.sub.BulletProjectileObject;
 import javafx.geometry.Point2D;
 
 public class WeaponImpl implements Weapon {

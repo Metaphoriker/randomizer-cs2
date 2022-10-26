@@ -1,6 +1,6 @@
 package dev.luzifer.gui.view.views.game;
 
-import dev.luzifer.gui.view.views.game.objects.entity.LivingEntity;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.LivingEntity;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;

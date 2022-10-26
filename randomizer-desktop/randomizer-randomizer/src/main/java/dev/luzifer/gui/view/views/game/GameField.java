@@ -1,8 +1,8 @@
 package dev.luzifer.gui.view.views.game;
 
-import dev.luzifer.gui.view.views.game.objects.ObstacleObject;
-import dev.luzifer.gui.view.views.game.objects.PlayerObject;
-import dev.luzifer.gui.view.views.game.objects.entity.Entity;
+import dev.luzifer.gui.view.views.game.objects.sub.ObstacleObject;
+import dev.luzifer.gui.view.views.game.objects.sub.PlayerObject;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Entity;
 import javafx.beans.property.ReadOnlyIntegerProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;

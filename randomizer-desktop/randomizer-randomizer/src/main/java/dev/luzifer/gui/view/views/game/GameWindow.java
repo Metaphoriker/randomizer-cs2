@@ -1,14 +1,13 @@
 package dev.luzifer.gui.view.views.game;
 
-import dev.luzifer.Main;
 import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
-import dev.luzifer.gui.view.views.game.objects.EnemyObject;
-import dev.luzifer.gui.view.views.game.objects.ItemObject;
-import dev.luzifer.gui.view.views.game.objects.PlayerObject;
-import dev.luzifer.gui.view.views.game.objects.entity.Entity;
-import dev.luzifer.gui.view.views.game.objects.entity.Item;
-import dev.luzifer.gui.view.views.game.objects.entity.Player;
+import dev.luzifer.gui.view.views.game.objects.sub.EnemyObject;
+import dev.luzifer.gui.view.views.game.objects.sup.ItemObject;
+import dev.luzifer.gui.view.views.game.objects.sub.PlayerObject;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Entity;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Item;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
@@ -75,7 +74,15 @@ public class GameWindow extends Pane {
     
         gameField.setOnGameOver(() -> gameOverLabel.setOpacity(1));
         
-        gameField.fpsProperty().addListener((observable, oldValue, newValue) -> fpsLabel.setText("FPS: " + newValue.intValue()));
+        gameField.fpsProperty().addListener((observable, oldValue, newValue) -> {
+            
+            PlayerObject player = (PlayerObject) gameField.getEntities().get(1);
+            
+            setScaleX(player.getScaleX());
+            setScaleY(player.getScaleY());
+            
+            fpsLabel.setText("FPS: " + newValue.intValue());
+        });
         gameField.setBorder(border);
         gameField.spawnPlayer();
         gameField.spawnObstacles();

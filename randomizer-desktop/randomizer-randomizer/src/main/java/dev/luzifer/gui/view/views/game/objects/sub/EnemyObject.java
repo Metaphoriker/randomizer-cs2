@@ -1,10 +1,11 @@
-package dev.luzifer.gui.view.views.game.objects;
+package dev.luzifer.gui.view.views.game.objects.sub;
 
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.Position;
-import dev.luzifer.gui.view.views.game.objects.entity.Aggressive;
-import dev.luzifer.gui.view.views.game.objects.entity.LivingEntity;
-import dev.luzifer.gui.view.views.game.objects.entity.Moveable;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Aggressive;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.LivingEntity;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Moveable;
+import dev.luzifer.gui.view.views.game.objects.sup.AbstractLivingGameObject;
 import javafx.geometry.Point2D;
 
 public class EnemyObject extends AbstractLivingGameObject implements LivingEntity, Moveable, Aggressive {
@@ -33,7 +34,7 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
             
             followTarget();
             
-            if (getPosition().getPosition().distance(target.getPosition().getPosition()) <= range)
+            if (getPosition().getLocation().distance(target.getPosition().getLocation()) <= range)
                 attack(target);
         }
     }
@@ -75,8 +76,8 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
     
     public void stepTowardsTarget() {
         
-        Point2D targetPoint = target.getPosition().getPosition();
-        Point2D currentPosition = position.getPosition();
+        Point2D targetPoint = target.getPosition().getLocation();
+        Point2D currentPosition = position.getLocation();
         
         if (targetPoint.getX() > currentPosition.getX())
             moveRight();
@@ -91,8 +92,8 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
     
     public void followTarget() {
         
-        Point2D playerPosition = target.getPosition().getPosition();
-        Point2D enemyPosition = getPosition().getPosition();
+        Point2D playerPosition = target.getPosition().getLocation();
+        Point2D enemyPosition = getPosition().getLocation();
         
         double distance = playerPosition.distance(enemyPosition);
         

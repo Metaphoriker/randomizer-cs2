@@ -1,11 +1,11 @@
 package dev.luzifer.gui.view.views.game;
 
-import dev.luzifer.gui.view.views.game.objects.BombObject;
-import dev.luzifer.gui.view.views.game.objects.EnemyObject;
-import dev.luzifer.gui.view.views.game.objects.ItemObject;
-import dev.luzifer.gui.view.views.game.objects.entity.Entity;
-import dev.luzifer.gui.view.views.game.objects.entity.LivingEntity;
-import dev.luzifer.gui.view.views.game.objects.entity.Player;
+import dev.luzifer.gui.view.views.game.objects.sub.BombObject;
+import dev.luzifer.gui.view.views.game.objects.sub.EnemyObject;
+import dev.luzifer.gui.view.views.game.objects.sup.ItemObject;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Entity;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.LivingEntity;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;
 import javafx.animation.AnimationTimer;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ReadOnlyIntegerProperty;
@@ -57,6 +57,7 @@ public class GameSequence extends AnimationTimer {
             enemy.setHeight(200);
             enemy.setHealth(420);
             enemy.setRange(100);
+            
             enemy.setTarget((LivingEntity) gameField.getEntities().get(1)); // Player
             
             gameField.getEntities().add(enemy);

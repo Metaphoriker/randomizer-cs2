@@ -1,4 +1,4 @@
-package dev.luzifer.gui.view.views.game.objects.entity;
+package dev.luzifer.gui.view.views.game.objects.sup.entity;
 
 public interface LivingEntity extends Entity {
     

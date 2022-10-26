@@ -1,22 +1,14 @@
-package dev.luzifer.gui.view.views.game.objects;
+package dev.luzifer.gui.view.views.game.objects.sup;
 
 import dev.luzifer.gui.view.views.game.Position;
-import dev.luzifer.gui.view.views.game.objects.entity.LivingEntity;
-import javafx.scene.shape.Rectangle;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.LivingEntity;
 
-public abstract class AbstractStaticObject extends Rectangle implements LivingEntity {
-
-    private final Position position;
+public abstract class AbstractStaticObject extends GameObject implements LivingEntity {
     
     private int health = 1;
     
     protected AbstractStaticObject(Position position) {
-        super(20, 20);
-        
-        this.position = position;
-
-        setTranslateX(position.getPosition().getX());
-        setTranslateY(position.getPosition().getY());
+        super(position, 20, 20);
     }
 
     @Override
@@ -26,7 +18,7 @@ public abstract class AbstractStaticObject extends Rectangle implements LivingEn
 
     @Override
     public Position getPosition() {
-        return position;
+        return position; // Since it will never change
     }
     
     @Override

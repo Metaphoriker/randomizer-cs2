@@ -1,7 +1,9 @@
-package dev.luzifer.gui.view.views.game.objects;
+package dev.luzifer.gui.view.views.game.objects.sub;
 
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.Position;
+import dev.luzifer.gui.view.views.game.objects.sup.AbstractLivingGameObject;
+import dev.luzifer.gui.view.views.game.objects.sup.AbstractStaticObject;
 
 public class BombExplosionObject extends AbstractStaticObject {
 

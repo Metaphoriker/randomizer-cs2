@@ -1,4 +1,4 @@
-package dev.luzifer.gui.view.views.game.objects.entity;
+package dev.luzifer.gui.view.views.game.objects.sup.entity;
 
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;

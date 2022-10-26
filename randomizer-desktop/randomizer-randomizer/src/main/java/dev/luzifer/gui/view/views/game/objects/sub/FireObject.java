@@ -1,7 +1,8 @@
-package dev.luzifer.gui.view.views.game.objects;
+package dev.luzifer.gui.view.views.game.objects.sub;
 
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.Position;
+import dev.luzifer.gui.view.views.game.objects.sup.AbstractStaticObject;
 
 public class FireObject extends AbstractStaticObject {
 
@@ -13,8 +14,8 @@ public class FireObject extends AbstractStaticObject {
         setWidth(200);
         setHeight(200);
     
-        setTranslateX(position.getPosition().getX());
-        setTranslateY(position.getPosition().getY());
+        setTranslateX(position.getLocation().getX());
+        setTranslateY(position.getLocation().getY());
     
         setFill(ImageUtil.getImagePattern("images/fire_icon.gif"));
     }

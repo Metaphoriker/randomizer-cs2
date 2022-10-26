@@ -1,12 +1,15 @@
-package dev.luzifer.gui.view.views.game.objects;
+package dev.luzifer.gui.view.views.game.objects.sub;
 
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.Position;
-import dev.luzifer.gui.view.views.game.objects.entity.Entity;
-import dev.luzifer.gui.view.views.game.objects.entity.Item;
-import dev.luzifer.gui.view.views.game.objects.entity.Player;
-import dev.luzifer.gui.view.views.game.objects.inventory.Weapon;
+import dev.luzifer.gui.view.views.game.objects.WeaponImpl;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Entity;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Item;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;
+import dev.luzifer.gui.view.views.game.objects.sup.inventory.Weapon;
 
+import dev.luzifer.gui.view.views.game.objects.sup.AbstractLivingGameObject;
+import dev.luzifer.gui.view.views.game.objects.sup.ItemObject;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;

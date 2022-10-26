@@ -5,19 +5,19 @@ import javafx.geometry.Point2D;
 public class Position {
     
     private final GameField gameField;
-    private final Point2D position;
+    private final Point2D location;
     
-    public Position(GameField gameField, Point2D position) {
+    public Position(GameField gameField, Point2D location) {
         this.gameField = gameField;
-        this.position = position;
+        this.location = location;
     }
     
     public GameField getGameField() {
         return gameField;
     }
     
-    public Point2D getPosition() {
-        return position;
+    public Point2D getLocation() {
+        return location;
     }
     
 }

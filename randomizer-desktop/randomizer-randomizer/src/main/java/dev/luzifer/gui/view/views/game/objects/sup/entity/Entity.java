@@ -1,4 +1,4 @@
-package dev.luzifer.gui.view.views.game.objects.entity;
+package dev.luzifer.gui.view.views.game.objects.sup.entity;
 
 import dev.luzifer.gui.view.views.game.Position;
 

@@ -1,6 +1,6 @@
-package dev.luzifer.gui.view.views.game.objects.entity;
+package dev.luzifer.gui.view.views.game.objects.sup.entity;
 
-import dev.luzifer.gui.view.views.game.objects.inventory.Weapon;
+import dev.luzifer.gui.view.views.game.objects.sup.inventory.Weapon;
 
 import java.util.List;
 

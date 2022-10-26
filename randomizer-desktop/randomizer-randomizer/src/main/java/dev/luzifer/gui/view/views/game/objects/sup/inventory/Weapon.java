@@ -1,4 +1,4 @@
-package dev.luzifer.gui.view.views.game.objects.inventory;
+package dev.luzifer.gui.view.views.game.objects.sup.inventory;
 
 import dev.luzifer.gui.view.views.game.Position;
 import javafx.geometry.Point2D;
