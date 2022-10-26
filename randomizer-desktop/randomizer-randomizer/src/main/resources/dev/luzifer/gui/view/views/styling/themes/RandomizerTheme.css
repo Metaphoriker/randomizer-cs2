@@ -1,13 +1,13 @@
 .root {
-    -darkslategray: #2f4f4f;
-    -darkslategray-25p-lighter: #3b6363;
-    -darkslategray-25p-darker: #263f3f;
+    -light-coffee: #6b695f;
+    -coffee: #56544c;
+    -dark-coffee: #45433d;
 
     -purpurviolett: #4a192c;
     -purpurviolett-25p-lighter: #5d1f37;
     -purpurviolett-25p-darker: #3b1423;
 
-    -fx-base: -darkslategray;
+    -fx-base: -coffee;
 }
 
 .combo-box {
@@ -70,6 +70,6 @@
 }
 
 .button-fake {
-    -fx-background-color: -darkslategray-25p-lighter;
+    -fx-background-color: -light-coffee;
     -fx-background-radius: 5px;
 }
