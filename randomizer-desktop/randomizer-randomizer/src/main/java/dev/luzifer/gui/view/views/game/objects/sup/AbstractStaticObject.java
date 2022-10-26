@@ -10,7 +10,12 @@ public abstract class AbstractStaticObject extends GameObject implements LivingE
     protected AbstractStaticObject(Position position, int width, int height) {
         super(position, width, height);
     }
-
+    
+    @Override
+    public void update() {
+        // Nothing to do here
+    }
+    
     @Override
     public Position getPosition() {
         return position; // Since it will never change

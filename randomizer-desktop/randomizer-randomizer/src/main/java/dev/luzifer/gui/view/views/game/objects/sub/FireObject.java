@@ -16,13 +16,6 @@ public class FireObject extends AbstractStaticObject {
         setTranslateX(position.getLocation().getX());
         setTranslateY(position.getLocation().getY());
         
-        setOnInterfere(gameObject -> {
-            if (gameObject instanceof EnemyObject) {
-                EnemyObject enemy = (EnemyObject) gameObject;
-                enemy.damage(3);
-            }
-        });
-    
         setFill(ImageUtil.getImagePattern("images/fire_icon.gif"));
     }
     
@@ -32,6 +25,16 @@ public class FireObject extends AbstractStaticObject {
         
         setWidth(getWidth() - speed);
         setHeight(getHeight() - speed);
+        
+        getPosition().getGameField().getEntities().stream()
+                .filter(EnemyObject.class::isInstance)
+                .forEach(entity -> {
+                
+                    EnemyObject livingEntity = (EnemyObject) entity;
+                
+                    if(livingEntity.getBoundsInParent().intersects(getBoundsInParent()))
+                        livingEntity.damage(3);
+                });
         
         if(getWidth() <= 0 || getHeight() <= 0)
             damage(1);
