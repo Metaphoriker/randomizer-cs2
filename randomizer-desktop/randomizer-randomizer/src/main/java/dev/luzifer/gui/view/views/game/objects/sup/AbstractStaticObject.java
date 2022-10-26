@@ -12,11 +12,6 @@ public abstract class AbstractStaticObject extends GameObject implements LivingE
     }
 
     @Override
-    public void update() {
-        // Nothing to do here
-    }
-
-    @Override
     public Position getPosition() {
         return position; // Since it will never change
     }

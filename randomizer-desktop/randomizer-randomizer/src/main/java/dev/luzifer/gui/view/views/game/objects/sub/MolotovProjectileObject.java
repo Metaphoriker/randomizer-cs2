@@ -31,7 +31,6 @@ public class MolotovProjectileObject extends ProjectileObject {
                         damage(1);
                         
                         hit.set(true);
-                        return;
                     }
                 });
     
