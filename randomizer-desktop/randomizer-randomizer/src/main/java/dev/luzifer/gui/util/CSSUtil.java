@@ -55,6 +55,7 @@ public class CSSUtil {
     public enum Theme {
 
         RANDOMIZER("Randomizer", "RandomizerTheme"),
+        BUSTED("Busted", "BustedTheme"),
         NIGHT("Night", "NightTheme");
 
         private final String name;

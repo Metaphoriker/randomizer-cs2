@@ -1,41 +1,38 @@
-/*
- Darkslategray: #2f4f4f
-    Darkslategray 25% lighter: #3b6363
-    Darkslategray 25% darker: #263f3f
-
- Purpurviolett: #4a192c
-    Purpurviolett 25% lighter: #5d1f37
-    Purpurviolett 25% darker: #3b1423
-*/
-
-/* General */
 .root {
-    -fx-base: #2f4f4f;
+    -darkslategray: #2f4f4f;
+    -darkslategray-25p-lighter: #3b6363;
+    -darkslategray-25p-darker: #263f3f;
+
+    -purpurviolett: #4a192c;
+    -purpurviolett-25p-lighter: #5d1f37;
+    -purpurviolett-25p-darker: #3b1423;
+
+    -fx-base: -darkslategray;
 }
 
 .combo-box {
-    -fx-background-color: #4a192c;
+    -fx-background-color: -purpurviolett;
 }
 
 .combo-box .list-cell {
-    -fx-background-color: #5d1f37;
+    -fx-background-color: -purpurviolett-25p-lighter;
     -fx-text-fill: white;
 }
 
 .combo-box .list-cell:selected {
-    -fx-background-color: #4a192c;
+    -fx-background-color: -purpurviolett;
 }
 
 .combo-box .list-cell:hover {
-    -fx-background-color: #4a192c;
+    -fx-background-color: -purpurviolett;
 }
 
 .slider .thumb {
-    -fx-background-color: #5d1f37;
+    -fx-background-color: -purpurviolett-25p-lighter;
 }
 
 .slider .track {
-    -fx-background-color: #4a192c;
+    -fx-background-color: -purpurviolett;
 }
 
 /*
@@ -63,7 +60,7 @@
 
 .button {
     -fx-font-size: 12px;
-    -fx-background-color: #4a192c;
+    -fx-background-color: -purpurviolett;
     -fx-focus-traversable: false;
 }
 
@@ -73,6 +70,6 @@
 }
 
 .button-fake {
-    -fx-background-color: #3b6363;
+    -fx-background-color: -darkslategray-25p-lighter;
     -fx-background-radius: 5px;
 }
