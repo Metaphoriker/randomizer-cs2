@@ -6,7 +6,7 @@ import dev.luzifer.gui.view.views.game.Position;
 import dev.luzifer.gui.view.views.game.objects.sup.AbstractStaticObject;
 
 import java.util.concurrent.ThreadLocalRandom;
-import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 public class FireObject extends AbstractStaticObject {
 
@@ -26,8 +26,8 @@ public class FireObject extends AbstractStaticObject {
         
         setWidth(getWidth() - speed);
         setHeight(getHeight() - speed);
-        
-        AtomicInteger addFires = new AtomicInteger();
+    
+        AtomicBoolean spread = new AtomicBoolean(false);
         getPosition().getGameField().getEntities().stream()
                 .filter(EnemyObject.class::isInstance)
                 .forEach(entity -> {
@@ -38,17 +38,15 @@ public class FireObject extends AbstractStaticObject {
     
                         livingEntity.damage(3);
     
-                        if(addFires.get() < 3 && ThreadLocalRandom.current().nextInt(100) <= 25)
-                            addFires.getAndIncrement();
+                        if(!spread.get() && ThreadLocalRandom.current().nextInt(100) <= 25)
+                            spread.set(true);
                     }
                 });
         
-        if(addFires.get() > 0) {
-            GameSequence.RUN_SHIT.push(() -> {
-                for(int i = 0; i < addFires.get(); i++) {
-                    FireObject fire = new FireObject(new Position(getPosition().getGameField(), getPosition().getLocation()));
-                    getPosition().getGameField().getEntities().add(fire);
-                }
+        if(spread.get()) {
+            GameSequence.RUN_SHIT.push(() -> { // Does this even make sense?
+                FireObject fire = new FireObject(new Position(getPosition().getGameField(), getPosition().getLocation()));
+                getPosition().getGameField().getEntities().add(fire);
             });
         }
         
