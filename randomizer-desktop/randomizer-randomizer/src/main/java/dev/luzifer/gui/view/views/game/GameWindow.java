@@ -4,13 +4,13 @@ import dev.luzifer.gui.util.CSSUtil;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.objects.sub.EnemyObject;
 import dev.luzifer.gui.view.views.game.objects.sup.ItemObject;
-import dev.luzifer.gui.view.views.game.objects.sub.PlayerObject;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Entity;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Item;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;
 import javafx.collections.ListChangeListener;
 import javafx.scene.Node;
 import javafx.scene.control.Label;
+import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -24,7 +24,7 @@ public class GameWindow extends Pane {
     
     private final Label gameOverLabel = new Label("Game Over");
     private final Label scoreLabel = new Label("Score: 0");
-    private final Label howToPlayLabel = new Label("WASD\nM-CLICK\nMOUSE");
+    private final Label howToPlayLabel = new Label("WASD\nM-CLICK\nMOUSE\nI\nSHIFT");
     
     private final Label ammoBoxesLabel = new Label("x0");
     private final Label molotovLabel = new Label("x0");
@@ -76,8 +76,41 @@ public class GameWindow extends Pane {
         });
         gameField.setBorder(border);
         
-        gameField.spawnPlayer();
+        setupPlayer();
         gameField.spawnObstacles();
+    }
+    
+    private void setupPlayer() {
+        
+        Player player = gameField.spawnPlayer();
+        InventoryWindow inventoryWindow = new InventoryWindow(this, player);
+    
+        getScene().setOnKeyPressed(keyEvent -> {
+            
+            if(keyEvent.getCode() == KeyCode.I) {
+                inventoryWindow.setVisible(!inventoryWindow.isVisible());
+                return;
+            }
+            
+            player.onPressKey(keyEvent);
+        });
+        getScene().setOnKeyReleased(player::onReleaseKey);
+        getScene().setOnMouseMoved(player::onMouseMove);
+        getScene().setOnMousePressed(player::onMouseClick);
+    
+        player.getItems().addListener((ListChangeListener<Item>) c1 -> {
+            while(c1.next()) {
+                molotovLabel.setText("x" + player.getItems().stream()
+                        .filter(ItemObject.class::isInstance)
+                        .filter(item1 -> item1.getItemType() == ItemObject.ItemType.MOLOTOV)
+                        .count());
+            
+                ammoBoxesLabel.setText("x" + player.getItems().stream()
+                        .filter(ItemObject.class::isInstance)
+                        .filter(item1 -> item1.getItemType() == ItemObject.ItemType.AMMO)
+                        .count());
+            }
+        });
     }
     
     private void syncWithGame() {
@@ -86,32 +119,7 @@ public class GameWindow extends Pane {
             while(c.next()) {
                 if(c.wasAdded()) {
                     c.getAddedSubList().stream()
-                            .filter(Node.class::isInstance).forEach(entity -> {
-                                getChildren().add(0, (Node) entity);
-                                
-                                if(entity instanceof Player) {
-                                    
-                                    PlayerObject player = (PlayerObject) entity;
-                                    getScene().setOnKeyPressed(player::onPressKey);
-                                    getScene().setOnKeyReleased(player::onReleaseKey);
-                                    getScene().setOnMouseMoved(player::onMouseMove);
-                                    getScene().setOnMousePressed(player::onMouseClick);
-                                    
-                                    player.getItems().addListener((ListChangeListener<Item>) c1 -> {
-                                        while(c1.next()) {
-                                            molotovLabel.setText("x" + player.getItems().stream()
-                                                    .filter(ItemObject.class::isInstance)
-                                                    .filter(item1 -> item1.getItemType() == ItemObject.ItemType.MOLOTOV)
-                                                    .count());
-                                            
-                                            ammoBoxesLabel.setText("x" + player.getItems().stream()
-                                                    .filter(ItemObject.class::isInstance)
-                                                    .filter(item1 -> item1.getItemType() == ItemObject.ItemType.AMMO)
-                                                    .count());
-                                        }
-                                    });
-                                }
-                            });
+                            .filter(Node.class::isInstance).forEach(entity -> getChildren().add(0, (Node) entity));
                 } else if(c.wasRemoved()) {
                     c.getRemoved().stream()
                             .filter(Node.class::isInstance).forEach(entity -> {

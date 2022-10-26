@@ -1,8 +1,7 @@
 package dev.luzifer.gui.view.views.game.objects.sup.entity;
 
 import dev.luzifer.gui.view.views.game.objects.sup.inventory.Weapon;
-
-import java.util.List;
+import javafx.collections.ObservableList;
 
 public interface Player extends Moveable, Controllable, LivingEntity {
 
@@ -10,7 +9,7 @@ public interface Player extends Moveable, Controllable, LivingEntity {
     
     Weapon getWeapon();
     
-    List<Item> getItems();
+    ObservableList<Item> getItems();
     
     default boolean hasWeapon() {
         return getWeapon() != null;

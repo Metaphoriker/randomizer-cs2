@@ -3,6 +3,7 @@ package dev.luzifer.gui.view.views.game;
 import dev.luzifer.gui.view.views.game.objects.sub.ObstacleObject;
 import dev.luzifer.gui.view.views.game.objects.sub.PlayerObject;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Entity;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.geometry.Point2D;
@@ -19,9 +20,12 @@ public class GameField {
     private Rectangle border;
     private Runnable onGameOver;
     
-    public void spawnPlayer() {
+    public Player spawnPlayer() {
+        
         PlayerObject playerObject = new PlayerObject(new Position(this, new Point2D(300, 300)));
         entities.add(playerObject);
+        
+        return playerObject;
     }
     
     public void spawnObstacles() {

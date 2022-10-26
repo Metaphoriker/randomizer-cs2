@@ -1,8 +1,17 @@
 package dev.luzifer.gui.util;
 
+import javafx.geometry.Side;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundImage;
+import javafx.scene.layout.BackgroundPosition;
+import javafx.scene.layout.BackgroundRepeat;
+import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.ImagePattern;
+
+import java.net.URL;
+import java.text.MessageFormat;
 
 public final class ImageUtil {
 
@@ -42,6 +51,35 @@ public final class ImageUtil {
     
     public static ImagePattern getImagePattern(String path, ImageResolution resolution) {
         return new ImagePattern(getImage(path, resolution));
+    }
+    
+    public static Background getBackground(String imageName) {
+        return new Background(convertPNGToBackgroundImage(imageName));
+    }
+    
+    private static BackgroundImage convertPNGToBackgroundImage(String name) {
+        
+        Image image = getImageByURL(fetchResourceAsURL(name));
+        
+        return new BackgroundImage(
+                image,
+                BackgroundRepeat.REPEAT, BackgroundRepeat.NO_REPEAT,
+                new BackgroundPosition(Side.LEFT, 0, true, Side.BOTTOM, 0, true),
+                new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true)
+        );
+    }
+    
+    private static Image getImageByURL(URL url) {
+        return new Image(url.toExternalForm());
+    }
+    
+    private static URL fetchResourceAsURL(String name) {
+        
+        URL url = ImageUtil.class.getClassLoader().getResource(name);
+        if(url == null)
+            throw new IllegalStateException(MessageFormat.format("A resource with this name could not be found: {0}", name));
+        
+        return url;
     }
     
     private ImageUtil() {
