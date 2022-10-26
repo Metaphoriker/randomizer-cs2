@@ -30,11 +30,9 @@ public class GameSequence extends Thread {
             
             long now = System.currentTimeMillis();
             long delta = now - lastUpdated;
-            
-            if (delta >= 15) {
-                lastUpdated = now;
-            } else {
-                
+    
+            if(delta <= 5) {
+        
                 /*
                  * hehe, im so dirty.
                  * But actually this shit reduces some lags since we use the 15ms we would just waste anyways
@@ -44,12 +42,26 @@ public class GameSequence extends Thread {
                  * it will catch up and lag anyways
                  */
                 if (!RUN_SHIT.isEmpty()) {
+            
                     Runnable toRun = RUN_SHIT.pop();
                     Platform.runLater(toRun);
+            
+                    continue;
+                }
+            }
+            
+            if(delta <= 15) {
+                
+                try {
+                    Thread.sleep(15 - delta);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
                 }
                 
                 continue;
             }
+    
+            lastUpdated = now;
             
             Platform.runLater(() -> {
                 
