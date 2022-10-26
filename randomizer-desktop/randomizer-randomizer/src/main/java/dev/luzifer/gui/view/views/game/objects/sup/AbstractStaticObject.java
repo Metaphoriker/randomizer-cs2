@@ -32,6 +32,11 @@ public abstract class AbstractStaticObject extends GameObject implements LivingE
     }
     
     @Override
+    public int getMaxHealth() {
+        return -1;
+    }
+    
+    @Override
     public void damage(int amount) {
         health -= amount;
     }

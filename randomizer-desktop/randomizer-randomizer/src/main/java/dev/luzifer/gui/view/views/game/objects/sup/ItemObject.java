@@ -74,6 +74,11 @@ public class ItemObject extends GameObject implements Item { // TODO: Make this 
     }
     
     @Override
+    public int getMaxHealth() {
+        return -1;
+    }
+    
+    @Override
     public ItemType getItemType() {
         return itemType;
     }

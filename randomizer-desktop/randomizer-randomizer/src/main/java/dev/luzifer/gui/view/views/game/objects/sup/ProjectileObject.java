@@ -49,4 +49,9 @@ public class ProjectileObject extends GameObject implements Projectile { // TODO
     public int getHealth() {
         return health;
     }
+    
+    @Override
+    public int getMaxHealth() {
+        return -1;
+    }
 }

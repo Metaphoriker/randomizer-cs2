@@ -125,7 +125,7 @@ public class GameWindow extends Pane {
                             .filter(Node.class::isInstance).forEach(entity -> {
                                 
                                 if(entity instanceof EnemyObject) {
-                                    score += 10;
+                                    score += ((EnemyObject) entity).getMaxHealth();
                                     scoreLabel.setText("Score: " + score);
                                 }
                                 

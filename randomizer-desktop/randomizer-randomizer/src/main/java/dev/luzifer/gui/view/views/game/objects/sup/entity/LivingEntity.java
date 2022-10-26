@@ -8,6 +8,8 @@ public interface LivingEntity extends Entity {
     
     int getHealth();
     
+    int getMaxHealth();
+    
     default boolean isDead() {
         return getHealth() <= 0;
     }

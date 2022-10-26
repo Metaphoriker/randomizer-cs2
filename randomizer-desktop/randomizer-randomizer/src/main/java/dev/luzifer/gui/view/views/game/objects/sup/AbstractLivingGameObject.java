@@ -13,6 +13,8 @@ public abstract class AbstractLivingGameObject extends GameObject implements Liv
     
     protected final IntegerProperty healthProperty = new SimpleIntegerProperty(10);
     
+    private int maxHealth;
+    
     protected AbstractLivingGameObject(Position position, double width, double height) {
         super(position, width, height);
         
@@ -20,7 +22,10 @@ public abstract class AbstractLivingGameObject extends GameObject implements Liv
         healthBar.translateXProperty().bind(translateXProperty());
         healthBar.translateYProperty().bind(translateYProperty().subtract(10));
         
-        healthProperty.addListener((observable, oldValue, newValue) -> healthBar.updateHealth(newValue.intValue()));
+        healthProperty.addListener((observable, oldValue, newValue) -> {
+            healthBar.updateHealth(newValue.intValue());
+            maxHealth = healthBar.getMaxHealth();
+        });
         position.getGameField().getEntities().add(healthBar);
     }
     
@@ -32,6 +37,11 @@ public abstract class AbstractLivingGameObject extends GameObject implements Liv
     @Override
     public int getHealth() {
         return healthProperty.get();
+    }
+    
+    @Override
+    public int getMaxHealth() {
+        return maxHealth;
     }
     
     @Override

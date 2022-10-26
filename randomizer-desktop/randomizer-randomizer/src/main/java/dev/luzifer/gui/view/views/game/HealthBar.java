@@ -71,4 +71,9 @@ public class HealthBar extends Pane implements LivingEntity { // TODO: Very dirt
     public int getHealth() {
         return health;
     }
+    
+    @Override
+    public int getMaxHealth() {
+        return highestHealth;
+    }
 }
