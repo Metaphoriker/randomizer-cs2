@@ -1,6 +1,7 @@
 package dev.luzifer.gui.view.views.game.objects.sub;
 
 import dev.luzifer.gui.util.ImageUtil;
+import dev.luzifer.gui.view.views.game.GameSequence;
 import dev.luzifer.gui.view.views.game.Position;
 import dev.luzifer.gui.view.views.game.objects.sup.AbstractStaticObject;
 
@@ -43,10 +44,12 @@ public class FireObject extends AbstractStaticObject {
                 });
         
         if(addFires.get() > 0) {
-            for(int i = 0; i < addFires.get(); i++) {
-                FireObject fireObject = new FireObject(getPosition());
-                getPosition().getGameField().getEntities().add(fireObject);
-            }
+            GameSequence.RUN_SHIT.push(() -> {
+                for(int i = 0; i < addFires.get(); i++) {
+                    FireObject fire = new FireObject(new Position(getPosition().getGameField(), getPosition().getLocation()));
+                    getPosition().getGameField().getEntities().add(fire);
+                }
+            });
         }
         
         if(getWidth() <= 0 || getHeight() <= 0)
