@@ -20,7 +20,7 @@ public class InventoryWindow extends FlowPane {
         CSSUtil.applyStyle(this, getClass());
         getStyleClass().add("inventory");
     
-        setBackground(ImageUtil.getBackground("images/inventory_background.jpg")); // TODO: Make this png for consistency
+        setBackground(ImageUtil.getBackground("images/game/inventory_background.jpg")); // TODO: Make this png for consistency
         
         player.getItems().addListener((ListChangeListener<Item>) c -> fill());
         
@@ -42,13 +42,13 @@ public class InventoryWindow extends FlowPane {
             ImageView imageView;
             switch (item.getItemType()) {
                 case WEAPON:
-                    imageView = ImageUtil.getImageView("images/weapon_icon.png");
+                    imageView = ImageUtil.getImageView("images/game/weapon_icon.png");
                     break;
                 case AMMO:
-                    imageView = ImageUtil.getImageView("images/ammo_box_icon.png");
+                    imageView = ImageUtil.getImageView("images/game/ammo_box_icon.png");
                     break;
                 case MOLOTOV:
-                    imageView = ImageUtil.getImageView("images/molotov_icon.png");
+                    imageView = ImageUtil.getImageView("images/game/molotov_icon.png");
                     break;
                 default:
                     throw new IllegalStateException("Unexpected value: " + item.getItemType());

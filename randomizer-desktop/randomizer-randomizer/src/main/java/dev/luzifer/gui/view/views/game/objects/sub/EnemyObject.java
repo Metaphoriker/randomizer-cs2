@@ -20,7 +20,7 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
         super(position, 30, 30);
     
         healthProperty.set(DEFAULT_ENEMY_HEALTH);
-        setFill(ImageUtil.getImagePattern("images/enemy_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+        setFill(ImageUtil.getImagePattern("images/game/enemy_icon.png", ImageUtil.ImageResolution.ORIGINAL));
     }
     
     @Override

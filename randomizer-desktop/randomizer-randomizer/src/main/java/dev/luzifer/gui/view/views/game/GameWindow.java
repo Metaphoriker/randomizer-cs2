@@ -137,8 +137,8 @@ public class GameWindow extends Pane {
     }
     
     private void setupLabelPictures() {
-        ammoBoxesLabel.setGraphic(ImageUtil.getImageView("images/ammo_box_icon.png"));
-        molotovLabel.setGraphic(ImageUtil.getImageView("images/molotov_icon.png"));
+        ammoBoxesLabel.setGraphic(ImageUtil.getImageView("images/game/ammo_box_icon.png"));
+        molotovLabel.setGraphic(ImageUtil.getImageView("images/game/molotov_icon.png"));
     }
     
     private void setupBorder() {

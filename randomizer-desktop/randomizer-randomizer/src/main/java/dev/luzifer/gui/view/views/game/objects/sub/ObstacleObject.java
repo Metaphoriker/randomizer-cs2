@@ -11,6 +11,6 @@ public class ObstacleObject extends AbstractStaticObject {
     public ObstacleObject(Position position) {
         super(position, ThreadLocalRandom.current().nextInt(50, 100), ThreadLocalRandom.current().nextInt(20, 50));
         
-        setFill(ImageUtil.getRawImagePattern("images/obstacle_icon.png"));
+        setFill(ImageUtil.getRawImagePattern("images/game/obstacle_icon.png"));
     }
 }

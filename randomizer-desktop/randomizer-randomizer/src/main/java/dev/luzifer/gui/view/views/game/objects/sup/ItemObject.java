@@ -24,13 +24,13 @@ public class ItemObject extends GameObject implements Item { // TODO: Make this 
         // TODO: Remove this and make subtypes
         switch (itemType) {
             case WEAPON:
-                setFill(ImageUtil.getImagePattern("images/weapon_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+                setFill(ImageUtil.getImagePattern("images/game/weapon_icon.png", ImageUtil.ImageResolution.ORIGINAL));
                 break;
             case AMMO:
-                setFill(ImageUtil.getImagePattern("images/ammo_box_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+                setFill(ImageUtil.getImagePattern("images/game/ammo_box_icon.png", ImageUtil.ImageResolution.ORIGINAL));
                 break;
             case MOLOTOV:
-                setFill(ImageUtil.getImagePattern("images/molotov_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+                setFill(ImageUtil.getImagePattern("images/game/molotov_icon.png", ImageUtil.ImageResolution.ORIGINAL));
                 break;
             default:
                 setFill(Color.BLACK);

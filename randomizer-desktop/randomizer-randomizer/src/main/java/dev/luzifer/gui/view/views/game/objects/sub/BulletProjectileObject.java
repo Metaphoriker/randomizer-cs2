@@ -9,7 +9,7 @@ public class BulletProjectileObject extends ProjectileObject {
     
     public BulletProjectileObject(Position position, Point2D velocity) {
         super(position, velocity, 25, 25);
-        setFill(ImageUtil.getImagePattern("images/bullet_icon.png"));
+        setFill(ImageUtil.getImagePattern("images/game/bullet_icon.png"));
     }
     
     @Override

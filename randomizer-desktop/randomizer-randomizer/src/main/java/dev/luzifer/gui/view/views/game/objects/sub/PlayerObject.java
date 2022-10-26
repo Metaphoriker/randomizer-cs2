@@ -36,7 +36,7 @@ public class PlayerObject extends AbstractLivingGameObject implements Player {
         
         healthProperty.set(DEFAULT_HEALTH);
         
-        setFill(ImageUtil.getImagePattern("images/figure_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+        setFill(ImageUtil.getImagePattern("images/game/figure_icon.png", ImageUtil.ImageResolution.ORIGINAL));
         
         pressedKeys.clear(); // Fix so it won't move right away when pressed a button elsewhere or whatever, idk
     }
@@ -212,7 +212,7 @@ public class PlayerObject extends AbstractLivingGameObject implements Player {
     }
     
     private void die() {
-        setFill(ImageUtil.getImagePattern("images/figure_dead_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+        setFill(ImageUtil.getImagePattern("images/game/figure_dead_icon.png", ImageUtil.ImageResolution.ORIGINAL));
     }
     
 }

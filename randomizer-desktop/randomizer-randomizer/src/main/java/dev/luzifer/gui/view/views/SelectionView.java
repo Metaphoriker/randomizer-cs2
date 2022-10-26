@@ -57,7 +57,7 @@ public class SelectionView extends View<SelectionViewModel> {
         
         randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
         builderLabel.setGraphic(ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));
-        invasionGameBanner.setImage(ImageUtil.getRawImage("images/invasion_game_banner.png"));
+        invasionGameBanner.setImage(ImageUtil.getRawImage("images/game/invasion_game_banner.png"));
     }
     
     private void setupMouseEvents() {

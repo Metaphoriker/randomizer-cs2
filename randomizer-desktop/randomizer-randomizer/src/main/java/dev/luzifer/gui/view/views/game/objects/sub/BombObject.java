@@ -13,7 +13,7 @@ public class BombObject extends AbstractStaticObject {
     public BombObject(Position position) {
         super(position, 50, 50);
         
-        setFill(ImageUtil.getRawImagePattern("images/bomb_icon.png"));
+        setFill(ImageUtil.getRawImagePattern("images/game/bomb_icon.png"));
     }
     
     @Override

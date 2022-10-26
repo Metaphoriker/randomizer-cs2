@@ -16,7 +16,7 @@ public class FireObject extends AbstractStaticObject {
         setTranslateX(position.getLocation().getX());
         setTranslateY(position.getLocation().getY());
         
-        setFill(ImageUtil.getImagePattern("images/fire_icon.gif"));
+        setFill(ImageUtil.getImagePattern("images/game/fire_icon.gif"));
     }
     
     @Override
