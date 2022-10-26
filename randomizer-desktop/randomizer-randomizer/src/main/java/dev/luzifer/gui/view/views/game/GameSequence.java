@@ -38,6 +38,10 @@ public class GameSequence extends Thread {
                 /*
                  * hehe, im so dirty.
                  * But actually this shit reduces some lags since we use the 15ms we would just waste anyways
+                 *
+                 * NOTE: This doesnt always work, since we just send the runnable to the UI thread
+                 * and it will be executed when it can. So if it needs more time to execute than 15ms,
+                 * it will catch up and lag anyways
                  */
                 if (!RUN_SHIT.isEmpty()) {
                     Runnable toRun = RUN_SHIT.pop();
