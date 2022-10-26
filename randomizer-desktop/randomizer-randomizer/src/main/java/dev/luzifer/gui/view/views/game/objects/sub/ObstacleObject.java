@@ -9,10 +9,7 @@ import java.util.concurrent.ThreadLocalRandom;
 public class ObstacleObject extends AbstractStaticObject {
 
     public ObstacleObject(Position position) {
-        super(position);
-        
-        setWidth(ThreadLocalRandom.current().nextInt(50, 100));
-        setHeight(ThreadLocalRandom.current().nextInt(20, 50));
+        super(position, ThreadLocalRandom.current().nextInt(50, 100), ThreadLocalRandom.current().nextInt(20, 50));
         
         setFill(ImageUtil.getRawImagePattern("images/obstacle_icon.png"));
     }

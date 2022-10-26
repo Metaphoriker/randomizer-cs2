@@ -71,17 +71,17 @@ public class GameSequence extends AnimationTimer {
         if(ThreadLocalRandom.current().nextDouble(100) <= 0.1)
             gameField.getEntities().add(new ItemObject(new Position(gameField, new Point2D(
                     ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getWidth()),
-                    ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))), ItemObject.ItemType.AMMO));
+                    ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))), ItemObject.ItemType.AMMO, 32, 32));
     
         if(ThreadLocalRandom.current().nextDouble(100) <= 0.5)
             gameField.getEntities().add(new ItemObject(new Position(gameField, new Point2D(
                     ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getWidth()),
-                    ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))), ItemObject.ItemType.MOLOTOV));
+                    ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))), ItemObject.ItemType.MOLOTOV, 32, 32));
     
         if(ThreadLocalRandom.current().nextDouble(100) <= 0.1)
             gameField.getEntities().add(new ItemObject(new Position(gameField, new Point2D(
                     ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getWidth()),
-                    ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))), ItemObject.ItemType.WEAPON));
+                    ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))), ItemObject.ItemType.WEAPON, 32, 32));
         
         for(int i = 0; i < gameField.getEntities().size(); i++) {
             

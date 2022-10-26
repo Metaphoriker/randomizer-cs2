@@ -32,14 +32,11 @@ public class PlayerObject extends AbstractLivingGameObject implements Player {
     private Weapon weapon;
     
     public PlayerObject(Position position) {
-        super(position);
+        super(position, 50, 50);
         
         healthProperty.set(DEFAULT_HEALTH);
         
         setFill(ImageUtil.getImagePattern("images/figure_icon.png", ImageUtil.ImageResolution.ORIGINAL));
-        
-        setWidth(50);
-        setHeight(50);
         
         pressedKeys.clear(); // Fix so it won't move right away when pressed a button elsewhere or whatever, idk
     }

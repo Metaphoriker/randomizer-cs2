@@ -9,7 +9,7 @@ public abstract class GameObject extends Rectangle {
     protected final Position position;
     
     protected GameObject(Position position, double width, double height) {
-        super(position.getLocation().getX(), position.getLocation().getY(), width, height);
+        super(width, height);
         
         this.position = position;
         

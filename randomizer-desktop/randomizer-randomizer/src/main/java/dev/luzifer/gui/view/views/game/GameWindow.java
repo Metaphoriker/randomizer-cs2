@@ -72,18 +72,11 @@ public class GameWindow extends Pane {
         
         syncWithGame();
     
+        gameField.fpsProperty().addListener((observable, oldValue, newValue) -> fpsLabel.setText("FPS: " + newValue.intValue()));
+    
         gameField.setOnGameOver(() -> gameOverLabel.setOpacity(1));
-        
-        gameField.fpsProperty().addListener((observable, oldValue, newValue) -> {
-            
-            PlayerObject player = (PlayerObject) gameField.getEntities().get(1);
-            
-            setScaleX(player.getScaleX());
-            setScaleY(player.getScaleY());
-            
-            fpsLabel.setText("FPS: " + newValue.intValue());
-        });
         gameField.setBorder(border);
+        
         gameField.spawnPlayer();
         gameField.spawnObstacles();
     }

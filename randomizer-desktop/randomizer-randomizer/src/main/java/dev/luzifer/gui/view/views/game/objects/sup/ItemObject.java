@@ -7,7 +7,7 @@ import dev.luzifer.gui.view.views.game.objects.sup.entity.Item;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;
 import javafx.scene.paint.Color;
 
-public class ItemObject extends GameObject implements Item {
+public class ItemObject extends GameObject implements Item { // TODO: Make this abstract
     
     private static final int DEFAULT_ITEM_HEALTH = 1;
     
@@ -15,8 +15,8 @@ public class ItemObject extends GameObject implements Item {
     
     private int health;
     
-    public ItemObject(Position position, ItemType itemType) {
-        super(position, 32, 32);
+    public ItemObject(Position position, ItemType itemType, int width, int height) {
+        super(position, width, height);
         
         this.health = DEFAULT_ITEM_HEALTH;
         this.itemType = itemType;

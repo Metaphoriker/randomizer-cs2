@@ -5,14 +5,14 @@ import dev.luzifer.gui.view.views.game.objects.sub.ObstacleObject;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Projectile;
 import javafx.geometry.Point2D;
 
-public class ProjectileObject extends GameObject implements Projectile { // 1
+public class ProjectileObject extends GameObject implements Projectile { // TODO: Make this abstract
 
     private final Point2D velocity;
     
     private int health = 1;
     
-    public ProjectileObject(Position position, Point2D velocity) { // 2
-        super(position, 20, 20);
+    public ProjectileObject(Position position, Point2D velocity, double width, double height) {
+        super(position, width, height);
         
         this.velocity = velocity;
     }

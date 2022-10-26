@@ -12,11 +12,7 @@ public class BombExplosionObject extends AbstractStaticObject {
     private int ticksAlive = 0;
 
     public BombExplosionObject(Position position) {
-        super(position);
-        
-        // TODO: Randomize?
-        setWidth(50);
-        setHeight(50);
+        super(position, 150, 150);
         
         setFill(ImageUtil.getRawImagePattern("images/bomb_boom_icon.png"));
     }

@@ -13,8 +13,8 @@ public abstract class AbstractLivingGameObject extends GameObject implements Liv
     
     protected final IntegerProperty healthProperty = new SimpleIntegerProperty(10);
     
-    protected AbstractLivingGameObject(Position position) {
-        super(position, 20, 20);
+    protected AbstractLivingGameObject(Position position, double width, double height) {
+        super(position, width, height);
         
         HealthBar healthBar = new HealthBar(getHealth());
         healthBar.translateXProperty().bind(translateXProperty());

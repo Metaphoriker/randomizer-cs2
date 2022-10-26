@@ -10,7 +10,7 @@ import java.util.concurrent.atomic.AtomicBoolean;
 public class MolotovProjectileObject extends ProjectileObject {
     
     public MolotovProjectileObject(Position position, Point2D velocity) {
-        super(position, velocity);
+        super(position, velocity, 25, 25);
         setFill(ImageUtil.getRawImagePattern("images/molotov_icon.png"));
     }
     

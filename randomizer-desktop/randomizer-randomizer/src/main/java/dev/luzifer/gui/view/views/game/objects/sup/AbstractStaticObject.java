@@ -7,8 +7,8 @@ public abstract class AbstractStaticObject extends GameObject implements LivingE
     
     private int health = 1;
     
-    protected AbstractStaticObject(Position position) {
-        super(position, 20, 20);
+    protected AbstractStaticObject(Position position, int width, int height) {
+        super(position, width, height);
     }
 
     @Override

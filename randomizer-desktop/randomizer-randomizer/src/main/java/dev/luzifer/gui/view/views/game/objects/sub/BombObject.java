@@ -11,7 +11,7 @@ public class BombObject extends AbstractStaticObject {
     private int ticksAlive = 0;
     
     public BombObject(Position position) {
-        super(position);
+        super(position, 50, 50);
         
         setFill(ImageUtil.getRawImagePattern("images/bomb_icon.png"));
     }

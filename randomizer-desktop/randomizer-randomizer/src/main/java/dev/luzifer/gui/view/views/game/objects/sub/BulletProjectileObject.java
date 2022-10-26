@@ -8,7 +8,7 @@ import javafx.geometry.Point2D;
 public class BulletProjectileObject extends ProjectileObject {
     
     public BulletProjectileObject(Position position, Point2D velocity) {
-        super(position, velocity);
+        super(position, velocity, 25, 25);
         setFill(ImageUtil.getImagePattern("images/bullet_icon.png"));
     }
     
