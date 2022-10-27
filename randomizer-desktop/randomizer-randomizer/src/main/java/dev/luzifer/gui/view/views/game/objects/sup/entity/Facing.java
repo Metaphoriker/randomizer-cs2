@@ -3,30 +3,43 @@ package dev.luzifer.gui.view.views.game.objects.sup.entity;
 public enum Facing {
 
     NORTH(0, new Vector(0, -1)),
-    EAST(90, new Vector(1, 0)),
-    SOUTH(180, new Vector(0, 1)),
-    WEST(270, new Vector(-1, 0)),
     NORTH_EAST(45, new Vector(1, -1)),
-    NORTH_WEST(315, new Vector(-1, -1)),
+    EAST(90, new Vector(1, 0)),
     SOUTH_EAST(135, new Vector(1, 1)),
-    SOUTH_WEST(225, new Vector(-1, 1));
+    SOUTH(180, new Vector(0, 1)),
+    SOUTH_WEST(225, new Vector(-1, 1)),
+    WEST(270, new Vector(-1, 0)),
+    NORTH_WEST(315, new Vector(-1, -1));
 
-    public static Facing getByAngle(double angle) {
+    public static Facing getClosest(double angle) {
 
-        if(angle < 0) angle += 360;
-        if(angle > 360) angle -= 360;
+        if(angle < 0)
+            angle = 360 + angle;
+        else if(angle > 360)
+            angle = angle - 360;
 
-        if(angle >= 0 && angle < 22.5) return NORTH;
-        if(angle >= 22.5 && angle < 67.5) return NORTH_EAST;
-        if(angle >= 67.5 && angle < 112.5) return EAST;
-        if(angle >= 112.5 && angle < 157.5) return SOUTH_EAST;
-        if(angle >= 157.5 && angle < 202.5) return SOUTH;
-        if(angle >= 202.5 && angle < 247.5) return SOUTH_WEST;
-        if(angle >= 247.5 && angle < 292.5) return WEST;
-        if(angle >= 292.5 && angle < 337.5) return NORTH_WEST;
-        if(angle >= 337.5 && angle < 360) return NORTH;
+        for(int i = 0; i < values().length; i++) {
+
+            Facing facing = values()[i];
+
+            int currentDiff = facing.getAngle() + facing.getAngle() / 2;
+
+            int currentFacingReachStart = facing.getAngle() - currentDiff;
+            int currentFacingReachEnd = facing.getAngle() + currentDiff;
+
+            if (angle >= currentFacingReachStart && angle <= currentFacingReachEnd)
+                return facing;
+        }
 
         return NORTH;
+    }
+
+    public static Facing getDirection(Vector from, Vector to) {
+        return getClosest(from.angle(to));
+    }
+
+    public static Facing invert(Facing facing) {
+        return getClosest(facing.getAngle() + 180);
     }
 
     private final int angle;
@@ -45,4 +58,11 @@ public enum Facing {
         return vector;
     }
 
+    @Override
+    public String toString() {
+        return "Facing{" +
+                "angle=" + angle +
+                ", vector=" + vector +
+                '}';
+    }
 }

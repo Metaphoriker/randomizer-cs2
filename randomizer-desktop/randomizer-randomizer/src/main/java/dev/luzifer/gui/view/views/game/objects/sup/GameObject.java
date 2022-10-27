@@ -50,7 +50,7 @@ public abstract class GameObject extends Rectangle implements Entity {
 
     @Override
     public final Facing getFacing() {
-        return Facing.getByAngle(getRotate());
+        return Facing.getClosest(getRotate());
     }
 
     @Override

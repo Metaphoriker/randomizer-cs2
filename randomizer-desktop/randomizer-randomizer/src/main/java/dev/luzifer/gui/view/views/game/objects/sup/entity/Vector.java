@@ -50,11 +50,16 @@ public class Vector {
         return x * vector.getY() - y * vector.getX();
     }
 
-    public double angle(Vector vector) {
-        return Math.acos(dot(vector) / (length() * vector.length()));
+    public float angle(Vector vector) {
+        return (float) Math.toDegrees(Math.atan2(cross(vector), dot(vector)));
+    }
+
+    public double distance(Vector vector) {
+        return Math.sqrt(Math.pow(vector.getX() - x, 2) + Math.pow(vector.getY() - y, 2));
     }
 
     public Vector rotate(double angle) {
+
         double rad = Math.toRadians(angle);
         double cos = Math.cos(rad);
         double sin = Math.sin(rad);

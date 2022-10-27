@@ -2,9 +2,11 @@ package dev.luzifer.gui.view.views.game.objects.sup;
 
 import dev.luzifer.gui.view.views.game.HealthBar;
 import dev.luzifer.gui.view.views.game.Position;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Facing;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.LivingEntity;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Moveable;
 
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Vector;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 
@@ -47,7 +49,16 @@ public abstract class AbstractLivingGameObject extends GameObject implements Liv
     public void damage(int amount) {
         healthProperty.set(getHealth()-amount);
     }
-    
+
+    // TODO: Should this exist?
+    public void moveTowardsFacing(Facing facing) {
+
+        Vector vector = facing.getVector().multiply(movingSpeed());
+
+        setTranslateX(getTranslateX() + vector.getX());
+        setTranslateY(getTranslateY() + vector.getY());
+    }
+
     @Override
     public void moveRight() {
         setTranslateX(getTranslateX() + movingSpeed());

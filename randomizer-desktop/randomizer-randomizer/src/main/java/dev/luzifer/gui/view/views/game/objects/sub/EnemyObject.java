@@ -2,11 +2,15 @@ package dev.luzifer.gui.view.views.game.objects.sub;
 
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.Position;
+import dev.luzifer.gui.view.views.game.objects.sup.ObstacleObject;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Aggressive;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Facing;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.LivingEntity;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Moveable;
 import dev.luzifer.gui.view.views.game.objects.sup.AbstractLivingGameObject;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Vector;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 
 public class EnemyObject extends AbstractLivingGameObject implements LivingEntity, Moveable, Aggressive {
     
@@ -28,7 +32,7 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
         
         if (target != null && !target.isDead()) {
             
-            followTarget();
+            aStarToTarget();
             
             if (getPosition().getLocation().distance(target.getPosition().getLocation()) <= range)
                 attack(target);
@@ -92,17 +96,67 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
         Point2D enemyPosition = getPosition().getLocation();
         
         double distance = playerPosition.distance(enemyPosition);
-        
+
         double x = (playerPosition.getX() - enemyPosition.getX()) / distance;
         double y = (playerPosition.getY() - enemyPosition.getY()) / distance;
         
         setTranslateX(getTranslateX() + x);
         setTranslateY(getTranslateY() + y);
     }
+
+    public void aStarToTarget() {
+
+        // TODO: Get this to work right
+
+        Vector playerPosition = new Vector(target.getPosition().getLocation().getX(), target.getPosition().getLocation().getY());
+        Vector enemyPosition = new Vector(getPosition().getLocation().getX(), getPosition().getLocation().getY());
+
+        Facing closestInDistance = null;
+        for(Facing facing : Facing.values()) {
+
+            if(closestInDistance == null) {
+                closestInDistance = facing;
+                continue;
+            }
+
+            if (facing.getVector().multiply(movingSpeed()).add(enemyPosition).distance(playerPosition) < closestInDistance.getVector().multiply(movingSpeed()).add(enemyPosition).distance(playerPosition))
+                closestInDistance = facing;
+        }
+
+        if(closestInDistance == null) { // Bugged entity
+            damage(healthProperty.get());
+            return;
+        }
+
+        if(isObstacle(closestInDistance)) {
+            for(Facing facing : Facing.values()) {
+
+                if(facing == closestInDistance)
+                    continue;
+
+                if(!isObstacle(facing)) {
+                    closestInDistance = facing;
+                    break;
+                }
+            }
+        }
+
+        moveTowardsFacing(closestInDistance);
+    }
     
     @Override
     protected int movingSpeed() {
         return 1;
     }
-    
+
+    private boolean isObstacle(Facing facing) {
+
+        Rectangle2D rectangle = new Rectangle2D(getPosition().getLocation().getX() + facing.getVector().getX(), getPosition().getLocation().getY() + facing.getVector().getY(), getWidth(), getHeight());
+
+        return getPosition().getGameField().getEntities()
+                .stream()
+                .filter(ObstacleObject.class::isInstance)
+                .map(ObstacleObject.class::cast)
+                .anyMatch(obstacleObject -> obstacleObject.getHitBox().intersects(rectangle));
+    }
 }
