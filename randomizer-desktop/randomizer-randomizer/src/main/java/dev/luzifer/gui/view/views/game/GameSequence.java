@@ -102,7 +102,7 @@ public class GameSequence extends Thread {
                             ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getWidth()),
                             ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))), ItemObject.ItemType.AMMO, 32, 32));
                 
-                if (ThreadLocalRandom.current().nextDouble(100) <= 0.75)
+                if (ThreadLocalRandom.current().nextDouble(100) <= 0.25)
                     gameField.getEntities().add(new ItemObject(new Position(gameField, new Point2D(
                             ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getWidth()),
                             ThreadLocalRandom.current().nextDouble(0, gameField.getBorder().getHeight()))), ItemObject.ItemType.MOLOTOV, 32, 32));
