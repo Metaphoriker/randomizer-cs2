@@ -2,14 +2,14 @@ package dev.luzifer.gui.view.views.game.objects.sup.entity;
 
 public enum Facing {
 
-    NORTH(0),
-    EAST(90),
-    SOUTH(180),
-    WEST(270),
-    NORTH_EAST(45),
-    NORTH_WEST(315),
-    SOUTH_EAST(135),
-    SOUTH_WEST(225);
+    NORTH(0, new Vector(0, -1)),
+    EAST(90, new Vector(1, 0)),
+    SOUTH(180, new Vector(0, 1)),
+    WEST(270, new Vector(-1, 0)),
+    NORTH_EAST(45, new Vector(1, -1)),
+    NORTH_WEST(315, new Vector(-1, -1)),
+    SOUTH_EAST(135, new Vector(1, 1)),
+    SOUTH_WEST(225, new Vector(-1, 1));
 
     public static Facing getByAngle(double angle) {
 
@@ -30,13 +30,19 @@ public enum Facing {
     }
 
     private final int angle;
+    private final Vector vector;
 
-    Facing(int angle) {
+    Facing(int angle, Vector vector) {
         this.angle = angle;
+        this.vector = vector;
     }
 
     public int getAngle() {
         return angle;
+    }
+
+    public Vector getVector() {
+        return vector;
     }
 
 }

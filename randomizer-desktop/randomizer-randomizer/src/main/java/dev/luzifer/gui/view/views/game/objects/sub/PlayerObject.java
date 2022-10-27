@@ -6,6 +6,7 @@ import dev.luzifer.gui.view.views.game.objects.WeaponImpl;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Facing;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Item;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Vector;
 import dev.luzifer.gui.view.views.game.objects.sup.inventory.Weapon;
 
 import dev.luzifer.gui.view.views.game.objects.sup.AbstractLivingGameObject;
@@ -70,7 +71,9 @@ public class PlayerObject extends AbstractLivingGameObject implements Player {
             if(facing == null && methodCall == null)
                 return;
 
-            if(!rayTrace(facing, movingSpeed(), ObstacleObject.class).isEmpty())
+            Vector vector = facing.getVector().multiply(movingSpeed());
+            if(!rayTrace(facing, movingSpeed(), ObstacleObject.class).isEmpty()
+                    || getPosition().getGameField().getBorder().contains(getPosition().getLocation().add(new Point2D(vector.getX(), vector.getY()))))
                 return;
 
             methodCall.run();
