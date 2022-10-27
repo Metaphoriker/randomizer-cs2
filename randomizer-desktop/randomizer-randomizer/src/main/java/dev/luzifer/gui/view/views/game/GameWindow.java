@@ -61,12 +61,6 @@ public class GameWindow extends Pane {
             else
                 scale -= 0.1;
 
-            if(scale < 0.1)
-                scale = 0.1;
-
-            if(scale > 2)
-                scale = 2;
-
             zoom(scale);
         });
 
