@@ -1,7 +1,6 @@
 package dev.luzifer.gui.view.views.game.objects.sup;
 
 import dev.luzifer.gui.view.views.game.Position;
-import dev.luzifer.gui.view.views.game.objects.sub.ObstacleObject;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Projectile;
 import javafx.geometry.Point2D;
 

@@ -3,6 +3,7 @@ package dev.luzifer.gui.view.views.game.objects.sub;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.Position;
 import dev.luzifer.gui.view.views.game.objects.WeaponImpl;
+import dev.luzifer.gui.view.views.game.objects.sup.ObstacleObject;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Facing;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Item;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;

@@ -1,6 +1,7 @@
 package dev.luzifer.gui.view.views.game;
 
-import dev.luzifer.gui.view.views.game.objects.sub.ObstacleObject;
+import dev.luzifer.gui.view.views.game.objects.sub.WallObject;
+import dev.luzifer.gui.view.views.game.objects.sup.ObstacleObject;
 import dev.luzifer.gui.view.views.game.objects.sub.PlayerObject;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Entity;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;
@@ -30,13 +31,16 @@ public class GameField {
     
     public void spawnObstacles() {
         for(int i = 0; i < ThreadLocalRandom.current().nextInt(3, 10); i++) {
-            
-            ObstacleObject obstacleObject = new ObstacleObject(new Position(this, new Point2D(
-                    ThreadLocalRandom.current().nextDouble(0, border.getWidth()),
-                    ThreadLocalRandom.current().nextDouble(0, border.getHeight()))));
-            
+
+            WallObject.WallType wallType;
             if(ThreadLocalRandom.current().nextBoolean())
-                obstacleObject.setRotate(90);
+                wallType = WallObject.WallType.HORIZONTAL;
+            else
+                wallType = WallObject.WallType.VERTICAL;
+
+            ObstacleObject obstacleObject = new WallObject(new Position(this, new Point2D(
+                    ThreadLocalRandom.current().nextDouble(0, border.getWidth()),
+                    ThreadLocalRandom.current().nextDouble(0, border.getHeight()))), wallType);
             
             entities.add(obstacleObject);
         }
