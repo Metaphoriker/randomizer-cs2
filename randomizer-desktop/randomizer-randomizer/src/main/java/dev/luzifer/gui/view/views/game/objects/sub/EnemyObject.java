@@ -73,7 +73,7 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
     public void stepTowardsTarget() {
         
         Point2D targetPoint = target.getPosition().getLocation();
-        Point2D currentPosition = position.getLocation();
+        Point2D currentPosition = getPosition().getLocation();
         
         if (targetPoint.getX() > currentPosition.getX())
             moveRight();
@@ -102,7 +102,7 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
     
     @Override
     protected int movingSpeed() {
-        return 3;
+        return 1;
     }
     
 }
