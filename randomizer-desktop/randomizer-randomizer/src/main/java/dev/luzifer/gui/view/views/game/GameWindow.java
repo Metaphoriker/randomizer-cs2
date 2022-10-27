@@ -14,6 +14,7 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.transform.Scale;
 
 public class GameWindow extends Pane {
     
@@ -43,6 +44,8 @@ public class GameWindow extends Pane {
     private final GameField gameField = new GameField();
     
     private int score = 0; // Property
+
+    private double scale = 1;
     
     public GameWindow() {
     
@@ -50,7 +53,23 @@ public class GameWindow extends Pane {
         
         setupBorder();
         setupLabelPictures();
-    
+
+        setOnScroll(event -> {
+
+            if(event.getDeltaY() > 0)
+                scale += 0.1;
+            else
+                scale -= 0.1;
+
+            if(scale < 0.1)
+                scale = 0.1;
+
+            if(scale > 2)
+                scale = 2;
+
+            zoom(scale);
+        });
+
         getChildren().addAll(border, gameOverLabel, scoreLabel, howToPlayLabel, ammoBoxesLabel, molotovLabel);
     }
     
@@ -64,6 +83,15 @@ public class GameWindow extends Pane {
     
     public void stop() {
         gameField.stopGame();
+    }
+
+    private void zoom(double factor) {
+
+        Scale scale = new Scale(factor, factor);
+        scale.setPivotX(WIDTH / 2);
+        scale.setPivotY(HEIGHT / 2);
+
+        getTransforms().setAll(scale);
     }
     
     private void setupGame() {
