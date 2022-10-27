@@ -24,6 +24,7 @@ public abstract class GameObject extends Rectangle implements Entity {
         setTranslateY(position.getLocation().getY());
     }
 
+    @SafeVarargs
     public final List<Entity> rayTrace(Facing direction, double distance, Class<? extends Entity>... filter) {
 
         Vector vector = direction.getVector().multiply(distance);
