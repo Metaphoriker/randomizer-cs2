@@ -73,7 +73,10 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
     public LivingEntity getTarget() {
         return target;
     }
-    
+
+    /**
+     * @deprecated Use {@link #aStarToTarget()} instead. This ignores obstacles.
+     */
     public void stepTowardsTarget() {
         
         Point2D targetPoint = target.getPosition().getLocation();
@@ -89,7 +92,11 @@ public class EnemyObject extends AbstractLivingGameObject implements LivingEntit
         else if (targetPoint.getY() < currentPosition.getY())
             moveUp();
     }
-    
+
+    /**
+     * @deprecated Use {@link #aStarToTarget()} instead. This ignores obstacles.
+     */
+    @Deprecated
     public void followTarget() {
         
         Point2D playerPosition = target.getPosition().getLocation();
