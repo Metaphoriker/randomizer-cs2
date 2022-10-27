@@ -25,7 +25,7 @@ public class GameWindow extends Pane {
     
     private final Label gameOverLabel = new Label("Game Over");
     private final Label scoreLabel = new Label("Score: 0");
-    private final Label howToPlayLabel = new Label("WASD\nM-CLICK\nMOUSE\nI\nSHIFT");
+    private final Label howToPlayLabel = new Label("WASD\nM-CLICK\nMOUSE\nI");
     
     private final Label ammoBoxesLabel = new Label("x0");
     private final Label molotovLabel = new Label("x0");

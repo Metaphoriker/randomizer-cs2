@@ -1,6 +1,8 @@
 package dev.luzifer.gui.view.views.game;
 
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Facing;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.LivingEntity;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -51,7 +53,17 @@ public class HealthBar extends Pane implements LivingEntity { // TODO: Very dirt
     public void update() {
     
     }
-    
+
+    @Override
+    public Facing getFacing() {
+        return null;
+    }
+
+    @Override
+    public Rectangle2D getHitBox() {
+        return null;
+    }
+
     @Override
     public Position getPosition() {
         throw new UnsupportedOperationException();

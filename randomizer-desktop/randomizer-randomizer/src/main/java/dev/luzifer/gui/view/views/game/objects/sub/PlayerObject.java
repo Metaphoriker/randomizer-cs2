@@ -3,7 +3,7 @@ package dev.luzifer.gui.view.views.game.objects.sub;
 import dev.luzifer.gui.util.ImageUtil;
 import dev.luzifer.gui.view.views.game.Position;
 import dev.luzifer.gui.view.views.game.objects.WeaponImpl;
-import dev.luzifer.gui.view.views.game.objects.sup.entity.Entity;
+import dev.luzifer.gui.view.views.game.objects.sup.entity.Facing;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Item;
 import dev.luzifer.gui.view.views.game.objects.sup.entity.Player;
 import dev.luzifer.gui.view.views.game.objects.sup.inventory.Weapon;
@@ -44,37 +44,36 @@ public class PlayerObject extends AbstractLivingGameObject implements Player {
     @Override
     public void update() {
         pressedKeys.forEach(key -> {
-            
-            Point2D predictedPosition = predictPosition(key);
-            
-            if(!getPosition().getGameField().getBorder().getBoundsInParent().contains(predictedPosition))
-                return;
-            
-            for (Entity entity : getPosition().getGameField().getEntities()) {
-                if (entity == this)
-                    continue;
-    
-                if (entity instanceof ObstacleObject && ((ObstacleObject) entity).getBoundsInParent().contains(predictedPosition))
-                    return;
-            }
-            
+
+            Facing facing = null;
+            Runnable methodCall = null;
+
             switch (key) {
                 case W:
-                    moveUp();
+                    facing = Facing.NORTH;
+                    methodCall = this::moveUp;
                     break;
                 case S:
-                    moveDown();
+                    facing = Facing.SOUTH;
+                    methodCall = this::moveDown;
                     break;
                 case A:
-                    moveLeft();
+                    facing = Facing.WEST;
+                    methodCall = this::moveLeft;
                     break;
                 case D:
-                    moveRight();
-                    break;
-                case SHIFT:
-                    dash();
+                    facing = Facing.EAST;
+                    methodCall = this::moveRight;
                     break;
             }
+
+            if(facing == null && methodCall == null)
+                return;
+
+            if(!rayTrace(facing, movingSpeed(), ObstacleObject.class).isEmpty())
+                return;
+
+            methodCall.run();
         });
     }
     
@@ -179,38 +178,12 @@ public class PlayerObject extends AbstractLivingGameObject implements Player {
             
         }
     }
-    
+
     @Override
     protected int movingSpeed() {
         return 5;
     }
-    
-    private Point2D predictPosition(KeyCode keyCode) {
-        
-        Point2D currentPosition = new Point2D(getTranslateX(), getTranslateY());
-        
-        switch (keyCode) {
-            case W:
-                return currentPosition.add(0, -movingSpeed());
-            case S:
-                return currentPosition.add(0, movingSpeed());
-            case A:
-                return currentPosition.add(-movingSpeed(), 0);
-            case D:
-                return currentPosition.add(movingSpeed(), 0);
-            case SHIFT:
-                
-                double angle = Math.toRadians(getRotate());
-                double x = Math.cos(angle);
-                double y = Math.sin(angle);
-    
-                Point2D velocity = new Point2D(x, y);
-                return currentPosition.add(velocity.multiply(10));
-            default:
-                return currentPosition;
-        }
-    }
-    
+
     private void die() {
         setFill(ImageUtil.getImagePattern("images/game/figure_dead_icon.png", ImageUtil.ImageResolution.ORIGINAL));
     }

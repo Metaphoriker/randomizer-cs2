@@ -7,7 +7,6 @@ import dev.luzifer.gui.view.views.game.objects.sup.entity.Moveable;
 
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.geometry.Point2D;
 
 public abstract class AbstractLivingGameObject extends GameObject implements LivingEntity, Moveable {
     
@@ -68,20 +67,7 @@ public abstract class AbstractLivingGameObject extends GameObject implements Liv
     public void moveDown() {
         setTranslateY(getTranslateY() + movingSpeed());
     }
-    
-    @Override
-    public void dash() {
-        
-        double angle = Math.toRadians(getRotate());
-        double x = Math.cos(angle);
-        double y = Math.sin(angle);
-    
-        Point2D velocity = new Point2D(x, y);
-    
-        setTranslateX(getTranslateX() + velocity.getX() * 10);
-        setTranslateY(getTranslateY() + velocity.getY() * 10);
-    }
-    
+
     @Override
     public void rotateLeft() {
         setRotate(getRotate() - movingSpeed());

@@ -14,6 +14,4 @@ public interface Moveable {
     
     void rotateRight();
     
-    void dash();
-    
 }
