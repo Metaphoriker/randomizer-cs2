@@ -54,6 +54,7 @@ public class PlayerObject extends LivingGameObject implements Player {
     public void onKeyPressed(KeyEvent keyEvent) {
         pressedKeys.add(keyEvent.getKeyCode());
 
+/*      TODO: Throws an concurrent modification exception
         Icon newIcon = null;
         switch (keyEvent.getKeyCode()) {
             case KeyEvent.VK_W:
@@ -71,6 +72,7 @@ public class PlayerObject extends LivingGameObject implements Player {
         }
         if(newIcon != null)
             updateIcon(newIcon);
+ */
     }
 
     @Override
