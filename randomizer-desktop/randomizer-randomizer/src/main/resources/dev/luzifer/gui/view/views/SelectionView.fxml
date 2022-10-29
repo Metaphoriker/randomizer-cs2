@@ -20,7 +20,7 @@
       <RowConstraints minHeight="10.0" vgrow="SOMETIMES" />
    </rowConstraints>
    <children>
-      <AnchorPane prefWidth="225" prefHeight="400">
+      <AnchorPane prefWidth="225" prefHeight="450">
          <children>
             <VBox alignment="TOP_CENTER" spacing="10.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
@@ -31,6 +31,8 @@
                   <Label fx:id="builderLabel" styleClass="button-fake" prefHeight="43.0" prefWidth="170.0" text="Builder" textAlignment="CENTER" />
                   <Separator prefWidth="200.0" />
                   <ImageView fx:id="invasionGameBanner" fitHeight="50" fitWidth="200" />
+                  <Separator prefWidth="200.0" />
+                  <ImageView fx:id="swingGameBanner" fitHeight="50" fitWidth="200" />
                   <Separator prefWidth="200.0" />
                </children>
                <padding>
