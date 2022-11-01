@@ -32,8 +32,6 @@
                   <Separator prefWidth="200.0" />
                   <ImageView fx:id="invasionGameBanner" fitHeight="50" fitWidth="200" />
                   <Separator prefWidth="200.0" />
-                  <ImageView fx:id="swingGameBanner" fitHeight="50" fitWidth="200" />
-                  <Separator prefWidth="200.0" />
                </children>
                <padding>
                   <Insets top="10.0" />

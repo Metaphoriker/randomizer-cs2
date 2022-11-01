@@ -28,9 +28,6 @@ public class SelectionView extends View<SelectionViewModel> {
     private ImageView invasionGameBanner;
 
     @FXML
-    private ImageView swingGameBanner;
-    
-    @FXML
     private ComboBox<CSSUtil.Theme> themeComboBox;
 
     public SelectionView(SelectionViewModel selectionViewModel) {
@@ -61,7 +58,6 @@ public class SelectionView extends View<SelectionViewModel> {
         randomizerLabel.setGraphic(ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
         builderLabel.setGraphic(ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));
         invasionGameBanner.setImage(ImageUtil.getRawImage("images/game/invasion_game_banner.png"));
-        swingGameBanner.setImage(ImageUtil.getRawImage("images/game/invasion_game_banner.png"));
     }
     
     private void setupMouseEvents() {
@@ -69,7 +65,6 @@ public class SelectionView extends View<SelectionViewModel> {
         randomizerLabel.setOnMouseClicked(event -> getViewModel().openRandomizer());
         builderLabel.setOnMouseClicked(event -> getViewModel().openBuilder());
         invasionGameBanner.setOnMouseClicked(event -> getViewModel().openGame());
-        swingGameBanner.setOnMouseClicked(event -> getViewModel().openSwingGame());
     }
     
     private void setupThemeComboBox() {
