@@ -1,7 +1,22 @@
 .root {
-    -c1: #381455;
-    -c2: #5f4276;
+    -dark: #282b30;
+    -standart: #381455;
+    -bright: #531e7e;
+    -text-color: #ffffff;
+    -highlight-effect: dropshadow(two-pass-box, rgba(255, 255, 255, 1.0), 20, 0.5, 0, 0);
+    -fx-base: -standart;
+    -fx-font-family: "Segoe UI";
+    -fx-font-size: 14px;
+    -fx-background: #424549;
+    -fx-selection-bar: -standart;
+}
 
-    -fx-base: -c1;
-    -fx-accent: -c2;
+.combo-box {
+    -fx-background-color: -standart;
+}
+
+
+.button-fake {
+    -fx-background-color: #54575b;
+    -fx-background-radius: 5px;
 }
