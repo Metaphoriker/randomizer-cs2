@@ -1,7 +1,6 @@
 package dev.luzifer.gui;
 
 import dev.luzifer.Main;
-import dev.luzifer.gui.swing.game.GameWindow;
 import dev.luzifer.gui.view.ViewController;
 import dev.luzifer.gui.view.models.BuilderViewModel;
 import dev.luzifer.gui.view.models.GameViewModel;
@@ -24,10 +23,6 @@ public class AppStarter extends Application {
                 () -> viewController.showView(new RandomizerView(new RandomizerViewModel(Main.getEventClusterRepository()))),
                 () -> viewController.showView(new BuilderView(new BuilderViewModel(Main.getEventClusterRepository()))),
                 () -> viewController.showView(new InvasionGameView(new GameViewModel())),
-                () -> {
-                    GameWindow gameWindow = new GameWindow();
-                    gameWindow.initGame().thenRun(gameWindow::startGame);
-                },
                 viewController::switchTheme)));
     }
     
