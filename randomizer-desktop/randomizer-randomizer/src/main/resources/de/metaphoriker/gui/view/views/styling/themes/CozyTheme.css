@@ -20,6 +20,52 @@
     -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.4), 10, 0.5, 0, 2); /* Soft glow */
 }
 
+/* TitledPane Base */
+.titled-pane {
+    -fx-background-color: #474a62; /* Muted background for the entire pane */
+    -fx-border-color: #e4a672; /* Border with warm amber color */
+    -fx-border-radius: 10; /* Rounded borders for the entire pane */
+    -fx-padding: 8;
+}
+
+/* TitledPane Title (Header) */
+.titled-pane > .title {
+    -fx-background-color: #c17c74; /* Warm terracotta for the title/header */
+    -fx-text-fill: #f7f3e9; /* Cream text color */
+    -fx-background-radius: 10 10 0 0; /* Rounded top corners */
+    -fx-font-size: 16px; /* Slightly larger text for emphasis */
+    -fx-padding: 10 15; /* Padding around the title */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.4, 0, 2); /* Soft shadow for depth */
+}
+
+/* TitledPane Content (Expanded Area) */
+.titled-pane > .content {
+    -fx-background-color: #3b3f51; /* Slightly darker background for content */
+    -fx-padding: 10; /* Padding inside the content area */
+    -fx-background-radius: 0 0 10 10; /* Rounded bottom corners */
+    -fx-text-fill: #f7f3e9; /* Cream text color inside the content */
+}
+
+/* TitledPane Arrow (Disclosure Node) */
+.titled-pane > .title > .arrow-button {
+    -fx-background-color: transparent; /* No background for the arrow button */
+    -fx-padding: 0; /* Remove extra padding */
+}
+
+.titled-pane > .title > .arrow-button .arrow {
+    -fx-background-color: #f7f3e9; /* Cream color for the arrow */
+    -fx-padding: 5; /* Slight padding for spacing */
+    -fx-shape: "M 0 0 L 6 6 L 12 0 Z"; /* Optional: custom triangle shape */
+}
+
+.titled-pane:collapsed > .title > .arrow-button .arrow {
+    -fx-rotate: 0; /* Arrow pointing right when collapsed */
+}
+
+.titled-pane:expanded > .title > .arrow-button .arrow {
+    -fx-rotate: 90; /* Arrow pointing down when expanded */
+}
+
 /* Slider Base */
 .slider {
     -fx-padding: 10; /* Padding around the slider */
@@ -30,14 +76,14 @@
     -fx-background-color: #3b3f51; /* A darker gray for the track to be more visible */
     -fx-background-radius: 10;
     -fx-border-color: #e4a672; /* Add a subtle amber border to the track */
-    -fx-border-width: 1;  /* Thin border for visibility */
+    -fx-border-width: 1; /* Thin border for visibility */
 }
 
 /* Slider Thumb */
 .slider .thumb {
     -fx-background-color: #c17c74; /* Warm terracotta for thumb */
     -fx-background-radius: 15;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.3, 0, 2); /* Shadow for more contrast */
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.3, 0, 2); /* Shadow for more contrast */
 }
 
 /* Slider Tick Marks (optional) */
