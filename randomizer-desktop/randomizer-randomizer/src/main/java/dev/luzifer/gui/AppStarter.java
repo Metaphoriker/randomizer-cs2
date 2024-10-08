@@ -14,20 +14,27 @@ import javafx.application.Application;
 import javafx.stage.Stage;
 
 public class AppStarter extends Application {
-    
-    @Override
-    public void start(Stage stage) {
-        
-        ViewController viewController = new ViewController();
-        viewController.showView(new SelectionView(new SelectionViewModel(
-                () -> viewController.showView(new RandomizerView(new RandomizerViewModel(Main.getEventClusterRepository()))),
-                () -> viewController.showView(new BuilderView(new BuilderViewModel(Main.getEventClusterRepository()))),
+
+  @Override
+  public void start(Stage stage) {
+
+    ViewController viewController = new ViewController();
+    viewController.showView(
+        new SelectionView(
+            new SelectionViewModel(
+                () ->
+                    viewController.showView(
+                        new RandomizerView(
+                            new RandomizerViewModel(Main.getEventClusterRepository()))),
+                () ->
+                    viewController.showView(
+                        new BuilderView(new BuilderViewModel(Main.getEventClusterRepository()))),
                 () -> viewController.showView(new InvasionGameView(new GameViewModel())),
                 viewController::switchTheme)));
-    }
-    
-    @Override
-    public void stop() {
-        System.exit(0);
-    }
+  }
+
+  @Override
+  public void stop() {
+    System.exit(0);
+  }
 }

@@ -1,68 +1,61 @@
 package dev.luzifer.gui.view.views.game.objects.sup.entity;
 
 public enum Facing {
+  NORTH(0, new Vector(0, -1)),
+  NORTH_EAST(45, new Vector(1, -1)),
+  EAST(90, new Vector(1, 0)),
+  SOUTH_EAST(135, new Vector(1, 1)),
+  SOUTH(180, new Vector(0, 1)),
+  SOUTH_WEST(225, new Vector(-1, 1)),
+  WEST(270, new Vector(-1, 0)),
+  NORTH_WEST(315, new Vector(-1, -1));
 
-    NORTH(0, new Vector(0, -1)),
-    NORTH_EAST(45, new Vector(1, -1)),
-    EAST(90, new Vector(1, 0)),
-    SOUTH_EAST(135, new Vector(1, 1)),
-    SOUTH(180, new Vector(0, 1)),
-    SOUTH_WEST(225, new Vector(-1, 1)),
-    WEST(270, new Vector(-1, 0)),
-    NORTH_WEST(315, new Vector(-1, -1));
+  private final int angle;
+  private final Vector vector;
 
-    public static Facing getClosest(double angle) {
+  Facing(int angle, Vector vector) {
+    this.angle = angle;
+    this.vector = vector;
+  }
 
-        if(angle < 0)
-            angle = 360 + angle;
-        else if(angle > 360)
-            angle = angle - 360;
+  public static Facing getClosest(double angle) {
 
-        for(int i = 0; i < values().length; i++) {
+    if (angle < 0) angle = 360 + angle;
+    else if (angle > 360) angle = angle - 360;
 
-            Facing facing = values()[i];
+    for (int i = 0; i < values().length; i++) {
 
-            int currentDiff = facing.getAngle() + facing.getAngle() / 2;
+      Facing facing = values()[i];
 
-            int currentFacingReachStart = facing.getAngle() - currentDiff;
-            int currentFacingReachEnd = facing.getAngle() + currentDiff;
+      int currentDiff = facing.getAngle() + facing.getAngle() / 2;
 
-            if (angle >= currentFacingReachStart && angle <= currentFacingReachEnd)
-                return facing;
-        }
+      int currentFacingReachStart = facing.getAngle() - currentDiff;
+      int currentFacingReachEnd = facing.getAngle() + currentDiff;
 
-        return NORTH;
+      if (angle >= currentFacingReachStart && angle <= currentFacingReachEnd) return facing;
     }
 
-    public static Facing getDirection(Vector from, Vector to) {
-        return getClosest(from.angle(to));
-    }
+    return NORTH;
+  }
 
-    public static Facing invert(Facing facing) {
-        return getClosest(facing.getAngle() + 180);
-    }
+  public static Facing getDirection(Vector from, Vector to) {
+    return getClosest(from.angle(to));
+  }
 
-    private final int angle;
-    private final Vector vector;
+  public static Facing invert(Facing facing) {
+    return getClosest(facing.getAngle() + 180);
+  }
 
-    Facing(int angle, Vector vector) {
-        this.angle = angle;
-        this.vector = vector;
-    }
+  public int getAngle() {
+    return angle;
+  }
 
-    public int getAngle() {
-        return angle;
-    }
+  public Vector getVector() {
+    return vector;
+  }
 
-    public Vector getVector() {
-        return vector;
-    }
-
-    @Override
-    public String toString() {
-        return "Facing{" +
-                "angle=" + angle +
-                ", vector=" + vector +
-                '}';
-    }
+  @Override
+  public String toString() {
+    return "Facing{" + "angle=" + angle + ", vector=" + vector + '}';
+  }
 }

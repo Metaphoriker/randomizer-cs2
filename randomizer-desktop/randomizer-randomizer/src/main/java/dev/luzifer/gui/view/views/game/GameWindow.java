@@ -17,159 +17,170 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.transform.Scale;
 
 public class GameWindow extends Pane {
-    
-    private static final int WIDTH = 1200;
-    private static final int HEIGHT = 600;
-    
-    private final Rectangle border = new Rectangle();
-    
-    private final Label gameOverLabel = new Label("Game Over");
-    private final Label scoreLabel = new Label("Score: 0");
-    private final Label howToPlayLabel = new Label("WASD\nM-CLICK\nMOUSE\nI");
-    
-    private final Label ammoBoxesLabel = new Label("x0");
-    private final Label molotovLabel = new Label("x0");
-    
-    {
-        CSSUtil.applyStyle(this, GameWindow.class);
-        
-        gameOverLabel.getStyleClass().add("game-over");
-        scoreLabel.getStyleClass().add("score");
-        howToPlayLabel.getStyleClass().add("how-to-play");
-        
-        ammoBoxesLabel.getStyleClass().add("ammo-box");
-        molotovLabel.getStyleClass().add("molotov");
-    }
-    
-    private final GameField gameField = new GameField();
-    
-    private int score = 0; // Property
 
-    private double scale = 1;
-    
-    public GameWindow() {
-    
-        setPrefSize(WIDTH, HEIGHT);
-        
-        setupBorder();
-        setupLabelPictures();
+  private static final int WIDTH = 1200;
+  private static final int HEIGHT = 600;
 
-        setOnScroll(event -> {
+  private final Rectangle border = new Rectangle();
 
-            if(event.getDeltaY() > 0)
-                scale += 0.1;
-            else
-                scale -= 0.1;
+  private final Label gameOverLabel = new Label("Game Over");
+  private final Label scoreLabel = new Label("Score: 0");
+  private final Label howToPlayLabel = new Label("WASD\nM-CLICK\nMOUSE\nI");
 
-            zoom(scale);
+  private final Label ammoBoxesLabel = new Label("x0");
+  private final Label molotovLabel = new Label("x0");
+  private final GameField gameField = new GameField();
+  private int score = 0; // Property
+  private double scale = 1;
+
+  {
+    CSSUtil.applyStyle(this, GameWindow.class);
+
+    gameOverLabel.getStyleClass().add("game-over");
+    scoreLabel.getStyleClass().add("score");
+    howToPlayLabel.getStyleClass().add("how-to-play");
+
+    ammoBoxesLabel.getStyleClass().add("ammo-box");
+    molotovLabel.getStyleClass().add("molotov");
+  }
+
+  public GameWindow() {
+
+    setPrefSize(WIDTH, HEIGHT);
+
+    setupBorder();
+    setupLabelPictures();
+
+    setOnScroll(
+        event -> {
+          if (event.getDeltaY() > 0) scale += 0.1;
+          else scale -= 0.1;
+
+          zoom(scale);
         });
 
-        getChildren().addAll(border, gameOverLabel, scoreLabel, howToPlayLabel, ammoBoxesLabel, molotovLabel);
-    }
-    
-    public void initGame() {
-        setupGame();
-    }
-    
-    public void start() {
-        gameField.startGame();
-    }
-    
-    public void stop() {
-        gameField.stopGame();
-    }
+    getChildren()
+        .addAll(border, gameOverLabel, scoreLabel, howToPlayLabel, ammoBoxesLabel, molotovLabel);
+  }
 
-    private void zoom(double factor) {
+  public void initGame() {
+    setupGame();
+  }
 
-        Scale scale = new Scale(factor, factor);
-        scale.setPivotX(WIDTH / 2);
-        scale.setPivotY(HEIGHT / 2);
+  public void start() {
+    gameField.startGame();
+  }
 
-        getTransforms().setAll(scale);
-    }
-    
-    private void setupGame() {
-        
-        syncWithGame();
-    
-        gameField.setOnGameOver(() -> {
-            gameOverLabel.setOpacity(1);
-            stop();
+  public void stop() {
+    gameField.stopGame();
+  }
+
+  private void zoom(double factor) {
+
+    Scale scale = new Scale(factor, factor);
+    scale.setPivotX(WIDTH / 2);
+    scale.setPivotY(HEIGHT / 2);
+
+    getTransforms().setAll(scale);
+  }
+
+  private void setupGame() {
+
+    syncWithGame();
+
+    gameField.setOnGameOver(
+        () -> {
+          gameOverLabel.setOpacity(1);
+          stop();
         });
-        gameField.setBorder(border);
-        
-        setupPlayer();
-        gameField.spawnObstacles();
-    }
-    
-    private void setupPlayer() {
-        
-        Player player = gameField.spawnPlayer();
-        InventoryWindow inventoryWindow = new InventoryWindow(this, player);
-    
-        getScene().setOnKeyPressed(keyEvent -> {
-            
-            if(keyEvent.getCode() == KeyCode.I) {
+    gameField.setBorder(border);
+
+    setupPlayer();
+    gameField.spawnObstacles();
+  }
+
+  private void setupPlayer() {
+
+    Player player = gameField.spawnPlayer();
+    InventoryWindow inventoryWindow = new InventoryWindow(this, player);
+
+    getScene()
+        .setOnKeyPressed(
+            keyEvent -> {
+              if (keyEvent.getCode() == KeyCode.I) {
                 inventoryWindow.setVisible(!inventoryWindow.isVisible());
                 return;
-            }
-            
-            player.onPressKey(keyEvent);
-        });
-        getScene().setOnKeyReleased(player::onReleaseKey);
-        getScene().setOnMouseMoved(player::onMouseMove);
-        getScene().setOnMousePressed(player::onMouseClick);
-    
-        player.getItems().addListener((ListChangeListener<Item>) c1 -> {
-            while(c1.next()) {
-                molotovLabel.setText("x" + player.getItems().stream()
-                        .filter(ItemObject.class::isInstance)
-                        .filter(item1 -> item1.getItemType() == ItemObject.ItemType.MOLOTOV)
-                        .count());
-            
-                ammoBoxesLabel.setText("x" + player.getItems().stream()
-                        .filter(ItemObject.class::isInstance)
-                        .filter(item1 -> item1.getItemType() == ItemObject.ItemType.AMMO)
-                        .count());
-            }
-        });
-    }
-    
-    private void syncWithGame() {
-        
-        gameField.getEntities().addListener((ListChangeListener<Entity>) c -> {
-            while(c.next()) {
-                if(c.wasAdded()) {
-                    c.getAddedSubList().stream()
-                            .filter(Node.class::isInstance).forEach(entity -> getChildren().add(0, (Node) entity));
-                } else if(c.wasRemoved()) {
-                    c.getRemoved().stream()
-                            .filter(Node.class::isInstance).forEach(entity -> {
-                                
-                                if(entity instanceof EnemyObject) {
-                                    score += ((EnemyObject) entity).getMaxHealth();
-                                    scoreLabel.setText("Score: " + score);
+              }
+
+              player.onPressKey(keyEvent);
+            });
+    getScene().setOnKeyReleased(player::onReleaseKey);
+    getScene().setOnMouseMoved(player::onMouseMove);
+    getScene().setOnMousePressed(player::onMouseClick);
+
+    player
+        .getItems()
+        .addListener(
+            (ListChangeListener<Item>)
+                c1 -> {
+                  while (c1.next()) {
+                    molotovLabel.setText(
+                        "x"
+                            + player.getItems().stream()
+                                .filter(ItemObject.class::isInstance)
+                                .filter(item1 -> item1.getItemType() == ItemObject.ItemType.MOLOTOV)
+                                .count());
+
+                    ammoBoxesLabel.setText(
+                        "x"
+                            + player.getItems().stream()
+                                .filter(ItemObject.class::isInstance)
+                                .filter(item1 -> item1.getItemType() == ItemObject.ItemType.AMMO)
+                                .count());
+                  }
+                });
+  }
+
+  private void syncWithGame() {
+
+    gameField
+        .getEntities()
+        .addListener(
+            (ListChangeListener<Entity>)
+                c -> {
+                  while (c.next()) {
+                    if (c.wasAdded()) {
+                      c.getAddedSubList().stream()
+                          .filter(Node.class::isInstance)
+                          .forEach(entity -> getChildren().add(0, (Node) entity));
+                    } else if (c.wasRemoved()) {
+                      c.getRemoved().stream()
+                          .filter(Node.class::isInstance)
+                          .forEach(
+                              entity -> {
+                                if (entity instanceof EnemyObject) {
+                                  score += ((EnemyObject) entity).getMaxHealth();
+                                  scoreLabel.setText("Score: " + score);
                                 }
-                                
+
                                 getChildren().remove((Node) entity);
-                            });
-                }
-            }
-        });
-    }
-    
-    private void setupLabelPictures() {
-        ammoBoxesLabel.setGraphic(ImageUtil.getImageView("images/game/ammo_box_icon.png"));
-        molotovLabel.setGraphic(ImageUtil.getImageView("images/game/molotov_icon.png"));
-    }
-    
-    private void setupBorder() {
-        
-        border.setWidth(WIDTH);
-        border.setHeight(HEIGHT);
-        
-        border.setFill(null);
-        border.setStroke(new Color(0.5, 0.5, 0.5, 1));
-    }
-    
+                              });
+                    }
+                  }
+                });
+  }
+
+  private void setupLabelPictures() {
+    ammoBoxesLabel.setGraphic(ImageUtil.getImageView("images/game/ammo_box_icon.png"));
+    molotovLabel.setGraphic(ImageUtil.getImageView("images/game/molotov_icon.png"));
+  }
+
+  private void setupBorder() {
+
+    border.setWidth(WIDTH);
+    border.setHeight(HEIGHT);
+
+    border.setFill(null);
+    border.setStroke(new Color(0.5, 0.5, 0.5, 1));
+  }
 }

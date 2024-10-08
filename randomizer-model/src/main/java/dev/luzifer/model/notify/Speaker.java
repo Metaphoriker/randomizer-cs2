@@ -6,16 +6,15 @@ import java.util.List;
 // Im getting used to static abuse
 public class Speaker {
 
-    private static final List<NotificationListener> listeners = new ArrayList<>();
+  private static final List<NotificationListener> listeners = new ArrayList<>();
 
-    public static void addListener(NotificationListener listener) {
-        listeners.add(listener);
-    }
+  private Speaker() {}
 
-    public static void notify(Notification notification) {
-        listeners.forEach(listener -> listener.onNotification(notification));
-    }
+  public static void addListener(NotificationListener listener) {
+    listeners.add(listener);
+  }
 
-    private Speaker() {
-    }
+  public static void notify(Notification notification) {
+    listeners.forEach(listener -> listener.onNotification(notification));
+  }
 }

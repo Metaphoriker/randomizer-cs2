@@ -1,4 +1,3 @@
 package dev.luzifer.gui.view;
 
-public interface ViewModel {
-}
+public interface ViewModel {}
