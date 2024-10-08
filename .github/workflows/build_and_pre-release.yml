@@ -53,13 +53,13 @@ jobs:
         uses: actions/upload-artifact@v3
         with:
           name: randomizer
-          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-desktop\randomizer-randomizer\target\randomizer.jar
+          path: D:\a\randomizer-cs2\randomizer-cs2\randomizer-desktop\randomizer-randomizer\target\randomizer.jar
 
       - name: Upload Updater
         uses: actions/upload-artifact@v3
         with:
           name: updater
-          path: D:\a\randomizer-csgo\randomizer-csgo\randomizer-desktop\randomizer-updater\target\randomizer-updater.jar
+          path: D:\a\randomizer-cs2\randomizer-cs2\randomizer-desktop\randomizer-updater\target\randomizer-updater.jar
 
   pre-release:
     name: Pre Release
