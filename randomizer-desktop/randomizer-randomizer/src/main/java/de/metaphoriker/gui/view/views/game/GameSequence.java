@@ -53,8 +53,8 @@ public class GameSequence extends Thread {
 
         try {
           Thread.sleep(15 - delta);
-        } catch (InterruptedException e) {
-          e.printStackTrace();
+        } catch (InterruptedException ignored) {
+          // game was closed
         }
 
         continue;
