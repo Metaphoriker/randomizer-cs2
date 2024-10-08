@@ -1,38 +1,43 @@
-# randomizer-csgo [![.github/workflows/build_and_pre-release.yml](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml/badge.svg?branch=stage)](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml)
+# 🎲 randomizer-cs2
 
-## About
-A Randomizer to have more fun in CS:GO. This is NOT a cheat!
+[![Build Status](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml/badge.svg?branch=stage)](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml) [![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)
 
-More specifically, this is an application that throws different selfmade eventcluster in an interval of set seconds (default 30-120).
-Said eventclusters are a set of events which are simple button presses such as spacebar, left or right mouse button, w-a-s-d and other main buttons in csgo.
+## 🎮 About
 
-Since this is an application just sending random button presses and not interfere with the actual game, it's totally allowed and legal to use. You don't have to worry to face a ban when using it.
+**randomizer-cs2** is the ultimate way to spice up your CS2 experience! Ready to add a twist of unpredictability to your
+gameplay? 🎲  
+**Disclaimer:** This is NOT a cheat! It's a fun tool to mix things up—completely safe and legal to use.
 
-## Requirements
+## 🎯 Purpose
 
-- Java 8 or higher
-- This jar..
+This app randomly triggers **custom event clusters** at intervals *(default: every 30-120 seconds, adjustable)*.
 
-## Functionality
-The first thing that catches your eye will be the Selection where you can select what to open.
+These clusters simulate simple button presses like **W-A-S-D, Spacebar**, **Mouse Clicks**, **weapon switching**,
+**shooting**, or **moving your mouse**. Think of it as adding controlled chaos to your movement and actions in CS2!
+🕹️
 
+💡 *Because it only sends random button inputs without altering the game directly, using randomizer-cs2 is completely
+allowed. No risk of bans!* 🚫👮‍♂️
 
-<img width="293" alt="2022-10-26 22_09_14-" src="https://user-images.githubusercontent.com/50031457/198127557-e21879cb-5ccd-4ee1-9fd8-0361d8464136.png">
+## 🛠️ Requirements
 
+- Java 22 or higher ☕
 
-If you click on "Randomizer" it will open the core of the application where the evencluster will be ran, once you start it. Also you can adjust the interval between the clusters in there.
+## ⚙️ Installation
 
+1. 📥 [Download the latest release](https://github.com/Metaphoriker/randomizer-cs2/releases/tag/latest) (
+   `randomizer.jar`).
+2. 🖱️ Double-click the JAR file to launch the application. You're ready to go!
 
-<img width="616" alt="2022-10-26 22_10_05-" src="https://user-images.githubusercontent.com/50031457/198127843-6f9fe945-7916-4e37-8ed4-3eeda9634bbd.png">
+## 🚀 Features
 
+- **🎲 Randomizer Mode**: The heart of the app, where the chaos unfolds! Choose your interval and watch as random event
+  clusters shake up your gameplay.
+- **🛠️ Event Cluster Builder**: Want to create your own madness? Drag, drop, and tweak events to create the perfect
+  cluster! Adjust timing, save, and delete clusters with ease.
 
-If you click on "Builder" it will open the builder, where you can build, save and delete your eventclusters. You can simply drag and drop the events into the builder pane and adjust them to your liking. Some of the events also have "Interval-Settings", where you can adjust the interval between the key press&releases.
+## 🎉 Why randomizer-cs2?
 
-
-<img width="816" alt="2022-10-26 22_09_56-Einstellungen" src="https://user-images.githubusercontent.com/50031457/198128096-ad0a621c-a2d0-41c6-939c-6bde5fc1baf7.png">
-
-
-If you click on the banner below the other two, it goes brrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr. Long queueing time? Don't worry, i got something for you!:
-
-
-<img width="1005" alt="2022-10-26 22_12_37-" src="https://user-images.githubusercontent.com/50031457/198128171-c8b1d9ab-b3d4-4e07-aa4d-666eb31768eb.png">
+Because sweating it out in CS2 can get old! This tool is made for the real gamers who want to **level up the fun** and
+add some unpredictable action to their gameplay. Whether you're looking for a challenge or just some laughs, *
+*randomizer-cs2** delivers! 🔥
