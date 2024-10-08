@@ -19,7 +19,6 @@ public class SettingsOverlayComponent extends Pane {
 
     setVisible(false);
 
-    failedLabel.setStyle("-fx-text-fill: red");
     failedLabel.setOpacity(0);
 
     TitledPane titledPane = new TitledPane("Settings", new VBox(minSlider, maxSlider, applyButton));

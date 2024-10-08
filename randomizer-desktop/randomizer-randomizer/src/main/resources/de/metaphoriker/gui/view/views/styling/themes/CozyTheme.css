@@ -20,6 +20,36 @@
     -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.4), 10, 0.5, 0, 2); /* Soft glow */
 }
 
+/* Slider Base */
+.slider {
+    -fx-padding: 10; /* Padding around the slider */
+}
+
+/* Slider Track */
+.slider .track {
+    -fx-background-color: #3b3f51; /* A darker gray for the track to be more visible */
+    -fx-background-radius: 10;
+    -fx-border-color: #e4a672; /* Add a subtle amber border to the track */
+    -fx-border-width: 1;  /* Thin border for visibility */
+}
+
+/* Slider Thumb */
+.slider .thumb {
+    -fx-background-color: #c17c74; /* Warm terracotta for thumb */
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.3), 5, 0.3, 0, 2); /* Shadow for more contrast */
+}
+
+/* Slider Tick Marks (optional) */
+.slider .tick-mark {
+    -fx-stroke: #e4a672; /* Warm amber color for tick marks */
+}
+
+/* Slider Selected Range */
+.slider .track:selected {
+    -fx-background-color: #e4a672; /* Warm amber for selected range on the track */
+}
+
 /* Labels */
 .label {
     -fx-text-fill: #f7f3e9; /* Cream text */

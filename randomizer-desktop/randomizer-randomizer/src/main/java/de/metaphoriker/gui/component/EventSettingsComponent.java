@@ -17,16 +17,7 @@ public class EventSettingsComponent extends VBox {
 
     this.event = event;
 
-    setStyle(
-        "-fx-border-color: black; -fx-border-width: 1px; -fx-border-radius: 5px; -fx-padding: 5px;");
-
     title.setText(event.name() + " Settings");
-    title.setStyle(
-        "-fx-font-weight: bold;"
-            + " -fx-font-size: 12px;"
-            + " -fx-padding: 10px 0 0 0;"
-            + " -fx-border-color: black;"
-            + " -fx-border-width: 0 0 1 0;");
 
     if (event instanceof Interval) {
 
@@ -38,8 +29,6 @@ public class EventSettingsComponent extends VBox {
       Label infoLabel =
           new Label(
               "unit = milliseconds.\nsets the interval between the press and release of a key.");
-      infoLabel.setStyle(
-          "-fx-font-size: 10px; -fx-padding: 10px 0 0 0; -fx-text-fill: red; -fx-font-weight: bold;");
       infoLabel.setOpacity(0.5);
       infoLabel.setWrapText(true);
 
