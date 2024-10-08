@@ -33,9 +33,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import javafx.application.Application;
-import lombok.extern.slf4j.Slf4j;
 
-@Slf4j
 public class Main {
 
   private static final EventClusterRepository EVENT_CLUSTER_REPOSITORY =

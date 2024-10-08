@@ -14,7 +14,7 @@ import javafx.scene.paint.ImagePattern;
 
 public final class ImageUtil {
 
-  private static final ImageResolution DEFAULT_RESOLUTION = ImageResolution.ORIGINAL;
+  private static final ImageResolution DEFAULT_RESOLUTION = ImageResolution.MEDIUM;
 
   private ImageUtil() {}
 
