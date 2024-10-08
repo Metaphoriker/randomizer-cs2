@@ -1,0 +1,7 @@
+.button {
+    -fx-font-size: 12px;
+    -fx-background-color: #474a62;
+    -fx-focus-traversable: false;
+}
+
+
