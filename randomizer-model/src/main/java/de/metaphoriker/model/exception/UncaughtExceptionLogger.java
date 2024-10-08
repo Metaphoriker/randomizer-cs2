@@ -6,7 +6,9 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.PrintWriter;
 import java.text.DateFormat;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class UncaughtExceptionLogger implements Thread.UncaughtExceptionHandler {
 
   public static final UncaughtExceptionLogger DEFAULT_UNCAUGHT_EXCEPTION_LOGGER =
@@ -40,7 +42,7 @@ public class UncaughtExceptionLogger implements Thread.UncaughtExceptionHandler 
     try {
       logFile.createNewFile();
     } catch (IOException e) {
-      // well, fuck
+      log.error("Failed to create file", e);
     }
 
     try (PrintWriter printWriter = new PrintWriter(new FileOutputStream(logFile, true))) {

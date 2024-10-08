@@ -3,6 +3,8 @@ package de.metaphoriker.model.event.cluster;
 import de.metaphoriker.model.event.Event;
 import de.metaphoriker.model.json.JsonUtil;
 import de.metaphoriker.model.stuff.WhateverThisFuckerIs;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -10,6 +12,7 @@ import java.nio.file.Files;
 import java.util.ArrayList;
 import java.util.List;
 
+@Slf4j
 public class EventClusterDao {
 
   // big no no to be public but i'm lazy
@@ -32,7 +35,7 @@ public class EventClusterDao {
       writer.println(stringBuilder);
       writer.flush();
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("Failed to save cluster", e);
     }
   }
 

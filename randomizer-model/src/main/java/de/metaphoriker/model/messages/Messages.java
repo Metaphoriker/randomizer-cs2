@@ -8,8 +8,10 @@ import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 
 @UtilityClass
+@Slf4j
 public final class Messages {
 
   private static final Map<String, String> MESSAGES_MAP = new HashMap<>();
@@ -32,7 +34,7 @@ public final class Messages {
                 MESSAGES_MAP.put(lineSplit[0], lineSplit[1]);
               });
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("Failed to cache messages", e);
     }
   }
 

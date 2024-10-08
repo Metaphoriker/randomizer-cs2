@@ -10,9 +10,11 @@ import java.nio.charset.StandardCharsets;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import lombok.experimental.UtilityClass;
+import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
 
 @UtilityClass
+@Slf4j
 public class Updater {
 
   public static final String UPDATER_VERSION_URL =
@@ -29,6 +31,7 @@ public class Updater {
       URL downloadFrom = new URL(downloadUrl);
       FileUtils.copyURLToFile(downloadFrom, target);
     } catch (IOException ignored) {
+      log.error("Failed to update", ignored);
     }
   }
 
@@ -43,6 +46,7 @@ public class Updater {
       String version = readLineFromInputStream(zipFile.getInputStream(versionEntry));
       return isUpdateAvailable(version, versionUrl);
     } catch (IOException ignored) {
+      log.error("Failed to check for update", ignored);
     }
     return true;
   }
@@ -74,7 +78,7 @@ public class Updater {
     try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
       return bufferedReader.readLine();
     } catch (IOException e) {
-      e.printStackTrace();
+      log.error("Failed to read version", e);
     }
 
     return "INVALID";

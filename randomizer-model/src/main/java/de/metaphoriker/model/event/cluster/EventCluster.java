@@ -6,11 +6,13 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
+import lombok.Getter;
 
 public class EventCluster {
 
-  private final String name;
+  @Getter private final String name;
   private final List<Event> events;
+
   public EventCluster(String name, List<Event> events) {
     this.name = name;
     this.events = events;
@@ -24,10 +26,6 @@ public class EventCluster {
     for (String event : events) eventList.add(JsonUtil.deserialize(event));
 
     return new EventCluster(name, eventList);
-  }
-
-  public String getName() {
-    return name;
   }
 
   public List<Event> getEvents() {
