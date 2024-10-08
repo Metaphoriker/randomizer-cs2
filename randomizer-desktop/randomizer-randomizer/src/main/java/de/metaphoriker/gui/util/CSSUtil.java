@@ -54,6 +54,7 @@ public class CSSUtil {
   }
 
   public enum Theme {
+    COZY("Cozy", "CozyTheme"),
     RANDOMIZER("Randomizer", "RandomizerTheme"),
     BUSTED("Busted", "BustedTheme"),
     NIGHT("Night", "NightTheme");

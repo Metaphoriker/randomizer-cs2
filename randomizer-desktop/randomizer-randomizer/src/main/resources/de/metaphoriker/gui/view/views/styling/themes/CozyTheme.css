@@ -1,0 +1,148 @@
+/* General background for root containers */
+.root {
+    -fx-background-color: linear-gradient(to bottom, #2b2d42, #474a62); /* Rainy, calming background */
+    -fx-padding: 20;
+    -fx-font-family: 'Segoe UI', sans-serif;
+}
+
+/* Buttons */
+.button {
+    -fx-background-color: #c17c74; /* Warm terracotta */
+    -fx-text-fill: #f7f3e9; /* Soft cream text */
+    -fx-background-radius: 15;
+    -fx-padding: 10 20;
+    -fx-font-size: 14px;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 8, 0.4, 0, 2);
+}
+
+.button:hover {
+    -fx-background-color: #e4a672; /* Warm amber hover */
+    -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.4), 10, 0.5, 0, 2); /* Soft glow */
+}
+
+/* Labels */
+.label {
+    -fx-text-fill: #f7f3e9; /* Cream text */
+    -fx-font-size: 16px;
+}
+
+/* AnchorPane */
+.anchor-pane {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-color: #e4a672;
+    -fx-border-radius: 10;
+    -fx-padding: 8;
+}
+
+/* ScrollPane Base */
+.scroll-pane {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-color: #e4a672; /* Border color */
+    -fx-border-radius: 10;
+    -fx-padding: 8;
+}
+
+/* ScrollPane Viewport */
+.scroll-pane .viewport {
+    -fx-background-color: #474a62; /* Background for the viewport */
+}
+
+/* ScrollPane ScrollBar */
+.scroll-pane .scroll-bar {
+    -fx-background-color: #474a62; /* Muted background */
+}
+
+/* ScrollPane ScrollBar Thumb (the draggable part) */
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #c17c74; /* Warm terracotta for thumb */
+}
+
+VBox {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-color: #e4a672;
+    -fx-border-radius: 10;
+    -fx-padding: 8;
+}
+
+HBox {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-color: #e4a672;
+    -fx-border-radius: 10;
+    -fx-padding: 8;
+}
+
+
+/* ListView */
+.list-view {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-color: #e4a672;
+    -fx-border-radius: 10;
+    -fx-padding: 8;
+}
+
+/* ListCell */
+.list-view .list-cell {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-text-fill: #f7f3e9;
+}
+
+/* ListCell: Selected */
+.list-view .list-cell:selected {
+    -fx-background-color: #c17c74; /* Warm terracotta */
+}
+
+/* ListCell: Hover */
+.list-view .list-cell:hover {
+    -fx-background-color: #e4a672; /* Warm amber hover */
+}
+
+/* SplitPane */
+.split-pane {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-color: #e4a672;
+    -fx-border-radius: 10;
+    -fx-padding: 8;
+}
+
+/* SplitPane Divider */
+.split-pane-divider {
+    -fx-background-color: #e4a672; /* Warm amber */
+}
+
+/* Separator */
+.separator {
+    -fx-background-color: #e4a672; /* Warm amber */
+}
+
+/* ComboBox */
+.combo-box {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-text-fill: #f7f3e9;
+    -fx-border-color: #e4a672;
+    -fx-border-radius: 10;
+    -fx-padding: 8;
+    -fx-font-size: 14px;
+}
+
+/* ComboBox List Cell */
+.combo-box .list-cell {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-text-fill: #f7f3e9;
+}
+
+/* ComboBox List Cell: Selected */
+.combo-box .list-cell:selected {
+    -fx-background-color: #c17c74; /* Warm terracotta */
+}
+
+/* ComboBox List Cell: Hover */
+.combo-box .list-cell:hover {
+    -fx-background-color: #e4a672; /* Warm amber hover */
+}
+
+/* Tooltips */
+.tooltip {
+    -fx-background-color: #c17c74; /* Warm terracotta */
+    -fx-text-fill: #f7f3e9; /* Soft cream text */
+    -fx-background-radius: 10;
+}
