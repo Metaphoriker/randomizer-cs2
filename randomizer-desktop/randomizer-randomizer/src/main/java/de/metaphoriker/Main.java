@@ -9,6 +9,8 @@ import de.metaphoriker.model.event.events.DropWeaponEvent;
 import de.metaphoriker.model.event.events.EmptyMagazineEvent;
 import de.metaphoriker.model.event.events.EscapeEvent;
 import de.metaphoriker.model.event.events.IWannaKnifeEvent;
+import de.metaphoriker.model.event.events.IWannaNadeEvent;
+import de.metaphoriker.model.event.events.InteractEvent;
 import de.metaphoriker.model.event.events.JumpEvent;
 import de.metaphoriker.model.event.events.MouseLeftClickEvent;
 import de.metaphoriker.model.event.events.MouseMoveEvent;
@@ -37,7 +39,6 @@ public class Main {
   private static final Scheduler SCHEDULER = new Scheduler();
 
   public static void main(String[] args) throws IOException, URISyntaxException {
-
     setupAppdataFolder();
 
     registerEvents();
@@ -87,7 +88,6 @@ public class Main {
   }
 
   private static File installUpdater() {
-
     File updaterJar = new File(WhateverThisFuckerIs.getAppdataFolder(), "randomizer-updater.jar");
     try {
       updaterJar.createNewFile();
@@ -102,7 +102,6 @@ public class Main {
   }
 
   private static void startScheduler() {
-
     SchedulerThread schedulerThread = new SchedulerThread(SCHEDULER);
     schedulerThread.setUncaughtExceptionHandler(
         UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
@@ -111,7 +110,6 @@ public class Main {
   }
 
   private static void startEventExecutor() {
-
     Thread eventExecutor = new Thread(new EventExecutorRunnable(EVENT_CLUSTER_REPOSITORY));
     eventExecutor.setUncaughtExceptionHandler(
         UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
@@ -120,7 +118,6 @@ public class Main {
   }
 
   private static void startFileWatcher() {
-
     Thread fileWatcher = new Thread(new FileSystemWatcher());
     fileWatcher.setUncaughtExceptionHandler(
         UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
@@ -129,7 +126,6 @@ public class Main {
   }
 
   private static void registerEvents() {
-
     EventRegistry.register(new MouseLeftClickEvent());
     EventRegistry.register(new MouseRightClickEvent());
     EventRegistry.register(new MouseMoveEvent());
@@ -143,5 +139,7 @@ public class Main {
     EventRegistry.register(new EmptyMagazineEvent());
     EventRegistry.register(new IWannaKnifeEvent());
     EventRegistry.register(new PauseEvent());
+    EventRegistry.register(new InteractEvent());
+    EventRegistry.register(new IWannaNadeEvent());
   }
 }
