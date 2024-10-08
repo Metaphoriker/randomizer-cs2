@@ -18,17 +18,19 @@ import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import lombok.Getter;
+import lombok.Setter;
 
 public class RandomizerViewModel implements ViewModel {
 
-  private final BooleanProperty visibleProperty = new SimpleBooleanProperty();
-  private final IntegerProperty minWaitTimeProperty = new SimpleIntegerProperty();
-  private final IntegerProperty maxWaitTimeProperty = new SimpleIntegerProperty();
-  private final StringProperty nextStateProperty = new SimpleStringProperty("Run");
+  @Getter private final BooleanProperty visibleProperty = new SimpleBooleanProperty();
+  @Getter private final IntegerProperty minWaitTimeProperty = new SimpleIntegerProperty();
+  @Getter private final IntegerProperty maxWaitTimeProperty = new SimpleIntegerProperty();
+  @Getter private final StringProperty nextStateProperty = new SimpleStringProperty("Run");
 
   private final EventClusterRepository eventClusterRepository;
 
-  private Runnable onFailed;
+  @Setter private Runnable onFailed;
 
   public RandomizerViewModel(EventClusterRepository eventClusterRepository) {
 
@@ -81,31 +83,11 @@ public class RandomizerViewModel implements ViewModel {
     getEvents().forEach(event -> EventDispatcher.registerOnFinish(event, wrappedCallback));
   }
 
-  public void setOnFailed(Runnable onFailed) {
-    this.onFailed = onFailed;
-  }
-
   public Set<Event> getEvents() {
     return EventRegistry.getEvents();
   }
 
   public List<EventCluster> getClusters() {
     return eventClusterRepository.loadClusters();
-  }
-
-  public StringProperty getNextStateProperty() {
-    return nextStateProperty;
-  }
-
-  public BooleanProperty getVisibleProperty() {
-    return visibleProperty;
-  }
-
-  public IntegerProperty getMinWaitTimeProperty() {
-    return minWaitTimeProperty;
-  }
-
-  public IntegerProperty getMaxWaitTimeProperty() {
-    return maxWaitTimeProperty;
   }
 }

@@ -1,5 +1,7 @@
 package de.metaphoriker;
 
+import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.NativeHookException;
 import de.metaphoriker.gui.AppStarter;
 import de.metaphoriker.model.event.EventExecutorRunnable;
 import de.metaphoriker.model.event.EventRegistry;
@@ -56,6 +58,8 @@ public class Main {
     Messages.cache();
     Thread.currentThread()
         .setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
+
+    registerNativeKeyHook();
 
     Application.launch(AppStarter.class);
   }
@@ -141,5 +145,13 @@ public class Main {
     EventRegistry.register(new PauseEvent());
     EventRegistry.register(new InteractEvent());
     EventRegistry.register(new IWannaNadeEvent());
+  }
+
+  private static void registerNativeKeyHook() {
+    try {
+      GlobalScreen.registerNativeHook();
+    } catch (NativeHookException e) {
+      e.printStackTrace();
+    }
   }
 }

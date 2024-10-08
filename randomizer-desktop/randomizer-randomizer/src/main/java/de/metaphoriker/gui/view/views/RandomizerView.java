@@ -1,5 +1,8 @@
 package de.metaphoriker.gui.view.views;
 
+import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
+import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import de.metaphoriker.gui.component.SettingsOverlayComponent;
 import de.metaphoriker.gui.component.SliderLabelComponent;
 import de.metaphoriker.gui.component.TitledClusterContainer;
@@ -81,6 +84,16 @@ public class RandomizerView extends View<RandomizerViewModel> {
 
     getViewModel().getVisibleProperty().bindBidirectional(settingsOverlay.visibleProperty());
     getViewModel().getNextStateProperty().bindBidirectional(toggleButton.textProperty());
+
+    GlobalScreen.addNativeKeyListener(
+        new NativeKeyListener() {
+          @Override
+          public void nativeKeyPressed(NativeKeyEvent nativeEvent) {
+            if (nativeEvent.getKeyCode() == NativeKeyEvent.VC_INSERT) {
+              Platform.runLater(() -> getViewModel().toggleApplicationState());
+            }
+          }
+        });
 
     getViewModel().getMinWaitTimeProperty().bind(minSlider.getSlider().valueProperty());
     getViewModel().getMaxWaitTimeProperty().bind(maxSlider.getSlider().valueProperty());
