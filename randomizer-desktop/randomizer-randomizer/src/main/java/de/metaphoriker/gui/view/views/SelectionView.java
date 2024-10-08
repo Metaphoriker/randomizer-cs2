@@ -52,9 +52,9 @@ public class SelectionView extends View<SelectionViewModel> {
             "images/randomizer-icon.jpg"));
 
     randomizerLabel.setGraphic(
-        ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.SMALL));
+        ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.MEDIUM));
     builderLabel.setGraphic(
-        ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.SMALL));
+        ImageUtil.getImageView("images/build_icon.png", ImageUtil.ImageResolution.MEDIUM));
     invasionGameBanner.setImage(ImageUtil.getRawImage("images/game/invasion_game_banner.png"));
   }
 
