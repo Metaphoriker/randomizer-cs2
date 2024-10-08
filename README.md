@@ -34,10 +34,10 @@ allowed. No risk of bans!* 🚫👮‍♂️
 - **🎲 Randomizer Mode**: The heart of the app, where the chaos unfolds! Choose your interval and watch as random event
   clusters shake up your gameplay.
 - **🛠️ Event Cluster Builder**: Want to create your own madness? Drag, drop, and tweak events to create the perfect
-  cluster! Adjust timing, save, and delete clusters with ease.
+  cluster! Adjust timing, save, and delete clusters with ease. Share them with your friends!
 
 ## 🎉 Why randomizer-cs2?
 
 Because sweating it out in CS2 can get old! This tool is made for the real gamers who want to **level up the fun** and
-add some unpredictable action to their gameplay. Whether you're looking for a challenge or just some laughs, *
-*randomizer-cs2** delivers! 🔥
+add some unpredictable action to their gameplay. Whether you're looking for a challenge or just some laughs,
+**randomizer-cs2** delivers! 🔥
