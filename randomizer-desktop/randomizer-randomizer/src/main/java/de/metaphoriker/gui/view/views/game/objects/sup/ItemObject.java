@@ -26,17 +26,17 @@ public class ItemObject extends GameObject implements Item { // TODO: Make this 
       case WEAPON:
         setFill(
             ImageUtil.getImagePattern(
-                "images/game/weapon_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+                "images/game/weapon_icon.png", ImageUtil.ImageResolution.LARGE));
         break;
       case AMMO:
         setFill(
             ImageUtil.getImagePattern(
-                "images/game/ammo_box_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+                "images/game/ammo_box_icon.png", ImageUtil.ImageResolution.LARGE));
         break;
       case MOLOTOV:
         setFill(
             ImageUtil.getImagePattern(
-                "images/game/molotov_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+                "images/game/molotov_icon.png", ImageUtil.ImageResolution.LARGE));
         break;
       default:
         setFill(Color.BLACK);

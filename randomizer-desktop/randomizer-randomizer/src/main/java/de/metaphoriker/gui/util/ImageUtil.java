@@ -14,7 +14,7 @@ import javafx.scene.paint.ImagePattern;
 
 public final class ImageUtil {
 
-  private static final ImageResolution DEFAULT_RESOLUTION = ImageResolution.MEDIUM;
+  private static final ImageResolution DEFAULT_RESOLUTION = ImageResolution.ORIGINAL;
 
   private ImageUtil() {}
 
@@ -88,7 +88,8 @@ public final class ImageUtil {
     SMALL(16, 16),
     OKAY(24, 24),
     MEDIUM(32, 32),
-    ORIGINAL(64, 64); // large
+    LARGE(64, 64),
+    ORIGINAL(-1, -1);
 
     private final int width;
     private final int height;

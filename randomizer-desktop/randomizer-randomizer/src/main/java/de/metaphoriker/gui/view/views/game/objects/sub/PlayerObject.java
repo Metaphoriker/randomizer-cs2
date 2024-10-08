@@ -38,7 +38,7 @@ public class PlayerObject extends AbstractLivingGameObject implements Player {
 
     setFill(
         ImageUtil.getImagePattern(
-            "images/game/figure_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+            "images/game/figure_icon.png", ImageUtil.ImageResolution.LARGE));
 
     pressedKeys
         .clear(); // Fix so it won't move right away when pressed a button elsewhere or whatever,
@@ -195,6 +195,6 @@ public class PlayerObject extends AbstractLivingGameObject implements Player {
   private void die() {
     setFill(
         ImageUtil.getImagePattern(
-            "images/game/figure_dead_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+            "images/game/figure_dead_icon.png", ImageUtil.ImageResolution.LARGE));
   }
 }

@@ -27,7 +27,7 @@ public class EnemyObject extends AbstractLivingGameObject
     healthProperty.set(DEFAULT_ENEMY_HEALTH);
     setFill(
         ImageUtil.getImagePattern(
-            "images/game/enemy_icon.png", ImageUtil.ImageResolution.ORIGINAL));
+            "images/game/enemy_icon.png", ImageUtil.ImageResolution.LARGE));
   }
 
   @Override
