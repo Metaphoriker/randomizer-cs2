@@ -1,5 +1,5 @@
 <component name="ProjectRunConfigurationManager">
-  <configuration default="false" name="Build Playground" type="MavenRunConfiguration" factoryName="Maven">
+  <configuration default="false" name="Execute Playground" type="MavenRunConfiguration" factoryName="Maven">
     <MavenSettings>
       <option name="myGeneralSettings" />
       <option name="myRunnerSettings" />
@@ -11,10 +11,7 @@
           </option>
           <option name="goals">
             <list>
-              <option value="clean" />
-              <option value="install" />
-              <option value="compile" />
-              <option value="assembly:single" />
+              <option value="javafx:run" />
             </list>
           </option>
           <option name="multimoduleDir" />
