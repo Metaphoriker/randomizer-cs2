@@ -45,11 +45,11 @@ public class SelectionView extends View<SelectionViewModel> {
 
   private void setupGraphics() {
 
-    getIcons().add(ImageUtil.getImage("images/randomizer-icon.jpg"));
+    getIcons().add(ImageUtil.getImage("images/randomizer_icon.jpg"));
 
     logoShape.setFill(
         ImageUtil.getRawImagePattern(
-            "images/randomizer-icon.jpg"));
+            "images/randomizer_icon.jpg"));
 
     randomizerLabel.setGraphic(
         ImageUtil.getImageView("images/shuffle_icon.png", ImageUtil.ImageResolution.MEDIUM));
