@@ -22,10 +22,10 @@ public class MainMenu extends AnchorPane implements Initializable {
   }
 
   private void setUpGraphics() {
-    randomizerIcon.setGraphic(ImageUtil.getImageView("images/randomizerIcon.png"));
-    logbookIcon.setGraphic(ImageUtil.getImageView("images/logbookIcon.png"));
-    gameIcon.setGraphic(ImageUtil.getImageView("images/gameIcon.png"));
-    discordIcon.setGraphic(ImageUtil.getImageView("images/discordIcon.png"));
-    websiteIcon.setGraphic(ImageUtil.getImageView("images/websiteIcon.png"));
+    randomizerIcon.setGraphic(ImageUtil.getImageView("/de/metaphoriker/images/randomizerIcon.png"));
+    logbookIcon.setGraphic(ImageUtil.getImageView("/de/metaphoriker/images/logbookIcon.png"));
+    gameIcon.setGraphic(ImageUtil.getImageView("/de/metaphoriker/images/gameIcon.png"));
+    discordIcon.setGraphic(ImageUtil.getImageView("/de/metaphoriker/images/discordIcon.png"));
+    websiteIcon.setGraphic(ImageUtil.getImageView("/de/metaphoriker/images/websiteIcon.png"));
   }
 }
