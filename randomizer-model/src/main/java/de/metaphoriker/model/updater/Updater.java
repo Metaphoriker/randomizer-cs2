@@ -5,6 +5,7 @@ import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.io.OutputStream;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.zip.ZipEntry;
@@ -27,11 +28,34 @@ public class Updater {
       "https://github.com/Metaphoriker/randomizer-cs2/releases/download/latest/randomizer.jar";
 
   public static void update(File target, String downloadUrl) {
+    update(target, downloadUrl, null);
+  }
+
+  public static void update(File target, String downloadUrl, ProgressListener listener) {
     try {
       URL downloadFrom = new URL(downloadUrl);
-      FileUtils.copyURLToFile(downloadFrom, target);
+      copyURLToFileWithProgress(downloadFrom, target, listener);
     } catch (IOException ignored) {
       log.error("Failed to update", ignored);
+    }
+  }
+
+  public static void copyURLToFileWithProgress(
+      URL source, File destination, ProgressListener listener) throws IOException {
+    try (InputStream inputStream = source.openStream()) {
+      long totalBytes = source.openConnection().getContentLengthLong();
+      try (OutputStream outputStream = FileUtils.openOutputStream(destination)) {
+        byte[] buffer = new byte[1024];
+        long bytesRead = 0;
+        int n;
+        while (-1 != (n = inputStream.read(buffer))) {
+          outputStream.write(buffer, 0, n);
+          bytesRead += n;
+          if (listener != null) {
+            listener.onProgress(bytesRead, totalBytes);
+          }
+        }
+      }
     }
   }
 

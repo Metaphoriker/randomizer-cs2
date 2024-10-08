@@ -39,7 +39,13 @@ public class Main {
 
           if (Updater.isUpdateAvailable(randomizer, Updater.RANDOMIZER_VERSION_URL)) {
             jLabel.setText("Updating...");
-            Updater.update(randomizer, Updater.RANDOMIZER_DOWNLOAD_URL);
+            Updater.update(
+                randomizer,
+                Updater.RANDOMIZER_DOWNLOAD_URL,
+                (bytesRead, totalBytes) -> {
+                  double progress = (double) bytesRead / totalBytes * 100;
+                  jLabel.setText("Downloading... " + String.format("%.2f", progress) + "%");
+                });
             jLabel.setText("Update successful!");
           } else {
             jLabel.setText("No update available!");
