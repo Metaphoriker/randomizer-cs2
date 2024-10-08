@@ -48,7 +48,7 @@
                 <version>${javafx.version}</version>
             </dependency>
             <dependency>
-                <groupId>dev.luzifer</groupId>
+                <groupId>de.metaphoriker</groupId>
                 <artifactId>randomizer-model</artifactId>
                 <version>1.0</version>
             </dependency>

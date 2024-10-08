@@ -56,7 +56,7 @@
 
     <dependencies>
         <dependency>
-            <groupId>dev.luzifer</groupId>
+            <groupId>de.metaphoriker</groupId>
             <artifactId>randomizer-model</artifactId>
         </dependency>
     </dependencies>
