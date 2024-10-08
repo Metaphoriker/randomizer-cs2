@@ -9,8 +9,9 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>randomizer-desktop</artifactId>
     <packaging>pom</packaging>
+    <artifactId>randomizer-desktop</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>22</maven.compiler.source>

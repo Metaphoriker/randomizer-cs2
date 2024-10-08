@@ -10,12 +10,50 @@
     </parent>
 
     <artifactId>randomizer-playground</artifactId>
+    <version>1.0</version>
 
     <properties>
         <maven.compiler.source>22</maven.compiler.source>
         <maven.compiler.target>22</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     </properties>
+
+    <build>
+        <plugins>
+            <plugin>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <configuration>
+                    <finalName>randomizer-playground</finalName>
+                    <archive>
+                        <manifest>
+                            <mainClass>de.metaphoriker.Main</mainClass>
+                        </manifest>
+                    </archive>
+                    <descriptorRefs>
+                        <descriptorRef>jar-with-dependencies</descriptorRef>
+                    </descriptorRefs>
+                    <appendAssemblyId>false</appendAssemblyId>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id>make-assembly</id>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>22</source>
+                    <target>22</target>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
 
     <dependencies>
         <dependency>
@@ -36,10 +74,7 @@
         </dependency>
         <dependency>
             <groupId>de.metaphoriker</groupId>
-            <artifactId>randomizer-randomizer</artifactId>
-            <version>1.0</version>
-            <scope>compile</scope>
+            <artifactId>randomizer-model</artifactId>
         </dependency>
     </dependencies>
-
 </project>
