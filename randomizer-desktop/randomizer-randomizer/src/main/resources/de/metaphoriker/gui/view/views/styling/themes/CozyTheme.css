@@ -5,6 +5,22 @@
     -fx-font-family: 'Segoe UI', sans-serif;
 }
 
+/* Consistent Pane Styling (for all Pane containers like VBox, HBox, AnchorPane, etc.) */
+.pane {
+    -fx-background-color: #474a62; /* Muted background for all panes */
+    -fx-border-color: #e4a672; /* Warm amber border */
+    -fx-border-radius: 10; /* Rounded borders */
+    -fx-background-radius: 10; /* Rounded background to match border */
+    -fx-padding: 15; /* Consistent padding for all panes */
+}
+
+/* Apply common styling for different Pane types */
+VBox, HBox, AnchorPane, StackPane, FlowPane, GridPane, ScrollPane, SplitPane {
+    -fx-background-color: #474a62;
+    -fx-border-color: #e4a672;
+    -fx-padding: 15;
+}
+
 /* Buttons */
 .button {
     -fx-background-color: #c17c74; /* Warm terracotta */
@@ -20,174 +36,21 @@
     -fx-effect: dropshadow(gaussian, rgba(255, 255, 255, 0.4), 10, 0.5, 0, 2); /* Soft glow */
 }
 
-/* TitledPane Base */
-.titled-pane {
-    -fx-background-color: #474a62; /* Muted background for the entire pane */
-    -fx-border-color: #e4a672; /* Border with warm amber color */
-    -fx-border-radius: 10; /* Rounded borders for the entire pane */
-    -fx-padding: 8;
-}
-
-/* TitledPane Title (Header) */
-.titled-pane > .title {
-    -fx-background-color: #c17c74; /* Warm terracotta for the title/header */
-    -fx-text-fill: #f7f3e9; /* Cream text color */
-    -fx-background-radius: 10 10 0 0; /* Rounded top corners */
-    -fx-font-size: 16px; /* Slightly larger text for emphasis */
-    -fx-padding: 10 15; /* Padding around the title */
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.4, 0, 2); /* Soft shadow for depth */
-}
-
-/* TitledPane Content (Expanded Area) */
-.titled-pane > .content {
-    -fx-background-color: #3b3f51; /* Slightly darker background for content */
-    -fx-padding: 10; /* Padding inside the content area */
-    -fx-background-radius: 0 0 10 10; /* Rounded bottom corners */
-    -fx-text-fill: #f7f3e9; /* Cream text color inside the content */
-}
-
-/* TitledPane Arrow (Disclosure Node) */
-.titled-pane > .title > .arrow-button {
-    -fx-background-color: transparent; /* No background for the arrow button */
-    -fx-padding: 0; /* Remove extra padding */
-}
-
-.titled-pane > .title > .arrow-button .arrow {
-    -fx-background-color: #f7f3e9; /* Cream color for the arrow */
-    -fx-padding: 5; /* Slight padding for spacing */
-    -fx-shape: "M 0 0 L 6 6 L 12 0 Z"; /* Optional: custom triangle shape */
-}
-
-.titled-pane:collapsed > .title > .arrow-button .arrow {
-    -fx-rotate: 0; /* Arrow pointing right when collapsed */
-}
-
-.titled-pane:expanded > .title > .arrow-button .arrow {
-    -fx-rotate: 90; /* Arrow pointing down when expanded */
-}
-
-/* Slider Base */
-.slider {
-    -fx-padding: 10; /* Padding around the slider */
-}
-
-/* Slider Track */
-.slider .track {
-    -fx-background-color: #3b3f51; /* A darker gray for the track to be more visible */
-    -fx-background-radius: 10;
-    -fx-border-color: #e4a672; /* Add a subtle amber border to the track */
-    -fx-border-width: 1; /* Thin border for visibility */
-}
-
-/* Slider Thumb */
-.slider .thumb {
-    -fx-background-color: #c17c74; /* Warm terracotta for thumb */
-    -fx-background-radius: 15;
-    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.3, 0, 2); /* Shadow for more contrast */
-}
-
-/* Slider Tick Marks (optional) */
-.slider .tick-mark {
-    -fx-stroke: #e4a672; /* Warm amber color for tick marks */
-}
-
-/* Slider Selected Range */
-.slider .track:selected {
-    -fx-background-color: #e4a672; /* Warm amber for selected range on the track */
-}
-
 /* Labels */
 .label {
     -fx-text-fill: #f7f3e9; /* Cream text */
     -fx-font-size: 16px;
 }
 
-/* AnchorPane */
-.anchor-pane {
-    -fx-background-color: #474a62; /* Muted background */
-    -fx-border-color: #e4a672;
-    -fx-border-radius: 10;
-    -fx-padding: 8;
-}
-
-/* ScrollPane Base */
-.scroll-pane {
-    -fx-background-color: #474a62; /* Muted background */
-    -fx-border-color: #e4a672; /* Border color */
-    -fx-border-radius: 10;
-    -fx-padding: 8;
-}
-
-/* ScrollPane Viewport */
-.scroll-pane .viewport {
-    -fx-background-color: #474a62; /* Background for the viewport */
-}
-
-/* ScrollPane ScrollBar */
-.scroll-pane .scroll-bar {
-    -fx-background-color: #474a62; /* Muted background */
-}
-
-/* ScrollPane ScrollBar Thumb (the draggable part) */
-.scroll-pane .scroll-bar .thumb {
-    -fx-background-color: #c17c74; /* Warm terracotta for thumb */
-}
-
-VBox {
-    -fx-background-color: #474a62; /* Muted background */
-    -fx-border-color: #e4a672;
-    -fx-border-radius: 10;
-    -fx-padding: 8;
-}
-
-HBox {
-    -fx-background-color: #474a62; /* Muted background */
-    -fx-border-color: #e4a672;
-    -fx-border-radius: 10;
-    -fx-padding: 8;
-}
-
-
-/* ListView */
-.list-view {
-    -fx-background-color: #474a62; /* Muted background */
-    -fx-border-color: #e4a672;
-    -fx-border-radius: 10;
-    -fx-padding: 8;
-}
-
-/* ListCell */
-.list-view .list-cell {
+/* TextField and PasswordField */
+.text-field, .password-field {
     -fx-background-color: #474a62; /* Muted background */
     -fx-text-fill: #f7f3e9;
-}
-
-/* ListCell: Selected */
-.list-view .list-cell:selected {
-    -fx-background-color: #c17c74; /* Warm terracotta */
-}
-
-/* ListCell: Hover */
-.list-view .list-cell:hover {
-    -fx-background-color: #e4a672; /* Warm amber hover */
-}
-
-/* SplitPane */
-.split-pane {
-    -fx-background-color: #474a62; /* Muted background */
     -fx-border-color: #e4a672;
     -fx-border-radius: 10;
+    -fx-background-radius: 10;
     -fx-padding: 8;
-}
-
-/* SplitPane Divider */
-.split-pane-divider {
-    -fx-background-color: #e4a672; /* Warm amber */
-}
-
-/* Separator */
-.separator {
-    -fx-background-color: #e4a672; /* Warm amber */
+    -fx-font-size: 14px;
 }
 
 /* ComboBox */
@@ -200,25 +63,145 @@ HBox {
     -fx-font-size: 14px;
 }
 
-/* ComboBox List Cell */
 .combo-box .list-cell {
     -fx-background-color: #474a62; /* Muted background */
     -fx-text-fill: #f7f3e9;
 }
 
-/* ComboBox List Cell: Selected */
 .combo-box .list-cell:selected {
     -fx-background-color: #c17c74; /* Warm terracotta */
 }
 
-/* ComboBox List Cell: Hover */
 .combo-box .list-cell:hover {
     -fx-background-color: #e4a672; /* Warm amber hover */
 }
 
-/* Tooltips */
-.tooltip {
+/* ListView */
+.list-view {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-color: #e4a672;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+}
+
+.list-view .list-cell {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-text-fill: #f7f3e9;
+}
+
+.list-view .list-cell:selected {
     -fx-background-color: #c17c74; /* Warm terracotta */
+}
+
+.list-view .list-cell:hover {
+    -fx-background-color: #e4a672; /* Warm amber hover */
+}
+
+/* ScrollPane Base */
+.scroll-pane {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-color: #e4a672; /* Border color */
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+}
+
+/* ScrollPane Viewport */
+.scroll-pane .viewport {
+    -fx-background-color: #474a62; /* Background for the viewport */
+    -fx-background-radius: 10;
+}
+
+/* ScrollPane ScrollBar */
+.scroll-pane .scroll-bar {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+.scroll-pane .scroll-bar .thumb {
+    -fx-background-color: #c17c74; /* Warm terracotta for thumb */
+}
+
+/* Sliders */
+.slider {
+    -fx-padding: 10; /* Padding around the slider */
+}
+
+.slider .track {
+    -fx-background-color: #3b3f51; /* A darker gray for the track to be more visible */
+    -fx-background-radius: 10;
+    -fx-border-color: #e4a672; /* Add a subtle amber border to the track */
+    -fx-border-width: 1; /* Thin border for visibility */
+}
+
+.slider .thumb {
+    -fx-background-color: #c17c74; /* Warm terracotta for thumb */
+    -fx-background-radius: 15;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 5, 0.3, 0, 2); /* Shadow for more contrast */
+}
+
+.slider .tick-mark {
+    -fx-stroke: #e4a672; /* Warm amber color for tick marks */
+}
+
+.slider .track:selected {
+    -fx-background-color: #e4a672; /* Warm amber for selected range on the track */
+}
+
+/* ProgressBar */
+.progress-bar {
+    -fx-accent: #c17c74; /* Warm terracotta for the progress */
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+/* TitledPane */
+.titled-pane {
+    -fx-background-color: #474a62;
+    -fx-border-color: #e4a672;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 15;
+}
+
+/* Accordion */
+.accordion {
+    -fx-background-color: #474a62;
+    -fx-border-color: #e4a672;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+/* MenuBar */
+.menu-bar {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-color: #e4a672;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+    -fx-padding: 8;
+}
+
+/* Menus */
+.menu {
+    -fx-background-color: #474a62;
+    -fx-text-fill: #f7f3e9;
+}
+
+/* Tooltip */
+.tooltip {
+    -fx-background-color: #c17c74;
     -fx-text-fill: #f7f3e9; /* Soft cream text */
     -fx-background-radius: 10;
+}
+
+/* Separators */
+.separator {
+    -fx-background-color: #e4a672; /* Warm amber */
+}
+
+.split-pane-divider {
+    -fx-background-color: #e4a672; /* Warm amber */
 }
