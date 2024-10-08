@@ -25,7 +25,7 @@
                     <finalName>randomizer-updater</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>dev.luzifer.updater.Main</mainClass>
+                            <mainClass>de.metaphoriker.updater.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>

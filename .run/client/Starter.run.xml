@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Starter" type="Application" factoryName="Application">
     <option name="ALTERNATIVE_JRE_PATH" value="1.8.0_251" />
-    <option name="MAIN_CLASS_NAME" value="dev.luzifer.Main" />
+    <option name="MAIN_CLASS_NAME" value="de.metaphoriker.Main" />
     <module name="randomizer-randomizer" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/randomizer-desktop/randomizer-randomizer" />
     <method v="2">

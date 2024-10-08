@@ -25,7 +25,7 @@
                     <finalName>randomizer</finalName>
                     <archive>
                         <manifest>
-                            <mainClass>dev.luzifer.Main</mainClass>
+                            <mainClass>de.metaphoriker.Main</mainClass>
                         </manifest>
                     </archive>
                     <descriptorRefs>
