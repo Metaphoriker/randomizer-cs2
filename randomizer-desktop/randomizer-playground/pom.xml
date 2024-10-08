@@ -80,9 +80,5 @@
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-base</artifactId>
         </dependency>
-        <dependency>
-            <groupId>de.metaphoriker</groupId>
-            <artifactId>randomizer-model</artifactId>
-        </dependency>
     </dependencies>
 </project>
