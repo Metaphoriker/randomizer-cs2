@@ -205,3 +205,43 @@ VBox, HBox, AnchorPane, StackPane, FlowPane, GridPane, ScrollPane, SplitPane {
 .split-pane-divider {
     -fx-background-color: #e4a672; /* Warm amber */
 }
+
+/* Dialog Pane (Background of the Alert) */
+.dialog-pane {
+    -fx-background-color: #474a62; /* Muted background */
+    -fx-border-color: #e4a672; /* Warm amber for border */
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+/* Header (Title) of the Alert */
+.dialog-pane .header-panel {
+    -fx-background-color: #c17c74; /* Warm terracotta for the header */
+    -fx-background-radius: 10 10 0 0; /* Rounded top corners */
+    -fx-padding: 10;
+}
+
+.dialog-pane .header-panel .label {
+    -fx-text-fill: #f7f3e9; /* Soft cream text for title */
+    -fx-font-size: 18px;
+    -fx-font-weight: bold;
+}
+
+/* Content (Text body of the Alert) */
+.dialog-pane .content {
+    -fx-text-fill: #f7f3e9; /* Soft cream text */
+    -fx-font-size: 14px;
+    -fx-padding: 20;
+}
+
+/* Buttons on the Alert */
+.dialog-pane .button {
+    -fx-background-color: #c17c74; /* Warm terracotta for buttons */
+    -fx-text-fill: #f7f3e9; /* Soft cream text */
+    -fx-background-radius: 10;
+    -fx-padding: 8 15;
+}
+
+.dialog-pane .button:hover {
+    -fx-background-color: #e4a672; /* Warm amber hover */
+}

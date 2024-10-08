@@ -2,6 +2,7 @@ package de.metaphoriker.gui.view.views;
 
 import com.google.gson.JsonSyntaxException;
 import de.metaphoriker.gui.component.EventComponent;
+import de.metaphoriker.gui.util.CSSUtil;
 import de.metaphoriker.gui.util.ImageUtil;
 import de.metaphoriker.gui.view.View;
 import de.metaphoriker.gui.view.models.BuilderViewModel;
@@ -21,6 +22,8 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
+
+import javax.swing.text.html.CSS;
 
 public class BuilderView extends View<BuilderViewModel> {
 
@@ -321,6 +324,8 @@ public class BuilderView extends View<BuilderViewModel> {
       dialog.setHeaderText("Enter a name for the cluster");
       dialog.setContentText("Name:");
 
+      CSSUtil.applyTheme(dialog.getDialogPane().getScene(), CSSUtil.Theme.COZY);
+
       Optional<String> result = dialog.showAndWait();
       if (!result.isPresent()) return null;
 
@@ -333,6 +338,9 @@ public class BuilderView extends View<BuilderViewModel> {
         alert.setHeaderText(null);
         alert.setGraphic(null);
         alert.setContentText("Cluster name is empty or already exists!");
+
+        CSSUtil.applyTheme(alert.getDialogPane().getScene(), CSSUtil.Theme.COZY);
+
         alert.showAndWait();
 
         continue;
