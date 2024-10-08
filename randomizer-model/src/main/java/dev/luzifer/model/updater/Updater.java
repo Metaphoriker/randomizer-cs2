@@ -16,13 +16,13 @@ import org.apache.commons.io.FileUtils;
 public class Updater {
 
   public static final String UPDATER_VERSION_URL =
-      "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/stage/randomizer-desktop/randomizer-updater/src/main/resources/version.txt";
+      "https://raw.githubusercontent.com/Metaphoriker/randomizer-csgo/stage/randomizer-desktop/randomizer-updater/src/main/resources/version.txt";
   public static final String UPDATER_DOWNLOAD_URL =
-      "https://github.com/Luziferium/randomizer-csgo/releases/download/latest/randomizer-updater.jar";
+      "https://github.com/Metaphoriker/randomizer-csgo/releases/download/latest/randomizer-updater.jar";
   public static final String RANDOMIZER_VERSION_URL =
-      "https://raw.githubusercontent.com/Luziferium/randomizer-csgo/stage/randomizer-model/src/main/resources/version.txt";
+      "https://raw.githubusercontent.com/Metaphoriker/randomizer-csgo/stage/randomizer-model/src/main/resources/version.txt";
   public static final String RANDOMIZER_DOWNLOAD_URL =
-      "https://github.com/Luziferium/randomizer-csgo/releases/download/latest/randomizer.jar";
+      "https://github.com/Metaphoriker/randomizer-csgo/releases/download/latest/randomizer.jar";
 
   public static void update(File target, String downloadUrl) {
     try {
