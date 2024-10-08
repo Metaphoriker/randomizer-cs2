@@ -24,4 +24,21 @@ public abstract class Event {
   }
 
   public abstract void execute();
+
+  @Override
+  public boolean equals(Object obj) {
+    if (this == obj) {
+      return true;
+    }
+    if (obj == null || getClass() != obj.getClass()) {
+      return false;
+    }
+    Event event = (Event) obj;
+    return name().equals(event.name());
+  }
+
+  @Override
+  public int hashCode() {
+    return name().hashCode();
+  }
 }
