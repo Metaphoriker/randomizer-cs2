@@ -23,8 +23,6 @@ import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.VBox;
 
-import javax.swing.text.html.CSS;
-
 public class BuilderView extends View<BuilderViewModel> {
 
   @FXML private VBox clusterBuilderVBox;
@@ -324,7 +322,7 @@ public class BuilderView extends View<BuilderViewModel> {
       dialog.setHeaderText("Enter a name for the cluster");
       dialog.setContentText("Name:");
 
-      CSSUtil.applyTheme(dialog.getDialogPane().getScene(), CSSUtil.Theme.COZY);
+      CSSUtil.applyTheme(dialog.getDialogPane().getScene(), CSSUtil.Theme.MODENA_DARK);
 
       Optional<String> result = dialog.showAndWait();
       if (!result.isPresent()) return null;
@@ -339,7 +337,7 @@ public class BuilderView extends View<BuilderViewModel> {
         alert.setGraphic(null);
         alert.setContentText("Cluster name is empty or already exists!");
 
-        CSSUtil.applyTheme(alert.getDialogPane().getScene(), CSSUtil.Theme.COZY);
+        CSSUtil.applyTheme(alert.getDialogPane().getScene(), CSSUtil.Theme.MODENA_DARK);
 
         alert.showAndWait();
 

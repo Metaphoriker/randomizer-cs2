@@ -75,6 +75,6 @@ public class SelectionView extends View<SelectionViewModel> {
         .addListener((observableValue, oldTheme, newTheme) -> getViewModel().switchTheme());
 
     themeComboBox.getItems().addAll(CSSUtil.Theme.values());
-    themeComboBox.getSelectionModel().select(CSSUtil.Theme.COZY);
+    themeComboBox.getSelectionModel().select(CSSUtil.Theme.MODENA_DARK);
   }
 }

@@ -9,7 +9,7 @@ import javafx.beans.property.SimpleObjectProperty;
 public class SelectionViewModel implements ViewModel {
 
   private final ObjectProperty<CSSUtil.Theme> themeProperty =
-      new SimpleObjectProperty<>(CSSUtil.Theme.RANDOMIZER);
+      new SimpleObjectProperty<>(CSSUtil.Theme.MODENA_DARK);
 
   private final Runnable randomizerCallback;
   private final Runnable builderCallback;

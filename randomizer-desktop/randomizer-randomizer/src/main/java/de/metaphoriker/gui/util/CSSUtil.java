@@ -54,10 +54,10 @@ public class CSSUtil {
   }
 
   public enum Theme {
-    COZY("Cozy", "CozyTheme"),
-    RANDOMIZER("Randomizer", "RandomizerTheme"),
-    BUSTED("Busted", "BustedTheme"),
-    NIGHT("Night", "NightTheme");
+    HIBERBEE("Hiberbee", "hiberbee"),
+    WIN7_GLASS("Win 7 glass", "win7glass"),
+    DRACULA("Dracula", "dracula"),
+    MODENA_DARK("Modena", "modenadark");
 
     private final String name;
     private final String fileName;
