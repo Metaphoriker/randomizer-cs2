@@ -98,9 +98,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
 
     WhateverThisFuckerIs.registerApplicationStateChangeListener(
         applicationState ->
-            Platform.runLater(() -> { getViewModel().setApplicationState(applicationState);
-                System.out.println("Called!");
-            }));
+            Platform.runLater(() -> getViewModel().setApplicationState(applicationState)));
 
     getViewModel().getMinWaitTimeProperty().bind(minSlider.getSlider().valueProperty());
     getViewModel().getMaxWaitTimeProperty().bind(maxSlider.getSlider().valueProperty());

@@ -70,6 +70,7 @@ public class RandomizerViewModel implements ViewModel {
     switch (applicationState) {
       case IDLING -> nextStateProperty.setValue("Run");
       case RUNNING -> nextStateProperty.setValue("Idle");
+      case AWAITING -> nextStateProperty.setValue("Awaiting");
     }
   }
 

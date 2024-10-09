@@ -38,19 +38,22 @@ public class EventExecutorRunnable implements Runnable {
   @Override
   public void run() {
     while (true) {
-      if (!FocusManager.isCs2WindowInFocus()) {
-        if (WhateverThisFuckerIs.getApplicationState() != ApplicationState.IDLING)
-          WhateverThisFuckerIs.setApplicationState(ApplicationState.IDLING);
-      }
+      if (FocusManager.isCs2WindowInFocus()) {
+        if (WhateverThisFuckerIs.getApplicationState() == ApplicationState.AWAITING)
+          WhateverThisFuckerIs.setApplicationState(ApplicationState.RUNNING);
 
-      if (WhateverThisFuckerIs.getApplicationState() == ApplicationState.RUNNING
-          && !eventClusterRepository.getClusters().isEmpty()) {
-        EventDispatcher.dispatchCluster(
-            eventClusterRepository
-                .getClusters()
-                .get(
-                    ThreadLocalRandom.current()
-                        .nextInt(0, eventClusterRepository.getClusters().size())));
+        if (WhateverThisFuckerIs.getApplicationState() == ApplicationState.RUNNING
+            && !eventClusterRepository.getClusters().isEmpty()) {
+          EventDispatcher.dispatchCluster(
+              eventClusterRepository
+                  .getClusters()
+                  .get(
+                      ThreadLocalRandom.current()
+                          .nextInt(0, eventClusterRepository.getClusters().size())));
+        }
+      } else {
+        if (WhateverThisFuckerIs.getApplicationState() == ApplicationState.RUNNING)
+          WhateverThisFuckerIs.setApplicationState(ApplicationState.AWAITING);
       }
 
       synchronized (EventExecutorRunnable.class) {
