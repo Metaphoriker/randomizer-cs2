@@ -4,5 +4,6 @@ public enum ApplicationState {
     
     RUNNING,
     AWAITING,
+    CORRUPTED,
     IDLING;
 }

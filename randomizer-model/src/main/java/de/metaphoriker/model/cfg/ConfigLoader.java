@@ -1,9 +1,10 @@
 package de.metaphoriker.model.cfg;
 
+import de.metaphoriker.model.ApplicationState;
+import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
+import de.metaphoriker.model.stuff.ApplicationContext;
 import java.io.File;
 import java.io.FileNotFoundException;
-
-import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -22,6 +23,7 @@ public class ConfigLoader {
       loadUserKeyBindingsAndPrintThem(keyBindRepository);
     } catch (FileNotFoundException e) {
       log.error("Error loading key binds", e);
+      ApplicationContext.setApplicationState(ApplicationState.CORRUPTED);
     }
   }
 
