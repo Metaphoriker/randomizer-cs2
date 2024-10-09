@@ -20,7 +20,7 @@ public class ConfigLoader {
   public static void loadKeyBinds(KeyBindRepository keyBindRepository) {
     try {
       loadDefaultKeyBinds(keyBindRepository);
-      loadUserKeyBindingsAndPrintThem(keyBindRepository);
+      loadUserKeyBindings(keyBindRepository);
     } catch (FileNotFoundException e) {
       log.error("Error loading key binds", e);
       ApplicationContext.setApplicationState(ApplicationState.CORRUPTED);
@@ -38,7 +38,7 @@ public class ConfigLoader {
     }
   }
 
-  private static void loadUserKeyBindingsAndPrintThem(KeyBindRepository keyBindRepository)
+  private static void loadUserKeyBindings(KeyBindRepository keyBindRepository)
       throws FileNotFoundException {
     String userConfigPath = findUserConfigFile();
     if (userConfigPath != null) {
