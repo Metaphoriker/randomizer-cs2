@@ -5,16 +5,16 @@
 ## 🎮 About
 
 **randomizer-cs2** is the ultimate way to spice up your CS2 experience! Ready to add a twist of unpredictability to your
-gameplay? 🎲  
+gameplay? 🎲
+
 **Disclaimer:** This is NOT a cheat! It's a fun tool to mix things up—completely safe and legal to use.
 
 ## 🎯 Purpose
 
-This app randomly triggers **custom event clusters** at intervals *(default: every 30-120 seconds, adjustable)*.
+This app randomly triggers **self-made action sequences** at intervals *(default: every 30-120 seconds, adjustable)*.
 
-These clusters simulate simple button presses like **W-A-S-D, Spacebar**, **Mouse Clicks**, **weapon switching**,
-**shooting**, or **moving your mouse**. Think of it as adding controlled chaos to your movement and actions in CS2!
-🕹️
+These clusters simulate simple actions such as **weapon switching**, **shooting**, **moving** or **moving your mouse**.
+Think of it as adding controlled chaos to your movement and actions in CS2! 🕹️
 
 💡 *Because it only sends random button inputs without altering the game directly, using randomizer-cs2 is completely
 allowed. No risk of bans!* 🚫👮‍♂️
