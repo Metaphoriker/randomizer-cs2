@@ -14,7 +14,7 @@ import lombok.Getter;
  * @author GitHub-Copilot
  *     <p>But for real now, this class is for stuff idk where to put yet.
  */
-public class WhateverThisFuckerIs {
+public class ApplicationContext {
 
   private static final File APPDATA_FOLDER =
       new File(System.getenv("APPDATA") + File.separator + "randomizer");
@@ -23,14 +23,14 @@ public class WhateverThisFuckerIs {
 
   @Getter private static volatile ApplicationState applicationState = ApplicationState.IDLING;
 
-  private WhateverThisFuckerIs() {}
+  private ApplicationContext() {}
 
   public static void registerApplicationStateChangeListener(Consumer<ApplicationState> listener) {
     changeListener.add(listener);
   }
 
   public static void setApplicationState(ApplicationState applicationState) {
-    WhateverThisFuckerIs.applicationState = applicationState;
+    ApplicationContext.applicationState = applicationState;
     changeListener.forEach(changeListener -> changeListener.accept(applicationState));
   }
 

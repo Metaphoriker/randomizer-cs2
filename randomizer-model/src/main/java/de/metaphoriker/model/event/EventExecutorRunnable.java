@@ -2,15 +2,15 @@ package de.metaphoriker.model.event;
 
 import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.event.cluster.EventClusterRepository;
-import de.metaphoriker.model.stuff.WhateverThisFuckerIs;
+import de.metaphoriker.model.stuff.ApplicationContext;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class EventExecutorRunnable implements Runnable {
 
+  private static final Object lock = new Object();
   private static volatile int minWaitTime = 30 * 1000;
   private static volatile int maxWaitTime = 120 * 1000;
   private final EventClusterRepository eventClusterRepository;
-
   private static volatile boolean waitTimeUpdated = false;
 
   public EventExecutorRunnable(EventClusterRepository eventClusterRepository) {
@@ -18,32 +18,30 @@ public class EventExecutorRunnable implements Runnable {
   }
 
   public static void setMaxWaitTime(int newMaxWaitTime) {
-    maxWaitTime = newMaxWaitTime;
-    waitTimeUpdated = true;
-    notifyThread();
+    synchronized (lock) {
+      maxWaitTime = newMaxWaitTime;
+      waitTimeUpdated = true;
+      lock.notifyAll();
+    }
   }
 
   public static void setMinWaitTime(int newMinWaitTime) {
-    minWaitTime = newMinWaitTime;
-    waitTimeUpdated = true;
-    notifyThread();
-  }
-
-  private static void notifyThread() {
-    synchronized (EventExecutorRunnable.class) {
-      EventExecutorRunnable.class.notifyAll();
+    synchronized (lock) {
+      minWaitTime = newMinWaitTime;
+      waitTimeUpdated = true;
+      lock.notifyAll();
     }
   }
 
   @Override
   public void run() {
-    while (true) {
+    while (!Thread.currentThread().isInterrupted()) {
       if (FocusManager.isCs2WindowInFocus()) {
-        if (WhateverThisFuckerIs.getApplicationState() == ApplicationState.AWAITING)
-          WhateverThisFuckerIs.setApplicationState(ApplicationState.RUNNING);
+        handleApplicationState();
 
-        if (WhateverThisFuckerIs.getApplicationState() == ApplicationState.RUNNING
+        if (ApplicationContext.getApplicationState() == ApplicationState.RUNNING
             && !eventClusterRepository.getClusters().isEmpty()) {
+
           EventDispatcher.dispatchCluster(
               eventClusterRepository
                   .getClusters()
@@ -51,22 +49,30 @@ public class EventExecutorRunnable implements Runnable {
                       ThreadLocalRandom.current()
                           .nextInt(0, eventClusterRepository.getClusters().size())));
         }
-      } else {
-        if (WhateverThisFuckerIs.getApplicationState() == ApplicationState.RUNNING)
-          WhateverThisFuckerIs.setApplicationState(ApplicationState.AWAITING);
       }
 
-      synchronized (EventExecutorRunnable.class) {
-        if (waitTimeUpdated) {
-          waitTimeUpdated = false;
-        }
-        int waitTime = ThreadLocalRandom.current().nextInt(minWaitTime, maxWaitTime);
+      synchronized (lock) {
         try {
-          EventExecutorRunnable.class.wait(waitTime);
+          if (waitTimeUpdated) {
+            waitTimeUpdated = false;
+          }
+
+          int waitTime = ThreadLocalRandom.current().nextInt(minWaitTime, maxWaitTime);
+          lock.wait(waitTime);
+
         } catch (InterruptedException e) {
           Thread.currentThread().interrupt();
         }
       }
+    }
+  }
+
+  private void handleApplicationState() {
+    if (ApplicationContext.getApplicationState() == ApplicationState.AWAITING) {
+      ApplicationContext.setApplicationState(ApplicationState.RUNNING);
+    } else if (ApplicationContext.getApplicationState() == ApplicationState.RUNNING
+        && !FocusManager.isCs2WindowInFocus()) {
+      ApplicationContext.setApplicationState(ApplicationState.AWAITING);
     }
   }
 }

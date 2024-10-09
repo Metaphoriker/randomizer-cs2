@@ -10,7 +10,7 @@ import de.metaphoriker.gui.util.FuckYouControl;
 import de.metaphoriker.gui.util.ImageUtil;
 import de.metaphoriker.gui.view.View;
 import de.metaphoriker.gui.view.models.RandomizerViewModel;
-import de.metaphoriker.model.stuff.WhateverThisFuckerIs;
+import de.metaphoriker.model.stuff.ApplicationContext;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -96,7 +96,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
           }
         });
 
-    WhateverThisFuckerIs.registerApplicationStateChangeListener(
+    ApplicationContext.registerApplicationStateChangeListener(
         applicationState ->
             Platform.runLater(() -> getViewModel().setApplicationState(applicationState)));
 

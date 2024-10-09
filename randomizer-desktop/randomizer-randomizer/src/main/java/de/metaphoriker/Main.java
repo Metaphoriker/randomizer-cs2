@@ -14,7 +14,7 @@ import de.metaphoriker.model.event.cluster.EventClusterRepository;
 import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
 import de.metaphoriker.model.notify.Speaker;
-import de.metaphoriker.model.stuff.WhateverThisFuckerIs;
+import de.metaphoriker.model.stuff.ApplicationContext;
 import de.metaphoriker.model.updater.Updater;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
 import java.io.File;
@@ -82,7 +82,7 @@ public class Main {
   }
 
   private static File installUpdater() {
-    File updaterJar = new File(WhateverThisFuckerIs.getAppdataFolder(), "randomizer-updater.jar");
+    File updaterJar = new File(ApplicationContext.getAppdataFolder(), "randomizer-updater.jar");
     try {
       updaterJar.createNewFile();
     } catch (IOException e) {

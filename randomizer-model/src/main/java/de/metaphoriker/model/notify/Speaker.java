@@ -3,7 +3,6 @@ package de.metaphoriker.model.notify;
 import java.util.ArrayList;
 import java.util.List;
 
-// Im getting used to static abuse
 public class Speaker {
 
   private static final List<NotificationListener> listeners = new ArrayList<>();

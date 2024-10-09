@@ -6,10 +6,9 @@ import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.event.Event;
 import de.metaphoriker.model.event.EventDispatcher;
 import de.metaphoriker.model.event.EventExecutorRunnable;
-import de.metaphoriker.model.event.EventRegistry;
 import de.metaphoriker.model.event.cluster.EventCluster;
 import de.metaphoriker.model.event.cluster.EventClusterRepository;
-import de.metaphoriker.model.stuff.WhateverThisFuckerIs;
+import de.metaphoriker.model.stuff.ApplicationContext;
 import java.util.List;
 import java.util.Set;
 import java.util.function.Consumer;
@@ -56,10 +55,10 @@ public class RandomizerViewModel implements ViewModel {
   }
 
   public void toggleApplicationState() {
-    if (WhateverThisFuckerIs.getApplicationState() == ApplicationState.IDLING) {
-      WhateverThisFuckerIs.setApplicationState(ApplicationState.RUNNING);
+    if (ApplicationContext.getApplicationState() == ApplicationState.IDLING) {
+      ApplicationContext.setApplicationState(ApplicationState.RUNNING);
     } else {
-      WhateverThisFuckerIs.setApplicationState(ApplicationState.IDLING);
+      ApplicationContext.setApplicationState(ApplicationState.IDLING);
     }
   }
 
