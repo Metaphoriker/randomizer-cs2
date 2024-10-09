@@ -66,6 +66,55 @@
     -fx-focused-mark-color: -fx-text-background-color;
 }
 
+/* Hover state */
+.button:hover,
+.toggle-button:hover,
+.split-menu-button:hover,
+.menu-button:hover {
+    -fx-background-color: #4c708c; /* Hover background */
+}
+
+/* Add hover effect for arrow buttons */
+.color-picker:editable > .arrow-button:hover,
+.combo-box > .arrow-button:hover,
+.date-picker > .arrow-button:hover {
+    -fx-background-color: #4c708c; /* Hover effect for arrow buttons */
+}
+
+/* Add hover effect for tabs */
+.tab-pane > .tab-header-area > .headers-region > .tab:hover {
+    -fx-background-color: #4c708c; /* Hover background for tabs */
+}
+
+/* Hover effect for sliders */
+.slider > .thumb:hover {
+    -fx-background-color: #808080; /* Lighter color for hover */
+}
+
+/* Hover effect for scrollbars */
+.scroll-bar:vertical > .thumb:hover,
+.scroll-bar:horizontal > .thumb:hover {
+    -fx-background-color: #666868; /* Lighter color for scrollbar thumb on hover */
+}
+
+/* Hover effect for list cells */
+.list-cell:hover {
+    -fx-background-color: #4c708c; /* Highlight on hover */
+}
+
+/* Hover effect for checkboxes and radio buttons */
+.radio-button:hover > .radio,
+.check-box:hover > .box {
+    -fx-background-color: #4c708c; /* Lighter color for hover */
+    -fx-background-insets: 0, 1;
+}
+
+/* Hover effect for hyperlinks */
+.hyperlink:hover {
+    -fx-text-fill: #589df6; /* Bright blue on hover */
+    -fx-underline: true; /* Ensure underline on hover */
+}
+
 Text {
     -fx-fill: -darcula-text;
 }
@@ -536,13 +585,13 @@ Text:disabled {
     -fx-background-color: -darcula-base;
 }
 
-.radio-menu-item:checked > .left-container > .radio,
-.check-menu-item:checked > .left-container > .check {
+.radio-menu-item:selected > .left-container > .radio,
+.check-menu-item:selected > .left-container > .check {
     -fx-background-color: -darcula-text;
 }
 
-.radio-menu-item:disabled:checked > .left-container > .radio,
-.check-menu-item:disabled:checked > .left-container > .check {
+.radio-menu-item:disabled:selected > .left-container > .radio,
+.check-menu-item:disabled:selected > .left-container > .check {
     -fx-background-color: -darcula-text-disabled;
 }
 
