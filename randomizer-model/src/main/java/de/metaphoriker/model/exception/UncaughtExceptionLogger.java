@@ -35,7 +35,6 @@ public class UncaughtExceptionLogger implements Thread.UncaughtExceptionHandler 
   }
 
   private void log(String message) {
-
     File logFile =
         new File(
             LOG_FOLDER, DateFormat.getDateInstance().format(System.currentTimeMillis()) + ".log");

@@ -57,10 +57,19 @@ public class RandomizerViewModel implements ViewModel {
   public void toggleApplicationState() {
     if (WhateverThisFuckerIs.getApplicationState() == ApplicationState.IDLING) {
       WhateverThisFuckerIs.setApplicationState(ApplicationState.RUNNING);
-      nextStateProperty.setValue("Idle");
     } else {
       WhateverThisFuckerIs.setApplicationState(ApplicationState.IDLING);
-      nextStateProperty.setValue("Run");
+    }
+  }
+
+  public void setApplicationState(ApplicationState applicationState) {
+    setRespectiveStatePropertyValue(applicationState);
+  }
+
+  private void setRespectiveStatePropertyValue(ApplicationState applicationState) {
+    switch (applicationState) {
+      case IDLING -> nextStateProperty.setValue("Run");
+      case RUNNING -> nextStateProperty.setValue("Idle");
     }
   }
 
