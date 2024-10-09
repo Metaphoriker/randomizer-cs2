@@ -13,7 +13,7 @@ gameplay? 🎲
 
 This app randomly triggers **self-made action sequences** at intervals *(default: every 30-120 seconds, adjustable)*.
 
-These clusters simulate simple actions such as **weapon switching**, **shooting**, **moving** or **moving your mouse**.
+These sequences contain simple actions such as **weapon switching**, **shooting**, **moving** or **moving your mouse**.
 Think of it as adding controlled chaos to your movement and actions in CS2! 🕹️
 
 💡 *Because it only sends random button inputs without altering the game directly, using randomizer-cs2 is completely
@@ -31,10 +31,10 @@ allowed. No risk of bans!* 🚫👮‍♂️
 
 ## 🚀 Features
 
-- **🎲 Randomizer Mode**: The heart of the app, where the chaos unfolds! Choose your interval and watch as random event
-  clusters shake up your gameplay.
-- **🛠️ Event Cluster Builder**: Want to create your own madness? Drag, drop, and tweak events to create the perfect
-  cluster! Adjust timing, save, and delete clusters with ease. Share them with your friends!
+- **🎲 Randomizer Mode**: The heart of the app, where the chaos unfolds! Choose your interval and watch as random action
+  sequences shake up your gameplay.
+- **🛠️ Action Sequence Builder**: Want to create your own madness? Drag, drop, and tweak actions to create the perfect
+  sequence! Adjust timing, save, and delete sequences with ease. Share them with your friends!
 
 ## 🎉 Why randomizer-cs2?
 
