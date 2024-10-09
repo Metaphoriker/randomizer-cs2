@@ -6,7 +6,21 @@ import de.metaphoriker.gui.AppStarter;
 import de.metaphoriker.model.event.EventExecutorRunnable;
 import de.metaphoriker.model.event.EventRegistry;
 import de.metaphoriker.model.event.cluster.EventClusterRepository;
-import de.metaphoriker.model.event.events.*;
+import de.metaphoriker.model.event.events.CrouchEvent;
+import de.metaphoriker.model.event.events.DropWeaponEvent;
+import de.metaphoriker.model.event.events.EmptyMagazineEvent;
+import de.metaphoriker.model.event.events.EscapeEvent;
+import de.metaphoriker.model.event.events.IWannaKnifeEvent;
+import de.metaphoriker.model.event.events.IWannaNadeEvent;
+import de.metaphoriker.model.event.events.InteractEvent;
+import de.metaphoriker.model.event.events.JumpEvent;
+import de.metaphoriker.model.event.events.MouseLeftClickEvent;
+import de.metaphoriker.model.event.events.MouseMoveEvent;
+import de.metaphoriker.model.event.events.MouseRightClickEvent;
+import de.metaphoriker.model.event.events.MoveEvent;
+import de.metaphoriker.model.event.events.PauseEvent;
+import de.metaphoriker.model.event.events.ReloadEvent;
+import de.metaphoriker.model.event.events.ShiftEvent;
 import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
 import de.metaphoriker.model.notify.Speaker;
@@ -23,7 +37,7 @@ import javafx.application.Application;
 public class Main {
 
   private static final EventClusterRepository EVENT_CLUSTER_REPOSITORY =
-          new EventClusterRepository();
+      new EventClusterRepository();
   private static final Scheduler SCHEDULER = new Scheduler();
 
   public static void main(String[] args) throws IOException, URISyntaxException {
@@ -37,13 +51,13 @@ public class Main {
     startFileWatcher();
 
     Speaker.addListener(
-            notification -> {
-              if (notification.getNotifier() == FileSystemWatcher.class) cacheCluster();
-            });
+        notification -> {
+          if (notification.getNotifier() == FileSystemWatcher.class) cacheCluster();
+        });
 
     Messages.cache();
     Thread.currentThread()
-            .setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
+        .setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
 
     registerNativeKeyHook();
 
@@ -67,7 +81,7 @@ public class Main {
     File jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
     if (Updater.isUpdateAvailable(Updater.getCurrentVersion(), Updater.RANDOMIZER_VERSION_URL)) {
       Runtime.getRuntime()
-              .exec("java -jar " + path + " -randomizerLocation=" + jarPath.getAbsolutePath());
+          .exec("java -jar " + path + " -randomizerLocation=" + jarPath.getAbsolutePath());
       System.exit(0);
     }
   }
@@ -85,12 +99,8 @@ public class Main {
       throw new RuntimeException(e);
     }
 
-    if (Updater.isUpdateAvailable(updaterJar, Updater.UPDATER_VERSION_URL)) {
-      String latestUpdaterUrl = Updater.getLatestReleaseUrl();
-      if (latestUpdaterUrl != null) {
-        Updater.update(updaterJar, latestUpdaterUrl);
-      }
-    }
+    if (Updater.isUpdateAvailable(updaterJar, Updater.UPDATER_VERSION_URL))
+      Updater.update(updaterJar, Updater.UPDATER_DOWNLOAD_URL);
 
     return updaterJar;
   }
@@ -98,7 +108,7 @@ public class Main {
   private static void startScheduler() {
     SchedulerThread schedulerThread = new SchedulerThread(SCHEDULER);
     schedulerThread.setUncaughtExceptionHandler(
-            UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
+        UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
     schedulerThread.setDaemon(true);
     schedulerThread.start();
   }
@@ -106,7 +116,7 @@ public class Main {
   private static void startEventExecutor() {
     Thread eventExecutor = new Thread(new EventExecutorRunnable(EVENT_CLUSTER_REPOSITORY));
     eventExecutor.setUncaughtExceptionHandler(
-            UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
+        UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
     eventExecutor.setDaemon(true);
     eventExecutor.start();
   }
@@ -114,7 +124,7 @@ public class Main {
   private static void startFileWatcher() {
     Thread fileWatcher = new Thread(new FileSystemWatcher());
     fileWatcher.setUncaughtExceptionHandler(
-            UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
+        UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
     fileWatcher.setDaemon(true);
     fileWatcher.start();
   }

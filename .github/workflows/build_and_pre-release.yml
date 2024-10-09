@@ -62,7 +62,7 @@ jobs:
           path: D:\a\randomizer-cs2\randomizer-cs2\randomizer-desktop\randomizer-updater\target\randomizer-updater.jar
 
   pre-release:
-    name: Release
+    name: Pre Release
     needs: build
     runs-on: ubuntu-latest
 
@@ -83,36 +83,6 @@ jobs:
           repo_token: "${{ secrets.GITHUB_TOKEN }}"
           automatic_release_tag: "latest"
           prerelease: true
-          title: "Latest Pre-Release"
+          title: "Latest Release"
           files: |
             *.jar
-
-  release:
-    name: Regular Release
-    needs: pre-release
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Download Randomizer
-        uses: actions/download-artifact@v3
-        with:
-          name: randomizer
-
-      - name: Download Updater
-        uses: actions/download-artifact@v3
-        with:
-          name: updater
-
-      - name: Release
-        uses: "marvinpinto/action-automatic-releases@latest"
-        with:
-          repo_token: "${{ secrets.GITHUB_TOKEN }}"
-          automatic_release_tag: "v${{ steps.set_version.outputs.version }}"
-          prerelease: false
-          title: "Release v${{ steps.set_version.outputs.version }}"
-          files: |
-            *.jar
-
-      - name: Set Version
-        id: set_version
-        run: echo "::set-output name=version::$(cat randomizer-model/src/main/resources/version.txt)"

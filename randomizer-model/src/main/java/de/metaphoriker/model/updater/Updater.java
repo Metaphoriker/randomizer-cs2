@@ -1,14 +1,11 @@
 package de.metaphoriker.model.updater;
 
-import com.google.gson.JsonObject;
-import com.google.gson.JsonParser;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
-import java.net.HttpURLConnection;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.util.zip.ZipEntry;
@@ -22,15 +19,13 @@ import org.apache.commons.io.FileUtils;
 public class Updater {
 
   public static final String UPDATER_VERSION_URL =
-          "https://raw.githubusercontent.com/Metaphoriker/randomizer-cs2/stage/randomizer-desktop/randomizer-updater/src/main/resources/version.txt";
+      "https://raw.githubusercontent.com/Metaphoriker/randomizer-cs2/stage/randomizer-desktop/randomizer-updater/src/main/resources/version.txt";
   public static final String UPDATER_DOWNLOAD_URL =
-          "https://github.com/Metaphoriker/randomizer-cs2/releases/download/latest/randomizer-updater.jar";
+      "https://github.com/Metaphoriker/randomizer-cs2/releases/download/latest/randomizer-updater.jar";
   public static final String RANDOMIZER_VERSION_URL =
-          "https://raw.githubusercontent.com/Metaphoriker/randomizer-cs2/stage/randomizer-model/src/main/resources/version.txt";
+      "https://raw.githubusercontent.com/Metaphoriker/randomizer-cs2/stage/randomizer-model/src/main/resources/version.txt";
   public static final String RANDOMIZER_DOWNLOAD_URL =
-          "https://github.com/Metaphoriker/randomizer-cs2/releases/download/latest/randomizer.jar";
-  public static final String LATEST_RELEASE_API_URL =
-          "https://api.github.com/repos/Metaphoriker/randomizer-cs2/releases/latest";
+      "https://github.com/Metaphoriker/randomizer-cs2/releases/download/latest/randomizer.jar";
 
   public static void update(File target, String downloadUrl) {
     update(target, downloadUrl, null);
@@ -46,7 +41,7 @@ public class Updater {
   }
 
   public static void copyURLToFileWithProgress(
-          URL source, File destination, ProgressListener listener) throws IOException {
+      URL source, File destination, ProgressListener listener) throws IOException {
     try (InputStream inputStream = source.openStream()) {
       long totalBytes = source.openConnection().getContentLengthLong();
       try (OutputStream outputStream = FileUtils.openOutputStream(destination)) {
@@ -115,37 +110,11 @@ public class Updater {
 
   private static boolean isEmpty(File file) {
     try (BufferedReader bufferedReader =
-                 new BufferedReader(
-                         new InputStreamReader(FileUtils.openInputStream(file), StandardCharsets.UTF_8))) {
+        new BufferedReader(
+            new InputStreamReader(FileUtils.openInputStream(file), StandardCharsets.UTF_8))) {
       return bufferedReader.readLine() == null;
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  public static String getLatestReleaseUrl() {
-    try {
-      URL url = new URL(LATEST_RELEASE_API_URL);
-      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-      connection.setRequestMethod("GET");
-      connection.setRequestProperty("Accept", "application/vnd.github.v3+json");
-
-      if (connection.getResponseCode() == 200) {
-        try (BufferedReader reader = new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-          StringBuilder response = new StringBuilder();
-          String line;
-          while ((line = reader.readLine()) != null) {
-            response.append(line);
-          }
-          JsonObject jsonResponse = JsonParser.parseString(response.toString()).getAsJsonObject();
-          return jsonResponse.getAsJsonArray("assets").get(0).getAsJsonObject().get("browser_download_url").getAsString();
-        }
-      } else {
-        log.error("Failed to fetch latest release info. HTTP response code: " + connection.getResponseCode());
-      }
-    } catch (IOException e) {
-      log.error("Failed to fetch latest release info", e);
-    }
-    return null;
   }
 }
