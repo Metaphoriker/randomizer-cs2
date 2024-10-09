@@ -1,6 +1,7 @@
-package de.metaphoriker.model.event;
+package de.metaphoriker.model.event.handling;
 
 import de.metaphoriker.model.ApplicationState;
+import de.metaphoriker.model.FocusManager;
 import de.metaphoriker.model.event.cluster.EventClusterRepository;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.util.concurrent.ThreadLocalRandom;

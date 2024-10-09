@@ -1,5 +1,6 @@
-package de.metaphoriker.model.event;
+package de.metaphoriker.model.event.handling;
 
+import de.metaphoriker.model.event.Event;
 import de.metaphoriker.model.event.cluster.EventCluster;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
