@@ -2,7 +2,7 @@ package de.metaphoriker.model.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.metaphoriker.model.event.Event;
+import de.metaphoriker.model.event.Action;
 import java.io.IOException;
 import lombok.experimental.UtilityClass;
 
@@ -10,15 +10,15 @@ import lombok.experimental.UtilityClass;
 public class JsonUtil {
 
   private static final Gson GSON =
-      new GsonBuilder().registerTypeAdapter(Event.class, new JsonDeSerializer()).create();
+      new GsonBuilder().registerTypeAdapter(Action.class, new JsonDeSerializer()).create();
 
-  public static String serialize(Event event) {
-    return GSON.getAdapter(Event.class).toJson(event);
+  public static String serialize(Action action) {
+    return GSON.getAdapter(Action.class).toJson(action);
   }
 
-  public static Event deserialize(String json) {
+  public static Action deserialize(String json) {
     try {
-      return GSON.getAdapter(Event.class).fromJson(json);
+      return GSON.getAdapter(Action.class).fromJson(json);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

@@ -1,14 +1,14 @@
 package de.metaphoriker.model.event.custom;
 
 import de.metaphoriker.model.cfg.keybind.KeyBind;
-import de.metaphoriker.model.event.Event;
+import de.metaphoriker.model.event.Action;
 
 import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class MouseMoveEvent extends Event {
+public class MouseMoveAction extends Action {
 
-  public MouseMoveEvent(KeyBind keyBind) {
+  public MouseMoveAction(KeyBind keyBind) {
     super(keyBind);
   }
 

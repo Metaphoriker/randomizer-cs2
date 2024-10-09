@@ -124,7 +124,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
                       logVBox.getChildren().stream()
                           .filter(TitledClusterContainer.class::isInstance)
                           .map(TitledClusterContainer.class::cast)
-                          .filter(container -> container.getEventCluster().equals(cluster))
+                          .filter(container -> container.getActionSequence().equals(cluster))
                           .forEach(TitledClusterContainer::finish);
                     }));
 
@@ -138,7 +138,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
                           .map(TitledClusterContainer.class::cast)
                           .filter(container -> !container.isFinished())
                           .filter(
-                              container -> container.getEventCluster().getEvents().contains(event))
+                              container -> container.getActionSequence().getActions().contains(event))
                           .forEach(container -> container.finish(event));
                     }));
 
@@ -152,7 +152,7 @@ public class RandomizerView extends View<RandomizerViewModel> {
                           .map(TitledClusterContainer.class::cast)
                           .filter(container -> !container.isFinished())
                           .filter(
-                              container -> container.getEventCluster().getEvents().contains(event))
+                              container -> container.getActionSequence().getActions().contains(event))
                           .forEach(container -> container.visualizeExecution(event));
                     }));
   }

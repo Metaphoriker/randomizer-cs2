@@ -3,11 +3,11 @@ package de.metaphoriker.gui.view.models;
 import de.metaphoriker.Main;
 import de.metaphoriker.gui.view.ViewModel;
 import de.metaphoriker.model.ApplicationState;
-import de.metaphoriker.model.event.Event;
-import de.metaphoriker.model.event.handling.EventDispatcher;
-import de.metaphoriker.model.event.handling.EventExecutorRunnable;
-import de.metaphoriker.model.event.cluster.EventCluster;
-import de.metaphoriker.model.event.cluster.EventClusterRepository;
+import de.metaphoriker.model.event.Action;
+import de.metaphoriker.model.event.handling.ActionDispatcher;
+import de.metaphoriker.model.event.handling.ActionExecutorRunnable;
+import de.metaphoriker.model.event.cluster.ActionSequence;
+import de.metaphoriker.model.event.cluster.ActionSequenceRepository;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.util.List;
 import java.util.Set;
@@ -28,13 +28,13 @@ public class RandomizerViewModel implements ViewModel {
   @Getter private final IntegerProperty maxWaitTimeProperty = new SimpleIntegerProperty();
   @Getter private final StringProperty nextStateProperty = new SimpleStringProperty("Run");
 
-  private final EventClusterRepository eventClusterRepository;
+  private final ActionSequenceRepository actionSequenceRepository;
 
   @Setter private Runnable onFailed;
 
-  public RandomizerViewModel(EventClusterRepository eventClusterRepository) {
+  public RandomizerViewModel(ActionSequenceRepository actionSequenceRepository) {
 
-    this.eventClusterRepository = eventClusterRepository;
+    this.actionSequenceRepository = actionSequenceRepository;
 
     visibleProperty.addListener(
         (observableValue, aBoolean, t1) -> {
@@ -48,8 +48,8 @@ public class RandomizerViewModel implements ViewModel {
               return;
             }
 
-            EventExecutorRunnable.setMinWaitTime(minWaitTimeProperty.get() * 1000);
-            EventExecutorRunnable.setMaxWaitTime(maxWaitTimeProperty.get() * 1000);
+            ActionExecutorRunnable.setMinWaitTime(minWaitTimeProperty.get() * 1000);
+            ActionExecutorRunnable.setMaxWaitTime(maxWaitTimeProperty.get() * 1000);
           }
         });
   }
@@ -74,30 +74,30 @@ public class RandomizerViewModel implements ViewModel {
     }
   }
 
-  public void setOnClusterExecution(Consumer<EventCluster> callback) {
+  public void setOnClusterExecution(Consumer<ActionSequence> callback) {
     getClusters()
-        .forEach(cluster -> EventDispatcher.registerGenericClusterHandler(cluster, callback));
+        .forEach(cluster -> ActionDispatcher.registerGenericClusterHandler(cluster, callback));
   }
 
-  public void setOnClusterExecutionFinished(Consumer<EventCluster> callback) {
-    Consumer<Object> wrappedCallback = o -> callback.accept((EventCluster) o);
-    getClusters().forEach(cluster -> EventDispatcher.registerOnFinish(cluster, wrappedCallback));
+  public void setOnClusterExecutionFinished(Consumer<ActionSequence> callback) {
+    Consumer<Object> wrappedCallback = o -> callback.accept((ActionSequence) o);
+    getClusters().forEach(cluster -> ActionDispatcher.registerOnFinish(cluster, wrappedCallback));
   }
 
-  public void setOnEventExecution(Consumer<Event> callback) {
-    EventDispatcher.registerGenericHandler(callback);
+  public void setOnEventExecution(Consumer<Action> callback) {
+    ActionDispatcher.registerGenericHandler(callback);
   }
 
-  public void setOnEventExecutionFinished(Consumer<Event> callback) {
-    Consumer<Object> wrappedCallback = o -> callback.accept((Event) o);
-    getEvents().forEach(event -> EventDispatcher.registerOnFinish(event, wrappedCallback));
+  public void setOnEventExecutionFinished(Consumer<Action> callback) {
+    Consumer<Object> wrappedCallback = o -> callback.accept((Action) o);
+    getEvents().forEach(event -> ActionDispatcher.registerOnFinish(event, wrappedCallback));
   }
 
-  public Set<Event> getEvents() {
-    return Main.getEventRegistry().getEvents();
+  public Set<Action> getEvents() {
+    return Main.getEventRegistry().getActions();
   }
 
-  public List<EventCluster> getClusters() {
-    return eventClusterRepository.loadClusters();
+  public List<ActionSequence> getClusters() {
+    return actionSequenceRepository.loadClusters();
   }
 }

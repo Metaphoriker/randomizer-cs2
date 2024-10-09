@@ -1,8 +1,8 @@
 package de.metaphoriker.gui.component;
 
 import de.metaphoriker.gui.util.ImageUtil;
-import de.metaphoriker.model.event.Event;
-import de.metaphoriker.model.event.cluster.EventCluster;
+import de.metaphoriker.model.event.Action;
+import de.metaphoriker.model.event.cluster.ActionSequence;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;
@@ -16,44 +16,44 @@ public class TitledClusterContainer extends TitledPane {
 
   private final List<Label> finishedEvents = new ArrayList<>();
   private final VBox vBox = new VBox();
-  @Getter private final EventCluster eventCluster;
+  @Getter private final ActionSequence actionSequence;
 
   private boolean finished;
 
   private static class EventLabel {
     private final Label label;
-    private final Event event;
+    private final Action action;
 
-    public EventLabel(Label label, Event event) {
+    public EventLabel(Label label, Action action) {
       this.label = label;
-      this.event = event;
+      this.action = action;
     }
 
     public Label getLabel() {
       return label;
     }
 
-    public Event getEvent() {
-      return event;
+    public Action getEvent() {
+      return action;
     }
   }
 
   @Getter private final List<EventLabel> eventLabels = new ArrayList<>();
 
-  public TitledClusterContainer(String title, EventCluster eventCluster) {
-    this.eventCluster = eventCluster;
+  public TitledClusterContainer(String title, ActionSequence actionSequence) {
+    this.actionSequence = actionSequence;
     setText(title);
     setContent(vBox);
     setGraphic(ImageUtil.getImageView("images/loading_gif.gif", ImageUtil.ImageResolution.MEDIUM));
 
-    fill(eventCluster);
+    fill(actionSequence);
   }
 
-  public void visualizeExecution(Event event) {
+  public void visualizeExecution(Action action) {
     Platform.runLater(
         () -> {
           for (EventLabel eventLabel : getEventLabels()) {
-            if (eventLabel.getEvent().equals(event)
+            if (eventLabel.getEvent().equals(action)
                 && !finishedEvents.contains(eventLabel.getLabel())) {
               eventLabel
                   .getLabel()
@@ -67,11 +67,11 @@ public class TitledClusterContainer extends TitledPane {
   }
 
   // Mark the event as finished
-  public void finish(Event event) {
+  public void finish(Action action) {
     Platform.runLater(
         () -> {
           for (EventLabel eventLabel : getEventLabels()) {
-            if (eventLabel.getEvent().equals(event)
+            if (eventLabel.getEvent().equals(action)
                 && !finishedEvents.contains(eventLabel.getLabel())) {
               eventLabel
                   .getLabel()
@@ -111,9 +111,9 @@ public class TitledClusterContainer extends TitledPane {
     return finished;
   }
 
-  private void fill(EventCluster eventCluster) {
-    eventCluster
-        .getEvents()
+  private void fill(ActionSequence actionSequence) {
+    actionSequence
+        .getActions()
         .forEach(
             event -> {
               Label label = new Label(event.name());

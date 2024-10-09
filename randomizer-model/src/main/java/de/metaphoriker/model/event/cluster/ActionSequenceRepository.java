@@ -4,14 +4,14 @@ import java.util.*;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class EventClusterRepository {
+public class ActionSequenceRepository {
 
-  private final EventClusterDao eventClusterDao = new EventClusterDao();
-  private final Map<String, EventCluster> clusters = new HashMap<>();
+  private final ActionSequenceDao actionSequenceDao = new ActionSequenceDao();
+  private final Map<String, ActionSequence> clusters = new HashMap<>();
 
   private boolean isCacheUpdated = false;
 
-  public synchronized void saveCluster(EventCluster cluster) {
+  public synchronized void saveCluster(ActionSequence cluster) {
     Objects.requireNonNull(cluster, "Cluster cannot be null");
 
     if (clusters.containsKey(cluster.getName())) {
@@ -19,11 +19,11 @@ public class EventClusterRepository {
     }
 
     clusters.put(cluster.getName(), cluster);
-    eventClusterDao.saveCluster(cluster);
+    actionSequenceDao.saveCluster(cluster);
     isCacheUpdated = true;
   }
 
-  public synchronized void deleteCluster(EventCluster cluster) {
+  public synchronized void deleteCluster(ActionSequence cluster) {
     Objects.requireNonNull(cluster, "Cluster cannot be null");
 
     if (!clusters.containsKey(cluster.getName())) {
@@ -32,11 +32,11 @@ public class EventClusterRepository {
     }
 
     clusters.remove(cluster.getName());
-    eventClusterDao.deleteCluster(cluster);
+    actionSequenceDao.deleteCluster(cluster);
     isCacheUpdated = true;
   }
 
-  public synchronized void addCluster(EventCluster cluster) {
+  public synchronized void addCluster(ActionSequence cluster) {
     Objects.requireNonNull(cluster, "Cluster cannot be null");
 
     if (clusters.containsKey(cluster.getName())) {
@@ -53,24 +53,24 @@ public class EventClusterRepository {
     }
   }
 
-  public synchronized List<EventCluster> loadClusters() {
+  public synchronized List<ActionSequence> loadClusters() {
     if (!isCacheUpdated) {
       updateCache();
     }
     return getClusters();
   }
 
-  public synchronized Optional<EventCluster> getCluster(String name) {
+  public synchronized Optional<ActionSequence> getCluster(String name) {
     return Optional.ofNullable(clusters.get(name));
   }
 
-  public synchronized List<EventCluster> getClusters() {
+  public synchronized List<ActionSequence> getClusters() {
     return new ArrayList<>(clusters.values());
   }
 
   private synchronized void updateCache() {
     clusters.clear();
-    eventClusterDao.loadClusters().forEach(cluster -> clusters.put(cluster.getName(), cluster));
+    actionSequenceDao.loadClusters().forEach(cluster -> clusters.put(cluster.getName(), cluster));
     isCacheUpdated = true;
   }
 }

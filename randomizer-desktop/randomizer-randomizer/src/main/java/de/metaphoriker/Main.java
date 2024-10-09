@@ -6,12 +6,12 @@ import de.metaphoriker.gui.AppStarter;
 import de.metaphoriker.model.cfg.ConfigLoader;
 import de.metaphoriker.model.cfg.keybind.KeyBind;
 import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
-import de.metaphoriker.model.event.Event;
-import de.metaphoriker.model.event.custom.PauseEvent;
-import de.metaphoriker.model.event.handling.EventExecutorRunnable;
-import de.metaphoriker.model.event.handling.EventRegistry;
-import de.metaphoriker.model.event.custom.MouseMoveEvent;
-import de.metaphoriker.model.event.cluster.EventClusterRepository;
+import de.metaphoriker.model.event.Action;
+import de.metaphoriker.model.event.custom.PauseAction;
+import de.metaphoriker.model.event.handling.ActionExecutorRunnable;
+import de.metaphoriker.model.event.handling.ActionRegistry;
+import de.metaphoriker.model.event.custom.MouseMoveAction;
+import de.metaphoriker.model.event.cluster.ActionSequenceRepository;
 import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
 import de.metaphoriker.model.notify.Speaker;
@@ -25,10 +25,10 @@ import javafx.application.Application;
 
 public class Main {
 
-  private static final EventClusterRepository EVENT_CLUSTER_REPOSITORY =
-      new EventClusterRepository();
+  private static final ActionSequenceRepository EVENT_CLUSTER_REPOSITORY =
+      new ActionSequenceRepository();
   private static final KeyBindRepository KEY_BIND_REPOSITORY = new KeyBindRepository();
-  private static final EventRegistry EVENT_REGISTRY = new EventRegistry();
+  private static final ActionRegistry EVENT_REGISTRY = new ActionRegistry();
 
   public static void main(String[] args) throws IOException, URISyntaxException {
     setupAppdataFolder();
@@ -55,11 +55,11 @@ public class Main {
     Application.launch(AppStarter.class);
   }
 
-  public static EventRegistry getEventRegistry() {
+  public static ActionRegistry getEventRegistry() {
     return EVENT_REGISTRY;
   }
 
-  public static EventClusterRepository getEventClusterRepository() {
+  public static ActionSequenceRepository getEventClusterRepository() {
     return EVENT_CLUSTER_REPOSITORY;
   }
 
@@ -97,7 +97,7 @@ public class Main {
   }
 
   private static void startEventExecutor() {
-    Thread eventExecutor = new Thread(new EventExecutorRunnable(EVENT_CLUSTER_REPOSITORY));
+    Thread eventExecutor = new Thread(new ActionExecutorRunnable(EVENT_CLUSTER_REPOSITORY));
     eventExecutor.setUncaughtExceptionHandler(
         UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
     eventExecutor.setDaemon(true);
@@ -113,14 +113,14 @@ public class Main {
   }
 
   private static void registerEvents() {
-    EVENT_REGISTRY.register(new MouseMoveEvent(KeyBind.EMPTY_KEYBIND));
-    EVENT_REGISTRY.register(new PauseEvent(KeyBind.EMPTY_KEYBIND));
+    EVENT_REGISTRY.register(new MouseMoveAction(KeyBind.EMPTY_KEYBIND));
+    EVENT_REGISTRY.register(new PauseAction(KeyBind.EMPTY_KEYBIND));
     KEY_BIND_REPOSITORY
         .getKeyBinds()
         .forEach(
             keyBind -> {
-              Event event = new Event(keyBind);
-              EVENT_REGISTRY.register(event);
+              Action action = new Action(keyBind);
+              EVENT_REGISTRY.register(action);
             });
   }
 

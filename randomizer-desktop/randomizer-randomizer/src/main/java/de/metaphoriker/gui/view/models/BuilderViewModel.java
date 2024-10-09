@@ -2,9 +2,9 @@ package de.metaphoriker.gui.view.models;
 
 import de.metaphoriker.Main;
 import de.metaphoriker.gui.view.ViewModel;
-import de.metaphoriker.model.event.Event;
-import de.metaphoriker.model.event.cluster.EventCluster;
-import de.metaphoriker.model.event.cluster.EventClusterRepository;
+import de.metaphoriker.model.event.Action;
+import de.metaphoriker.model.event.cluster.ActionSequence;
+import de.metaphoriker.model.event.cluster.ActionSequenceRepository;
 import de.metaphoriker.model.json.JsonUtil;
 import java.util.List;
 import java.util.Set;
@@ -12,45 +12,45 @@ import java.util.concurrent.ThreadLocalRandom;
 
 public class BuilderViewModel implements ViewModel {
 
-  private final EventClusterRepository eventClusterRepository;
+  private final ActionSequenceRepository actionSequenceRepository;
 
-  public BuilderViewModel(EventClusterRepository eventClusterRepository) {
-    this.eventClusterRepository = eventClusterRepository;
+  public BuilderViewModel(ActionSequenceRepository actionSequenceRepository) {
+    this.actionSequenceRepository = actionSequenceRepository;
   }
 
   public void saveCluster(String name, String content) {
-    eventClusterRepository.saveCluster(EventCluster.formatEventCluster(name, content));
+    actionSequenceRepository.saveCluster(ActionSequence.formatEventCluster(name, content));
   }
 
-  public String serialize(Event event) {
-    return JsonUtil.serialize(event);
+  public String serialize(Action action) {
+    return JsonUtil.serialize(action);
   }
 
-  public Event deserialize(String json) {
+  public Action deserialize(String json) {
     return JsonUtil.deserialize(json);
   }
 
-  public Event getEvent(String name) {
+  public Action getEvent(String name) {
     return Main.getEventRegistry().getByName(name);
   }
 
-  public Event getRandomEvent() {
+  public Action getRandomEvent() {
 
-    Set<Event> events = Main.getEventRegistry().getEvents();
-    int index = ThreadLocalRandom.current().nextInt(0, events.size());
+    Set<Action> actions = Main.getEventRegistry().getActions();
+    int index = ThreadLocalRandom.current().nextInt(0, actions.size());
 
-    return (Event) events.toArray()[index];
+    return (Action) actions.toArray()[index];
   }
 
-  public Set<Event> getEvents() {
-    return Main.getEventRegistry().getEvents();
+  public Set<Action> getEvents() {
+    return Main.getEventRegistry().getActions();
   }
 
-  public List<EventCluster> loadEventClusters() {
-    return eventClusterRepository.loadClusters();
+  public List<ActionSequence> loadEventClusters() {
+    return actionSequenceRepository.loadClusters();
   }
 
-  public List<EventCluster> getClusters() {
-    return eventClusterRepository.getClusters();
+  public List<ActionSequence> getClusters() {
+    return actionSequenceRepository.getClusters();
   }
 }

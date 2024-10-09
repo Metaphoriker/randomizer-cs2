@@ -6,7 +6,7 @@ import de.metaphoriker.gui.util.CSSUtil;
 import de.metaphoriker.gui.util.ImageUtil;
 import de.metaphoriker.gui.view.View;
 import de.metaphoriker.gui.view.models.BuilderViewModel;
-import de.metaphoriker.model.event.cluster.EventCluster;
+
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;

@@ -1,6 +1,6 @@
 package de.metaphoriker.model.event.cluster;
 
-import de.metaphoriker.model.event.Event;
+import de.metaphoriker.model.event.Action;
 import de.metaphoriker.model.json.JsonUtil;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -12,24 +12,24 @@ import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Slf4j
-public class EventCluster {
+public class ActionSequence {
 
   private final String name;
-  private final List<Event> events;
+  private final List<Action> actions;
 
-  public EventCluster(String name, List<Event> events) {
+  public ActionSequence(String name, List<Action> actions) {
     if (name == null || name.trim().isEmpty()) {
       throw new IllegalArgumentException("Cluster name cannot be null or empty.");
     }
-    if (events == null) {
+    if (actions == null) {
       throw new IllegalArgumentException("Events list cannot be null.");
     }
 
     this.name = name;
-    this.events = Collections.unmodifiableList(new ArrayList<>(events));
+    this.actions = Collections.unmodifiableList(new ArrayList<>(actions));
   }
 
-  public static EventCluster formatEventCluster(String name, String content) {
+  public static ActionSequence formatEventCluster(String name, String content) {
     if (name == null || name.trim().isEmpty()) {
       throw new IllegalArgumentException("Cluster name cannot be null or empty.");
     }
@@ -37,24 +37,24 @@ public class EventCluster {
       throw new IllegalArgumentException("Content cannot be null or empty.");
     }
 
-    List<Event> eventList = new ArrayList<>();
+    List<Action> actionList = new ArrayList<>();
 
     String[] events = content.split(";");
     for (String eventString : events) {
       try {
-        Event event = JsonUtil.deserialize(eventString);
-        eventList.add(event);
+        Action action = JsonUtil.deserialize(eventString);
+        actionList.add(action);
       } catch (Exception e) {
         log.error("Failed to deserialize event: {} - {}", eventString, e.getMessage());
       }
     }
 
-    return new EventCluster(name, eventList);
+    return new ActionSequence(name, actionList);
   }
 
   @Override
   public String toString() {
-    String eventsString = events.stream().map(Event::toString).collect(Collectors.joining(", "));
+    String eventsString = actions.stream().map(Action::toString).collect(Collectors.joining(", "));
     return "EventCluster{name='" + name + "', events=[" + eventsString + "]}";
   }
 
@@ -62,12 +62,12 @@ public class EventCluster {
   public boolean equals(Object o) {
     if (this == o) return true;
     if (o == null || getClass() != o.getClass()) return false;
-    EventCluster that = (EventCluster) o;
-    return Objects.equals(name, that.name) && Objects.equals(events, that.events);
+    ActionSequence that = (ActionSequence) o;
+    return Objects.equals(name, that.name) && Objects.equals(actions, that.actions);
   }
 
   @Override
   public int hashCode() {
-    return Objects.hash(name, events);
+    return Objects.hash(name, actions);
   }
 }

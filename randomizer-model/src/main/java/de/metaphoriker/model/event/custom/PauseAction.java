@@ -1,12 +1,12 @@
 package de.metaphoriker.model.event.custom;
 
 import de.metaphoriker.model.cfg.keybind.KeyBind;
-import de.metaphoriker.model.event.Event;
+import de.metaphoriker.model.event.Action;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class PauseEvent extends Event {
+public class PauseAction extends Action {
 
-  public PauseEvent(KeyBind keyBind) {
+  public PauseAction(KeyBind keyBind) {
     super(keyBind);
   }
 

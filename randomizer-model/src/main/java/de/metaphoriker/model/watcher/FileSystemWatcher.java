@@ -1,6 +1,6 @@
 package de.metaphoriker.model.watcher;
 
-import de.metaphoriker.model.event.cluster.EventClusterDao;
+import de.metaphoriker.model.event.cluster.ActionSequenceDao;
 import de.metaphoriker.model.notify.Notification;
 import de.metaphoriker.model.notify.Speaker;
 import java.io.IOException;
@@ -14,7 +14,7 @@ public class FileSystemWatcher implements Runnable {
   public void run() {
     try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
 
-      Path clusterDirectory = EventClusterDao.CLUSTER_FOLDER.toPath();
+      Path clusterDirectory = ActionSequenceDao.CLUSTER_FOLDER.toPath();
       clusterDirectory.register(
           watcher, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE);
 

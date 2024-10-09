@@ -1,6 +1,6 @@
 package de.metaphoriker.model.event.cluster;
 
-import de.metaphoriker.model.event.Event;
+import de.metaphoriker.model.event.Action;
 import de.metaphoriker.model.json.JsonUtil;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.io.File;
@@ -13,10 +13,10 @@ import java.util.Objects;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class EventClusterDao {
+public class ActionSequenceDao {
 
   public static final File CLUSTER_FOLDER =
-      new File(ApplicationContext.getAppdataFolder() + File.separator + "cluster");
+      new File(ApplicationContext.getAppdataFolder() + File.separator + "sequences");
 
   static {
     if (!CLUSTER_FOLDER.exists() && !CLUSTER_FOLDER.mkdirs()) {
@@ -24,15 +24,15 @@ public class EventClusterDao {
     }
   }
 
-  public synchronized void saveCluster(EventCluster cluster) {
+  public synchronized void saveCluster(ActionSequence cluster) {
     Objects.requireNonNull(cluster, "Cluster cannot be null");
 
-    File file = new File(CLUSTER_FOLDER, cluster.getName() + ".cluster");
+    File file = new File(CLUSTER_FOLDER, cluster.getName() + ".sequence");
 
     try (PrintWriter writer = new PrintWriter(file)) {
       StringBuilder stringBuilder = new StringBuilder();
-      for (Event event : cluster.getEvents()) {
-        stringBuilder.append(JsonUtil.serialize(event)).append(";");
+      for (Action action : cluster.getActions()) {
+        stringBuilder.append(JsonUtil.serialize(action)).append(";");
       }
 
       writer.println(stringBuilder);
@@ -43,10 +43,10 @@ public class EventClusterDao {
     }
   }
 
-  public synchronized void deleteCluster(EventCluster cluster) {
+  public synchronized void deleteCluster(ActionSequence cluster) {
     Objects.requireNonNull(cluster, "Cluster cannot be null");
 
-    File file = new File(CLUSTER_FOLDER, cluster.getName() + ".cluster");
+    File file = new File(CLUSTER_FOLDER, cluster.getName() + ".sequence");
     if (!file.exists()) {
       log.warn("Cluster file does not exist: {}", file.getAbsolutePath());
       return;
@@ -61,8 +61,8 @@ public class EventClusterDao {
     }
   }
 
-  public List<EventCluster> loadClusters() {
-    List<EventCluster> clusters = new ArrayList<>();
+  public List<ActionSequence> loadClusters() {
+    List<ActionSequence> clusters = new ArrayList<>();
     File[] clusterFiles = CLUSTER_FOLDER.listFiles();
 
     if (clusterFiles == null || clusterFiles.length == 0) {
@@ -71,19 +71,19 @@ public class EventClusterDao {
     }
 
     for (File file : clusterFiles) {
-      if (!file.getName().endsWith(".cluster")) continue;
+      if (!file.getName().endsWith(".sequence")) continue;
 
       try {
         String content = Files.readAllLines(file.toPath()).get(0);
         String[] events = content.split(";");
-        List<Event> eventList = new ArrayList<>(events.length);
+        List<Action> actionList = new ArrayList<>(events.length);
 
         for (String event : events) {
-          eventList.add(JsonUtil.deserialize(event));
+          actionList.add(JsonUtil.deserialize(event));
         }
 
-        String name = file.getName().replace(".cluster", "");
-        clusters.add(new EventCluster(name, eventList));
+        String name = file.getName().replace(".sequence", "");
+        clusters.add(new ActionSequence(name, actionList));
       } catch (IOException e) {
         log.error("Failed to load cluster from file: {}", file.getAbsolutePath(), e);
       }

@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Slf4j
-public class Event {
+public class Action {
 
   protected static final Robot robot;
   private static final String EMPTY = "";
@@ -30,7 +30,7 @@ public class Event {
   @Setter private boolean activated;
   @Setter private Interval interval;
 
-  public Event(KeyBind keyBind) {
+  public Action(KeyBind keyBind) {
     this.keyBind = keyBind;
   }
 
@@ -194,8 +194,8 @@ public class Event {
     if (obj == null || getClass() != obj.getClass()) {
       return false;
     }
-    Event event = (Event) obj;
-    return name().equals(event.name());
+    Action action = (Action) obj;
+    return name().equals(action.name());
   }
 
   @Override

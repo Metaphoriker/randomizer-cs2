@@ -1,6 +1,6 @@
 package de.metaphoriker.gui.component;
 
-import de.metaphoriker.model.event.Event;
+import de.metaphoriker.model.event.Action;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
@@ -16,17 +16,17 @@ public class EventComponent extends VBox {
   private final Label nameLabel = new Label();
   private final Button button = new Button("Interval-Settings");
 
-  @Getter private final Event represent;
+  @Getter private final Action represent;
   private final EventSettingsComponent eventSettingsComponent;
 
-  public EventComponent(Event event) {
+  public EventComponent(Action action) {
 
-    this.represent = event;
+    this.represent = action;
     this.eventSettingsComponent = new EventSettingsComponent(represent);
 
     innerHBox.setSpacing(75);
 
-    nameLabel.setText(event.name());
+    nameLabel.setText(action.name());
 
     button.setFont(new Font("Arial", 8));
     button.setOnAction(
@@ -43,7 +43,7 @@ public class EventComponent extends VBox {
     HBox.setHgrow(placeHolder, Priority.ALWAYS);
 
     innerHBox.getChildren().addAll(nameLabel, placeHolder);
-    if (event.getInterval() != null) {
+    if (action.getInterval() != null) {
       innerHBox.getChildren().add(button);
     }
 

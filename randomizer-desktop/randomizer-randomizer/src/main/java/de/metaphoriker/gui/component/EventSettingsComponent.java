@@ -1,6 +1,6 @@
 package de.metaphoriker.gui.component;
 
-import de.metaphoriker.model.event.Event;
+import de.metaphoriker.model.event.Action;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
 
@@ -10,20 +10,20 @@ public class EventSettingsComponent extends VBox {
 
   private final VBox vBox = new VBox();
 
-  private final Event event;
+  private final Action action;
 
-  public EventSettingsComponent(Event event) {
+  public EventSettingsComponent(Action action) {
 
-    this.event = event;
+    this.action = action;
 
-    title.setText(event.name() + " Settings");
+    title.setText(action.name() + " Settings");
 
-    if (event.getInterval() != null) {
+    if (action.getInterval() != null) {
 
       SliderLabelComponent minSlider =
-          new SliderLabelComponent("Min", 1, 9999, event.getInterval().getMin());
+          new SliderLabelComponent("Min", 1, 9999, action.getInterval().getMin());
       SliderLabelComponent maxSlider =
-          new SliderLabelComponent("Max", 2, 10000, event.getInterval().getMax());
+          new SliderLabelComponent("Max", 2, 10000, action.getInterval().getMax());
 
       Label infoLabel =
           new Label(
@@ -39,15 +39,15 @@ public class EventSettingsComponent extends VBox {
 
   public void apply() {
 
-    if (event.getInterval() != null) {
+    if (action.getInterval() != null) {
 
       int min = (int) ((SliderLabelComponent) vBox.getChildren().get(0)).getSlider().getValue();
       int max = (int) ((SliderLabelComponent) vBox.getChildren().get(1)).getSlider().getValue();
 
       if (min >= max) return;
 
-      event.getInterval().setMin(min);
-      event.getInterval().setMax(max);
+      action.getInterval().setMin(min);
+      action.getInterval().setMax(max);
     }
   }
 }

@@ -2,20 +2,20 @@ package de.metaphoriker.model.event.handling;
 
 import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.FocusManager;
-import de.metaphoriker.model.event.cluster.EventClusterRepository;
+import de.metaphoriker.model.event.cluster.ActionSequenceRepository;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.util.concurrent.ThreadLocalRandom;
 
-public class EventExecutorRunnable implements Runnable {
+public class ActionExecutorRunnable implements Runnable {
 
   private static final Object lock = new Object();
   private static volatile int minWaitTime = 30 * 1000;
   private static volatile int maxWaitTime = 120 * 1000;
-  private final EventClusterRepository eventClusterRepository;
+  private final ActionSequenceRepository actionSequenceRepository;
   private static volatile boolean waitTimeUpdated = false;
 
-  public EventExecutorRunnable(EventClusterRepository eventClusterRepository) {
-    this.eventClusterRepository = eventClusterRepository;
+  public ActionExecutorRunnable(ActionSequenceRepository actionSequenceRepository) {
+    this.actionSequenceRepository = actionSequenceRepository;
   }
 
   public static void setMaxWaitTime(int newMaxWaitTime) {
@@ -41,14 +41,14 @@ public class EventExecutorRunnable implements Runnable {
         handleApplicationState();
 
         if (ApplicationContext.getApplicationState() == ApplicationState.RUNNING
-            && !eventClusterRepository.getClusters().isEmpty()) {
+            && !actionSequenceRepository.getClusters().isEmpty()) {
 
-          EventDispatcher.dispatchCluster(
-              eventClusterRepository
+          ActionDispatcher.dispatchCluster(
+              actionSequenceRepository
                   .getClusters()
                   .get(
                       ThreadLocalRandom.current()
-                          .nextInt(0, eventClusterRepository.getClusters().size())));
+                          .nextInt(0, actionSequenceRepository.getClusters().size())));
         }
       }
 
