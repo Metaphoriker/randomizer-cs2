@@ -2,9 +2,9 @@ package de.metaphoriker.gui.view.models;
 
 import de.metaphoriker.Main;
 import de.metaphoriker.gui.view.ViewModel;
-import de.metaphoriker.model.event.Action;
-import de.metaphoriker.model.event.cluster.ActionSequence;
-import de.metaphoriker.model.event.cluster.ActionSequenceRepository;
+import de.metaphoriker.model.action.Action;
+import de.metaphoriker.model.action.sequence.ActionSequence;
+import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.json.JsonUtil;
 import java.util.List;
 import java.util.Set;
@@ -19,7 +19,7 @@ public class BuilderViewModel implements ViewModel {
   }
 
   public void saveCluster(String name, String content) {
-    actionSequenceRepository.saveCluster(ActionSequence.formatEventCluster(name, content));
+    actionSequenceRepository.saveActionSequence(ActionSequence.formatEventCluster(name, content));
   }
 
   public String serialize(Action action) {
@@ -47,10 +47,10 @@ public class BuilderViewModel implements ViewModel {
   }
 
   public List<ActionSequence> loadEventClusters() {
-    return actionSequenceRepository.loadClusters();
+    return actionSequenceRepository.loadActionSequences();
   }
 
   public List<ActionSequence> getClusters() {
-    return actionSequenceRepository.getClusters();
+    return actionSequenceRepository.getActionSequences();
   }
 }

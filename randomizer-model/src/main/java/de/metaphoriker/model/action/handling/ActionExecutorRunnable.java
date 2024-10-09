@@ -1,8 +1,8 @@
-package de.metaphoriker.model.event.handling;
+package de.metaphoriker.model.action.handling;
 
 import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.FocusManager;
-import de.metaphoriker.model.event.cluster.ActionSequenceRepository;
+import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.util.concurrent.ThreadLocalRandom;
 
@@ -41,14 +41,14 @@ public class ActionExecutorRunnable implements Runnable {
         handleApplicationState();
 
         if (ApplicationContext.getApplicationState() == ApplicationState.RUNNING
-            && !actionSequenceRepository.getClusters().isEmpty()) {
+            && !actionSequenceRepository.getActionSequences().isEmpty()) {
 
           ActionDispatcher.dispatchCluster(
               actionSequenceRepository
-                  .getClusters()
+                  .getActionSequences()
                   .get(
                       ThreadLocalRandom.current()
-                          .nextInt(0, actionSequenceRepository.getClusters().size())));
+                          .nextInt(0, actionSequenceRepository.getActionSequences().size())));
         }
       }
 

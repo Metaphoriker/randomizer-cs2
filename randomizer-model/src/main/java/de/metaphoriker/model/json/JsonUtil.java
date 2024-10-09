@@ -2,7 +2,7 @@ package de.metaphoriker.model.json;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import de.metaphoriker.model.event.Action;
+import de.metaphoriker.model.action.Action;
 import java.io.IOException;
 import lombok.experimental.UtilityClass;
 

@@ -6,12 +6,12 @@ import de.metaphoriker.gui.AppStarter;
 import de.metaphoriker.model.cfg.ConfigLoader;
 import de.metaphoriker.model.cfg.keybind.KeyBind;
 import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
-import de.metaphoriker.model.event.Action;
-import de.metaphoriker.model.event.custom.PauseAction;
-import de.metaphoriker.model.event.handling.ActionExecutorRunnable;
-import de.metaphoriker.model.event.handling.ActionRegistry;
-import de.metaphoriker.model.event.custom.MouseMoveAction;
-import de.metaphoriker.model.event.cluster.ActionSequenceRepository;
+import de.metaphoriker.model.action.Action;
+import de.metaphoriker.model.action.custom.PauseAction;
+import de.metaphoriker.model.action.handling.ActionExecutorRunnable;
+import de.metaphoriker.model.action.handling.ActionRegistry;
+import de.metaphoriker.model.action.custom.MouseMoveAction;
+import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
 import de.metaphoriker.model.notify.Speaker;
@@ -64,7 +64,7 @@ public class Main {
   }
 
   private static void cacheCluster() {
-    EVENT_CLUSTER_REPOSITORY.loadClusters();
+    EVENT_CLUSTER_REPOSITORY.loadActionSequences();
   }
 
   private static void startUpdaterIfNecessary(String path) throws IOException, URISyntaxException {

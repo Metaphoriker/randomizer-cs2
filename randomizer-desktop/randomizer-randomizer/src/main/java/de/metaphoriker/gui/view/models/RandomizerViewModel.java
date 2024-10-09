@@ -3,11 +3,11 @@ package de.metaphoriker.gui.view.models;
 import de.metaphoriker.Main;
 import de.metaphoriker.gui.view.ViewModel;
 import de.metaphoriker.model.ApplicationState;
-import de.metaphoriker.model.event.Action;
-import de.metaphoriker.model.event.handling.ActionDispatcher;
-import de.metaphoriker.model.event.handling.ActionExecutorRunnable;
-import de.metaphoriker.model.event.cluster.ActionSequence;
-import de.metaphoriker.model.event.cluster.ActionSequenceRepository;
+import de.metaphoriker.model.action.Action;
+import de.metaphoriker.model.action.handling.ActionDispatcher;
+import de.metaphoriker.model.action.handling.ActionExecutorRunnable;
+import de.metaphoriker.model.action.sequence.ActionSequence;
+import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.util.List;
 import java.util.Set;
@@ -98,6 +98,6 @@ public class RandomizerViewModel implements ViewModel {
   }
 
   public List<ActionSequence> getClusters() {
-    return actionSequenceRepository.loadClusters();
+    return actionSequenceRepository.loadActionSequences();
   }
 }

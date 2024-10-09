@@ -1,6 +1,6 @@
-package de.metaphoriker.model.event.handling;
+package de.metaphoriker.model.action.handling;
 
-import de.metaphoriker.model.event.Action;
+import de.metaphoriker.model.action.Action;
 
 import java.util.HashSet;
 import java.util.Set;

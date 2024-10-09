@@ -1,8 +1,8 @@
 package de.metaphoriker.gui.component;
 
 import de.metaphoriker.gui.util.ImageUtil;
-import de.metaphoriker.model.event.Action;
-import de.metaphoriker.model.event.cluster.ActionSequence;
+import de.metaphoriker.model.action.Action;
+import de.metaphoriker.model.action.sequence.ActionSequence;
 import java.util.ArrayList;
 import java.util.List;
 import javafx.application.Platform;

@@ -1,7 +1,7 @@
-package de.metaphoriker.model.event.custom;
+package de.metaphoriker.model.action.custom;
 
 import de.metaphoriker.model.cfg.keybind.KeyBind;
-import de.metaphoriker.model.event.Action;
+import de.metaphoriker.model.action.Action;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PauseAction extends Action {

@@ -1,6 +1,6 @@
-package de.metaphoriker.model.event.cluster;
+package de.metaphoriker.model.action.sequence;
 
-import de.metaphoriker.model.event.Action;
+import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.json.JsonUtil;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -55,7 +55,7 @@ public class ActionSequence {
   @Override
   public String toString() {
     String eventsString = actions.stream().map(Action::toString).collect(Collectors.joining(", "));
-    return "EventCluster{name='" + name + "', events=[" + eventsString + "]}";
+    return "ActionSequence{name='" + name + "', actions=[" + eventsString + "]}";
   }
 
   @Override

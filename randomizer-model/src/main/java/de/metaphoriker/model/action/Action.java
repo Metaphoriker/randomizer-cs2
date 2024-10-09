@@ -1,4 +1,4 @@
-package de.metaphoriker.model.event;
+package de.metaphoriker.model.action;
 
 import de.metaphoriker.model.cfg.keybind.KeyBind;
 import java.awt.AWTException;

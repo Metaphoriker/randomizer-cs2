@@ -1,6 +1,6 @@
 package de.metaphoriker.gui.component;
 
-import de.metaphoriker.model.event.Action;
+import de.metaphoriker.model.action.Action;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
