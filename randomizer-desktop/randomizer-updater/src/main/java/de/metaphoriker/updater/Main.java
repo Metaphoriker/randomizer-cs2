@@ -60,20 +60,23 @@ public class Main {
                       jLabel.setText("Update available. Updating...");
                       CompletableFuture.runAsync(
                               () -> {
-                                Updater.update(
-                                    randomizer,
-                                    Updater.RANDOMIZER_DOWNLOAD_URL,
-                                    (bytesRead, totalBytes) -> {
-                                      double progress = (double) bytesRead / totalBytes * 100;
-                                      SwingUtilities.invokeLater(
-                                          () -> {
-                                            progressBar.setValue((int) progress);
-                                            progressBar.setString(
-                                                "Downloading... "
-                                                    + String.format("%.2f", progress)
-                                                    + "%");
-                                          });
-                                    });
+                                String latestReleaseUrl = Updater.getLatestReleaseUrl();
+                                if (latestReleaseUrl != null) {
+                                  Updater.update(
+                                      randomizer,
+                                      latestReleaseUrl,
+                                      (bytesRead, totalBytes) -> {
+                                        double progress = (double) bytesRead / totalBytes * 100;
+                                        SwingUtilities.invokeLater(
+                                            () -> {
+                                              progressBar.setValue((int) progress);
+                                              progressBar.setString(
+                                                  "Downloading... "
+                                                      + String.format("%.2f", progress)
+                                                      + "%");
+                                            });
+                                      });
+                                }
                               })
                           .thenRun(
                               () -> {
