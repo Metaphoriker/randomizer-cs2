@@ -7,13 +7,6 @@ import java.util.List;
 import java.util.function.Consumer;
 import lombok.Getter;
 
-/**
- * This class is for whatever the fuck this is. I don't know. I don't care. It just works. Don't
- * touch it. But to be honest, I think it's for the appdata folder.
- *
- * @author GitHub-Copilot
- *     <p>But for real now, this class is for stuff idk where to put yet.
- */
 public class ApplicationContext {
 
   private static final File APPDATA_FOLDER =
