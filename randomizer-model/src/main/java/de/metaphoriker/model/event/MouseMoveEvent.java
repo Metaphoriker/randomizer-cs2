@@ -1,15 +1,27 @@
-package de.metaphoriker.model.event.events;
+package de.metaphoriker.model.event;
 
-import de.metaphoriker.model.event.Event;
+import de.metaphoriker.model.cfg.keybind.KeyBind;
 import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 
-// always looks down, fix. maybe use angle near the middle of the screen?
 public class MouseMoveEvent extends Event {
+
+  public MouseMoveEvent(KeyBind keyBind) {
+    super(keyBind);
+  }
+
+  @Override
+  public String name() {
+    return "Mouse Move";
+  }
+
+  @Override
+  public String description() {
+    return "Moves the mouse to a random location on the screen.";
+  }
 
   @Override
   public void execute() {
-
     Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
 
     int middleX = dimension.width / 2;
@@ -19,10 +31,5 @@ public class MouseMoveEvent extends Event {
     int y = ThreadLocalRandom.current().nextInt(middleY - 5, middleY + 5);
 
     robot.mouseMove(x, y);
-  }
-
-  @Override
-  public String description() {
-    return "Moves mouse randomly around the middle of the screen";
   }
 }

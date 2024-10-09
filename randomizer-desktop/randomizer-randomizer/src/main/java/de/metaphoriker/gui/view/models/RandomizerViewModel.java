@@ -1,5 +1,6 @@
 package de.metaphoriker.gui.view.models;
 
+import de.metaphoriker.Main;
 import de.metaphoriker.gui.view.ViewModel;
 import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.event.Event;
@@ -94,7 +95,7 @@ public class RandomizerViewModel implements ViewModel {
   }
 
   public Set<Event> getEvents() {
-    return EventRegistry.getEvents();
+    return Main.getEventRegistry().getEvents();
   }
 
   public List<EventCluster> getClusters() {

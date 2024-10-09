@@ -1,8 +1,8 @@
 package de.metaphoriker.gui.view.models;
 
+import de.metaphoriker.Main;
 import de.metaphoriker.gui.view.ViewModel;
 import de.metaphoriker.model.event.Event;
-import de.metaphoriker.model.event.EventRegistry;
 import de.metaphoriker.model.event.cluster.EventCluster;
 import de.metaphoriker.model.event.cluster.EventClusterRepository;
 import de.metaphoriker.model.json.JsonUtil;
@@ -39,19 +39,19 @@ public class BuilderViewModel implements ViewModel {
   }
 
   public Event getEvent(String name) {
-    return EventRegistry.getByName(name);
+    return Main.getEventRegistry().getByName(name);
   }
 
   public Event getRandomEvent() {
 
-    Set<Event> events = EventRegistry.getEvents();
+    Set<Event> events = Main.getEventRegistry().getEvents();
     int index = ThreadLocalRandom.current().nextInt(0, events.size());
 
     return (Event) events.toArray()[index];
   }
 
   public Set<Event> getEvents() {
-    return EventRegistry.getEvents();
+    return Main.getEventRegistry().getEvents();
   }
 
   public List<EventCluster> loadEventClusters() {

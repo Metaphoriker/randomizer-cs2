@@ -7,50 +7,66 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
+import de.metaphoriker.model.cfg.keybind.KeyBind;
+import de.metaphoriker.model.event.Event;
 import de.metaphoriker.model.event.Interval;
+import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 
-public class JsonDeSerializer implements JsonSerializer<Object>, JsonDeserializer<Object> {
+public class JsonDeSerializer implements JsonSerializer<Event>, JsonDeserializer<Event> {
 
   private static final String CLASS_META_KEY = "CLASS_META_KEY";
-  private static final String MIN_KEY = "min";
-  private static final String MAX_KEY = "max";
+  private static final String KEYBIND_KEY = "keyBind";
+  private static final String INTERVAL_KEY = "interval";
+  private static final String ACTIVATED_KEY = "activated";
 
   @Override
-  public JsonElement serialize(
-      Object object, Type type, JsonSerializationContext jsonSerializationContext) {
+  public JsonElement serialize(Event event, Type type, JsonSerializationContext context) {
 
-    JsonElement jsonEle = jsonSerializationContext.serialize(object, object.getClass());
-    jsonEle.getAsJsonObject().addProperty(CLASS_META_KEY, object.getClass().getCanonicalName());
+    JsonObject jsonObject = new JsonObject();
 
-    return jsonEle;
+    jsonObject.addProperty(CLASS_META_KEY, event.getClass().getCanonicalName());
+
+    jsonObject.add(KEYBIND_KEY, context.serialize(event.getKeyBind()));
+
+    if (event.getInterval() != null) {
+      jsonObject.add(INTERVAL_KEY, context.serialize(event.getInterval()));
+    }
+
+    jsonObject.addProperty(ACTIVATED_KEY, event.isActivated());
+
+    return jsonObject;
   }
 
   @Override
-  public Object deserialize(
-      JsonElement jsonElement, Type type, JsonDeserializationContext jsonDeserializationContext)
+  public Event deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context)
       throws JsonParseException {
-
-    JsonObject jsonObj = jsonElement.getAsJsonObject();
-    String className = jsonObj.get(CLASS_META_KEY).getAsString();
+    JsonObject jsonObject = jsonElement.getAsJsonObject();
+    String className = jsonObject.get(CLASS_META_KEY).getAsString();
 
     try {
       Class<?> clazz = Class.forName(className);
-      Object object = jsonDeserializationContext.deserialize(jsonElement, clazz);
 
-      if (object instanceof Interval) {
+      Constructor<?> constructor = clazz.getDeclaredConstructor(KeyBind.class);
+      KeyBind keyBind = context.deserialize(jsonObject.get(KEYBIND_KEY), KeyBind.class);
 
-        Interval interval = (Interval) object;
-
-        interval.setMin(jsonObj.get(MIN_KEY).getAsInt());
-        interval.setMax(jsonObj.get(MAX_KEY).getAsInt());
-
-        return interval;
+      if (keyBind == null) {
+        throw new JsonParseException("KeyBind deserialization failed.");
       }
 
-      return object;
-    } catch (ClassNotFoundException e) {
-      throw new JsonParseException(e);
+      Event event = (Event) constructor.newInstance(keyBind);
+
+      if (jsonObject.has(INTERVAL_KEY)) {
+        Interval interval = context.deserialize(jsonObject.get(INTERVAL_KEY), Interval.class);
+        event.setInterval(interval);
+      }
+
+      event.setActivated(jsonObject.get(ACTIVATED_KEY).getAsBoolean());
+
+      return event;
+
+    } catch (Exception e) {
+      throw new JsonParseException("Failed to deserialize Event: " + className, e);
     }
   }
 }

@@ -1,23 +1,14 @@
 package de.metaphoriker.model.event;
 
-public interface Interval {
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.Setter;
 
-  int min();
+@AllArgsConstructor
+@Getter
+@Setter
+public class Interval {
 
-  int max();
-
-  /*
-   * TODO: Actually those 2 methods break the concept of an Value Object.
-   *  But anyways, since a new instance of the event should be created, it is not a problem yet.
-   *
-   * TODO: Maybe it would be better to create a new abstract class which represents an IntervalEvent
-   */
-
-  default void setMin(int min) {
-    throw new UnsupportedOperationException();
-  }
-
-  default void setMax(int max) {
-    throw new UnsupportedOperationException();
-  }
+  private int min;
+  private int max;
 }

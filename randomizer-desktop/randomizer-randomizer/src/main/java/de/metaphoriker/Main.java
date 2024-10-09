@@ -3,29 +3,17 @@ package de.metaphoriker;
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import de.metaphoriker.gui.AppStarter;
+import de.metaphoriker.model.cfg.ConfigLoader;
+import de.metaphoriker.model.cfg.keybind.KeyBind;
+import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
+import de.metaphoriker.model.event.Event;
 import de.metaphoriker.model.event.EventExecutorRunnable;
 import de.metaphoriker.model.event.EventRegistry;
+import de.metaphoriker.model.event.MouseMoveEvent;
 import de.metaphoriker.model.event.cluster.EventClusterRepository;
-import de.metaphoriker.model.event.events.CrouchEvent;
-import de.metaphoriker.model.event.events.DropWeaponEvent;
-import de.metaphoriker.model.event.events.EmptyMagazineEvent;
-import de.metaphoriker.model.event.events.EscapeEvent;
-import de.metaphoriker.model.event.events.IWannaKnifeEvent;
-import de.metaphoriker.model.event.events.IWannaNadeEvent;
-import de.metaphoriker.model.event.events.InteractEvent;
-import de.metaphoriker.model.event.events.JumpEvent;
-import de.metaphoriker.model.event.events.MouseLeftClickEvent;
-import de.metaphoriker.model.event.events.MouseMoveEvent;
-import de.metaphoriker.model.event.events.MouseRightClickEvent;
-import de.metaphoriker.model.event.events.MoveEvent;
-import de.metaphoriker.model.event.events.PauseEvent;
-import de.metaphoriker.model.event.events.ReloadEvent;
-import de.metaphoriker.model.event.events.ShiftEvent;
 import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
 import de.metaphoriker.model.notify.Speaker;
-import de.metaphoriker.model.scheduler.Scheduler;
-import de.metaphoriker.model.scheduler.SchedulerThread;
 import de.metaphoriker.model.stuff.WhateverThisFuckerIs;
 import de.metaphoriker.model.updater.Updater;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
@@ -38,15 +26,17 @@ public class Main {
 
   private static final EventClusterRepository EVENT_CLUSTER_REPOSITORY =
       new EventClusterRepository();
-  private static final Scheduler SCHEDULER = new Scheduler();
+  private static final KeyBindRepository KEY_BIND_REPOSITORY = new KeyBindRepository();
+  private static final EventRegistry EVENT_REGISTRY = new EventRegistry();
 
   public static void main(String[] args) throws IOException, URISyntaxException {
     setupAppdataFolder();
 
+    ConfigLoader.loadKeyBinds(KEY_BIND_REPOSITORY);
+
     registerEvents();
     cacheCluster();
 
-    startScheduler();
     startEventExecutor();
     startFileWatcher();
 
@@ -64,8 +54,8 @@ public class Main {
     Application.launch(AppStarter.class);
   }
 
-  public static Scheduler getScheduler() {
-    return SCHEDULER;
+  public static EventRegistry getEventRegistry() {
+    return EVENT_REGISTRY;
   }
 
   public static EventClusterRepository getEventClusterRepository() {
@@ -105,14 +95,6 @@ public class Main {
     return updaterJar;
   }
 
-  private static void startScheduler() {
-    SchedulerThread schedulerThread = new SchedulerThread(SCHEDULER);
-    schedulerThread.setUncaughtExceptionHandler(
-        UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
-    schedulerThread.setDaemon(true);
-    schedulerThread.start();
-  }
-
   private static void startEventExecutor() {
     Thread eventExecutor = new Thread(new EventExecutorRunnable(EVENT_CLUSTER_REPOSITORY));
     eventExecutor.setUncaughtExceptionHandler(
@@ -130,21 +112,14 @@ public class Main {
   }
 
   private static void registerEvents() {
-    EventRegistry.register(new MouseLeftClickEvent());
-    EventRegistry.register(new MouseRightClickEvent());
-    EventRegistry.register(new MouseMoveEvent());
-    EventRegistry.register(new MoveEvent());
-    EventRegistry.register(new CrouchEvent());
-    EventRegistry.register(new ShiftEvent());
-    EventRegistry.register(new JumpEvent());
-    EventRegistry.register(new ReloadEvent());
-    EventRegistry.register(new EscapeEvent());
-    EventRegistry.register(new DropWeaponEvent());
-    EventRegistry.register(new EmptyMagazineEvent());
-    EventRegistry.register(new IWannaKnifeEvent());
-    EventRegistry.register(new PauseEvent());
-    EventRegistry.register(new InteractEvent());
-    EventRegistry.register(new IWannaNadeEvent());
+    EVENT_REGISTRY.register(new MouseMoveEvent(KeyBind.EMPTY_KEYBIND));
+    KEY_BIND_REPOSITORY
+        .getKeyBinds()
+        .forEach(
+            keyBind -> {
+              Event event = new Event(keyBind);
+              EVENT_REGISTRY.register(event);
+            });
   }
 
   private static void registerNativeKeyHook() {
