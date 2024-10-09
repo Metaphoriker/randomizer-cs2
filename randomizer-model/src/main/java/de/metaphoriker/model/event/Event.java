@@ -1,7 +1,9 @@
 package de.metaphoriker.model.event;
 
 import java.awt.*;
+import lombok.Getter;
 
+@Getter
 public abstract class Event {
 
   protected static final Robot robot;
@@ -13,6 +15,12 @@ public abstract class Event {
     } catch (AWTException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  private boolean activated;
+
+  public void setActivated(boolean activated) {
+    this.activated = activated;
   }
 
   public String name() {
