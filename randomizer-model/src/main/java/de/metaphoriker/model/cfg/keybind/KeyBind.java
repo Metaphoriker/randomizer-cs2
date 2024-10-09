@@ -11,7 +11,7 @@ import lombok.Setter;
 @EqualsAndHashCode(of = "key")
 public class KeyBind {
 
-  public static final KeyBind EMPTY_KEYBIND = new KeyBind("", "");
+  public static final KeyBind EMPTY_KEYBIND = new KeyBind("<unbound>", "none");
 
   private String key;
   private String action;

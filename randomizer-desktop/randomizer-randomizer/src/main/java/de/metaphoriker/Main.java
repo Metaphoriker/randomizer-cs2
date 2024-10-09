@@ -7,9 +7,10 @@ import de.metaphoriker.model.cfg.ConfigLoader;
 import de.metaphoriker.model.cfg.keybind.KeyBind;
 import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
 import de.metaphoriker.model.event.Event;
+import de.metaphoriker.model.event.custom.PauseEvent;
 import de.metaphoriker.model.event.handling.EventExecutorRunnable;
 import de.metaphoriker.model.event.handling.EventRegistry;
-import de.metaphoriker.model.event.MouseMoveEvent;
+import de.metaphoriker.model.event.custom.MouseMoveEvent;
 import de.metaphoriker.model.event.cluster.EventClusterRepository;
 import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
@@ -113,6 +114,7 @@ public class Main {
 
   private static void registerEvents() {
     EVENT_REGISTRY.register(new MouseMoveEvent(KeyBind.EMPTY_KEYBIND));
+    EVENT_REGISTRY.register(new PauseEvent(KeyBind.EMPTY_KEYBIND));
     KEY_BIND_REPOSITORY
         .getKeyBinds()
         .forEach(

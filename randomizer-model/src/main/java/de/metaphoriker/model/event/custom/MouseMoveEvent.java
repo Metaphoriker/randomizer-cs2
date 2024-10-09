@@ -1,6 +1,8 @@
-package de.metaphoriker.model.event;
+package de.metaphoriker.model.event.custom;
 
 import de.metaphoriker.model.cfg.keybind.KeyBind;
+import de.metaphoriker.model.event.Event;
+
 import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 

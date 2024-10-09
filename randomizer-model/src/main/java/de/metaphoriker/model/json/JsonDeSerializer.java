@@ -12,7 +12,9 @@ import de.metaphoriker.model.event.Event;
 import de.metaphoriker.model.event.Interval;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class JsonDeSerializer implements JsonSerializer<Event>, JsonDeserializer<Event> {
 
   private static final String CLASS_META_KEY = "CLASS_META_KEY";
@@ -49,9 +51,9 @@ public class JsonDeSerializer implements JsonSerializer<Event>, JsonDeserializer
 
       Constructor<?> constructor = clazz.getDeclaredConstructor(KeyBind.class);
       KeyBind keyBind = context.deserialize(jsonObject.get(KEYBIND_KEY), KeyBind.class);
-
       if (keyBind == null) {
-        throw new JsonParseException("KeyBind deserialization failed.");
+        log.warn("No keyBind found for event: {}", className);
+        keyBind = KeyBind.EMPTY_KEYBIND;
       }
 
       Event event = (Event) constructor.newInstance(keyBind);
@@ -66,6 +68,7 @@ public class JsonDeSerializer implements JsonSerializer<Event>, JsonDeserializer
       return event;
 
     } catch (Exception e) {
+      log.error("Failed to deserialize Event: " + className, e);
       throw new JsonParseException("Failed to deserialize Event: " + className, e);
     }
   }
