@@ -53,32 +53,6 @@ public class BuilderView extends View<BuilderViewModel> {
     setGraphics();
     fillEventHBox();
     refreshCluster();
-
-    // TODO: move!
-    clusterListView
-        .getSelectionModel()
-        .selectedItemProperty()
-        .addListener(
-            (observable, oldValue, newValue) -> {
-              if (newValue == null) return;
-
-              clusterBuilderVBox.getChildren().clear();
-
-              EventCluster eventCluster = getViewModel().getCluster(newValue.getText());
-              try {
-                eventCluster
-                    .getEvents()
-                    .forEach(
-                        event -> {
-                          EventComponent eventComponent = new EventComponent(event);
-                          setupDragAlreadyDropped(eventComponent);
-
-                          clusterBuilderVBox.getChildren().add(eventComponent);
-                        });
-              } catch (JsonSyntaxException e) {
-                e.printStackTrace();
-              }
-            });
   }
 
   @FXML
@@ -132,7 +106,6 @@ public class BuilderView extends View<BuilderViewModel> {
 
     if (selectedCluster == null) return;
 
-    getViewModel().deleteCluster(selectedCluster.getText());
     refreshCluster();
 
     clusterBuilderVBox.getChildren().clear();
