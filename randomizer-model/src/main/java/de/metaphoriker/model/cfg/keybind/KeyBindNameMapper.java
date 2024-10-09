@@ -26,7 +26,7 @@ public class KeyBindNameMapper {
     descriptorToNameMap.put("+jump", "Jump");
     // descriptorToNameMap.put("buyammo1", "Buy Primary Ammo");
     // descriptorToNameMap.put("buyammo2", "Buy Secondary Ammo");
-    descriptorToNameMap.put("slot10", "Select Slot 10");
+    // descriptorToNameMap.put("slot10", "Select Slot 10");
     descriptorToNameMap.put("slot1", "Select Slot 1");
     descriptorToNameMap.put("slot2", "Select Slot 2");
     descriptorToNameMap.put("slot3", "Select Slot 3");
