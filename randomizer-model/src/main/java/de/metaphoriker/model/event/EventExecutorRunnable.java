@@ -40,13 +40,14 @@ public class EventExecutorRunnable implements Runnable {
     while (true) {
       if (WhateverThisFuckerIs.getApplicationState() == ApplicationState.RUNNING
           && !eventClusterRepository.getClusters().isEmpty()) {
-
-        EventDispatcher.dispatchCluster(
-            eventClusterRepository
-                .getClusters()
-                .get(
-                    ThreadLocalRandom.current()
-                        .nextInt(0, eventClusterRepository.getClusters().size())));
+        if (FocusManager.isCs2WindowInFocus()) {
+          EventDispatcher.dispatchCluster(
+              eventClusterRepository
+                  .getClusters()
+                  .get(
+                      ThreadLocalRandom.current()
+                          .nextInt(0, eventClusterRepository.getClusters().size())));
+        }
       }
 
       synchronized (EventExecutorRunnable.class) {
