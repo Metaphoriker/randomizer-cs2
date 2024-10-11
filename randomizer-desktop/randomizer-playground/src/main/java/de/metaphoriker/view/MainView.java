@@ -35,18 +35,13 @@ public class MainView extends AnchorPane implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    loadGameView();
+    loadBuilderView();
     setupGraphics();
   }
 
   private void loadBuilderView() {
     if (builderView == null) builderView = viewProvider.requestView(BuilderView.class);
     setContentPane(builderView);
-  }
-
-  private void loadGameView() {
-    Parent gameView = viewProvider.requestView(GameView.class);
-    setContentPane(gameView);
   }
 
   private void setContentPane(Node node) {
