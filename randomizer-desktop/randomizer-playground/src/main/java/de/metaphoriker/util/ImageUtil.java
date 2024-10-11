@@ -1,6 +1,7 @@
 package de.metaphoriker.util;
 
 import java.net.URL;
+
 import javafx.geometry.Side;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,12 +18,33 @@ public final class ImageUtil {
 
   private ImageUtil() {}
 
-  public static Image getRawImage(String path) {
-    URL imageUrl = ImageUtil.class.getResource(path);
-    if (imageUrl == null) {
-      throw new IllegalArgumentException("Image not found: " + path);
+  private static URL fetchResourceAsURL(String path) {
+    URL url = ImageUtil.class.getResource(path);
+    if (url == null) {
+      throw new IllegalArgumentException("Resource not found: " + path);
     }
-    return new Image(imageUrl.toExternalForm());
+    return url;
+  }
+
+  public static Image getRawImage(String path) {
+    return new Image(fetchResourceAsURL(path).toExternalForm());
+  }
+
+  public static Image getImage(String path) {
+    return getImage(path, DEFAULT_RESOLUTION);
+  }
+
+  public static Image getImage(String path, ImageResolution resolution) {
+    return new Image(
+        fetchResourceAsURL(path).toExternalForm(),
+        resolution.getWidth(),
+        resolution.getHeight(),
+        true,
+        true);
+  }
+
+  public static ImageView getRawImageView(String path) {
+    return new ImageView(getRawImage(path));
   }
 
   public static ImageView getImageView(String path) {
@@ -30,17 +52,19 @@ public final class ImageUtil {
   }
 
   public static ImageView getImageView(String path, ImageResolution resolution) {
-    URL imageUrl = ImageUtil.class.getResource(path);
-    if (imageUrl == null) {
-      throw new IllegalArgumentException("Image not found: " + path);
-    }
-    return new ImageView(
-        new Image(
-            imageUrl.toExternalForm(), resolution.getWidth(), resolution.getHeight(), true, true));
+    return new ImageView(getImage(path, resolution));
+  }
+
+  public static ImagePattern getRawImagePattern(String path) {
+    return new ImagePattern(getRawImage(path));
   }
 
   public static ImagePattern getImagePattern(String path) {
-    return new ImagePattern(getRawImage(path));
+    return getImagePattern(path, DEFAULT_RESOLUTION);
+  }
+
+  public static ImagePattern getImagePattern(String path, ImageResolution resolution) {
+    return new ImagePattern(getImage(path, resolution));
   }
 
   public static Background getBackground(String imageName) {
@@ -49,6 +73,7 @@ public final class ImageUtil {
 
   private static BackgroundImage convertPNGToBackgroundImage(String name) {
     Image image = getRawImage(name);
+
     return new BackgroundImage(
         image,
         BackgroundRepeat.REPEAT,

@@ -8,4 +8,6 @@ module de.metaphoriker.randomizer.playground {
       javafx.fxml;
 
   exports de.metaphoriker;
+    exports de.metaphoriker.util;
+    opens de.metaphoriker.util to javafx.fxml;
 }
