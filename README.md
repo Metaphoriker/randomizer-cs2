@@ -41,3 +41,5 @@ allowed. No risk of bans!* 🚫👮‍♂️
 Because sweating it out in CS2 can get old! This tool is made for the real gamers who want to **level up the fun** and
 add some unpredictable action to their gameplay. Whether you're looking for a challenge or just some laughs,
 **randomizer-cs2** delivers! 🔥
+
+Feel free to leave a ⭐ if you enjoy the app! 🌟
