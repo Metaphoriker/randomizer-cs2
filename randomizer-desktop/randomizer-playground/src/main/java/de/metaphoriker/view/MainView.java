@@ -35,13 +35,18 @@ public class MainView extends AnchorPane implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    loadBuilderView();
+    loadGameView();
     setupGraphics();
   }
 
   private void loadBuilderView() {
     if (builderView == null) builderView = viewProvider.requestView(BuilderView.class);
     setContentPane(builderView);
+  }
+
+  private void loadGameView() {
+    Parent gameView = viewProvider.requestView(GameView.class);
+    setContentPane(gameView);
   }
 
   private void setContentPane(Node node) {
@@ -52,12 +57,12 @@ public class MainView extends AnchorPane implements Initializable {
   }
 
   private void setupGraphics() {
-    logoShape.setFill(ImageUtil.getRawImagePattern("/de/metaphoriker/images/randomizerIcon.png"));
+    logoShape.setFill(ImageUtil.getRawImagePattern("images/randomizerIcon.png"));
     randomizerShape.setFill(
-        ImageUtil.getRawImagePattern("/de/metaphoriker/images/randomizerIcon.png"));
-    builderShape.setFill(ImageUtil.getRawImagePattern("/de/metaphoriker/images/discordIcon.png"));
-    gameShape.setFill(ImageUtil.getRawImagePattern("/de/metaphoriker/images/gameIcon.png"));
-    websiteShape.setFill(ImageUtil.getRawImagePattern("/de/metaphoriker/images/websiteIcon.png"));
-    discordShape.setFill(ImageUtil.getRawImagePattern("/de/metaphoriker/images/discordIcon.png"));
+        ImageUtil.getRawImagePattern("images/randomizerIcon.png"));
+    builderShape.setFill(ImageUtil.getRawImagePattern("images/discordIcon.png"));
+    gameShape.setFill(ImageUtil.getRawImagePattern("images/gameIcon.png"));
+    websiteShape.setFill(ImageUtil.getRawImagePattern("images/websiteIcon.png"));
+    discordShape.setFill(ImageUtil.getRawImagePattern("images/discordIcon.png"));
   }
 }

@@ -14,12 +14,13 @@ import javafx.scene.paint.ImagePattern;
 
 public final class ImageUtil {
 
+  private static final String MAIN_PATH = "/de/metaphoriker/";
   private static final ImageResolution DEFAULT_RESOLUTION = ImageResolution.MEDIUM;
 
   private ImageUtil() {}
 
   private static URL fetchResourceAsURL(String path) {
-    URL url = ImageUtil.class.getResource(path);
+    URL url = ImageUtil.class.getResource(MAIN_PATH + path);
     if (url == null) {
       throw new IllegalArgumentException("Resource not found: " + path);
     }

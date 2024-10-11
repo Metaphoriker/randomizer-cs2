@@ -1,7 +1,148 @@
-.button {
-    -fx-font-size: 12px;
-    -fx-background-color: #474a62;
-    -fx-focus-traversable: false;
+/* --- Base Styling --- */
+.root {
+    -fx-background-color: #1f2a2e;
+    -fx-text-fill: #d3d3d3;
 }
 
+/* --- Action Sequences Section --- */
+#action-sequences {
+    -fx-background-color: #293539;
+    -fx-padding: 15;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
 
+.label {
+    -fx-font-size: 18px;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+}
+
+/* --- Buttons --- */
+.button {
+    -fx-background-color: #5a4c74;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-color: #1f2a2e;
+    -fx-border-width: 1;
+    -fx-background-radius: 10;
+    -fx-border-radius: 10;
+    -fx-padding: 8 15;
+}
+
+.button:hover {
+    -fx-background-color: #7e68a3;
+}
+
+#add-cluster-btn {
+    -fx-background-color: #7a2b83;
+}
+
+#add-cluster-btn:hover {
+    -fx-background-color: #923ea0;
+}
+
+.button-icon {
+    -fx-padding: 6;
+    -fx-background-color: #3e4a4e;
+    -fx-background-radius: 50%;
+    -fx-border-radius: 50%;
+}
+
+.button-icon:hover {
+    -fx-background-color: #6c7b7f;
+}
+
+/* --- Input Fields --- */
+.text-field {
+    -fx-background-color: #1f2a2e;
+    -fx-text-fill: #ffffff;
+    -fx-background-radius: 5;
+    -fx-border-color: #4a4a4a;
+    -fx-border-radius: 5;
+    -fx-padding: 8;
+}
+
+.text-field:focused {
+    -fx-border-color: #5a4c74;
+}
+
+/* --- Sequence Builder Section --- */
+#sequence-builder {
+    -fx-background-color: #222d32;
+    -fx-border-color: #5a4c74;
+    -fx-border-width: 0 0 2 0;
+    -fx-padding: 15;
+    -fx-border-radius: 0;
+}
+
+.cluster-name-label {
+    -fx-text-fill: #ffffff;
+    -fx-font-size: 20px;
+    -fx-font-weight: bold;
+}
+
+.event-sequence-item {
+    -fx-background-color: #303c40;
+    -fx-text-fill: #d3d3d3;
+    -fx-padding: 8 15;
+    -fx-border-radius: 5;
+}
+
+.event-sequence-item:hover {
+    -fx-background-color: #3e4a4e;
+}
+
+/* --- Bottom Bar (Events) --- */
+#events-pane {
+    -fx-background-color: #1f2a2e;
+    -fx-border-color: #7a2b83;
+    -fx-border-width: 2 0 0 0;
+    -fx-padding: 10;
+}
+
+#clear-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-color: transparent;
+    -fx-border-radius: 5;
+}
+
+#clear-button:hover {
+    -fx-background-color: #3e4a4e;
+}
+
+#save-button {
+    -fx-background-color: #7a2b83;
+    -fx-text-fill: #ffffff;
+    -fx-font-weight: bold;
+    -fx-border-radius: 10;
+    -fx-background-radius: 10;
+}
+
+#save-button:hover {
+    -fx-background-color: #923ea0;
+}
+
+/* --- Sidebar Navigation --- */
+.sidebar {
+    -fx-background-color: #1f2a2e;
+    -fx-padding: 20;
+}
+
+.sidebar-button {
+    -fx-background-color: transparent;
+    -fx-text-fill: #ffffff;
+    -fx-padding: 15;
+    -fx-border-color: transparent;
+}
+
+.sidebar-button:hover {
+    -fx-background-color: #3e4a4e;
+    -fx-background-radius: 5;
+}
+
+.sidebar-button:focused {
+    -fx-background-color: #5a4c74;
+}
