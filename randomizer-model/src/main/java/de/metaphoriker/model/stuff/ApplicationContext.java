@@ -7,27 +7,27 @@ import java.util.List;
 import java.util.function.Consumer;
 import lombok.Getter;
 
+@Getter
 public class ApplicationContext {
 
+  // TODO: move this
   private static final File APPDATA_FOLDER =
       new File(System.getenv("APPDATA") + File.separator + "randomizer");
 
-  private static final List<Consumer<ApplicationState>> changeListener = new ArrayList<>();
+  private final List<Consumer<ApplicationState>> changeListener = new ArrayList<>();
 
-  @Getter private static volatile ApplicationState applicationState = ApplicationState.IDLING;
+  private volatile ApplicationState applicationState = ApplicationState.IDLING;
 
-  private ApplicationContext() {}
-
-  public static void registerApplicationStateChangeListener(Consumer<ApplicationState> listener) {
+  public void registerApplicationStateChangeListener(Consumer<ApplicationState> listener) {
     changeListener.add(listener);
   }
 
-  public static void setApplicationState(ApplicationState applicationState) {
-    ApplicationContext.applicationState = applicationState;
+  public void setApplicationState(ApplicationState applicationState) {
+    this.applicationState = applicationState;
     changeListener.forEach(changeListener -> changeListener.accept(applicationState));
   }
 
-  public static File getAppdataFolder() {
+  public File getAppdataFolder() {
     return APPDATA_FOLDER;
   }
 }

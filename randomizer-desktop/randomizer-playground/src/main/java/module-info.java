@@ -3,11 +3,19 @@ module de.metaphoriker.randomizer.playground {
   requires javafx.fxml;
   requires javafx.graphics;
   requires javafx.base;
+  requires com.google.guice;
 
   opens de.metaphoriker to
       javafx.fxml;
 
   exports de.metaphoriker;
-    exports de.metaphoriker.util;
-    opens de.metaphoriker.util to javafx.fxml;
+  exports de.metaphoriker.util;
+
+  opens de.metaphoriker.util to
+      javafx.fxml;
+
+  exports de.metaphoriker.view;
+
+  opens de.metaphoriker.view to
+      javafx.fxml;
 }

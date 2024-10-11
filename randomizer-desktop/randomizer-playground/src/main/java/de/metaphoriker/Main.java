@@ -1,5 +1,6 @@
 package de.metaphoriker;
 
+import de.metaphoriker.view.MainView;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;
@@ -15,7 +16,8 @@ public class Main extends Application {
   @Override
   public void start(Stage stage) {
     try {
-      Parent root = loadView(MainMenu.class, (Class<?> _) -> new MainMenu());
+      Parent root = loadView(MainView.class, (Class<?> _) -> new MainView());
+
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
       stage.setScene(scene);
@@ -33,7 +35,6 @@ public class Main extends Application {
     FXMLLoader fxmlLoader = new FXMLLoader();
 
     URL fxmlLocation = clazz.getResource(clazz.getSimpleName() + ".fxml");
-
     fxmlLoader.setLocation(fxmlLocation);
     fxmlLoader.setControllerFactory(controllerFactory);
 

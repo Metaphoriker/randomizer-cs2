@@ -1,9 +1,9 @@
-package de.metaphoriker;
+package de.metaphoriker.view;
 
+import de.metaphoriker.Main;
+import de.metaphoriker.util.ImageUtil;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import de.metaphoriker.util.ImageUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
@@ -12,8 +12,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 
-public class MainMenu extends AnchorPane implements Initializable {
+public class MainView extends AnchorPane implements Initializable {
 
+  private Parent builderView;
+
+  // TODO: sidebar auch in eine eigene Klasse auslagern
   @FXML private GridPane contentPane;
 
   @FXML private Circle discordShape;
@@ -30,9 +33,14 @@ public class MainMenu extends AnchorPane implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    Parent builderMenu = Main.loadView(BuilderMenu.class, (Class<?> _) -> new BuilderMenu());
-    setContentPane(builderMenu);
+    loadBuilderView();
     setupGraphics();
+  }
+
+  private void loadBuilderView() {
+    if (builderView == null)
+      builderView = Main.loadView(BuilderView.class, (Class<?> _) -> new BuilderView());
+    setContentPane(builderView);
   }
 
   private void setContentPane(Node node) {

@@ -1,13 +1,12 @@
 package de.metaphoriker.model.cfg;
 
-import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
-import de.metaphoriker.model.stuff.ApplicationContext;
 import java.io.File;
 import java.io.FileNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
+// TODO: merge this with KeyBindRepository
 public class ConfigLoader {
 
   private static final String[] STEAM_PATHS = {
@@ -23,7 +22,7 @@ public class ConfigLoader {
       loadUserKeyBindings(keyBindRepository);
     } catch (FileNotFoundException e) {
       log.error("Error loading key binds", e);
-      ApplicationContext.setApplicationState(ApplicationState.CORRUPTED);
+      throw new RuntimeException(e);
     }
   }
 
