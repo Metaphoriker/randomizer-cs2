@@ -2,30 +2,26 @@ package de.metaphoriker;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import de.metaphoriker.util.ImageUtil;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
 
 public class MainMenu extends AnchorPane implements Initializable {
-  @FXML private Label randomizerIcon;
-  @FXML private Label logbookIcon;
-  @FXML private Label gameIcon;
-  @FXML private Label discordIcon;
-  @FXML private Label websiteIcon;
+
+  @FXML private AnchorPane contentPane;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    setUpGraphics();
+    Parent builderMenu = Main.loadView(BuilderMenu.class, (Class<?> _) -> new BuilderMenu());
+    setContentPane(builderMenu);
   }
 
-  private void setUpGraphics() {
-    randomizerIcon.setGraphic(ImageUtil.getImageView("/de/metaphoriker/images/randomizerIcon.png"));
-    logbookIcon.setGraphic(ImageUtil.getImageView("/de/metaphoriker/images/logbookIcon.png"));
-    gameIcon.setGraphic(ImageUtil.getImageView("/de/metaphoriker/images/gameIcon.png"));
-    discordIcon.setGraphic(ImageUtil.getImageView("/de/metaphoriker/images/discordIcon.png"));
-    websiteIcon.setGraphic(ImageUtil.getImageView("/de/metaphoriker/images/websiteIcon.png"));
+  private void setContentPane(Node node) {
+    contentPane.getChildren().clear();
+    contentPane.getChildren().add(node);
+
+    System.out.println("Content pane children: " + contentPane.getChildren());
   }
 }

@@ -29,7 +29,7 @@ public class Main extends Application {
     launch(args);
   }
 
-  private static <T> Parent loadView(Class<T> clazz, Callback<Class<?>, Object> controllerFactory) {
+  public static <T> Parent loadView(Class<T> clazz, Callback<Class<?>, Object> controllerFactory) {
     FXMLLoader fxmlLoader = new FXMLLoader();
 
     URL fxmlLocation = clazz.getResource(clazz.getSimpleName() + ".fxml");
