@@ -7,10 +7,11 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.GridPane;
 
 public class MainMenu extends AnchorPane implements Initializable {
 
-  @FXML private AnchorPane contentPane;
+  @FXML private GridPane contentPane;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
