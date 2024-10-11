@@ -14,7 +14,7 @@ import javafx.scene.shape.Circle;
 @View
 public class MainView extends AnchorPane implements Initializable {
 
-  private final ViewCoordinator viewCoordinator = ViewCoordinator.getInstance();
+  private final ViewProvider viewProvider = ViewProvider.getInstance();
 
   private Parent builderView;
 
@@ -40,7 +40,7 @@ public class MainView extends AnchorPane implements Initializable {
   }
 
   private void loadBuilderView() {
-    if (builderView == null) builderView = viewCoordinator.requestView(BuilderView.class);
+    if (builderView == null) builderView = viewProvider.requestView(BuilderView.class);
     setContentPane(builderView);
   }
 

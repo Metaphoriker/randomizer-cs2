@@ -7,9 +7,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.util.Callback;
 
-public class ViewConstructor {
+public class ViewLoader {
 
-  public <T> Parent constructView(Class<T> clazz, Callback<Class<?>, Object> controllerFactory) {
+  public <T> Parent loadView(Class<T> clazz, Callback<Class<?>, Object> controllerFactory) {
     FXMLLoader fxmlLoader = new FXMLLoader();
 
     URL fxmlLocation = clazz.getResource(clazz.getSimpleName() + ".fxml");

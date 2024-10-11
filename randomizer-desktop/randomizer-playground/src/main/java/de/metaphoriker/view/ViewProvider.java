@@ -5,16 +5,16 @@ import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javafx.scene.Parent;
 
-public class ViewCoordinator {
+public class ViewProvider {
 
-  private static final ViewCoordinator INSTANCE = new ViewCoordinator();
+  private static final ViewProvider INSTANCE = new ViewProvider();
 
   private final Map<Class<?>, Parent> viewMap = new ConcurrentHashMap<>();
-  private final ViewConstructor viewConstructor = new ViewConstructor();
+  private final ViewLoader viewLoader = new ViewLoader();
 
-  private ViewCoordinator() {}
+  private ViewProvider() {}
 
-  public static ViewCoordinator getInstance() {
+  public static ViewProvider getInstance() {
     return INSTANCE;
   }
 
@@ -24,7 +24,7 @@ public class ViewCoordinator {
         viewClass,
         vc -> {
           try {
-            return viewConstructor.constructView(
+            return viewLoader.loadView(
                 vc,
                 _ -> {
                   try {

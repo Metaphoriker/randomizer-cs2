@@ -1,7 +1,7 @@
 package de.metaphoriker;
 
 import de.metaphoriker.view.MainView;
-import de.metaphoriker.view.ViewCoordinator;
+import de.metaphoriker.view.ViewProvider;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -9,12 +9,12 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
-  private final ViewCoordinator viewCoordinator = ViewCoordinator.getInstance();
+  private final ViewProvider viewProvider = ViewProvider.getInstance();
 
   @Override
   public void start(Stage stage) {
     try {
-      Parent root = viewCoordinator.requestView(MainView.class);
+      Parent root = viewProvider.requestView(MainView.class);
 
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
