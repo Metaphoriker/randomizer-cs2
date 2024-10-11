@@ -38,9 +38,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
-<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0"
-      prefWidth="600.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1"
-      fx:controller="de.metaphoriker.MainMenu">
+
+<HBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="830.0" prefWidth="1280.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.MainMenu">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="400.0" prefWidth="80.0">
             <children>
@@ -48,42 +47,36 @@
                     <children>
                         <VBox>
                             <children>
-                                <Circle fx:id="logoShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK"
-                                        strokeType="INSIDE"/>
+                                <Circle fx:id="logoShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
                             </children>
                             <padding>
-                                <Insets left="20.0" top="20.0"/>
+                                <Insets left="20.0" top="20.0" />
                             </padding>
                         </VBox>
-                        <Separator prefWidth="200.0"/>
+                        <Separator prefWidth="200.0" />
                         <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                             <padding>
-                                <Insets left="20.0" top="10.0"/>
+                                <Insets left="20.0" top="10.0" />
                             </padding>
                             <children>
-                                <Circle fx:id="randomizerShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK"
-                                        strokeType="INSIDE"/>
-                                <Circle fx:id="builderShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK"
-                                        strokeType="INSIDE"/>
-                                <Circle fx:id="gameShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK"
-                                        strokeType="INSIDE"/>
+                                <Circle fx:id="randomizerShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
+                                <Circle fx:id="builderShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
+                                <Circle fx:id="gameShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
                             </children>
                         </VBox>
                     </children>
                 </VBox>
-                <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
+                <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="ALWAYS">
                     <padding>
-                        <Insets bottom="10.0" left="20.0"/>
+                        <Insets bottom="10.0" left="20.0" />
                     </padding>
                     <children>
-                        <Circle fx:id="websiteShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK"
-                                strokeType="INSIDE"/>
-                        <Circle fx:id="discordShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK"
-                                strokeType="INSIDE"/>
+                        <Circle fx:id="websiteShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
+                        <Circle fx:id="discordShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
                     </children>
                 </VBox>
             </children>
         </VBox>
-        <AnchorPane fx:id="contentPane" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS"/>
+        <AnchorPane fx:id="contentPane" prefHeight="200.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
     </children>
 </HBox>
