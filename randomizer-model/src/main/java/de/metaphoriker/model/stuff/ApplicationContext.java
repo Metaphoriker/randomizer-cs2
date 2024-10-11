@@ -12,7 +12,7 @@ public class ApplicationContext {
 
   // TODO: move this
   private static final File APPDATA_FOLDER =
-      new File(System.getenv("APPDATA") + File.separator + "randomizer");
+      new File(System.getenv("APPDATA") + java.io.File.separator + "randomizer");
 
   private final List<Consumer<ApplicationState>> changeListener = new ArrayList<>();
 
@@ -27,7 +27,7 @@ public class ApplicationContext {
     changeListener.forEach(changeListener -> changeListener.accept(applicationState));
   }
 
-  public File getAppdataFolder() {
+  public static File getAppdataFolder() {
     return APPDATA_FOLDER;
   }
 }

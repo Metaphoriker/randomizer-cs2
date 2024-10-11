@@ -4,6 +4,7 @@ import de.metaphoriker.viewmodel.BuilderViewModel;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
+@View
 public class BuilderView extends HBox {
 
   private final BuilderViewModel builderViewModel = new BuilderViewModel();

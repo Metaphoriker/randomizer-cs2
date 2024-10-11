@@ -1,22 +1,20 @@
 package de.metaphoriker;
 
 import de.metaphoriker.view.MainView;
-import java.io.IOException;
-import java.net.URL;
-import java.text.MessageFormat;
+import de.metaphoriker.view.ViewCoordinator;
 import javafx.application.Application;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import javafx.util.Callback;
 
 public class Main extends Application {
+
+  private final ViewCoordinator viewCoordinator = ViewCoordinator.getInstance();
 
   @Override
   public void start(Stage stage) {
     try {
-      Parent root = loadView(MainView.class, (Class<?> _) -> new MainView());
+      Parent root = viewCoordinator.requestView(MainView.class);
 
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -29,20 +27,5 @@ public class Main extends Application {
 
   public static void main(String[] args) {
     launch(args);
-  }
-
-  public static <T> Parent loadView(Class<T> clazz, Callback<Class<?>, Object> controllerFactory) {
-    FXMLLoader fxmlLoader = new FXMLLoader();
-
-    URL fxmlLocation = clazz.getResource(clazz.getSimpleName() + ".fxml");
-    fxmlLoader.setLocation(fxmlLocation);
-    fxmlLoader.setControllerFactory(controllerFactory);
-
-    try {
-      return fxmlLoader.load();
-    } catch (IOException e) {
-      throw new IllegalStateException(
-          MessageFormat.format("FXML could not get loaded for class: {0}", clazz), e);
-    }
   }
 }

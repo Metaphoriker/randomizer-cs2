@@ -1,6 +1,5 @@
 package de.metaphoriker.view;
 
-import de.metaphoriker.Main;
 import de.metaphoriker.util.ImageUtil;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -12,7 +11,10 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.GridPane;
 import javafx.scene.shape.Circle;
 
+@View
 public class MainView extends AnchorPane implements Initializable {
+
+  private final ViewCoordinator viewCoordinator = ViewCoordinator.getInstance();
 
   private Parent builderView;
 
@@ -38,8 +40,7 @@ public class MainView extends AnchorPane implements Initializable {
   }
 
   private void loadBuilderView() {
-    if (builderView == null)
-      builderView = Main.loadView(BuilderView.class, (Class<?> _) -> new BuilderView());
+    if (builderView == null) builderView = viewCoordinator.requestView(BuilderView.class);
     setContentPane(builderView);
   }
 
