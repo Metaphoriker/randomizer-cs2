@@ -34,12 +34,13 @@ public class SidebarView extends VBox implements Initializable {
   }
 
   private void setupClickInteractions() {
+    logoShape.setOnMouseClicked(_ -> sidebarViewModel.openLogoClickInBrowser());
     discordButton.setOnAction(_ -> sidebarViewModel.openDiscordLinkInBrowser());
     websiteButton.setOnAction(_ -> sidebarViewModel.openWebsiteLinkInBrowser());
   }
 
   private void setupGraphics() {
-    logoShape.setFill(ImageUtil.getRawImagePattern("images/randomizerIcon.png"));
+    logoShape.setFill(ImageUtil.getRawImagePattern("images/randomizerLogo.jpg"));
     websiteButton.setGraphic(ImageUtil.getImageView("images/websiteIcon.png"));
     discordButton.setGraphic(ImageUtil.getImageView("images/discordIcon.png"));
     randomizerButton.setGraphic(ImageUtil.getImageView("images/randomizerIcon.png"));

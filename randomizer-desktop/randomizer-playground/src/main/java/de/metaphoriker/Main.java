@@ -1,7 +1,8 @@
 package de.metaphoriker;
 
-import de.metaphoriker.view.views.MainWindow;
+import de.metaphoriker.util.ImageUtil;
 import de.metaphoriker.view.ViewProvider;
+import de.metaphoriker.view.views.MainWindow;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;
@@ -19,7 +20,9 @@ public class Main extends Application {
 
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
+      stage.setTitle("Randomizer Playground");
       stage.setScene(scene);
+      stage.getIcons().add(ImageUtil.getImage("images/randomizerLogo.jpg"));
       stage.show();
 
       Platform.runLater(() -> setMinResizable(stage));
