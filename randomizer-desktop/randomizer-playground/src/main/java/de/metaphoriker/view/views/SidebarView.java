@@ -49,7 +49,8 @@ public class SidebarView extends VBox implements Initializable {
   }
 
   private void setupToggles() {
-    randomizerButton.setOnAction(_ -> updateButtonStateAndToggleView(randomizerButton, null));
+    randomizerButton.setOnAction(
+        _ -> updateButtonStateAndToggleView(randomizerButton, RandomizerView.class));
     builderButton.setOnAction(
         _ -> updateButtonStateAndToggleView(builderButton, BuilderView.class));
     gameButton.setOnAction(_ -> updateButtonStateAndToggleView(gameButton, null));

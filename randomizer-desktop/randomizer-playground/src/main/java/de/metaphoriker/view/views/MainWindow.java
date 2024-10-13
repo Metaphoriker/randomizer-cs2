@@ -28,6 +28,7 @@ public class MainWindow extends HBox implements Initializable {
 
   private void registerViewListener() {
     viewProvider.registerViewChangeListener(BuilderView.class, this::loadBuilderView);
+    viewProvider.registerViewChangeListener(RandomizerView.class, this::loadRandomizerView);
   }
 
   private void loadSidebarView() {
@@ -35,6 +36,11 @@ public class MainWindow extends HBox implements Initializable {
     VBox.setVgrow(sidebarView, Priority.ALWAYS);
     VBox.setVgrow(sidebarPlaceholder, Priority.ALWAYS);
     sidebarPlaceholder.getChildren().add(sidebarView);
+  }
+
+  private void loadRandomizerView() {
+    Parent randomizerView = viewProvider.requestView(RandomizerView.class);
+    setContentPane(randomizerView);
   }
 
   private void loadBuilderView() {
