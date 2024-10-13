@@ -23,7 +23,11 @@ public class MainWindow extends HBox implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     loadSidebarView();
-    loadBuilderView();
+    registerViewListener();
+  }
+
+  private void registerViewListener() {
+    viewProvider.registerViewChangeListener(BuilderView.class, this::loadBuilderView);
   }
 
   private void loadSidebarView() {

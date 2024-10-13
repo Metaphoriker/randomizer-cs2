@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Circle?>
 
@@ -23,9 +24,9 @@
                   <Insets left="20.0" top="10.0" />
                </padding>
                <children>
-                  <Circle fx:id="randomizerShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fx:id="builderShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
-                  <Circle fx:id="gameShape" fill="DODGERBLUE" radius="22.0" stroke="BLACK" strokeType="INSIDE" />
+                  <ToggleButton fx:id="randomizerButton" mnemonicParsing="false" />
+                  <ToggleButton fx:id="builderButton" mnemonicParsing="false" />
+                  <ToggleButton fx:id="gameButton" mnemonicParsing="false" />
                </children>
             </VBox>
          </children>

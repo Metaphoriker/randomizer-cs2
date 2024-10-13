@@ -10,12 +10,17 @@ public class ViewProvider {
   private static final ViewProvider INSTANCE = new ViewProvider();
 
   private final Map<Class<?>, Parent> viewMap = new ConcurrentHashMap<>();
+  private final Map<Class<?>, Runnable> listenerMap = new ConcurrentHashMap<>();
   private final ViewLoader viewLoader = new ViewLoader();
 
   private ViewProvider() {}
 
   public static ViewProvider getInstance() {
     return INSTANCE;
+  }
+
+  public void registerViewChangeListener(Class<?> viewClass, Runnable listener) {
+    listenerMap.put(viewClass, listener);
   }
 
   public Parent requestView(Class<?> viewClass) {
@@ -40,6 +45,13 @@ public class ViewProvider {
             throw new IllegalStateException("Could not instantiate view: " + vc.getName(), e);
           }
         });
+  }
+
+  public void triggerViewChange(Class<?> viewClass) {
+    Runnable listener = listenerMap.get(viewClass);
+    if (listener != null) {
+      listener.run();
+    }
   }
 
   private void checkForViewAnnotation(Class<?> viewClass) {
