@@ -11,9 +11,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
-import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.Shape;
 
 @View
 public class SidebarView extends VBox implements Initializable {
@@ -41,7 +39,7 @@ public class SidebarView extends VBox implements Initializable {
   }
 
   private void setupGraphics() {
-    setImagePattern(logoShape, "images/randomizerIcon.png");
+    logoShape.setFill(ImageUtil.getRawImagePattern("images/randomizerIcon.png"));
     websiteButton.setGraphic(ImageUtil.getImageView("images/websiteIcon.png"));
     discordButton.setGraphic(ImageUtil.getImageView("images/discordIcon.png"));
     randomizerButton.setGraphic(ImageUtil.getImageView("images/randomizerIcon.png"));
@@ -69,10 +67,5 @@ public class SidebarView extends VBox implements Initializable {
           builderButton.setSelected(false);
           gameButton.setSelected(true);
         });
-  }
-
-  private void setImagePattern(Shape shape, String imagePath) {
-    ImagePattern imagePattern = ImageUtil.getRawImagePattern(imagePath);
-    shape.setFill(imagePattern);
   }
 }
