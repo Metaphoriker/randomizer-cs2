@@ -12,7 +12,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
 @View
-public class MainView extends HBox implements Initializable {
+public class MainWindow extends HBox implements Initializable {
 
   private final ViewProvider viewProvider = ViewProvider.getInstance();
 
