@@ -6,19 +6,17 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.VBox;
 
 @View
 public class MainView extends HBox implements Initializable {
 
   private final ViewProvider viewProvider = ViewProvider.getInstance();
 
-  private Parent sidebarView;
-  private Parent builderView;
-
+  @FXML private VBox sidebarPlaceholder;
   @FXML private GridPane contentPane;
 
   @Override
@@ -28,19 +26,18 @@ public class MainView extends HBox implements Initializable {
   }
 
   private void loadSidebarView() {
-    if (sidebarView == null) sidebarView = viewProvider.requestView(SidebarView.class);
-    getChildren().addFirst(sidebarView);
+    Parent sidebarView = viewProvider.requestView(SidebarView.class);
+    sidebarPlaceholder.getChildren().add(sidebarView);
   }
 
   private void loadBuilderView() {
-    if (builderView == null) builderView = viewProvider.requestView(BuilderView.class);
+    Parent builderView = viewProvider.requestView(BuilderView.class);
     setContentPane(builderView);
   }
 
-  private void setContentPane(Node node) {
+  private void setContentPane(Parent node) {
     contentPane.getChildren().clear();
     contentPane.getChildren().add(node);
-
     System.out.println("Content pane children: " + contentPane.getChildren());
   }
 }
