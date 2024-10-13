@@ -8,10 +8,12 @@ import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.ImagePattern;
-import javafx.scene.shape.Circle;
+import javafx.scene.shape.Rectangle;
+import javafx.scene.shape.Shape;
 
 @View
 public class SidebarView extends VBox implements Initializable {
@@ -22,30 +24,26 @@ public class SidebarView extends VBox implements Initializable {
   @FXML private ToggleButton randomizerButton;
   @FXML private ToggleButton builderButton;
   @FXML private ToggleButton gameButton;
-  @FXML private Circle discordShape;
-  @FXML private Circle logoShape;
-  @FXML private Circle websiteShape;
+  @FXML private Rectangle logoShape;
+  @FXML private Button websiteButton;
+  @FXML private Button discordButton;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     setupGraphics();
-    setupButtonImages();
     setupToggles();
     setupClickInteractions();
   }
 
+  private void setupClickInteractions() {
+    discordButton.setOnAction(_ -> sidebarViewModel.openDiscordLinkInBrowser());
+    websiteButton.setOnAction(_ -> sidebarViewModel.openWebsiteLinkInBrowser());
+  }
+
   private void setupGraphics() {
     setImagePattern(logoShape, "images/randomizerIcon.png");
-    setImagePattern(websiteShape, "images/websiteIcon.png");
-    setImagePattern(discordShape, "images/discordIcon.png");
-  }
-
-  private void setupClickInteractions() {
-    discordShape.setOnMouseClicked(_ -> sidebarViewModel.openDiscordLinkInBrowser());
-    websiteShape.setOnMouseClicked(_ -> sidebarViewModel.openWebsiteLinkInBrowser());
-  }
-
-  private void setupButtonImages() {
+    websiteButton.setGraphic(ImageUtil.getImageView("images/websiteIcon.png"));
+    discordButton.setGraphic(ImageUtil.getImageView("images/discordIcon.png"));
     randomizerButton.setGraphic(ImageUtil.getImageView("images/randomizerIcon.png"));
     builderButton.setGraphic(ImageUtil.getImageView("images/logbookIcon.png"));
     gameButton.setGraphic(ImageUtil.getImageView("images/gameIcon.png"));
@@ -73,7 +71,7 @@ public class SidebarView extends VBox implements Initializable {
         });
   }
 
-  private void setImagePattern(Circle shape, String imagePath) {
+  private void setImagePattern(Shape shape, String imagePath) {
     ImagePattern imagePattern = ImageUtil.getRawImagePattern(imagePath);
     shape.setFill(imagePattern);
   }
