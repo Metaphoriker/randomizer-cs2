@@ -7,9 +7,9 @@ import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import de.metaphoriker.model.cfg.keybind.KeyBind;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.Interval;
+import de.metaphoriker.model.cfg.keybind.KeyBind;
 import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 import lombok.extern.slf4j.Slf4j;
@@ -20,7 +20,6 @@ public class JsonDeSerializer implements JsonSerializer<Action>, JsonDeserialize
   private static final String CLASS_META_KEY = "CLASS_META_KEY";
   private static final String KEYBIND_KEY = "keybind";
   private static final String INTERVAL_KEY = "interval";
-  private static final String ACTIVATED_KEY = "activated";
 
   @Override
   public JsonElement serialize(Action action, Type type, JsonSerializationContext context) {
@@ -34,8 +33,6 @@ public class JsonDeSerializer implements JsonSerializer<Action>, JsonDeserialize
     if (action.getInterval() != null) {
       jsonObject.add(INTERVAL_KEY, context.serialize(action.getInterval()));
     }
-
-    jsonObject.addProperty(ACTIVATED_KEY, action.isActivated());
 
     return jsonObject;
   }
@@ -62,8 +59,6 @@ public class JsonDeSerializer implements JsonSerializer<Action>, JsonDeserialize
         Interval interval = context.deserialize(jsonObject.get(INTERVAL_KEY), Interval.class);
         action.setInterval(interval);
       }
-
-      action.setActivated(jsonObject.get(ACTIVATED_KEY).getAsBoolean());
 
       return action;
 

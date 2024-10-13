@@ -1,10 +1,13 @@
 package de.metaphoriker.view.viewmodel;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+@Slf4j
 public class SidebarViewModel {
 
   private static final String DISCORD_LINK = "https://discord.gg/k448AWNVpk";
@@ -12,26 +15,22 @@ public class SidebarViewModel {
   private static final String WEBSITE_LINK = "http://randomizer-cs2.com";
 
   public void openDiscordLinkInBrowser() {
-    try {
-      Desktop.getDesktop().browse(new URI(DISCORD_LINK));
-    } catch (IOException | URISyntaxException e) {
-      e.printStackTrace();
-    }
+    openLinkInBrowser(DISCORD_LINK);
   }
 
   public void openWebsiteLinkInBrowser() {
-    try {
-      Desktop.getDesktop().browse(new URI(WEBSITE_LINK));
-    } catch (IOException | URISyntaxException e) {
-      e.printStackTrace();
-    }
+    openLinkInBrowser(WEBSITE_LINK);
   }
 
   public void openLogoClickInBrowser() {
+    openLinkInBrowser(WONDERFUL_LINK);
+  }
+
+  private void openLinkInBrowser(String url) {
     try {
-      Desktop.getDesktop().browse(new URI(WONDERFUL_LINK));
+      Desktop.getDesktop().browse(new URI(url));
     } catch (IOException | URISyntaxException e) {
-      e.printStackTrace();
+      log.error("An error occurred while browsing link: {}", url, e);
     }
   }
 }

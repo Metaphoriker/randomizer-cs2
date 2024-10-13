@@ -33,6 +33,10 @@ public class ActionRegistry {
     ACTION_REGISTRY_STORAGE.save(actions);
   }
 
+  public boolean isEnabled(Action action) {
+    return actions.getOrDefault(action, true);
+  }
+
   public Map<Action, Boolean> getActions() {
     return new LinkedHashMap<>(actions);
   }

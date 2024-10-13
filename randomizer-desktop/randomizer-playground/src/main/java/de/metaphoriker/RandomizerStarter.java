@@ -8,7 +8,9 @@ import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class RandomizerStarter extends Application {
 
   private final ViewProvider viewProvider = ViewProvider.getInstance();
@@ -27,7 +29,7 @@ public class RandomizerStarter extends Application {
 
       Platform.runLater(() -> setMinResizable(stage));
     } catch (Exception e) {
-      e.printStackTrace();
+      log.error("An error occurred while starting the application", e);
     }
   }
 
