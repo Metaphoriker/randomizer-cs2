@@ -27,7 +27,6 @@ public class Action {
 
   private final KeyBind keyBind;
 
-  @Setter private boolean activated;
   @Setter private Interval interval;
 
   public Action(KeyBind keyBind) {
