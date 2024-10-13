@@ -17,4 +17,6 @@ module de.metaphoriker.randomizer.playground {
 
   opens de.metaphoriker.view to
       javafx.fxml;
+    exports de.metaphoriker.view.views;
+    opens de.metaphoriker.view.views to javafx.fxml;
 }

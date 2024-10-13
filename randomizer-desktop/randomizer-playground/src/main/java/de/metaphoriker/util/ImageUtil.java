@@ -1,7 +1,7 @@
 package de.metaphoriker.util;
 
+import de.metaphoriker.Main;
 import java.net.URL;
-
 import javafx.geometry.Side;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -14,13 +14,12 @@ import javafx.scene.paint.ImagePattern;
 
 public final class ImageUtil {
 
-  private static final String MAIN_PATH = "/de/metaphoriker/";
   private static final ImageResolution DEFAULT_RESOLUTION = ImageResolution.MEDIUM;
 
   private ImageUtil() {}
 
   private static URL fetchResourceAsURL(String path) {
-    URL url = ImageUtil.class.getResource(MAIN_PATH + path);
+    URL url = Main.class.getResource(path);
     if (url == null) {
       throw new IllegalArgumentException("Resource not found: " + path);
     }

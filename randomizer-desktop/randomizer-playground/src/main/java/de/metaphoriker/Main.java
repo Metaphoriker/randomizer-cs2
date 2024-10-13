@@ -1,6 +1,6 @@
 package de.metaphoriker;
 
-import de.metaphoriker.view.MainView;
+import de.metaphoriker.view.views.MainView;
 import de.metaphoriker.view.ViewProvider;
 import javafx.application.Application;
 import javafx.scene.Parent;
