@@ -12,35 +12,36 @@
 
 <HBox prefHeight="830.0" prefWidth="1200.0" spacing="20.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.view.views.BuilderView">
     <children>
-        <VBox prefHeight="200.0" prefWidth="360.0" spacing="10.0">
+        <VBox prefHeight="200.0" prefWidth="360.0">
          <children>
-            <HBox>
+            <HBox prefHeight="56.0">
                <children>
-                  <Label text="Action Sequences">
-                     <font>
-                        <Font size="24.0" />
-                     </font>
-                     <padding>
-                        <Insets left="10.0" top="10.0" />
-                     </padding>
-                  </Label>
+                  <HBox>
+                     <children>
+                        <Label text="Action Sequences">
+                           <font>
+                              <Font size="24.0" />
+                           </font>
+                           <padding>
+                              <Insets left="10.0" top="10.0" />
+                           </padding>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox alignment="CENTER_RIGHT" fillHeight="false" prefHeight="45.0" prefWidth="127.0" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Button mnemonicParsing="false" text="+" />
+                     </children>
+                  </HBox>
                </children>
             </HBox>
             <VBox spacing="20.0" VBox.vgrow="ALWAYS">
                <children>
-                  <ListView prefHeight="200.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                  <ListView prefHeight="200.0" prefWidth="360.0" VBox.vgrow="ALWAYS">
                      <padding>
                         <Insets bottom="10.0" left="20.0" right="20.0" top="10.0" />
                      </padding>
                   </ListView>
-                  <HBox alignment="CENTER" prefHeight="25.0" prefWidth="200.0">
-                     <children>
-                        <Button mnemonicParsing="false" text="Add new Cluster" />
-                     </children>
-                     <padding>
-                        <Insets bottom="10.0" />
-                     </padding>
-                  </HBox>
                </children>
             </VBox>
          </children></VBox>
@@ -70,7 +71,7 @@
                   </HBox>
                </children>
             </HBox>
-            <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+            <VBox prefHeight="200.0" prefWidth="780.0" VBox.vgrow="ALWAYS">
                <children>
                   <SplitPane dividerPositions="0.65" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" VBox.vgrow="ALWAYS">
                     <items>
