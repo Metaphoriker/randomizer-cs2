@@ -1,10 +1,10 @@
 package de.metaphoriker.view.views;
 
 import de.metaphoriker.util.ImageUtil;
+import de.metaphoriker.view.View;
+import de.metaphoriker.view.viewmodel.SidebarViewModel;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import de.metaphoriker.view.View;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.layout.VBox;
@@ -13,6 +13,8 @@ import javafx.scene.shape.Circle;
 
 @View
 public class SidebarView extends VBox implements Initializable {
+
+  private final SidebarViewModel sidebarViewModel = new SidebarViewModel();
 
   @FXML private Circle discordShape;
   @FXML private Circle gameShape;
@@ -24,6 +26,7 @@ public class SidebarView extends VBox implements Initializable {
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     setupGraphics();
+    setupClickInteractions();
   }
 
   private void setupGraphics() {
@@ -33,6 +36,11 @@ public class SidebarView extends VBox implements Initializable {
     setImagePattern(gameShape, "images/gameIcon.png");
     setImagePattern(websiteShape, "images/websiteIcon.png");
     setImagePattern(discordShape, "images/discordIcon.png");
+  }
+
+  private void setupClickInteractions() {
+    discordShape.setOnMouseClicked(_ -> sidebarViewModel.openDiscordLinkInBrowser());
+    websiteShape.setOnMouseClicked(_ -> sidebarViewModel.openWebsiteLinkInBrowser());
   }
 
   private void setImagePattern(Circle shape, String imagePath) {

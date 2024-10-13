@@ -1,7 +1,7 @@
 package de.metaphoriker.view.views;
 
 import de.metaphoriker.view.View;
-import de.metaphoriker.viewmodel.BuilderViewModel;
+import de.metaphoriker.view.viewmodel.BuilderViewModel;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 
