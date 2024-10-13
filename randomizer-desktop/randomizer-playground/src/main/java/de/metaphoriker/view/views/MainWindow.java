@@ -9,6 +9,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 @View
@@ -27,6 +28,8 @@ public class MainWindow extends HBox implements Initializable {
 
   private void loadSidebarView() {
     Parent sidebarView = viewProvider.requestView(SidebarView.class);
+    VBox.setVgrow(sidebarView, Priority.ALWAYS);
+    VBox.setVgrow(sidebarPlaceholder, Priority.ALWAYS);
     sidebarPlaceholder.getChildren().add(sidebarView);
   }
 
