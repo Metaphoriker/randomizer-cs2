@@ -49,24 +49,19 @@ public class SidebarView extends VBox implements Initializable {
   }
 
   private void setupToggles() {
-    randomizerButton.setOnAction(
-        _ -> {
-          randomizerButton.setSelected(true);
-          builderButton.setSelected(false);
-          gameButton.setSelected(false);
-        });
+    randomizerButton.setOnAction(_ -> updateButtonStateAndToggleView(randomizerButton, null));
     builderButton.setOnAction(
-        _ -> {
-          randomizerButton.setSelected(false);
-          builderButton.setSelected(true);
-          gameButton.setSelected(false);
-          viewProvider.triggerViewChange(BuilderView.class);
-        });
-    gameButton.setOnAction(
-        _ -> {
-          randomizerButton.setSelected(false);
-          builderButton.setSelected(false);
-          gameButton.setSelected(true);
-        });
+        _ -> updateButtonStateAndToggleView(builderButton, BuilderView.class));
+    gameButton.setOnAction(_ -> updateButtonStateAndToggleView(gameButton, null));
+  }
+
+  private void updateButtonStateAndToggleView(ToggleButton selectedButton, Class<?> viewClass) {
+    randomizerButton.setSelected(selectedButton == randomizerButton);
+    builderButton.setSelected(selectedButton == builderButton);
+    gameButton.setSelected(selectedButton == gameButton);
+
+    if (viewClass != null) {
+      viewProvider.triggerViewChange(viewClass);
+    }
   }
 }
