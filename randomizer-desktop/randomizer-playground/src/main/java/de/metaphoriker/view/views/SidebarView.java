@@ -44,13 +44,7 @@ public class SidebarView extends VBox implements Initializable {
   }
 
   private void setImagePattern(Circle shape, String imagePath) {
-    System.out.println("Setting image pattern for: " + imagePath);
     ImagePattern imagePattern = ImageUtil.getRawImagePattern(imagePath);
-    if (imagePattern != null) {
-      shape.setFill(imagePattern);
-      System.out.println("Successfully set image pattern for: " + imagePath);
-    } else {
-      System.err.println("Failed to set image pattern for: " + imagePath);
-    }
+    shape.setFill(imagePattern);
   }
 }
