@@ -20,6 +20,7 @@ public class ConfigLoader {
     try {
       loadDefaultKeyBinds(keyBindRepository);
       loadUserKeyBindings(keyBindRepository);
+      log.debug("Successfully loaded {} key binds", keyBindRepository.getKeyBinds().size());
     } catch (FileNotFoundException e) {
       log.error("Error loading key binds", e);
       throw new RuntimeException(e);
