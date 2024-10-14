@@ -10,7 +10,7 @@ import de.metaphoriker.view.views.MainWindow;
 import de.metaphoriker.view.views.RandomizerView;
 import de.metaphoriker.view.views.SidebarView;
 
-public class AppModule extends AbstractModule {
+public class RandomizerModule extends AbstractModule {
 
   @Override
   protected void configure() {

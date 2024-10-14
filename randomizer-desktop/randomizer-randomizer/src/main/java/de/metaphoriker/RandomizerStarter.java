@@ -20,7 +20,7 @@ public class RandomizerStarter extends Application {
   public void start(Stage stage) {
     log.debug("Starte Randomizer...");
 
-    Main.injector = Guice.createInjector(new ModelModule(), new AppModule());
+    Main.injector = Guice.createInjector(new ModelModule(), new RandomizerModule());
     Main mainInstance = Main.injector.getInstance(Main.class);
     try {
       mainInstance.startApplication();
