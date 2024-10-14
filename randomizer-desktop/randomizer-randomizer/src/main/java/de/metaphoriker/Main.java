@@ -19,12 +19,12 @@ import de.metaphoriker.model.notify.Speaker;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import de.metaphoriker.model.updater.Updater;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
-import javafx.application.Application;
-import lombok.Getter;
-import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import javafx.application.Application;
+import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
@@ -50,12 +50,12 @@ public class Main {
   }
 
   public static void main(String[] args) {
-    log.info("Starte JavaFX Anwendung...");
+    log.debug("Starte JavaFX Anwendung...");
     Application.launch(RandomizerStarter.class, args);
   }
 
   public void startApplication() throws IOException, URISyntaxException {
-    log.info("Initialisiere Applikation...");
+    log.debug("Initialisiere Applikation...");
     setupAppdataFolder();
     loadKeyBinds();
     registerEvents();
@@ -131,6 +131,7 @@ public class Main {
     log.debug("Starte Updater falls notwendig...");
     File jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
     if (Updater.isUpdateAvailable(Updater.getCurrentVersion(), Updater.RANDOMIZER_VERSION_URL)) {
+      log.debug("Updater gestartet");
       Runtime.getRuntime()
           .exec("java -jar " + path + " -randomizerLocation=" + jarPath.getAbsolutePath());
       System.exit(0);
@@ -138,7 +139,7 @@ public class Main {
   }
 
   private void registerEvents() {
-    log.debug("Registriere Events...");
+    log.debug("Registriere Aktionen...");
     actionRegistry.register(new MouseMoveAction(KeyBind.EMPTY_KEYBIND));
     actionRegistry.register(new PauseAction(KeyBind.EMPTY_KEYBIND));
     keyBindRepository

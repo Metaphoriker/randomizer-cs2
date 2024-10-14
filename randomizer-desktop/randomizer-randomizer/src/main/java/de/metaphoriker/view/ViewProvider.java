@@ -3,7 +3,9 @@ package de.metaphoriker.view;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
 import javafx.scene.Parent;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class ViewProvider {
 
   private final Map<Class<?>, Parent> viewMap = new ConcurrentHashMap<>();
@@ -22,7 +24,7 @@ public class ViewProvider {
           try {
             return viewLoader.loadView(vc);
           } catch (Exception e) {
-            System.out.println(e.getMessage());
+            log.error("Fehler beim Laden des Fensters: {}", vc.getName(), e);
             throw new IllegalStateException("Could not instantiate view: " + vc.getName(), e);
           }
         });

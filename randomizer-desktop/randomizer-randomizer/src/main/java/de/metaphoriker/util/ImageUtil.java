@@ -11,6 +11,7 @@ import javafx.scene.layout.BackgroundPosition;
 import javafx.scene.layout.BackgroundRepeat;
 import javafx.scene.layout.BackgroundSize;
 import javafx.scene.paint.ImagePattern;
+import lombok.Getter;
 
 public final class ImageUtil {
 
@@ -82,6 +83,7 @@ public final class ImageUtil {
         new BackgroundSize(BackgroundSize.AUTO, BackgroundSize.AUTO, true, true, false, true));
   }
 
+  @Getter
   public enum ImageResolution {
     SMALL(16, 16),
     OKAY(24, 24),
@@ -95,14 +97,6 @@ public final class ImageUtil {
     ImageResolution(int width, int height) {
       this.width = width;
       this.height = height;
-    }
-
-    public int getWidth() {
-      return width;
-    }
-
-    public int getHeight() {
-      return height;
     }
   }
 }

@@ -23,11 +23,9 @@ public class FocusManager {
 
       return wText.contains("Counter-Strike 2");
     } catch (UnsatisfiedLinkError e) {
-      System.err.println("JNA is not properly set up. Error: " + e.getMessage());
       log.error("JNA is not properly set up", e);
       return false;
     } catch (Exception e) {
-      System.err.println("Unexpected error while checking window focus: " + e.getMessage());
       log.error("Error while checking for cs2 focus", e);
       return false;
     }

@@ -17,7 +17,7 @@ public class RandomizerStarter extends Application {
 
   @Override
   public void start(Stage stage) {
-    log.info("Starte Randomizer...");
+    log.debug("Starte Randomizer...");
 
     Main.injector = Guice.createInjector(new ModelModule(), new AppModule());
     Main mainInstance = Main.injector.getInstance(Main.class);
@@ -37,7 +37,7 @@ public class RandomizerStarter extends Application {
       stage.setTitle("Randomizer Playground");
       stage.setScene(scene);
       stage.show();
-      log.info("Hauptfenster angezeigt");
+      log.debug("Hauptfenster angezeigt");
     } catch (Exception e) {
       log.error("Ein Fehler ist beim Starten der Anwendung aufgetreten", e);
     }
