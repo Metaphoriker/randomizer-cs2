@@ -23,7 +23,6 @@
     <modules>
         <module>randomizer-randomizer</module>
         <module>randomizer-updater</module>
-        <module>randomizer-playground</module>
     </modules>
 
     <dependencyManagement>
