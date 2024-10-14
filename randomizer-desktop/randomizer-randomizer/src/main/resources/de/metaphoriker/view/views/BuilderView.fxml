@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.SplitPane?>
+<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.FlowPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -75,9 +76,9 @@
                <children>
                   <SplitPane dividerPositions="0.65" orientation="VERTICAL" prefHeight="200.0" prefWidth="160.0" VBox.vgrow="ALWAYS">
                     <items>
-                        <HBox prefHeight="100.0" prefWidth="200.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
-                              <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                              <VBox prefHeight="485.0" prefWidth="780.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
                                     <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
                                     <VBox prefHeight="40.0" prefWidth="777.0">
@@ -96,12 +97,12 @@
                                  </children>
                               </VBox>
                            </children>
-                        </HBox>
-                        <HBox alignment="CENTER" prefHeight="100.0" prefWidth="200.0">
+                        </AnchorPane>
+                        <AnchorPane minHeight="0.0" minWidth="0.0">
                            <children>
-                              <FlowPane fx:id="actionFlowPane" alignment="CENTER" columnHalignment="CENTER" hgap="25.0" prefHeight="200.0" prefWidth="200.0" vgap="25.0" HBox.hgrow="ALWAYS" />
+                              <FlowPane fx:id="actionFlowPane" alignment="CENTER" columnHalignment="CENTER" hgap="25.0" prefHeight="260.0" prefWidth="777.0" vgap="25.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                            </children>
-                        </HBox>
+                        </AnchorPane>
                     </items>
                   </SplitPane>
                </children>
