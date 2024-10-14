@@ -24,6 +24,7 @@ public class ViewLoader {
     fxmlLoader.setControllerFactory(param -> Main.injector.getInstance(param));
 
     try {
+      log.debug("Lade View {}, FXML Datei: {}", clazz.getSimpleName(), fxmlLocation);
       return fxmlLoader.load();
     } catch (IOException e) {
       throw new IllegalStateException(

@@ -52,6 +52,5 @@ public class MainWindow extends HBox implements Initializable {
   private void setContentPane(Parent node) {
     contentPane.getChildren().clear();
     contentPane.getChildren().add(node);
-    System.out.println("Content pane children: " + contentPane.getChildren());
   }
 }
