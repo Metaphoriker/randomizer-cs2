@@ -16,14 +16,21 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RandomizerStarter extends Application {
 
+  private static final String TEST_FLAG = "-test";
+
   @Override
   public void start(Stage stage) {
     log.debug("Starte Randomizer...");
 
+    boolean testMode = checkParametersForTestFlag();
+    if (testMode) {
+      log.debug("Anwendung wurde im Testmodus gestartet");
+    }
+
     Main.injector = Guice.createInjector(new ModelModule(), new AppModule());
     Main mainInstance = Main.injector.getInstance(Main.class);
     try {
-      mainInstance.startApplication();
+      mainInstance.startApplication(testMode);
     } catch (IOException | URISyntaxException e) {
       log.error("Fehler beim Starten der Applikation", e);
     }
@@ -43,5 +50,9 @@ public class RandomizerStarter extends Application {
     } catch (Exception e) {
       log.error("Ein Fehler ist beim Starten der Anwendung aufgetreten", e);
     }
+  }
+
+  private boolean checkParametersForTestFlag() {
+    return getParameters().getNamed().get(TEST_FLAG) != null;
   }
 }

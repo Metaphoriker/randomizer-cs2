@@ -54,9 +54,9 @@ public class Main {
     Application.launch(RandomizerStarter.class, args);
   }
 
-  public void startApplication() throws IOException, URISyntaxException {
+  public void startApplication(boolean testMode) throws IOException, URISyntaxException {
     log.debug("Initialisiere Applikation...");
-    setupAppdataFolder();
+    if (!testMode) installAndRunUpdaterIfNeeded();
     loadKeyBinds();
     registerEvents();
     cacheCluster();
@@ -104,7 +104,7 @@ public class Main {
     thread.start();
   }
 
-  private void setupAppdataFolder() throws IOException, URISyntaxException {
+  private void installAndRunUpdaterIfNeeded() throws IOException, URISyntaxException {
     log.debug("Richte Appdata Verzeichnis ein...");
     File updater = installUpdater();
     startUpdaterIfNecessary(updater.getAbsolutePath());
