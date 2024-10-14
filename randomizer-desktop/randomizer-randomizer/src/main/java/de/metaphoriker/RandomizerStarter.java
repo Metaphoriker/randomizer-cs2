@@ -16,6 +16,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RandomizerStarter extends Application {
 
+  private static final int MIN_WIDTH = 1024;
+  private static final int MIN_HEIGHT = 768;
+
   @Override
   public void start(Stage stage) {
     log.debug("Starte Randomizer...");
@@ -37,6 +40,8 @@ public class RandomizerStarter extends Application {
       scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
       stage.setTitle("Randomizer");
       stage.getIcons().add(ImageUtil.getImage("images/randomizerLogo.jpg"));
+      stage.setMinWidth(MIN_WIDTH);
+      stage.setMinHeight(MIN_HEIGHT);
       stage.setScene(scene);
       stage.show();
       log.debug("Hauptfenster angezeigt");
