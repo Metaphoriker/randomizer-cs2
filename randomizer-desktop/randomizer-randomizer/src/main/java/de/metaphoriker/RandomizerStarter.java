@@ -2,6 +2,7 @@ package de.metaphoriker;
 
 import com.google.inject.Guice;
 import de.metaphoriker.model.ModelModule;
+import de.metaphoriker.util.ImageUtil;
 import de.metaphoriker.view.ViewProvider;
 import de.metaphoriker.view.views.MainWindow;
 import java.io.IOException;
@@ -34,7 +35,8 @@ public class RandomizerStarter extends Application {
       Parent root = viewProvider.requestView(MainWindow.class);
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
-      stage.setTitle("Randomizer Playground");
+      stage.setTitle("Randomizer");
+      stage.getIcons().add(ImageUtil.getImage("images/randomizerLogo.jpg"));
       stage.setScene(scene);
       stage.show();
       log.debug("Hauptfenster angezeigt");
