@@ -23,32 +23,41 @@ public class UpdateChecker {
   }
 
   public void checkUpdate(String version) {
+    log.debug("Starte Update-Check: aktuelle Version = {}, Versions-URL = {}", version, versionUrl);
 
     HttpURLConnection connection = null;
     try {
-
       connection = (HttpURLConnection) new URL(versionUrl).openConnection();
       connection.connect();
 
       String latestVersion = readLineFromInputStream(connection.getInputStream());
       updateAvailable = !latestVersion.equals(version);
 
+      log.debug(
+          "Update-Check abgeschlossen: neueste Version = {}, Update verfügbar = {}",
+          latestVersion,
+          updateAvailable);
     } catch (Exception ignored) {
-      log.error("Failed to check for update", ignored);
+      log.error("Fehler beim Prüfen auf Update", ignored);
     } finally {
-      if (connection != null) connection.disconnect();
+      if (connection != null) {
+        connection.disconnect();
+        log.debug("Verbindung geschlossen");
+      }
     }
   }
 
   private String readLineFromInputStream(InputStream inputStream) {
+    log.debug("Lese Zeile aus dem InputStream");
 
     try (BufferedReader bufferedReader =
         new BufferedReader(new InputStreamReader(inputStream, StandardCharsets.UTF_8))) {
-      return bufferedReader.readLine();
+      String line = bufferedReader.readLine();
+      log.debug("Zeile gelesen: {}", line);
+      return line;
     } catch (IOException e) {
-      log.error("Failed to read line from input stream", e);
+      log.error("Fehler beim Lesen der Zeile aus dem InputStream", e);
+      return "UNGÜLTIG";
     }
-
-    return "INVALID";
   }
 }

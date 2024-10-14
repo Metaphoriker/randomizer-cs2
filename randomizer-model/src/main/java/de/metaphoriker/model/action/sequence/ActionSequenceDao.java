@@ -21,15 +21,17 @@ public class ActionSequenceDao {
   static {
     if (!ACTION_SEQUENCE_FOLDER.exists() && !ACTION_SEQUENCE_FOLDER.mkdirs()) {
       log.error(
-          "Failed to create actionSequence folder: {}", ACTION_SEQUENCE_FOLDER.getAbsolutePath());
+          "Fehler beim Erstellen des actionSequence-Ordners: {}",
+          ACTION_SEQUENCE_FOLDER.getAbsolutePath());
     }
   }
 
   public synchronized void saveActionSequence(ActionSequence actionSequence) {
-    Objects.requireNonNull(actionSequence, "Cluster cannot be null");
+    Objects.requireNonNull(actionSequence, "ActionSequence darf nicht null sein");
 
     File file = new File(ACTION_SEQUENCE_FOLDER, actionSequence.getName() + ".sequence");
 
+    log.debug("Speichere ActionSequence in Datei: {}", file.getAbsolutePath());
     try (PrintWriter writer = new PrintWriter(file)) {
       StringBuilder stringBuilder = new StringBuilder();
       for (Action action : actionSequence.getActions()) {
@@ -38,26 +40,27 @@ public class ActionSequenceDao {
 
       writer.println(stringBuilder);
       writer.flush();
-      log.info("Successfully saved actionSequence: {}", actionSequence.getName());
+      log.info("ActionSequence erfolgreich gespeichert: {}", actionSequence.getName());
     } catch (IOException e) {
-      log.error("Failed to save actionSequence: {}", actionSequence.getName(), e);
+      log.error("Fehler beim Speichern der ActionSequence: {}", actionSequence.getName(), e);
     }
   }
 
   public synchronized void deleteActionSequence(ActionSequence actionSequence) {
-    Objects.requireNonNull(actionSequence, "Cluster cannot be null");
+    Objects.requireNonNull(actionSequence, "ActionSequence darf nicht null sein");
 
     File file = new File(ACTION_SEQUENCE_FOLDER, actionSequence.getName() + ".sequence");
     if (!file.exists()) {
-      log.warn("Cluster file does not exist: {}", file.getAbsolutePath());
+      log.warn("ActionSequence-Datei existiert nicht: {}", file.getAbsolutePath());
       return;
     }
 
+    log.debug("Lösche ActionSequence-Datei: {}", file.getAbsolutePath());
     try {
       Files.delete(file.toPath());
-      log.info("Successfully deleted actionSequence: {}", actionSequence.getName());
+      log.info("ActionSequence erfolgreich gelöscht: {}", actionSequence.getName());
     } catch (IOException e) {
-      log.error("Failed to delete actionSequence: {}", actionSequence.getName(), e);
+      log.error("Fehler beim Löschen der ActionSequence: {}", actionSequence.getName(), e);
       throw new RuntimeException(e);
     }
   }
@@ -67,10 +70,14 @@ public class ActionSequenceDao {
     File[] actionSequenceFiles = ACTION_SEQUENCE_FOLDER.listFiles();
 
     if (actionSequenceFiles == null || actionSequenceFiles.length == 0) {
-      log.warn("No actionSequence files found in: {}", ACTION_SEQUENCE_FOLDER.getAbsolutePath());
+      log.warn(
+          "Keine ActionSequence-Dateien gefunden im Ordner: {}",
+          ACTION_SEQUENCE_FOLDER.getAbsolutePath());
       return actionSequences;
     }
 
+    log.debug(
+        "Lade ActionSequence-Dateien aus dem Ordner: {}", ACTION_SEQUENCE_FOLDER.getAbsolutePath());
     for (File file : actionSequenceFiles) {
       if (!file.getName().endsWith(".sequence")) continue;
 
@@ -85,12 +92,13 @@ public class ActionSequenceDao {
 
         String name = file.getName().replace(".sequence", "");
         actionSequences.add(new ActionSequence(name, actionList));
+        log.debug("ActionSequence geladen: {}", name);
       } catch (IOException e) {
-        log.error("Failed to load actionSequence from file: {}", file.getAbsolutePath(), e);
+        log.error("Fehler beim Laden der ActionSequence aus Datei: {}", file.getAbsolutePath(), e);
       }
     }
 
-    log.info("Successfully loaded {} actionSequences", actionSequences.size());
+    log.info("Insgesamt {} ActionSequences erfolgreich geladen", actionSequences.size());
     return actionSequences;
   }
 }

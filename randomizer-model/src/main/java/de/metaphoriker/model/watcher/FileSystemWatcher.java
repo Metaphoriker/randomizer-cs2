@@ -18,7 +18,7 @@ public class FileSystemWatcher implements Runnable {
       clusterDirectory.register(
           watcher, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE);
 
-      log.info("Started watching the directory: {}", clusterDirectory);
+      log.debug("Started watching the directory: {}", clusterDirectory);
 
       while (!Thread.currentThread().isInterrupted()) {
         WatchKey key = watcher.take();
@@ -32,7 +32,7 @@ public class FileSystemWatcher implements Runnable {
 
           if (filename.toString().endsWith(".cluster")) {
             Speaker.notify(new Notification(getClass(), filename.toString()));
-            log.info("Detected {} on file: {}", kind.name(), filename);
+            log.debug("Detected {} on file: {}", kind.name(), filename);
           }
         }
 

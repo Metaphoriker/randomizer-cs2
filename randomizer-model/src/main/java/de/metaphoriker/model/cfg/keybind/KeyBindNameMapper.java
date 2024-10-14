@@ -2,7 +2,9 @@ package de.metaphoriker.model.cfg.keybind;
 
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class KeyBindNameMapper {
 
   private final Map<String, String> descriptorToNameMap = new HashMap<>();
@@ -71,5 +73,7 @@ public class KeyBindNameMapper {
     descriptorToNameMap.put("player_ping", "Player Ping");
     // descriptorToNameMap.put("+voicerecord", "Voice Record");
     descriptorToNameMap.put("sellbackall", "Sell Back All Items");
+
+    log.debug("{} Deskriptoren initialisiert.", descriptorToNameMap.size());
   }
 }
