@@ -17,8 +17,7 @@ import javafx.scene.shape.Rectangle;
 @View
 public class SidebarView extends VBox implements Initializable {
 
-  private final SidebarViewModel sidebarViewModel = new SidebarViewModel();
-
+  @Inject private SidebarViewModel sidebarViewModel;
   @Inject private ViewProvider viewProvider;
 
   @FXML private ToggleButton randomizerButton;
