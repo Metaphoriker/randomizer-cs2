@@ -29,6 +29,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Main {
 
+  public static boolean testMode = false;
   public static Injector injector;
 
   @Getter private final ActionSequenceRepository actionSequenceRepository;
@@ -50,11 +51,23 @@ public class Main {
   }
 
   public static void main(String[] args) {
+    testMode = hasTestModeFlag(args);
+    if (testMode) log.debug("Anwendung wird im Testmodus gestartet");
+
     log.debug("Starte JavaFX Anwendung...");
     Application.launch(RandomizerStarter.class, args);
   }
 
-  public void startApplication(boolean testMode) throws IOException, URISyntaxException {
+  private static boolean hasTestModeFlag(String[] args) {
+    for (String arg : args) {
+      if (arg.startsWith("-testMode=")) {
+        return Boolean.parseBoolean(arg.substring(arg.indexOf("=") + 1));
+      }
+    }
+    return false;
+  }
+
+  public void startApplication() throws IOException, URISyntaxException {
     log.debug("Initialisiere Applikation...");
     if (!testMode) installAndRunUpdaterIfNeeded();
     loadKeyBinds();

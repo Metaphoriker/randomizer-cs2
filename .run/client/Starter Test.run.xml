@@ -3,7 +3,7 @@
     <option name="ALTERNATIVE_JRE_PATH" value="22" />
     <option name="MAIN_CLASS_NAME" value="de.metaphoriker.Main" />
     <module name="randomizer-randomizer" />
-    <option name="PROGRAM_PARAMETERS" value="-test" />
+    <option name="PROGRAM_PARAMETERS" value="-testMode=true" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/randomizer-desktop/randomizer-randomizer" />
     <method v="2">
       <option name="Make" enabled="true" />
