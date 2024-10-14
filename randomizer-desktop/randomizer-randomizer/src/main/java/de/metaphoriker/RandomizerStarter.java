@@ -42,6 +42,7 @@ public class RandomizerStarter extends Application {
       stage.getIcons().add(ImageUtil.getImage("images/randomizerLogo.jpg"));
       stage.setMinWidth(MIN_WIDTH);
       stage.setMinHeight(MIN_HEIGHT);
+      stage.setOnCloseRequest(_ -> System.exit(0));
       stage.setScene(scene);
       stage.show();
       log.debug("Hauptfenster angezeigt");
