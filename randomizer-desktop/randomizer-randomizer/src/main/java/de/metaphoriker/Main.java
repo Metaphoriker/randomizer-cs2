@@ -71,7 +71,7 @@ public class Main {
     log.debug("Initialisiere Applikation...");
     if (!testMode) installAndRunUpdaterIfNeeded();
     loadKeyBinds();
-    registerEvents();
+    registerActions();
     cacheCluster();
     startExecutors();
     setupListeners();
@@ -151,7 +151,7 @@ public class Main {
     }
   }
 
-  private void registerEvents() {
+  private void registerActions() {
     log.debug("Registriere Aktionen...");
     actionRegistry.register(new MouseMoveAction(KeyBind.EMPTY_KEYBIND));
     actionRegistry.register(new PauseAction(KeyBind.EMPTY_KEYBIND));
@@ -163,6 +163,7 @@ public class Main {
               Action action = new Action(keyBind);
               actionRegistry.register(action);
             });
+    actionRegistry.loadStatesIfExist();
   }
 
   private void registerNativeKeyHook() {
