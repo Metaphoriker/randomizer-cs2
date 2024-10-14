@@ -1,5 +1,6 @@
 package de.metaphoriker.view.views;
 
+import com.google.inject.Inject;
 import de.metaphoriker.view.View;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -11,7 +12,8 @@ import javafx.scene.layout.HBox;
 @View
 public class RandomizerView extends HBox implements Initializable {
 
-  private final RandomizerViewModel randomizerViewModel = new RandomizerViewModel();
+  @Inject
+  private RandomizerViewModel randomizerViewModel;
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {}

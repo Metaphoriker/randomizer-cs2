@@ -6,17 +6,9 @@ import javafx.scene.Parent;
 
 public class ViewProvider {
 
-  private static final ViewProvider INSTANCE = new ViewProvider();
-
   private final Map<Class<?>, Parent> viewMap = new ConcurrentHashMap<>();
   private final Map<Class<?>, Runnable> listenerMap = new ConcurrentHashMap<>();
   private final ViewLoader viewLoader = new ViewLoader();
-
-  private ViewProvider() {}
-
-  public static ViewProvider getInstance() {
-    return INSTANCE;
-  }
 
   public void registerViewChangeListener(Class<?> viewClass, Runnable listener) {
     listenerMap.put(viewClass, listener);

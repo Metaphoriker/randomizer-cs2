@@ -1,5 +1,6 @@
 package de.metaphoriker.view.views;
 
+import com.google.inject.Inject;
 import de.metaphoriker.view.View;
 import de.metaphoriker.view.ViewProvider;
 import java.net.URL;
@@ -15,7 +16,7 @@ import javafx.scene.layout.VBox;
 @View
 public class MainWindow extends HBox implements Initializable {
 
-  private final ViewProvider viewProvider = ViewProvider.getInstance();
+  @Inject private ViewProvider viewProvider;
 
   @FXML private VBox sidebarPlaceholder;
   @FXML private GridPane contentPane;

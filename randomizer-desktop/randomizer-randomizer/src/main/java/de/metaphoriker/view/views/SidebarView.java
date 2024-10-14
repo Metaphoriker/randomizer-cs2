@@ -1,5 +1,6 @@
 package de.metaphoriker.view.views;
 
+import com.google.inject.Inject;
 import de.metaphoriker.util.ImageUtil;
 import de.metaphoriker.view.View;
 import de.metaphoriker.view.ViewProvider;
@@ -16,8 +17,9 @@ import javafx.scene.shape.Rectangle;
 @View
 public class SidebarView extends VBox implements Initializable {
 
-  private final ViewProvider viewProvider = ViewProvider.getInstance();
   private final SidebarViewModel sidebarViewModel = new SidebarViewModel();
+
+  @Inject private ViewProvider viewProvider;
 
   @FXML private ToggleButton randomizerButton;
   @FXML private ToggleButton builderButton;

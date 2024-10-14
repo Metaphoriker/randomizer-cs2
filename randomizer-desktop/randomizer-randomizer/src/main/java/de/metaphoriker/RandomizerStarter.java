@@ -2,7 +2,7 @@ package de.metaphoriker;
 
 import com.google.inject.Guice;
 import de.metaphoriker.model.ModelModule;
-import de.metaphoriker.view.ViewLoader;
+import de.metaphoriker.view.ViewProvider;
 import de.metaphoriker.view.views.MainWindow;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -27,11 +27,11 @@ public class RandomizerStarter extends Application {
       log.error("Fehler beim Starten der Applikation", e);
     }
 
-    ViewLoader viewLoader = new ViewLoader();
+    ViewProvider viewProvider = Main.injector.getInstance(ViewProvider.class);
 
     try {
       log.debug("Lade Hauptfenster...");
-      Parent root = viewLoader.loadView(MainWindow.class);
+      Parent root = viewProvider.requestView(MainWindow.class);
       Scene scene = new Scene(root);
       scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
       stage.setTitle("Randomizer Playground");
