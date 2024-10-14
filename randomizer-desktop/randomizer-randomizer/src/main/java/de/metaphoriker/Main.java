@@ -155,6 +155,7 @@ public class Main {
     log.debug("Registriere Aktionen...");
     actionRegistry.register(new MouseMoveAction(KeyBind.EMPTY_KEYBIND));
     actionRegistry.register(new PauseAction(KeyBind.EMPTY_KEYBIND));
+    actionRegistry.register(new Action(new KeyBind("ESCAPE", "Escape")));
     keyBindRepository
         .getKeyBinds()
         .forEach(
