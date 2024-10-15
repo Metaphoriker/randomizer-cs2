@@ -173,15 +173,11 @@ public class Action {
       case "EQUALS" -> KeyEvent.VK_EQUALS;
 
       // Mouse keys
-      case "MOUSE1" -> InputEvent.BUTTON1_MASK;
-      case "MOUSE2" -> InputEvent.BUTTON2_MASK;
-      case "MOUSE3" -> InputEvent.BUTTON3_MASK;
-      /* TODO: not supported yet
-      case "MOUSE4":
-        return InputEvent.BUTTON4_MASK;
-      case "MOUSE5":
-        return InputEvent.BUTTON5_MASK;
-       */
+      case "MOUSE1" -> InputEvent.getMaskForButton(1);
+      case "MOUSE2" -> InputEvent.getMaskForButton(2);
+      case "MOUSE3" -> InputEvent.getMaskForButton(3);
+      case "MOUSE4" -> InputEvent.getMaskForButton(4);
+      case "MOUSE5" -> InputEvent.getMaskForButton(5);
 
       default -> -1;
     };
