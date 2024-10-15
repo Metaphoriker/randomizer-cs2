@@ -159,10 +159,11 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   }
 
   private boolean executeDelayedActionIfNeeded(Action currentAction) {
+    if (currentAction.getInterval().isEmpty()) return false;
     Instant now = Instant.now();
     Instant delayedAt = currentAction.getExpectedEnding();
     if (delayedAt != null) {
-      int remainingTimeMs = (int) (delayedAt.toEpochMilli() - now.toEpochMilli());
+      long remainingTimeMs = delayedAt.toEpochMilli() - now.toEpochMilli();
       if (remainingTimeMs > 0) {
         log.debug("Führe verzögerte Aktion aus für {} ms", remainingTimeMs);
         currentAction.executeDelayed(remainingTimeMs);

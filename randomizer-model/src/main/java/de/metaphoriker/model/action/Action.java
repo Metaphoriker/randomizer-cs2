@@ -166,7 +166,7 @@ public class Action {
     else executeDelayed(ThreadLocalRandom.current().nextInt(interval.getMin(), interval.getMax()));
   }
 
-  public void executeDelayed(int delay) {
+  public void executeDelayed(long delay) {
     int keyCode = getKeyCodeForKey(keyBind.getKey());
     executing = true;
     interrupted = false;
@@ -180,7 +180,7 @@ public class Action {
     executing = false;
   }
 
-  private void handleMouseEvent(int delay, int keyCode) {
+  private void handleMouseEvent(long delay, int keyCode) {
     robot.mousePress(keyCode);
     performInterruptibleDelay(delay);
     if (!interrupted) {
@@ -190,7 +190,7 @@ public class Action {
     }
   }
 
-  private void handleKeyEvent(int delay, int keyCode) {
+  private void handleKeyEvent(long delay, int keyCode) {
     if (keyCode != -1) {
       robot.keyPress(keyCode);
       performInterruptibleDelay(delay);
@@ -204,14 +204,14 @@ public class Action {
     }
   }
 
-  private void performInterruptibleDelay(int delay) {
+  private void performInterruptibleDelay(long delay) {
     if (!interval.isEmpty()) {
       expectedEnding = Instant.now().plusMillis(delay);
       interruptibleDelay(delay);
     }
   }
 
-  private void interruptibleDelay(int delayInMillis) {
+  private void interruptibleDelay(long delayInMillis) {
     int interval = 50;
     int waitedTime = 0;
 
