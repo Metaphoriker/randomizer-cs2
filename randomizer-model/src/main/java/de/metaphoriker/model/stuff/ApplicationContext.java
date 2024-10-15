@@ -10,9 +10,8 @@ import lombok.Getter;
 @Getter
 public class ApplicationContext {
 
-  // TODO: move this
   private static final File APPDATA_FOLDER =
-      new File(System.getenv("APPDATA") + java.io.File.separator + "randomizer");
+      new File(System.getenv("APPDATA") + File.separator + "randomizer");
 
   private final List<Consumer<ApplicationState>> changeListener = new ArrayList<>();
 
