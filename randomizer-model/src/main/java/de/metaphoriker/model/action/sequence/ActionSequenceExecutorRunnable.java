@@ -1,16 +1,14 @@
-package de.metaphoriker.model.action.handling;
+package de.metaphoriker.model.action.sequence;
 
 import com.google.inject.Inject;
 import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.FocusManager;
-import de.metaphoriker.model.action.sequence.ActionSequence;
-import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ActionExecutorRunnable implements Runnable {
+public class ActionSequenceExecutorRunnable implements Runnable {
 
   private static final Object lock = new Object();
   private static volatile int minWaitTime = 30 * 1000;
@@ -21,7 +19,7 @@ public class ActionExecutorRunnable implements Runnable {
   private final ApplicationContext applicationContext;
 
   @Inject
-  public ActionExecutorRunnable(
+  public ActionSequenceExecutorRunnable(
       ActionSequenceRepository actionSequenceRepository, ApplicationContext applicationContext) {
     this.actionSequenceRepository = actionSequenceRepository;
     this.applicationContext = applicationContext;
@@ -55,7 +53,7 @@ public class ActionExecutorRunnable implements Runnable {
             && !actionSequenceRepository.getActionSequences().isEmpty()) {
 
           log.debug("Dispatching random ActionSequence");
-          ActionDispatcher.dispatchCluster(
+          ActionSequenceDispatcher.dispatchSequence(
               actionSequenceRepository.getActionSequences().stream()
                   .filter(ActionSequence::isActive)
                   .toList()

@@ -1,14 +1,13 @@
-package de.metaphoriker.model.action.handling;
+package de.metaphoriker.model.action.sequence;
 
 import de.metaphoriker.model.action.Action;
-import de.metaphoriker.model.action.sequence.ActionSequence;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class ActionDispatcher {
+public class ActionSequenceDispatcher {
 
   private static final Map<Object, Consumer<Object>> ON_FINISH_MAP = new ConcurrentHashMap<>();
   private static final Map<ActionSequence, List<Consumer<ActionSequence>>>
@@ -16,9 +15,9 @@ public class ActionDispatcher {
   private static final Map<Class<? extends Action>, List<Consumer<Action>>> ACTION_HANDLERS =
       new ConcurrentHashMap<>();
 
-  private ActionDispatcher() {}
+  private ActionSequenceDispatcher() {}
 
-  public static void dispatch(Action action) {
+  private static void dispatch(Action action) {
     log.debug("Dispatching Action: {}", action);
     dispatchToHandlers(action, ACTION_HANDLERS.getOrDefault(Action.class, Collections.emptyList()));
     dispatchToHandlers(
@@ -28,12 +27,12 @@ public class ActionDispatcher {
     log.debug("Action dispatched and executed: {}", action);
   }
 
-  public static void dispatchCluster(ActionSequence actionSequence) {
+  public static void dispatchSequence(ActionSequence actionSequence) {
     log.debug("Dispatching ActionSequence: {}", actionSequence);
     ACTION_SEQUENCE_HANDLERS
         .getOrDefault(actionSequence, Collections.emptyList())
         .forEach(handler -> handler.accept(actionSequence));
-    actionSequence.getActions().forEach(ActionDispatcher::dispatch);
+    actionSequence.getActions().forEach(ActionSequenceDispatcher::dispatch);
     Optional.ofNullable(ON_FINISH_MAP.get(actionSequence))
         .ifPresent(handler -> handler.accept(actionSequence));
     log.debug("ActionSequence dispatched and executed: {}", actionSequence);
@@ -54,7 +53,7 @@ public class ActionDispatcher {
     registerHandler(Action.class, handler);
   }
 
-  public static void registerGenericClusterHandler(
+  public static void registerGenericSequenceHandler(
       ActionSequence actionSequence, Consumer<ActionSequence> handler) {
     log.debug("Registriere Handler für ActionSequence: {}", actionSequence);
     ACTION_SEQUENCE_HANDLERS.computeIfAbsent(actionSequence, _ -> new ArrayList<>()).add(handler);

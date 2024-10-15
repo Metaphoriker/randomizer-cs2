@@ -7,7 +7,7 @@ import com.google.inject.Injector;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.custom.MouseMoveAction;
 import de.metaphoriker.model.action.custom.PauseAction;
-import de.metaphoriker.model.action.handling.ActionExecutorRunnable;
+import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.handling.ActionRepository;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.cfg.ConfigLoader;
@@ -36,18 +36,18 @@ public class Main {
   @Getter private final ActionRepository actionRepository;
 
   private final KeyBindRepository keyBindRepository;
-  private final ActionExecutorRunnable actionExecutorRunnable;
+  private final ActionSequenceExecutorRunnable actionSequenceExecutorRunnable;
 
   @Inject
   public Main(
       ActionSequenceRepository actionSequenceRepository,
       KeyBindRepository keyBindRepository,
       ActionRepository actionRepository,
-      ActionExecutorRunnable actionExecutorRunnable) {
+      ActionSequenceExecutorRunnable actionSequenceExecutorRunnable) {
     this.actionSequenceRepository = actionSequenceRepository;
     this.keyBindRepository = keyBindRepository;
     this.actionRepository = actionRepository;
-    this.actionExecutorRunnable = actionExecutorRunnable;
+    this.actionSequenceExecutorRunnable = actionSequenceExecutorRunnable;
   }
 
   public static void main(String[] args) {
@@ -106,7 +106,7 @@ public class Main {
 
   private void startExecutors() {
     log.debug("Starte Executor...");
-    startThread(new Thread(actionExecutorRunnable));
+    startThread(new Thread(actionSequenceExecutorRunnable));
     startThread(new Thread(new FileSystemWatcher()));
   }
 
