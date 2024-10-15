@@ -21,6 +21,8 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.concurrent.ThreadLocalRandom;
+import java.util.function.Supplier;
+
 import javafx.application.Application;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -157,13 +159,21 @@ public class Main {
         new Action(new KeyBind(KeyBind.EMPTY_KEYBIND.getKey(), "Mouse Move")) {
           @Override
           public void execute() {
-            Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+            Point currentPosition = MouseInfo.getPointerInfo().getLocation();
 
-            int middleX = dimension.width / 2;
-            int middleY = dimension.height / 2;
+            int currentX = currentPosition.x;
+            int currentY = currentPosition.y;
 
-            int x = ThreadLocalRandom.current().nextInt(middleX - 5, middleX + 5);
-            int y = ThreadLocalRandom.current().nextInt(middleY - 5, middleY + 5);
+            boolean moveHorizontally = ThreadLocalRandom.current().nextBoolean();
+
+            Supplier<Integer> randomInt =
+                () ->
+                    moveHorizontally
+                        ? ThreadLocalRandom.current().nextInt(currentX - 5, currentX + 6)
+                        : ThreadLocalRandom.current().nextInt(currentY - 5, currentY + 6);
+
+            int x = moveHorizontally ? randomInt.get() : currentX;
+            int y = moveHorizontally ? currentY : randomInt.get();
 
             robot.mouseMove(x, y);
           }
