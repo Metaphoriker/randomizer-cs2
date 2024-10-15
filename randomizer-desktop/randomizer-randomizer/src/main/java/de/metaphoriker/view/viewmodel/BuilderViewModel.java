@@ -15,7 +15,7 @@ public class BuilderViewModel {
   @Inject
   public BuilderViewModel() {}
 
-  public List<Action> getActions() {
+  public List<Action> getEnabledActions() {
     return actionRepository.getActions().keySet().stream()
         .filter(action -> actionRepository.isEnabled(action))
         .toList();

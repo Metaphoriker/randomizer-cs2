@@ -20,17 +20,17 @@ public class BuilderView extends HBox {
   @FXML private FlowPane actionFlowPane;
 
   public BuilderView() {
-    initialize();
-    Platform.runLater(this::fillFlowPane);
+    Platform.runLater(this::initialize);
   }
 
   private void initialize() {
     HBox.setHgrow(this, Priority.ALWAYS);
+    fillFlowPane();
   }
 
   private void fillFlowPane() {
     actionFlowPane.getChildren().clear();
-    List<Action> actions = builderViewModel.getActions();
+    List<Action> actions = builderViewModel.getEnabledActions();
 
     actions.stream()
         .map(action -> new Label(action.name()))
