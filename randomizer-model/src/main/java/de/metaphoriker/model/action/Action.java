@@ -10,10 +10,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
+import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Slf4j
+@ToString
 public class Action {
 
   protected static final Robot robot;
@@ -131,7 +133,7 @@ public class Action {
     return stringToKeyCodeMap.getOrDefault(key.toUpperCase(), -1);
   }
 
-  private final KeyBind keyBind;
+  private final transient KeyBind keyBind;
   private final Interval interval = Interval.of(0, 0);
 
   private transient volatile boolean interrupted = false;

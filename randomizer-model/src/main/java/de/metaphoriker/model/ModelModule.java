@@ -6,6 +6,7 @@ import de.metaphoriker.model.action.sequence.ActionSequenceDispatcher;
 import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
+import de.metaphoriker.model.json.ActionJsonDeSerializer;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
 
@@ -21,5 +22,6 @@ public class ModelModule extends AbstractModule {
     bind(FileSystemWatcher.class).asEagerSingleton();
 
     bind(ActionSequenceExecutorRunnable.class);
+    bind(ActionJsonDeSerializer.class);
   }
 }
