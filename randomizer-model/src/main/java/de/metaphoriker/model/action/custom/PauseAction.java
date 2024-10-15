@@ -22,7 +22,7 @@ public class PauseAction extends Action {
 
   @Override
   public void execute() {
-    if (getInterval() == null) return;
+    if (getInterval().isEmpty()) return;
 
     int min = getInterval().getMin();
     int max = getInterval().getMax();

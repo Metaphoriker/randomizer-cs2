@@ -7,7 +7,6 @@ import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
-import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
@@ -26,8 +25,7 @@ public class Action {
   }
 
   private final KeyBind keyBind;
-
-  @Setter private Interval interval;
+  private final Interval interval = Interval.of(0, 0);
 
   public Action(KeyBind keyBind) {
     this.keyBind = keyBind;
@@ -46,13 +44,17 @@ public class Action {
 
     if (keyCode != -1) {
       robot.keyPress(keyCode);
-      if (interval != null) {
+      if (!interval.isEmpty())
         robot.delay(ThreadLocalRandom.current().nextInt(interval.getMin(), interval.getMax()));
-      }
       robot.keyRelease(keyCode);
     } else {
       log.warn("Key code not found for key: {}", keyBind.getKey());
     }
+  }
+
+  public void setInterval(Interval interval) {
+    this.interval.setMax(interval.getMax());
+    this.interval.setMin(interval.getMin());
   }
 
   private int mapKeyToKeyCode(String key) {

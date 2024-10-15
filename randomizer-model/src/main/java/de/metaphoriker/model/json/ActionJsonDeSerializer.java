@@ -23,17 +23,10 @@ public class ActionJsonDeSerializer implements JsonSerializer<Action>, JsonDeser
 
   @Override
   public JsonElement serialize(Action action, Type type, JsonSerializationContext context) {
-
     JsonObject jsonObject = new JsonObject();
-
     jsonObject.addProperty(CLASS_META_KEY, action.getClass().getCanonicalName());
-
     jsonObject.add(KEYBIND_KEY, context.serialize(action.getKeyBind()));
-
-    if (action.getInterval() != null) {
-      jsonObject.add(INTERVAL_KEY, context.serialize(action.getInterval()));
-    }
-
+    jsonObject.add(INTERVAL_KEY, context.serialize(action.getInterval()));
     return jsonObject;
   }
 
@@ -52,18 +45,13 @@ public class ActionJsonDeSerializer implements JsonSerializer<Action>, JsonDeser
         log.warn("No keybind found for action: {}", className);
         keyBind = KeyBind.EMPTY_KEYBIND;
       }
-
       Action action = (Action) constructor.newInstance(keyBind);
-
-      if (jsonObject.has(INTERVAL_KEY)) {
-        Interval interval = context.deserialize(jsonObject.get(INTERVAL_KEY), Interval.class);
-        action.setInterval(interval);
-      }
-
+      Interval interval = context.deserialize(jsonObject.get(INTERVAL_KEY), Interval.class);
+      action.setInterval(interval);
       return action;
 
     } catch (Exception e) {
-      log.error("Failed to deserialize Action: " + className, e);
+      log.error("Failed to deserialize Action: {}", className, e);
       throw new JsonParseException("Failed to deserialize Action: " + className, e);
     }
   }
