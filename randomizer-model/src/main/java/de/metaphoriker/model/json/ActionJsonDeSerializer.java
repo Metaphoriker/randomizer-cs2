@@ -11,8 +11,6 @@ import com.google.inject.Inject;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.Interval;
 import de.metaphoriker.model.action.handling.ActionRepository;
-import de.metaphoriker.model.cfg.keybind.KeyBind;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Type;
 import lombok.extern.slf4j.Slf4j;
 
@@ -33,7 +31,8 @@ public class ActionJsonDeSerializer implements JsonSerializer<Action>, JsonDeser
   }
 
   @Override
-  public Action deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context) throws JsonParseException {
+  public Action deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context)
+      throws JsonParseException {
     JsonObject jsonObject = jsonElement.getAsJsonObject();
     String name = jsonObject.get(NAME_KEY).getAsString();
 
