@@ -66,7 +66,7 @@ public class ActionSequenceRepository {
     log.info("ActionSequence '{}' entfernt.", name);
   }
 
-  public synchronized void loadActionSequences() {
+  public synchronized void updateActionSequencesCache() {
     if (!isCacheUpdated) {
       updateCache();
       log.info("Cache aktualisiert.");

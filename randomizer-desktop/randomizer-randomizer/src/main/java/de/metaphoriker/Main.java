@@ -86,7 +86,7 @@ public class Main {
 
   private void cacheActions() {
     log.debug("Cache Actions...");
-    actionSequenceRepository.loadActionSequences();
+    actionSequenceRepository.updateActionSequencesCache();
   }
 
   private void startExecutors() {
