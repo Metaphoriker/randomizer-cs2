@@ -1,14 +1,21 @@
 package de.metaphoriker.model.watcher;
 
 import de.metaphoriker.model.action.sequence.ActionSequenceDao;
-import de.metaphoriker.model.notify.Notification;
-import de.metaphoriker.model.notify.Speaker;
 import java.io.IOException;
 import java.nio.file.*;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class FileSystemWatcher implements Runnable {
+
+  private final List<Consumer<Path>> fileChangeListeners = new ArrayList<>();
+
+  public void addFileChangeListener(Consumer<Path> fileChangeListener) {
+    fileChangeListeners.add(fileChangeListener);
+  }
 
   @Override
   public void run() {
@@ -30,8 +37,8 @@ public class FileSystemWatcher implements Runnable {
           WatchEvent<Path> ev = (WatchEvent<Path>) event;
           Path filename = ev.context();
 
-          if (filename.toString().endsWith(".cluster")) {
-            Speaker.notify(new Notification(getClass(), filename.toString()));
+          if (filename.toString().endsWith(".sequence")) {
+            fileChangeListeners.forEach(consumer -> consumer.accept(filename));
             log.debug("Detected {} on file: {}", kind.name(), filename);
           }
         }
