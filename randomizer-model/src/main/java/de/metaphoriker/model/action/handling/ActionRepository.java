@@ -7,9 +7,9 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 
 @Slf4j
-public class ActionRegistry {
+public class ActionRepository {
 
-  private static final ActionRegistryStorage ACTION_REGISTRY_STORAGE = new ActionRegistryStorage();
+  private static final ActionDao ACTION_REGISTRY_STORAGE = new ActionDao();
 
   private final Map<Action, Boolean> actions = new LinkedHashMap<>();
 

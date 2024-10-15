@@ -8,7 +8,7 @@ import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.custom.MouseMoveAction;
 import de.metaphoriker.model.action.custom.PauseAction;
 import de.metaphoriker.model.action.handling.ActionExecutorRunnable;
-import de.metaphoriker.model.action.handling.ActionRegistry;
+import de.metaphoriker.model.action.handling.ActionRepository;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.cfg.ConfigLoader;
 import de.metaphoriker.model.cfg.keybind.KeyBind;
@@ -33,7 +33,7 @@ public class Main {
   public static Injector injector;
 
   @Getter private final ActionSequenceRepository actionSequenceRepository;
-  @Getter private final ActionRegistry actionRegistry;
+  @Getter private final ActionRepository actionRepository;
 
   private final KeyBindRepository keyBindRepository;
   private final ActionExecutorRunnable actionExecutorRunnable;
@@ -42,11 +42,11 @@ public class Main {
   public Main(
       ActionSequenceRepository actionSequenceRepository,
       KeyBindRepository keyBindRepository,
-      ActionRegistry actionRegistry,
+      ActionRepository actionRepository,
       ActionExecutorRunnable actionExecutorRunnable) {
     this.actionSequenceRepository = actionSequenceRepository;
     this.keyBindRepository = keyBindRepository;
-    this.actionRegistry = actionRegistry;
+    this.actionRepository = actionRepository;
     this.actionExecutorRunnable = actionExecutorRunnable;
   }
 
@@ -153,17 +153,17 @@ public class Main {
 
   private void registerActions() {
     log.debug("Registriere Aktionen...");
-    actionRegistry.register(new MouseMoveAction(KeyBind.EMPTY_KEYBIND));
-    actionRegistry.register(new PauseAction(KeyBind.EMPTY_KEYBIND));
-    actionRegistry.register(new Action(new KeyBind("ESCAPE", "Escape")));
+    actionRepository.register(new MouseMoveAction(KeyBind.EMPTY_KEYBIND));
+    actionRepository.register(new PauseAction(KeyBind.EMPTY_KEYBIND));
+    actionRepository.register(new Action(new KeyBind("ESCAPE", "Escape")));
     keyBindRepository
         .getKeyBinds()
         .forEach(
             keyBind -> {
               Action action = new Action(keyBind);
-              actionRegistry.register(action);
+              actionRepository.register(action);
             });
-    actionRegistry.loadStatesIfExist();
+    actionRepository.loadStatesIfExist();
   }
 
   private void registerNativeKeyHook() {

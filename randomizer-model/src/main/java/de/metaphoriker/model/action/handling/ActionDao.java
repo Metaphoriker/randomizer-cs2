@@ -18,7 +18,7 @@ import java.util.Map;
  * Aktion aktiviert ist oder nicht.
  */
 @Slf4j
-public class ActionRegistryStorage {
+public class ActionDao {
 
   private static final File STORAGE_FILE =
       new File(ApplicationContext.getAppdataFolder() + File.separator + "actions.json");
