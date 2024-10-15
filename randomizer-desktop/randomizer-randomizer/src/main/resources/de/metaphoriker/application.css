@@ -1,123 +1,128 @@
 /* Grundlegender Hintergrund und Textfarbe für die gesamte Anwendung */
 .root {
-    -fx-background-color: #1c1c1e;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #2d2d2d;
+    -fx-text-fill: #f0f0f0;
     -fx-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+    -fx-font-size: 15px;
 }
 
 /* Stil für Tasten */
 .button {
-    -fx-background-color: #2c2c2e;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
-    -fx-text-fill: #ffffff;
-    -fx-padding: 15 25;
-    -fx-border-color: #3a3a3c;
+    -fx-background-color: #3b3b3b;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
+    -fx-border-color: #474747;
+    -fx-text-fill: #81a1c1;
+    -fx-padding: 10 20;
+    -fx-font-size: 16px;
     -fx-cursor: hand;
-    -fx-font-size: 14;
 }
 
 .button:hover {
-    -fx-background-color: #3a3a3c;
+    -fx-background-color: #505050;
 }
 
 .button:pressed {
-    -fx-background-color: #404042;
-    -fx-border-color: #3a3a3c;
+    -fx-background-color: #5a5a5a;
+    -fx-border-color: #474747;
 }
 
 /* Eingabefelder */
 .text-field, .password-field, .text-area {
-    -fx-background-color: #2c2c2e;
-    -fx-border-color: #3a3a3c;
-    -fx-border-radius: 5;
-    -fx-background-radius: 5;
-    -fx-text-fill: #ffffff;
-    -fx-prompt-text-fill: #8e8e93;
+    -fx-background-color: #3b3b3b;
+    -fx-border-color: #474747;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
+    -fx-text-fill: #f0f0f0;
+    -fx-prompt-text-fill: #a0a0a0;
+    -fx-padding: 8 12;
+    -fx-font-size: 14px;
 }
 
 /* ToggleButton spezifisch */
 .toggle-button {
     -fx-background-color: transparent;
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #81a1c1;
     -fx-cursor: hand;
 }
 
 .toggle-button:selected {
-    -fx-background-color: #3a3a3c;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #505050;
+    -fx-text-fill: #f0f0f0;
+    -fx-border-radius: 8;
+    -fx-background-radius: 8;
 }
 
 /* Labels */
 .label {
-    -fx-font-size: 14pt;
-    -fx-text-fill: #ffffff;
+    -fx-font-size: 16px;
+    -fx-text-fill: #f0f0f0;
 }
 
 /* Container (z.B. Pane) */
 .container {
-    -fx-background-color: #1c1c1e;
-    -fx-padding: 20;
-    -fx-spacing: 15;
-    -fx-border-color: #2c2c2e;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-background-color: #3b3b3b;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-border-color: #474747;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
 }
 
 /* Hervorgehobene VBox achtergrond */
 .highlighted-vbox {
-    -fx-background-color: #2c2c2e;
-    -fx-padding: 20;
-    -fx-spacing: 15;
-    -fx-border-color: #3a3a3c;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-background-color: #444444;
+    -fx-padding: 15;
+    -fx-spacing: 10;
+    -fx-border-color: #474747;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
 }
 
 /* Tabellen */
 .table-view {
-    -fx-background-color: #1c1c1e;
-    -fx-table-cell-border-color: #2c2c2e;
-    -fx-border-color: #2c2c2e;
+    -fx-background-color: #3b3b3b;
+    -fx-table-cell-border-color: #474747;
+    -fx-border-color: #474747;
 }
 
 .table-row-cell, .table-column-header {
-    -fx-background-color: #2c2c2e;
-    -fx-border-color: #3a3a3c;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #444444;
+    -fx-border-color: #474747;
+    -fx-text-fill: #f0f0f0;
 }
 
 .table-row-cell:selected, .table-row-cell:focused {
-    -fx-background-color: #3a3a3c;
+    -fx-background-color: #505050;
 }
 
 /* Listen */
 .list-view {
-    -fx-background-color: #2c2c2e;
-    -fx-border-color: #3a3a3c;
-    -fx-cell-hover-color: #3a3a3c;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #3b3b3b;
+    -fx-border-color: #474747;
+    -fx-cell-hover-color: #505050;
+    -fx-text-fill: #f0f0f0;
 }
 
 .list-cell:selected, .list-cell:hover {
-    -fx-background-color: #3a3a3c;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #505050;
+    -fx-text-fill: #f0f0f0;
 }
 
 /* Menüs */
 .menu-bar {
-    -fx-background-color: #2c2c2e;
-    -fx-base: #2c2c2e;
-    -fx-border-color: #3a3a3c;
+    -fx-background-color: #3b3b3b;
+    -fx-base: #444444;
+    -fx-border-color: #474747;
 }
 
 .menu-item {
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #f0f0f0;
 }
 
 .menu-item:selected {
-    -fx-background-color: #3a3a3c;
-    -fx-text-fill: #ffffff;
+    -fx-background-color: #505050;
+    -fx-text-fill: #f0f0f0;
 }
 
 /* Sliders */
@@ -127,58 +132,59 @@
 }
 
 .slider .track {
-    -fx-background-color: #3a3a3c;
+    -fx-background-color: #474747;
 }
 
 .slider .thumb {
-    -fx-background-color: #ffffff;
-    -fx-border-color: #3a3a3c;
-    -fx-border-radius: 10;
-    -fx-background-radius: 10;
+    -fx-background-color: #81a1c1;
+    -fx-border-color: #474747;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
 }
 
 /* SplitPane */
 .split-pane {
-    -fx-background-color: #1c1c1e;
-    -fx-border-color: #2c2c2e;
+    -fx-background-color: #3b3b3b;
+    -fx-border-color: #474747;
 }
 
 .split-pane .split-pane-divider {
-    -fx-background-color: #3a3a3c;
+    -fx-background-color: #474747;
 }
 
 .split-pane:horizontal .split-pane-divider {
-    -fx-border-left-color: #2c2c2e;
-    -fx-border-right-color: #2c2c2e;
+    -fx-border-left-color: #474747;
+    -fx-border-right-color: #474747;
 }
 
 .split-pane:vertical .split-pane-divider {
-    -fx-border-top-color: #2c2c2e;
-    -fx-border-bottom-color: #2c2c2e;
+    -fx-border-top-color: #474747;
+    -fx-border-bottom-color: #474747;
 }
 
 /* ScrollBars */
 .scroll-bar {
-    -fx-background-color: #2c2c2e;
+    -fx-background-color: #3b3b3b;
 }
 
 .scroll-bar .thumb {
-    -fx-background-color: #3a3a3c;
-    -fx-background-radius: 5;
+    -fx-background-color: #505050;
+    -fx-background-radius: 8;
 }
 
 /* Toggle Switches */
 .toggle-switch {
     -fx-background-color: transparent;
-    -fx-border-color: #444;
-    -fx-text-fill: #ffffff;
+    -fx-border-color: #4a4a4a;
+    -fx-text-fill: #f0f0f0;
     -fx-cursor: hand;
 }
 
 /* Panel */
 .panel {
-    -fx-background-color: #2c2c2e;
-    -fx-padding: 10;
-    -fx-border-color: #3a3a3c;
-    -fx-border-radius: 10;
+    -fx-background-color: #3b3b3b;
+    -fx-padding: 15;
+    -fx-border-color: #474747;
+    -fx-border-radius: 12;
+    -fx-background-radius: 12;
 }
