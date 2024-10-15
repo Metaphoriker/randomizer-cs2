@@ -22,7 +22,6 @@ public class SidebarView extends VBox implements Initializable {
 
   @FXML private ToggleButton randomizerButton;
   @FXML private ToggleButton builderButton;
-  @FXML private ToggleButton gameButton;
   @FXML private Rectangle logoShape;
   @FXML private Button websiteButton;
   @FXML private Button discordButton;
@@ -46,7 +45,6 @@ public class SidebarView extends VBox implements Initializable {
     discordButton.setGraphic(ImageUtil.getImageView("images/discordIcon.png"));
     randomizerButton.setGraphic(ImageUtil.getImageView("images/randomizerIcon.png"));
     builderButton.setGraphic(ImageUtil.getImageView("images/logbookIcon.png"));
-    gameButton.setGraphic(ImageUtil.getImageView("images/gameIcon.png"));
   }
 
   private void setupToggles() {
@@ -54,13 +52,11 @@ public class SidebarView extends VBox implements Initializable {
         _ -> updateButtonStateAndToggleView(randomizerButton, RandomizerView.class));
     builderButton.setOnAction(
         _ -> updateButtonStateAndToggleView(builderButton, BuilderView.class));
-    gameButton.setOnAction(_ -> updateButtonStateAndToggleView(gameButton, null));
   }
 
   private void updateButtonStateAndToggleView(ToggleButton selectedButton, Class<?> viewClass) {
     randomizerButton.setSelected(selectedButton == randomizerButton);
     builderButton.setSelected(selectedButton == builderButton);
-    gameButton.setSelected(selectedButton == gameButton);
 
     if (viewClass != null) {
       viewProvider.triggerViewChange(viewClass);

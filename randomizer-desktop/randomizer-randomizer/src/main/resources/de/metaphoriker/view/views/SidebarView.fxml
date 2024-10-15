@@ -6,41 +6,38 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
-<VBox alignment="TOP_CENTER" prefHeight="830.0" prefWidth="80.0" xmlns="http://javafx.com/javafx/22"
-      xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.view.views.SidebarView"
-      styleClass="highlighted-vbox">
+
+<VBox alignment="TOP_CENTER" prefHeight="830.0" prefWidth="80.0" styleClass="highlighted-vbox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.view.views.SidebarView">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
             <children>
                 <VBox>
                     <children>
-                        <Rectangle fx:id="logoShape" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0"
-                                   stroke="TRANSPARENT" strokeType="INSIDE" width="50.0"/>
+                        <Rectangle fx:id="logoShape" arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" stroke="TRANSPARENT" strokeType="INSIDE" width="50.0" />
                     </children>
                     <padding>
-                        <Insets left="20.0" right="20.0" top="20.0"/>
+                        <Insets left="20.0" right="20.0" top="20.0" />
                     </padding>
                 </VBox>
-                <Separator prefWidth="200.0"/>
+                <Separator prefWidth="200.0" />
                 <VBox prefHeight="200.0" prefWidth="100.0" spacing="15.0">
                     <padding>
-                        <Insets left="20.0" right="20.0" top="10.0"/>
+                        <Insets left="20.0" right="20.0" top="10.0" />
                     </padding>
                     <children>
-                        <ToggleButton fx:id="randomizerButton" mnemonicParsing="false"/>
-                        <ToggleButton fx:id="builderButton" mnemonicParsing="false"/>
-                        <ToggleButton fx:id="gameButton" mnemonicParsing="false"/>
+                        <ToggleButton fx:id="randomizerButton" mnemonicParsing="false" />
+                        <ToggleButton fx:id="builderButton" mnemonicParsing="false" />
                     </children>
                 </VBox>
             </children>
         </VBox>
         <VBox alignment="BOTTOM_LEFT" prefHeight="200.0" prefWidth="100.0" spacing="10.0" VBox.vgrow="ALWAYS">
             <padding>
-                <Insets bottom="10.0" left="20.0" right="20.0"/>
+                <Insets bottom="10.0" left="20.0" right="20.0" />
             </padding>
             <children>
-                <Button fx:id="websiteButton" mnemonicParsing="false"/>
-                <Button fx:id="discordButton" mnemonicParsing="false"/>
+                <Button fx:id="websiteButton" mnemonicParsing="false" />
+                <Button fx:id="discordButton" mnemonicParsing="false" />
             </children>
         </VBox>
     </children>
