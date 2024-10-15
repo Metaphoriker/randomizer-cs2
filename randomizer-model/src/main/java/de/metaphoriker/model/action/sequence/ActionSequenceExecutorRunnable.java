@@ -109,6 +109,11 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   public void run() {
     while (!Thread.currentThread().isInterrupted()) {
       if (!hasReleasedAnyKey && !waitTimeUpdated && !isWaitTimeExceeded()) {
+        try {
+          Thread.sleep(50);
+        } catch (InterruptedException e) {
+          throw new RuntimeException(e);
+        }
         continue;
       }
       if (FocusManager.isCs2WindowInFocus()) {
