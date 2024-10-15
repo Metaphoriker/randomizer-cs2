@@ -9,6 +9,9 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ActionSequenceDispatcher {
 
+  private static final String ACTION_DISPATCHED = "Action erfolgreich dispatched: {}";
+  private static final String SEQUENCE_DISPATCHED = "ActionSequence erfolgreich dispatched: {}";
+
   private final Map<Object, Consumer<Object>> onFinishMap = new ConcurrentHashMap<>();
   private final Map<Class<? extends ActionSequence>, List<Consumer<ActionSequence>>>
       actionSequenceHandlers = new ConcurrentHashMap<>();
@@ -18,26 +21,25 @@ public class ActionSequenceDispatcher {
   public ActionSequenceDispatcher() {}
 
   private void dispatch(Action action) {
-    dispatchActionToHandlers(
-        action, actionHandlers.getOrDefault(Action.class, Collections.emptyList()));
-    dispatchActionToHandlers(
+    dispatchToHandlers(action, actionHandlers.getOrDefault(Action.class, Collections.emptyList()));
+    dispatchToHandlers(
         action, actionHandlers.getOrDefault(action.getClass(), Collections.emptyList()));
     action.execute();
     Optional.ofNullable(onFinishMap.get(action)).ifPresent(handler -> handler.accept(action));
-    log.info("Action erfolgreich dispatched: {}", action);
+    log.info(ACTION_DISPATCHED, action);
   }
 
   public void dispatchSequence(ActionSequence actionSequence) {
-    dispatchActionSequenceToHandlers(
+    dispatchToHandlers(
         actionSequence,
         actionSequenceHandlers.getOrDefault(actionSequence.getClass(), Collections.emptyList()));
-    dispatchActionSequenceToHandlers(
+    dispatchToHandlers(
         actionSequence,
         actionSequenceHandlers.getOrDefault(ActionSequence.class, Collections.emptyList()));
     actionSequence.getActions().forEach(this::dispatch);
     Optional.ofNullable(onFinishMap.get(actionSequence))
         .ifPresent(handler -> handler.accept(actionSequence));
-    log.info("ActionSequence erfolgreich dispatched: {}", actionSequence);
+    log.info(SEQUENCE_DISPATCHED, actionSequence);
   }
 
   public void registerOnFinish(Object key, Consumer<Object> onFinish) {
@@ -63,27 +65,12 @@ public class ActionSequenceDispatcher {
     registerSequenceHandler(ActionSequence.class, handler);
   }
 
-  private void dispatchActionToHandlers(Action action, List<Consumer<Action>> handlers) {
-    synchronized (handlers) {
-      for (Consumer<Action> handler : handlers) {
-        try {
-          handler.accept(action);
-        } catch (Exception e) {
-          log.error("Error while handling action: {}", action, e);
-        }
-      }
-    }
-  }
-
-  private void dispatchActionSequenceToHandlers(
-      ActionSequence actionSequence, List<Consumer<ActionSequence>> handlers) {
-    synchronized (handlers) {
-      for (Consumer<ActionSequence> handler : handlers) {
-        try {
-          handler.accept(actionSequence);
-        } catch (Exception e) {
-          log.error("Error while handling action sequence: {}", actionSequence, e);
-        }
+  private <T> void dispatchToHandlers(T item, List<Consumer<T>> handlers) {
+    for (Consumer<T> handler : handlers) {
+      try {
+        handler.accept(item);
+      } catch (Exception e) {
+        log.error("Error while handling item: {}", item, e);
       }
     }
   }
