@@ -32,23 +32,11 @@ public class Main {
   public static boolean testMode = false;
   public static Injector injector;
 
-  @Getter private final ActionSequenceRepository actionSequenceRepository;
-  @Getter private final ActionRepository actionRepository;
-
-  private final KeyBindRepository keyBindRepository;
-  private final ActionSequenceExecutorRunnable actionSequenceExecutorRunnable;
-
-  @Inject
-  public Main(
-      ActionSequenceRepository actionSequenceRepository,
-      KeyBindRepository keyBindRepository,
-      ActionRepository actionRepository,
-      ActionSequenceExecutorRunnable actionSequenceExecutorRunnable) {
-    this.actionSequenceRepository = actionSequenceRepository;
-    this.keyBindRepository = keyBindRepository;
-    this.actionRepository = actionRepository;
-    this.actionSequenceExecutorRunnable = actionSequenceExecutorRunnable;
-  }
+  @Inject @Getter private ActionSequenceRepository actionSequenceRepository;
+  @Inject @Getter private ActionRepository actionRepository;
+  @Inject private KeyBindRepository keyBindRepository;
+  @Inject private ActionSequenceExecutorRunnable actionSequenceExecutorRunnable;
+  @Inject private ApplicationContext applicationContext;
 
   public static void main(String[] args) {
     testMode = hasTestModeFlag(args);

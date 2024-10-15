@@ -1,8 +1,9 @@
 package de.metaphoriker.model;
 
 import com.google.inject.AbstractModule;
-import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.handling.ActionRepository;
+import de.metaphoriker.model.action.sequence.ActionSequenceDispatcher;
+import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
 import de.metaphoriker.model.stuff.ApplicationContext;
@@ -15,6 +16,7 @@ public class ModelModule extends AbstractModule {
     bind(ActionRepository.class).asEagerSingleton();
     bind(ActionSequenceRepository.class).asEagerSingleton();
     bind(KeyBindRepository.class).asEagerSingleton();
+    bind(ActionSequenceDispatcher.class).asEagerSingleton();
 
     bind(ActionSequenceExecutorRunnable.class);
   }

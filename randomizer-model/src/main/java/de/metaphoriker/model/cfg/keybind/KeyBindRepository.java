@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 import java.util.Scanner;
 import lombok.extern.slf4j.Slf4j;
 
@@ -15,6 +16,10 @@ public class KeyBindRepository {
   private final KeyBindNameMapper keyBindNameMapper = new KeyBindNameMapper();
   private String defaultFilePath;
   private String userConfigFilePath;
+
+  public Optional<KeyBind> getKeyBind(String key) {
+    return keyBinds.stream().filter(bind -> bind.getKey().equals(key)).findFirst();
+  }
 
   public void initDefaults(String filePath) {
     this.defaultFilePath = filePath;

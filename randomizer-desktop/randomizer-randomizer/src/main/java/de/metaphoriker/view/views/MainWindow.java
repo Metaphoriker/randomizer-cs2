@@ -5,6 +5,8 @@ import de.metaphoriker.view.View;
 import de.metaphoriker.view.ViewProvider;
 import java.net.URL;
 import java.util.ResourceBundle;
+
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
@@ -23,7 +25,7 @@ public class MainWindow extends HBox implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
-    loadSidebarView();
+    Platform.runLater(this::loadSidebarView);
     registerViewListener();
   }
 

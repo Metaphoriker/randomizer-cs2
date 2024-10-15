@@ -16,7 +16,7 @@ public class ActionSequence {
 
   @EqualsAndHashCode.Include private final List<Action> actions = new ArrayList<>();
   @EqualsAndHashCode.Include private final String name;
-  @Setter boolean active;
+  @Setter boolean active = true;
 
   public ActionSequence(String name) {
     this.name = name;

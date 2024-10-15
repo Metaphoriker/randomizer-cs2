@@ -5,6 +5,9 @@ import java.awt.AWTException;
 import java.awt.Robot;
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;
+import java.time.Instant;
+import java.util.HashMap;
+import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -16,16 +19,131 @@ public class Action {
   protected static final Robot robot;
   private static final String EMPTY = "";
 
+  private static final Map<String, Integer> stringToKeyCodeMap = new HashMap<>();
+  private static final Map<Integer, String> keyCodeToStringMap = new HashMap<>();
+
   static {
     try {
       robot = new Robot();
     } catch (AWTException e) {
       throw new RuntimeException(e);
     }
+
+    // Letters
+    addMapping("A", KeyEvent.VK_A);
+    addMapping("B", KeyEvent.VK_B);
+    addMapping("C", KeyEvent.VK_C);
+    addMapping("D", KeyEvent.VK_D);
+    addMapping("E", KeyEvent.VK_E);
+    addMapping("F", KeyEvent.VK_F);
+    addMapping("G", KeyEvent.VK_G);
+    addMapping("H", KeyEvent.VK_H);
+    addMapping("I", KeyEvent.VK_I);
+    addMapping("J", KeyEvent.VK_J);
+    addMapping("K", KeyEvent.VK_K);
+    addMapping("L", KeyEvent.VK_L);
+    addMapping("M", KeyEvent.VK_M);
+    addMapping("N", KeyEvent.VK_N);
+    addMapping("O", KeyEvent.VK_O);
+    addMapping("P", KeyEvent.VK_P);
+    addMapping("Q", KeyEvent.VK_Q);
+    addMapping("R", KeyEvent.VK_R);
+    addMapping("S", KeyEvent.VK_S);
+    addMapping("T", KeyEvent.VK_T);
+    addMapping("U", KeyEvent.VK_U);
+    addMapping("V", KeyEvent.VK_V);
+    addMapping("W", KeyEvent.VK_W);
+    addMapping("X", KeyEvent.VK_X);
+    addMapping("Y", KeyEvent.VK_Y);
+    addMapping("Z", KeyEvent.VK_Z);
+
+    // Numbers
+    addMapping("0", KeyEvent.VK_0);
+    addMapping("1", KeyEvent.VK_1);
+    addMapping("2", KeyEvent.VK_2);
+    addMapping("3", KeyEvent.VK_3);
+    addMapping("4", KeyEvent.VK_4);
+    addMapping("5", KeyEvent.VK_5);
+    addMapping("6", KeyEvent.VK_6);
+    addMapping("7", KeyEvent.VK_7);
+    addMapping("8", KeyEvent.VK_8);
+    addMapping("9", KeyEvent.VK_9);
+
+    // Function keys
+    addMapping("F1", KeyEvent.VK_F1);
+    addMapping("F2", KeyEvent.VK_F2);
+    addMapping("F3", KeyEvent.VK_F3);
+    addMapping("F4", KeyEvent.VK_F4);
+    addMapping("F5", KeyEvent.VK_F5);
+    addMapping("F6", KeyEvent.VK_F6);
+    addMapping("F7", KeyEvent.VK_F7);
+    addMapping("F8", KeyEvent.VK_F8);
+    addMapping("F9", KeyEvent.VK_F9);
+    addMapping("F10", KeyEvent.VK_F10);
+    addMapping("F11", KeyEvent.VK_F11);
+    addMapping("F12", KeyEvent.VK_F12);
+
+    // Modifier keys
+    addMapping("CTRL", KeyEvent.VK_CONTROL);
+    addMapping("SHIFT", KeyEvent.VK_SHIFT);
+    addMapping("ALT", KeyEvent.VK_ALT);
+    addMapping("ALTGR", KeyEvent.VK_ALT_GRAPH);
+
+    // Navigation keys
+    addMapping("UP", KeyEvent.VK_UP);
+    addMapping("DOWN", KeyEvent.VK_DOWN);
+    addMapping("LEFT", KeyEvent.VK_LEFT);
+    addMapping("RIGHT", KeyEvent.VK_RIGHT);
+    addMapping("PAGE_UP", KeyEvent.VK_PAGE_UP);
+    addMapping("PAGE_DOWN", KeyEvent.VK_PAGE_DOWN);
+    addMapping("HOME", KeyEvent.VK_HOME);
+    addMapping("END", KeyEvent.VK_END);
+    addMapping("INSERT", KeyEvent.VK_INSERT);
+    addMapping("DELETE", KeyEvent.VK_DELETE);
+
+    // Control keys
+    addMapping("ENTER", KeyEvent.VK_ENTER);
+    addMapping("ESCAPE", KeyEvent.VK_ESCAPE);
+    addMapping("TAB", KeyEvent.VK_TAB);
+    addMapping("BACKSPACE", KeyEvent.VK_BACK_SPACE);
+    addMapping("SPACE", KeyEvent.VK_SPACE);
+    addMapping("CAPSLOCK", KeyEvent.VK_CAPS_LOCK);
+    addMapping("PRINTSCREEN", KeyEvent.VK_PRINTSCREEN);
+    addMapping("SCROLL_LOCK", KeyEvent.VK_SCROLL_LOCK);
+    addMapping("PAUSE", KeyEvent.VK_PAUSE);
+
+    // Mouse keys
+    addMapping("MOUSE1", InputEvent.getMaskForButton(1));
+    addMapping("MOUSE2", InputEvent.getMaskForButton(2));
+    addMapping("MOUSE3", InputEvent.getMaskForButton(3));
+    addMapping("MOUSE4", InputEvent.getMaskForButton(4));
+    addMapping("MOUSE5", InputEvent.getMaskForButton(5));
+  }
+
+  // Helper method to add mappings in both directions
+  private static void addMapping(String key, int keyCode) {
+    stringToKeyCodeMap.put(key.toUpperCase(), keyCode);
+    keyCodeToStringMap.put(keyCode, key.toUpperCase());
+  }
+
+  private static boolean isMouseEvent(String key) {
+    return key != null && key.toUpperCase().startsWith("MOUSE");
+  }
+
+  public static int getKeyCodeForKey(String key) {
+    return stringToKeyCodeMap.getOrDefault(key.toUpperCase(), -1);
+  }
+
+  public static String getKeyForKeyCode(int keyCode) {
+    return keyCodeToStringMap.getOrDefault(keyCode, EMPTY);
   }
 
   private final KeyBind keyBind;
   private final Interval interval = Interval.of(0, 0);
+
+  private transient volatile boolean interrupted = false;
+  private transient volatile boolean executing = false;
+  private transient volatile Instant expectedEnding = null;
 
   public Action(KeyBind keyBind) {
     this.keyBind = keyBind;
@@ -39,164 +157,83 @@ public class Action {
     return EMPTY;
   }
 
-  public void execute() {
-    int keyCode = mapKeyToKeyCode(keyBind.getKey());
+  public void interrupt() {
+    interrupted = true;
+  }
 
+  public void execute() {
+    if (interval.isEmpty()) executeDelayed(0);
+    else executeDelayed(ThreadLocalRandom.current().nextInt(interval.getMin(), interval.getMax()));
+  }
+
+  public void executeDelayed(int delay) {
+    int keyCode = getKeyCodeForKey(keyBind.getKey());
+    executing = true;
+    interrupted = false;
+
+    if (isMouseEvent(keyBind.getKey())) {
+      handleMouseEvent(delay, keyCode);
+    } else {
+      handleKeyEvent(delay, keyCode);
+    }
+
+    executing = false;
+  }
+
+  private void handleMouseEvent(int delay, int keyCode) {
+    robot.mousePress(keyCode);
+    performInterruptibleDelay(delay);
+    if (!interrupted) {
+      robot.mouseRelease(keyCode);
+    } else {
+      log.info("Action interrupted, skipping mouse release for mouse: {}", keyBind.getKey());
+    }
+  }
+
+  private void handleKeyEvent(int delay, int keyCode) {
     if (keyCode != -1) {
       robot.keyPress(keyCode);
-      if (!interval.isEmpty())
-        robot.delay(ThreadLocalRandom.current().nextInt(interval.getMin(), interval.getMax()));
-      robot.keyRelease(keyCode);
+      performInterruptibleDelay(delay);
+      if (!interrupted) {
+        robot.keyRelease(keyCode);
+      } else {
+        log.info("Action interrupted, skipping key release for key: {}", keyBind.getKey());
+      }
     } else {
       log.warn("Key code not found for key: {}", keyBind.getKey());
+    }
+  }
+
+  private void performInterruptibleDelay(int delay) {
+    if (!interval.isEmpty()) {
+      expectedEnding = Instant.now().plusMillis(delay);
+      interruptibleDelay(delay);
+    }
+  }
+
+  private void interruptibleDelay(int delayInMillis) {
+    int interval = 50;
+    int waitedTime = 0;
+
+    while (waitedTime < delayInMillis) {
+      if (interrupted) {
+        log.info("Delay unterbrochen!");
+        return;
+      }
+
+      try {
+        Thread.sleep(interval);
+      } catch (InterruptedException e) {
+        Thread.currentThread().interrupt();
+        return;
+      }
+
+      waitedTime += interval;
     }
   }
 
   public void setInterval(Interval interval) {
     this.interval.setMax(interval.getMax());
     this.interval.setMin(interval.getMin());
-  }
-
-  private int mapKeyToKeyCode(String key) {
-    return switch (key.toUpperCase()) {
-      // Letters
-      case "A" -> KeyEvent.VK_A;
-      case "B" -> KeyEvent.VK_B;
-      case "C" -> KeyEvent.VK_C;
-      case "D" -> KeyEvent.VK_D;
-      case "E" -> KeyEvent.VK_E;
-      case "F" -> KeyEvent.VK_F;
-      case "G" -> KeyEvent.VK_G;
-      case "H" -> KeyEvent.VK_H;
-      case "I" -> KeyEvent.VK_I;
-      case "J" -> KeyEvent.VK_J;
-      case "K" -> KeyEvent.VK_K;
-      case "L" -> KeyEvent.VK_L;
-      case "M" -> KeyEvent.VK_M;
-      case "N" -> KeyEvent.VK_N;
-      case "O" -> KeyEvent.VK_O;
-      case "P" -> KeyEvent.VK_P;
-      case "Q" -> KeyEvent.VK_Q;
-      case "R" -> KeyEvent.VK_R;
-      case "S" -> KeyEvent.VK_S;
-      case "T" -> KeyEvent.VK_T;
-      case "U" -> KeyEvent.VK_U;
-      case "V" -> KeyEvent.VK_V;
-      case "W" -> KeyEvent.VK_W;
-      case "X" -> KeyEvent.VK_X;
-      case "Y" -> KeyEvent.VK_Y;
-      case "Z" -> KeyEvent.VK_Z;
-
-      // Numbers
-      case "0" -> KeyEvent.VK_0;
-      case "1" -> KeyEvent.VK_1;
-      case "2" -> KeyEvent.VK_2;
-      case "3" -> KeyEvent.VK_3;
-      case "4" -> KeyEvent.VK_4;
-      case "5" -> KeyEvent.VK_5;
-      case "6" -> KeyEvent.VK_6;
-      case "7" -> KeyEvent.VK_7;
-      case "8" -> KeyEvent.VK_8;
-      case "9" -> KeyEvent.VK_9;
-
-      // Function keys
-      case "F1" -> KeyEvent.VK_F1;
-      case "F2" -> KeyEvent.VK_F2;
-      case "F3" -> KeyEvent.VK_F3;
-      case "F4" -> KeyEvent.VK_F4;
-      case "F5" -> KeyEvent.VK_F5;
-      case "F6" -> KeyEvent.VK_F6;
-      case "F7" -> KeyEvent.VK_F7;
-      case "F8" -> KeyEvent.VK_F8;
-      case "F9" -> KeyEvent.VK_F9;
-      case "F10" -> KeyEvent.VK_F10;
-      case "F11" -> KeyEvent.VK_F11;
-      case "F12" -> KeyEvent.VK_F12;
-
-      // Modifier keys
-      case "CTRL" -> KeyEvent.VK_CONTROL;
-      case "SHIFT" -> KeyEvent.VK_SHIFT;
-      case "ALT" -> KeyEvent.VK_ALT;
-      case "ALTGR" -> KeyEvent.VK_ALT_GRAPH;
-
-      // Navigation keys
-      case "UP" -> KeyEvent.VK_UP;
-      case "DOWN" -> KeyEvent.VK_DOWN;
-      case "LEFT" -> KeyEvent.VK_LEFT;
-      case "RIGHT" -> KeyEvent.VK_RIGHT;
-      case "PAGE_UP" -> KeyEvent.VK_PAGE_UP;
-      case "PAGE_DOWN" -> KeyEvent.VK_PAGE_DOWN;
-      case "HOME" -> KeyEvent.VK_HOME;
-      case "END" -> KeyEvent.VK_END;
-      case "INSERT" -> KeyEvent.VK_INSERT;
-      case "DELETE" -> KeyEvent.VK_DELETE;
-
-      // Control keys
-      case "ENTER" -> KeyEvent.VK_ENTER;
-      case "ESCAPE" -> KeyEvent.VK_ESCAPE;
-      case "TAB" -> KeyEvent.VK_TAB;
-      case "BACKSPACE" -> KeyEvent.VK_BACK_SPACE;
-      case "SPACE" -> KeyEvent.VK_SPACE;
-      case "CAPSLOCK" -> KeyEvent.VK_CAPS_LOCK;
-      case "PRINTSCREEN" -> KeyEvent.VK_PRINTSCREEN;
-      case "SCROLL_LOCK" -> KeyEvent.VK_SCROLL_LOCK;
-      case "PAUSE" -> KeyEvent.VK_PAUSE;
-
-      // Numpad keys
-      case "NUM0" -> KeyEvent.VK_NUMPAD0;
-      case "NUM1" -> KeyEvent.VK_NUMPAD1;
-      case "NUM2" -> KeyEvent.VK_NUMPAD2;
-      case "NUM3" -> KeyEvent.VK_NUMPAD3;
-      case "NUM4" -> KeyEvent.VK_NUMPAD4;
-      case "NUM5" -> KeyEvent.VK_NUMPAD5;
-      case "NUM6" -> KeyEvent.VK_NUMPAD6;
-      case "NUM7" -> KeyEvent.VK_NUMPAD7;
-      case "NUM8" -> KeyEvent.VK_NUMPAD8;
-      case "NUM9" -> KeyEvent.VK_NUMPAD9;
-      case "NUMLOCK" -> KeyEvent.VK_NUM_LOCK;
-      case "DIVIDE" -> KeyEvent.VK_DIVIDE;
-      case "MULTIPLY" -> KeyEvent.VK_MULTIPLY;
-      case "SUBTRACT" -> KeyEvent.VK_SUBTRACT;
-      case "ADD" -> KeyEvent.VK_ADD;
-      case "DECIMAL" -> KeyEvent.VK_DECIMAL;
-
-      // Symbols
-      case "COMMA" -> KeyEvent.VK_COMMA;
-      case "PERIOD" -> KeyEvent.VK_PERIOD;
-      case "SLASH" -> KeyEvent.VK_SLASH;
-      case "SEMICOLON" -> KeyEvent.VK_SEMICOLON;
-      case "QUOTE" -> KeyEvent.VK_QUOTE;
-      case "OPEN_BRACKET" -> KeyEvent.VK_OPEN_BRACKET;
-      case "CLOSE_BRACKET" -> KeyEvent.VK_CLOSE_BRACKET;
-      case "BACKSLASH" -> KeyEvent.VK_BACK_SLASH;
-      case "MINUS" -> KeyEvent.VK_MINUS;
-      case "EQUALS" -> KeyEvent.VK_EQUALS;
-
-      // Mouse keys
-      case "MOUSE1" -> InputEvent.getMaskForButton(1);
-      case "MOUSE2" -> InputEvent.getMaskForButton(2);
-      case "MOUSE3" -> InputEvent.getMaskForButton(3);
-      case "MOUSE4" -> InputEvent.getMaskForButton(4);
-      case "MOUSE5" -> InputEvent.getMaskForButton(5);
-
-      default -> -1;
-    };
-  }
-
-  @Override
-  public boolean equals(Object obj) {
-    if (this == obj) {
-      return true;
-    }
-    if (obj == null || getClass() != obj.getClass()) {
-      return false;
-    }
-    Action action = (Action) obj;
-    return name().equals(action.name());
-  }
-
-  @Override
-  public int hashCode() {
-    return name().hashCode();
   }
 }
