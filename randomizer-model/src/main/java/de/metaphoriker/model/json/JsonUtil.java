@@ -3,8 +3,6 @@ package de.metaphoriker.model.json;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import de.metaphoriker.model.action.Action;
-import de.metaphoriker.model.action.custom.MouseMoveAction;
-import de.metaphoriker.model.action.custom.PauseAction;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import java.io.IOException;
 import lombok.experimental.UtilityClass;
@@ -15,8 +13,6 @@ public class JsonUtil {
   private static final Gson GSON =
       new GsonBuilder()
           .registerTypeAdapter(Action.class, new ActionJsonDeSerializer())
-          .registerTypeAdapter(PauseAction.class, new ActionJsonDeSerializer())
-          .registerTypeAdapter(MouseMoveAction.class, new ActionJsonDeSerializer())
           .registerTypeAdapter(ActionSequence.class, new ActionSequenceJsonDeSerializer())
           .create();
 

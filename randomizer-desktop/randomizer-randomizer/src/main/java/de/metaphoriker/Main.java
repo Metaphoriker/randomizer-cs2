@@ -5,8 +5,6 @@ import com.github.kwhat.jnativehook.NativeHookException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import de.metaphoriker.model.action.Action;
-import de.metaphoriker.model.action.custom.MouseMoveAction;
-import de.metaphoriker.model.action.custom.PauseAction;
 import de.metaphoriker.model.action.handling.ActionRepository;
 import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
@@ -18,9 +16,11 @@ import de.metaphoriker.model.messages.Messages;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import de.metaphoriker.model.updater.Updater;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
+import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.concurrent.ThreadLocalRandom;
 import javafx.application.Application;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -138,8 +138,36 @@ public class Main {
 
   private void registerActions() {
     log.debug("Registriere Aktionen...");
-    actionRepository.register(new MouseMoveAction(KeyBind.EMPTY_KEYBIND));
-    actionRepository.register(new PauseAction(KeyBind.EMPTY_KEYBIND));
+    actionRepository.register(
+        new Action(new KeyBind(KeyBind.EMPTY_KEYBIND.getKey(), "Pause")) {
+          @Override
+          public void execute() {
+            if (getInterval().isEmpty()) return;
+
+            int min = getInterval().getMin();
+            int max = getInterval().getMax();
+            try {
+              Thread.sleep(ThreadLocalRandom.current().nextInt(min, max));
+            } catch (InterruptedException e) {
+              Thread.currentThread().interrupt();
+            }
+          }
+        });
+    actionRepository.register(
+        new Action(new KeyBind(KeyBind.EMPTY_KEYBIND.getKey(), "Mouse Move")) {
+          @Override
+          public void execute() {
+            Dimension dimension = Toolkit.getDefaultToolkit().getScreenSize();
+
+            int middleX = dimension.width / 2;
+            int middleY = dimension.height / 2;
+
+            int x = ThreadLocalRandom.current().nextInt(middleX - 5, middleX + 5);
+            int y = ThreadLocalRandom.current().nextInt(middleY - 5, middleY + 5);
+
+            robot.mouseMove(x, y);
+          }
+        });
     actionRepository.register(new Action(new KeyBind("ESCAPE", "Escape")));
     keyBindRepository
         .getKeyBinds()
