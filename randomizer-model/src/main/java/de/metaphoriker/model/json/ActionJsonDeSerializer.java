@@ -15,7 +15,7 @@ import java.lang.reflect.Type;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-public class JsonDeSerializer implements JsonSerializer<Action>, JsonDeserializer<Action> {
+public class ActionJsonDeSerializer implements JsonSerializer<Action>, JsonDeserializer<Action> {
 
   private static final String CLASS_META_KEY = "CLASS_META_KEY";
   private static final String KEYBIND_KEY = "keybind";

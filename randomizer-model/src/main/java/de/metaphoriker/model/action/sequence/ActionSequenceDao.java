@@ -1,6 +1,5 @@
 package de.metaphoriker.model.action.sequence;
 
-import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.json.JsonUtil;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.io.File;
@@ -33,12 +32,8 @@ public class ActionSequenceDao {
 
     log.debug("Speichere ActionSequence in Datei: {}", file.getAbsolutePath());
     try (PrintWriter writer = new PrintWriter(file)) {
-      StringBuilder stringBuilder = new StringBuilder();
-      for (Action action : actionSequence.getActions()) {
-        stringBuilder.append(JsonUtil.serialize(action)).append(";");
-      }
-
-      writer.println(stringBuilder);
+      String json = JsonUtil.serialize(actionSequence);
+      writer.println(json);
       writer.flush();
       log.info("ActionSequence erfolgreich gespeichert: {}", actionSequence.getName());
     } catch (IOException e) {
@@ -82,17 +77,11 @@ public class ActionSequenceDao {
       if (!file.getName().endsWith(".sequence")) continue;
 
       try {
-        String content = Files.readAllLines(file.toPath()).get(0);
-        String[] actions = content.split(";");
-        List<Action> actionList = new ArrayList<>(actions.length);
+        String content = new String(Files.readAllBytes(file.toPath()));
+        ActionSequence actionSequence = JsonUtil.deserializeActionSequence(content);
 
-        for (String action : actions) {
-          actionList.add(JsonUtil.deserialize(action));
-        }
-
-        String name = file.getName().replace(".sequence", "");
-        actionSequences.add(new ActionSequence(name, actionList));
-        log.debug("ActionSequence geladen: {}", name);
+        actionSequences.add(actionSequence);
+        log.debug("ActionSequence geladen: {}", actionSequence.getName());
       } catch (IOException e) {
         log.error("Fehler beim Laden der ActionSequence aus Datei: {}", file.getAbsolutePath(), e);
       }

@@ -16,8 +16,8 @@ public class ActionSequenceRepository {
 
     if (actionSequencesMap.containsKey(actionSequence.getName())) {
       log.warn(
-              "ActionSequence mit dem Namen '{}' existiert bereits und wird überschrieben.",
-              actionSequence.getName());
+          "ActionSequence mit dem Namen '{}' existiert bereits und wird überschrieben.",
+          actionSequence.getName());
     }
 
     log.debug("Speichere ActionSequence: {}", actionSequence.getName());
@@ -30,7 +30,9 @@ public class ActionSequenceRepository {
     Objects.requireNonNull(actionSequence, "ActionSequence darf nicht null sein");
 
     if (!actionSequencesMap.containsKey(actionSequence.getName())) {
-      log.warn("Versucht, eine nicht existierende ActionSequence zu löschen: {}", actionSequence.getName());
+      log.warn(
+          "Versucht, eine nicht existierende ActionSequence zu löschen: {}",
+          actionSequence.getName());
       return;
     }
 
@@ -44,7 +46,9 @@ public class ActionSequenceRepository {
     Objects.requireNonNull(actionSequence, "ActionSequence darf nicht null sein");
 
     if (actionSequencesMap.containsKey(actionSequence.getName())) {
-      log.warn("ActionSequence mit dem Namen '{}' existiert bereits im Speicher.", actionSequence.getName());
+      log.warn(
+          "ActionSequence mit dem Namen '{}' existiert bereits im Speicher.",
+          actionSequence.getName());
       return;
     }
 
@@ -55,7 +59,9 @@ public class ActionSequenceRepository {
   public synchronized void removeActionSequence(String name) {
     log.debug("Entferne ActionSequence: {}", name);
     if (actionSequencesMap.remove(name) == null) {
-      log.warn("Keine ActionSequence mit dem Namen '{}' im Speicher gefunden, um sie zu entfernen.", name);
+      log.warn(
+          "Keine ActionSequence mit dem Namen '{}' im Speicher gefunden, um sie zu entfernen.",
+          name);
     }
   }
 
@@ -81,8 +87,8 @@ public class ActionSequenceRepository {
     log.debug("Aktualisiere Cache mit ActionSequences aus der Datenbank");
     actionSequencesMap.clear();
     actionSequenceDao
-            .loadActionSequences()
-            .forEach(cluster -> actionSequencesMap.put(cluster.getName(), cluster));
+        .loadActionSequences()
+        .forEach(sequence -> actionSequencesMap.put(sequence.getName(), sequence));
     isCacheUpdated = true;
   }
 }
