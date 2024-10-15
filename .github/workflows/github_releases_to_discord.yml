@@ -14,10 +14,10 @@ jobs:
           webhook_url: ${{ secrets.WEBHOOK_URL }}
           color: "2105893"
           username: "Randomizer Changelog"
-          avatar_url: "https://cdn.discordapp.com/avatars/487431320314576937/bd64361e4ba6313d561d54e78c9e7171.png"
+          avatar_url: "https://raw.githubusercontent.com/Metaphoriker/randomizer-cs2/13895f39ab0c513c24329ab5e4df97ecbf5f0acb/design/v1.0/randomizerLogo.jpg"
           content: "||@everyone||"
           footer_title: "Changelog"
-          footer_icon_url: "https://cdn.discordapp.com/avatars/487431320314576937/bd64361e4ba6313d561d54e78c9e7171.png"
+          footer_icon_url: "https://raw.githubusercontent.com/Metaphoriker/randomizer-cs2/13895f39ab0c513c24329ab5e4df97ecbf5f0acb/design/v1.0/randomizerLogo.jpg"
           footer_timestamp: true
           max_description: '4096'
           reduce_headings: true
