@@ -15,7 +15,6 @@ import de.metaphoriker.model.cfg.keybind.KeyBind;
 import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
 import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
-import de.metaphoriker.model.notify.Speaker;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import de.metaphoriker.model.updater.Updater;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
@@ -37,6 +36,7 @@ public class Main {
   @Inject private KeyBindRepository keyBindRepository;
   @Inject private ActionSequenceExecutorRunnable actionSequenceExecutorRunnable;
   @Inject private ApplicationContext applicationContext;
+  @Inject private FileSystemWatcher fileSystemWatcher;
 
   public static void main(String[] args) {
     testMode = hasTestModeFlag(args);
@@ -75,10 +75,7 @@ public class Main {
 
   private void setupListeners() {
     log.debug("Richte Listener ein...");
-    Speaker.addListener(
-        notification -> {
-          if (notification.getNotifier() == FileSystemWatcher.class) cacheActions();
-        });
+    fileSystemWatcher.addFileChangeListener(_ -> cacheActions());
   }
 
   private void setupGlobalExceptionHandler() {

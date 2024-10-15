@@ -7,6 +7,7 @@ import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
 import de.metaphoriker.model.stuff.ApplicationContext;
+import de.metaphoriker.model.watcher.FileSystemWatcher;
 
 public class ModelModule extends AbstractModule {
 
@@ -17,6 +18,7 @@ public class ModelModule extends AbstractModule {
     bind(ActionSequenceRepository.class).asEagerSingleton();
     bind(KeyBindRepository.class).asEagerSingleton();
     bind(ActionSequenceDispatcher.class).asEagerSingleton();
+    bind(FileSystemWatcher.class).asEagerSingleton();
 
     bind(ActionSequenceExecutorRunnable.class);
   }
