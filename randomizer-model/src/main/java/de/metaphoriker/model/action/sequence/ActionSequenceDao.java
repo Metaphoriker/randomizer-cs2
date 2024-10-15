@@ -74,7 +74,7 @@ public class ActionSequenceDao {
 
       try {
         String content = new String(Files.readAllBytes(file.toPath()));
-        ActionSequence actionSequence = JsonUtil.deserializeActionSequence(content);
+        ActionSequence actionSequence = JsonUtil.deserialize(content);
         actionSequences.add(actionSequence);
       } catch (IOException e) {
         log.error("Fehler beim Laden der ActionSequence aus Datei: {}", file.getAbsolutePath(), e);

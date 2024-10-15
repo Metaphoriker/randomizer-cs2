@@ -20,23 +20,11 @@ public class JsonUtil {
           .registerTypeAdapter(ActionSequence.class, new ActionSequenceJsonDeSerializer())
           .create();
 
-  public static String serialize(Action action) {
-    return GSON.getAdapter(Action.class).toJson(action);
-  }
-
-  public static Action deserializeAction(String json) {
-    try {
-      return GSON.getAdapter(Action.class).fromJson(json);
-    } catch (IOException e) {
-      throw new RuntimeException(e);
-    }
-  }
-
   public static String serialize(ActionSequence actionSequence) {
     return GSON.getAdapter(ActionSequence.class).toJson(actionSequence);
   }
 
-  public static ActionSequence deserializeActionSequence(String json) {
+  public static ActionSequence deserialize(String json) {
     try {
       return GSON.getAdapter(ActionSequence.class).fromJson(json);
     } catch (IOException e) {
