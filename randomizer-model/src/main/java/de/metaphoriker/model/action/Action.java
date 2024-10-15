@@ -16,7 +16,7 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 @Slf4j
 @ToString
-public class Action {
+public class Action implements Cloneable {
 
   protected static final Robot robot;
   private static final String EMPTY = "";
@@ -230,5 +230,16 @@ public class Action {
   public void setInterval(Interval interval) {
     this.interval.setMax(interval.getMax());
     this.interval.setMin(interval.getMin());
+  }
+
+  @Override
+  public Action clone() throws CloneNotSupportedException {
+    try {
+      Action cloned = (Action) super.clone();
+      cloned.setInterval(Interval.of(this.interval.getMin(), this.interval.getMax()));
+      return cloned;
+    } catch (CloneNotSupportedException e) {
+      throw new AssertionError();
+    }
   }
 }

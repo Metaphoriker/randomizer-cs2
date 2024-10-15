@@ -5,6 +5,7 @@ import java.util.LinkedHashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
+/** Haelt die Grundinstanzen der Aktionen mit den jeweils zugewiesenen Keybinds. */
 @Slf4j
 public class ActionRepository {
 
@@ -45,13 +46,30 @@ public class ActionRepository {
   }
 
   public Map<Action, Boolean> getActions() {
-    return new LinkedHashMap<>(actions);
+    Map<Action, Boolean> actions = new LinkedHashMap<>();
+    this.actions.forEach(
+        (action, enabled) -> {
+          try {
+            actions.put(action.clone(), enabled);
+          } catch (CloneNotSupportedException e) {
+            throw new RuntimeException(e);
+          }
+        });
+    return actions;
   }
 
   public Action getByName(String actionName) {
-    return actions.keySet().stream()
-        .filter(action -> action.name().equals(actionName))
-        .findFirst()
-        .orElseThrow(() -> new IllegalArgumentException("Action nicht gefunden: " + actionName));
+    Action originalAction =
+        actions.keySet().stream()
+            .filter(action -> action.name().equals(actionName))
+            .findFirst()
+            .orElseThrow(
+                () -> new IllegalArgumentException("Action nicht gefunden: " + actionName));
+
+    try {
+      return originalAction.clone();
+    } catch (CloneNotSupportedException e) {
+      throw new RuntimeException("Cloning not supported for action: " + actionName, e);
+    }
   }
 }
