@@ -21,25 +21,30 @@ public class ActionSequenceDispatcher {
   public ActionSequenceDispatcher() {}
 
   private void dispatch(Action action) {
-    dispatchToHandlers(action, actionHandlers.getOrDefault(Action.class, Collections.emptyList()));
-    dispatchToHandlers(
-        action, actionHandlers.getOrDefault(action.getClass(), Collections.emptyList()));
+    dispatchToRelevantHandlers(action, actionHandlers);
     action.execute();
-    Optional.ofNullable(onFinishMap.get(action)).ifPresent(handler -> handler.accept(action));
+    handleOnFinish(action);
     log.info(ACTION_DISPATCHED, action);
   }
 
   public void dispatchSequence(ActionSequence actionSequence) {
-    dispatchToHandlers(
-        actionSequence,
-        actionSequenceHandlers.getOrDefault(actionSequence.getClass(), Collections.emptyList()));
-    dispatchToHandlers(
-        actionSequence,
-        actionSequenceHandlers.getOrDefault(ActionSequence.class, Collections.emptyList()));
+    dispatchToRelevantHandlers(actionSequence, actionSequenceHandlers);
     actionSequence.getActions().forEach(this::dispatch);
-    Optional.ofNullable(onFinishMap.get(actionSequence))
-        .ifPresent(handler -> handler.accept(actionSequence));
+    handleOnFinish(actionSequence);
     log.info(SEQUENCE_DISPATCHED, actionSequence);
+  }
+
+  private <T> void dispatchToRelevantHandlers(
+      T item, Map<Class<? extends T>, List<Consumer<T>>> handlersMap) {
+    dispatchToHandlers(item, handlersMap.getOrDefault(item.getClass(), Collections.emptyList()));
+    dispatchToHandlers(
+        item,
+        handlersMap.getOrDefault(
+            (Class<? extends T>) item.getClass().getSuperclass(), Collections.emptyList()));
+  }
+
+  private <T> void handleOnFinish(T item) {
+    Optional.ofNullable(onFinishMap.get(item)).ifPresent(handler -> handler.accept(item));
   }
 
   public void registerOnFinish(Object key, Consumer<Object> onFinish) {
