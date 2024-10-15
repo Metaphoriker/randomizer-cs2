@@ -20,10 +20,10 @@ public class ActionSequenceRepository {
           actionSequence.getName());
     }
 
-    log.debug("Speichere ActionSequence: {}", actionSequence.getName());
     actionSequencesMap.put(actionSequence.getName(), actionSequence);
     actionSequenceDao.saveActionSequence(actionSequence);
     isCacheUpdated = true;
+    log.info("ActionSequence '{}' gespeichert.", actionSequence.getName());
   }
 
   public synchronized void deleteActionSequence(ActionSequence actionSequence) {
@@ -36,10 +36,10 @@ public class ActionSequenceRepository {
       return;
     }
 
-    log.debug("Lösche ActionSequence: {}", actionSequence.getName());
     removeActionSequence(actionSequence.getName());
     actionSequenceDao.deleteActionSequence(actionSequence);
     isCacheUpdated = true;
+    log.info("ActionSequence '{}' gelöscht.", actionSequence.getName());
   }
 
   public synchronized void addActionSequence(ActionSequence actionSequence) {
@@ -52,40 +52,38 @@ public class ActionSequenceRepository {
       return;
     }
 
-    log.debug("Füge ActionSequence hinzu: {}", actionSequence.getName());
     actionSequencesMap.put(actionSequence.getName(), actionSequence);
+    log.info("ActionSequence '{}' hinzugefügt.", actionSequence.getName());
   }
 
   public synchronized void removeActionSequence(String name) {
-    log.debug("Entferne ActionSequence: {}", name);
     if (actionSequencesMap.remove(name) == null) {
       log.warn(
           "Keine ActionSequence mit dem Namen '{}' im Speicher gefunden, um sie zu entfernen.",
           name);
+      return;
     }
+    log.info("ActionSequence '{}' entfernt.", name);
   }
 
   public synchronized void loadActionSequences() {
     if (!isCacheUpdated) {
-      log.debug("Cache ist nicht aktuell, aktualisiere Cache");
       updateCache();
+      log.info("Cache aktualisiert.");
     } else {
-      log.debug("Cache ist aktuell, ignoriere");
+      log.info("Cache ist aktuell.");
     }
   }
 
   public synchronized Optional<ActionSequence> getActionSequence(String name) {
-    log.debug("Hole ActionSequence: {}", name);
     return Optional.ofNullable(actionSequencesMap.get(name));
   }
 
   public synchronized List<ActionSequence> getActionSequences() {
-    log.debug("Gebe Kopie der aktuellen ActionSequence-Liste zurück");
     return new ArrayList<>(actionSequencesMap.values());
   }
 
   private synchronized void updateCache() {
-    log.debug("Aktualisiere Cache mit ActionSequences aus der Datenbank");
     actionSequencesMap.clear();
     actionSequenceDao
         .loadActionSequences()

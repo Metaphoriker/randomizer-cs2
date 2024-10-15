@@ -4,12 +4,11 @@ import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.stuff.ApplicationContext;
-import lombok.extern.slf4j.Slf4j;
-
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
+import lombok.extern.slf4j.Slf4j;
 
 /**
  * Eine Klasse, die den Zustand von Aktionen speichert.
@@ -31,7 +30,6 @@ public class ActionDao {
     }
 
     try {
-      log.debug("Lade Zustände der Aktionen aus Datei: {}", STORAGE_FILE.getAbsolutePath());
       return OBJECT_MAPPER.readValue(STORAGE_FILE, new TypeReference<>() {});
     } catch (IOException e) {
       log.error(
@@ -47,7 +45,6 @@ public class ActionDao {
     actions.forEach((action, enabled) -> actionStates.put(action.name(), enabled));
 
     try {
-      log.debug("Speichere Zustände der Aktionen in Datei: {}", STORAGE_FILE.getAbsolutePath());
       OBJECT_MAPPER.writeValue(STORAGE_FILE, actionStates);
       log.info(
           "Zustände der Aktionen erfolgreich gespeichert in Datei: {}",
@@ -62,7 +59,6 @@ public class ActionDao {
   }
 
   public void loadStates(Map<Action, Boolean> actions) {
-    log.debug("Lade Zustände der Aktionen, falls vorhanden");
     Map<String, Boolean> loadedActions = load();
     actions
         .keySet()
@@ -71,7 +67,6 @@ public class ActionDao {
               Boolean enabled = loadedActions.get(action.name());
               if (enabled != null) {
                 actions.put(action, enabled);
-                log.debug("Setze State für Action: {}, Enabled: {}", action.name(), enabled);
               }
             });
     log.info("Zustände der Aktionen erfolgreich geladen und angewendet");

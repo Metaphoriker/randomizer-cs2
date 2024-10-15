@@ -74,6 +74,6 @@ public class KeyBindNameMapper {
     // descriptorToNameMap.put("+voicerecord", "Voice Record");
     descriptorToNameMap.put("sellbackall", "Sell Back All Items");
 
-    log.debug("{} Deskriptoren initialisiert.", descriptorToNameMap.size());
+    log.info("{} Deskriptoren initialisiert.", descriptorToNameMap.size());
   }
 }

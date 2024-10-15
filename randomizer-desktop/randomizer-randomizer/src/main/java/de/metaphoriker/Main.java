@@ -7,8 +7,8 @@ import com.google.inject.Injector;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.custom.MouseMoveAction;
 import de.metaphoriker.model.action.custom.PauseAction;
-import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.handling.ActionRepository;
+import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.cfg.ConfigLoader;
 import de.metaphoriker.model.cfg.keybind.KeyBind;
@@ -72,7 +72,7 @@ public class Main {
     if (!testMode) installAndRunUpdaterIfNeeded();
     loadKeyBinds();
     registerActions();
-    cacheCluster();
+    cacheActions();
     startExecutors();
     setupListeners();
     Messages.cache();
@@ -89,7 +89,7 @@ public class Main {
     log.debug("Richte Listener ein...");
     Speaker.addListener(
         notification -> {
-          if (notification.getNotifier() == FileSystemWatcher.class) cacheCluster();
+          if (notification.getNotifier() == FileSystemWatcher.class) cacheActions();
         });
   }
 
@@ -99,8 +99,8 @@ public class Main {
         .setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
   }
 
-  private void cacheCluster() {
-    log.debug("Cache Cluster...");
+  private void cacheActions() {
+    log.debug("Cache Actions...");
     actionSequenceRepository.loadActionSequences();
   }
 

@@ -27,7 +27,6 @@ public class ActionSequenceExecutorRunnable implements Runnable {
 
   public static void setMaxWaitTime(int newMaxWaitTime) {
     synchronized (lock) {
-      log.debug("Setze max. Wartezeit auf: {} ms", newMaxWaitTime);
       maxWaitTime = newMaxWaitTime;
       waitTimeUpdated = true;
       lock.notifyAll();
@@ -36,7 +35,6 @@ public class ActionSequenceExecutorRunnable implements Runnable {
 
   public static void setMinWaitTime(int newMinWaitTime) {
     synchronized (lock) {
-      log.debug("Setze min. Wartezeit auf: {} ms", newMinWaitTime);
       minWaitTime = newMinWaitTime;
       waitTimeUpdated = true;
       lock.notifyAll();
@@ -52,7 +50,6 @@ public class ActionSequenceExecutorRunnable implements Runnable {
         if (applicationContext.getApplicationState() == ApplicationState.RUNNING
             && !actionSequenceRepository.getActionSequences().isEmpty()) {
 
-          log.debug("Dispatching random ActionSequence");
           ActionSequenceDispatcher.dispatchSequence(
               actionSequenceRepository.getActionSequences().stream()
                   .filter(ActionSequence::isActive)
@@ -69,7 +66,6 @@ public class ActionSequenceExecutorRunnable implements Runnable {
             waitTimeUpdated = false;
           }
           int waitTime = ThreadLocalRandom.current().nextInt(minWaitTime, maxWaitTime);
-          log.debug("Wartezeit vor der nächsten Aktion: {} ms", waitTime);
           lock.wait(waitTime);
         } catch (InterruptedException e) {
           log.info("Thread wurde unterbrochen, beende..");
@@ -81,7 +77,6 @@ public class ActionSequenceExecutorRunnable implements Runnable {
 
   private void handleApplicationState() {
     ApplicationState currentState = applicationContext.getApplicationState();
-    log.debug("Überprüfe den ApplicationState: {}", currentState);
 
     if (currentState == ApplicationState.AWAITING && FocusManager.isCs2WindowInFocus()) {
       applicationContext.setApplicationState(ApplicationState.RUNNING);

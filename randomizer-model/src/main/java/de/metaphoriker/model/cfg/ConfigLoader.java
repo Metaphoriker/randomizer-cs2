@@ -6,7 +6,6 @@ import java.io.FileNotFoundException;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-// TODO: merge this with KeyBindRepository
 public class ConfigLoader {
 
   private static final String[] STEAM_PATHS = {
@@ -20,9 +19,9 @@ public class ConfigLoader {
     try {
       loadDefaultKeyBinds(keyBindRepository);
       loadUserKeyBindings(keyBindRepository);
-      log.debug("Successfully loaded {} key binds", keyBindRepository.getKeyBinds().size());
+      log.info("Erfolgreich {} Key-Bindings geladen", keyBindRepository.getKeyBinds().size());
     } catch (FileNotFoundException e) {
-      log.error("Error loading key binds", e);
+      log.error("Fehler beim Laden der Key-Bindings", e);
       throw new RuntimeException(e);
     }
   }
@@ -31,10 +30,10 @@ public class ConfigLoader {
       throws FileNotFoundException {
     String defaultConfigPath = findDefaultConfigFile();
     if (defaultConfigPath != null) {
-      log.info("Loading default key binds from: {}", defaultConfigPath);
+      log.info("Lade Standard-Key-Bindings von: {}", defaultConfigPath);
       keyBindRepository.initDefaults(defaultConfigPath);
     } else {
-      throw new FileNotFoundException("Default config file not found.");
+      throw new FileNotFoundException("Standardkonfigurationsdatei nicht gefunden.");
     }
   }
 
@@ -42,10 +41,10 @@ public class ConfigLoader {
       throws FileNotFoundException {
     String userConfigPath = findUserConfigFile();
     if (userConfigPath != null) {
-      log.info("Loading user key binds from: {}", userConfigPath);
+      log.info("Lade Benutzer-Key-Bindings von: {}", userConfigPath);
       keyBindRepository.initModifiedKeyBinds(userConfigPath);
     } else {
-      throw new FileNotFoundException("User config file not found.");
+      throw new FileNotFoundException("Benutzerkonfigurationsdatei nicht gefunden.");
     }
   }
 

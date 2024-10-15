@@ -7,7 +7,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.OutputStream;
 import java.net.URL;
-import java.nio.charset.StandardCharsets;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 import lombok.experimental.UtilityClass;
@@ -32,24 +31,19 @@ public class Updater {
   }
 
   public static void update(File target, String downloadUrl, ProgressListener listener) {
-    log.debug("Starte Aktualisierung von URL: {} zu Ziel-Datei: {}", downloadUrl, target);
+    log.info("Starte Aktualisierung von URL: {} zu Ziel-Datei: {}", downloadUrl, target);
 
     try {
       URL downloadFrom = new URL(downloadUrl);
       copyURLToFileWithProgress(downloadFrom, target, listener);
-      log.debug("Erfolgreich aktualisiert von URL: {} zu Ziel-Datei: {}", downloadUrl, target);
+      log.info("Erfolgreich aktualisiert von URL: {} zu Ziel-Datei: {}", downloadUrl, target);
     } catch (IOException ignored) {
-      log.error(
-          "Fehler bei der Aktualisierung von URL: {} zu Ziel-Datei: {}",
-          downloadUrl,
-          target,
-          ignored);
+      log.error("Fehler bei der Aktualisierung von URL: {} zu Ziel-Datei: {}", downloadUrl, target);
     }
   }
 
   public static void copyURLToFileWithProgress(
       URL source, File destination, ProgressListener listener) throws IOException {
-    log.debug("Kopiere Daten von URL: {} zu Ziel-Datei: {}", source, destination);
     try (InputStream inputStream = source.openStream()) {
       long totalBytes = source.openConnection().getContentLengthLong();
       try (OutputStream outputStream = FileUtils.openOutputStream(destination)) {
@@ -62,43 +56,42 @@ public class Updater {
           if (listener != null) {
             listener.onProgress(bytesRead, totalBytes);
           }
-          log.debug("Kopierfortschritt: {}/{} Bytes", bytesRead, totalBytes);
         }
-        log.debug("Daten von URL: {} erfolgreich zu Ziel-Datei: {} kopiert", source, destination);
+        log.info("Daten von URL: {} erfolgreich zu Ziel-Datei: {} kopiert", source, destination);
       }
     }
   }
 
   public static boolean isUpdateAvailable(File toUpdate, String versionUrl) {
-    log.debug("Prüfen auf Update: Datei = {}, Versions-URL = {}", toUpdate, versionUrl);
+    log.info("Prüfen auf Update: Datei = {}, Versions-URL = {}", toUpdate, versionUrl);
 
     if (!toUpdate.exists()) {
-      log.debug("Update verfügbar: Ziel-Datei existiert nicht: {}", toUpdate);
+      log.info("Update verfügbar: Ziel-Datei existiert nicht: {}", toUpdate);
       return true;
     }
 
     try (ZipFile zipFile = new ZipFile(toUpdate)) {
       ZipEntry versionEntry = zipFile.getEntry("version.txt");
       if (versionEntry == null) {
-        log.debug("Update verfügbar: version.txt Eintrag wurde nicht im Zip-Archiv gefunden");
+        log.info("Update verfügbar: version.txt Eintrag wurde nicht im Zip-Archiv gefunden");
         return true;
       }
 
       String version = readLineFromInputStream(zipFile.getInputStream(versionEntry));
       boolean updateAvailable = isUpdateAvailable(version, versionUrl);
-      log.debug(
+      log.info(
           "Update-Verfügbarkeit geprüft: aktuelle Version = {}, Update verfügbar = {}",
           version,
           updateAvailable);
       return updateAvailable;
     } catch (IOException ignored) {
-      log.error("Fehler bei der Prüfung auf Update von Datei: {}", toUpdate, ignored);
+      log.error("Fehler bei der Prüfung auf Update von Datei: {}", toUpdate);
     }
     return true;
   }
 
   public static boolean isUpdateAvailable(String version, String versionUrl) {
-    log.debug(
+    log.info(
         "Prüfen auf Update mit aktueller Version: {} unter Verwendung der Versions-URL: {}",
         version,
         versionUrl);
@@ -107,7 +100,7 @@ public class Updater {
     updateChecker.checkUpdate(version);
 
     boolean updateAvailable = updateChecker.isUpdateAvailable();
-    log.debug(
+    log.info(
         "Update-Prüfung abgeschlossen: Versions-URL = {}, Update verfügbar = {}",
         versionUrl,
         updateAvailable);
@@ -115,12 +108,10 @@ public class Updater {
   }
 
   public static String getCurrentVersion() {
-    log.debug("Hole aktuelle Version aus interner Ressource: version.txt");
     return readLineFromInputStream(getInputStream("version.txt"));
   }
 
   private static InputStream getInputStream(String fileName) {
-    log.debug("Öffne InputStream für Ressourcendatei: {}", fileName);
     InputStream resource = Updater.class.getResourceAsStream("/" + fileName);
 
     if (resource == null) {
@@ -132,25 +123,11 @@ public class Updater {
   }
 
   private static String readLineFromInputStream(InputStream inputStream) {
-    log.debug("Lese Zeile aus InputStream");
-
     try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
       return bufferedReader.readLine();
     } catch (IOException e) {
       log.error("Fehler beim Lesen der Version aus dem InputStream", e);
       return "UNGÜLTIG";
-    }
-  }
-
-  private static boolean isEmpty(File file) {
-    log.debug("Prüfe, ob Datei leer ist: {}", file);
-    try (BufferedReader bufferedReader =
-        new BufferedReader(
-            new InputStreamReader(FileUtils.openInputStream(file), StandardCharsets.UTF_8))) {
-      return bufferedReader.readLine() == null;
-    } catch (IOException e) {
-      log.error("Fehler bei der Prüfung, ob die Datei leer ist: {}", file, e);
-      throw new RuntimeException(e);
     }
   }
 }

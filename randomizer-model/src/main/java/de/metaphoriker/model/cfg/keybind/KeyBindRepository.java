@@ -18,22 +18,20 @@ public class KeyBindRepository {
 
   public void initDefaults(String filePath) {
     this.defaultFilePath = filePath;
-    log.debug("Initialisiere Standard-KeyBinds von Datei: {}", filePath);
+    log.info("Initialisiere Standard-KeyBinds von Datei: {}", filePath);
     loadKeyBinds(filePath);
   }
 
   public void initModifiedKeyBinds(String filePath) {
     this.userConfigFilePath = filePath;
-    log.debug("Initialisiere modifizierte KeyBinds von Datei: {}", filePath);
+    log.info("Initialisiere modifizierte KeyBinds von Datei: {}", filePath);
     loadKeyBinds(filePath);
   }
 
   private void loadKeyBinds(String filePath) {
-    log.debug("Lade KeyBinds von Datei: {}", filePath);
     try (Scanner scanner = new Scanner(new File(filePath))) {
       while (scanner.hasNextLine()) {
         String line = scanner.nextLine().trim();
-        log.debug("Verarbeite Zeile: {}", line);
         processLine(line);
       }
     } catch (FileNotFoundException e) {
@@ -43,13 +41,11 @@ public class KeyBindRepository {
 
   private void processLine(String line) {
     if (line.isEmpty() || line.startsWith("//")) {
-      log.debug("Zeile übersprungen: {}", line);
       return;
     }
     if (line.contains("\"")) {
       String[] parts = line.split("\"");
       if (parts.length >= 4) {
-        log.debug("Handle KeyBind: Schlüssel = {}, Beschreibung = {}", parts[1], parts[3]);
         handleKeyBind(parts[1], parts[3]);
       }
     }
@@ -57,16 +53,9 @@ public class KeyBindRepository {
 
   private void handleKeyBind(String key, String descriptor) {
     if (UNBOUND.equals(descriptor)) {
-      log.debug("KeyBind für Schlüssel {} als ungebunden markiert und entfernt", key);
       keyBinds.removeIf(bind -> bind.getKey().equals(key));
     } else if (keyBindNameMapper.hasKey(descriptor)) {
-      log.debug(
-          "Füge oder aktualisiere KeyBind: Schlüssel = {}, Aktion = {}",
-          key,
-          keyBindNameMapper.getKeyName(descriptor));
       addOrUpdateKeyBind(key, keyBindNameMapper.getKeyName(descriptor));
-    } else {
-      log.debug("Key-Beschreibung nicht gefunden: {} - wird ignoriert", descriptor);
     }
   }
 
@@ -75,12 +64,10 @@ public class KeyBindRepository {
     for (int i = 0; i < keyBinds.size(); i++) {
       if (keyBinds.get(i).getKey().equals(key)) {
         keyBinds.set(i, newKeyBind);
-        log.debug("KeyBind aktualisiert: {}", newKeyBind);
         return;
       }
     }
     keyBinds.add(newKeyBind);
-    log.debug("KeyBind hinzugefügt: {}", newKeyBind);
   }
 
   public void reloadBinds() {
@@ -88,15 +75,14 @@ public class KeyBindRepository {
     if (defaultFilePath == null) {
       throw new IllegalStateException("KeyBindRepository wurde nicht initialisiert");
     }
-    log.debug("Lade KeyBinds neu");
     initDefaults(defaultFilePath);
     if (userConfigFilePath != null) {
       initModifiedKeyBinds(userConfigFilePath);
     }
+    log.info("KeyBinds wurden erfolgreich neu geladen");
   }
 
   public List<KeyBind> getKeyBinds() {
-    log.debug("Gebe Kopie der aktuellen KeyBinds-Liste zurück");
     return new ArrayList<>(keyBinds);
   }
 }

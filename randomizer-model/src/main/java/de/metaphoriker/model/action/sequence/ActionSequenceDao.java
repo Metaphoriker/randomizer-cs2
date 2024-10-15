@@ -30,7 +30,6 @@ public class ActionSequenceDao {
 
     File file = new File(ACTION_SEQUENCE_FOLDER, actionSequence.getName() + ".sequence");
 
-    log.debug("Speichere ActionSequence in Datei: {}", file.getAbsolutePath());
     try (PrintWriter writer = new PrintWriter(file)) {
       String json = JsonUtil.serialize(actionSequence);
       writer.println(json);
@@ -50,7 +49,6 @@ public class ActionSequenceDao {
       return;
     }
 
-    log.debug("Lösche ActionSequence-Datei: {}", file.getAbsolutePath());
     try {
       Files.delete(file.toPath());
       log.info("ActionSequence erfolgreich gelöscht: {}", actionSequence.getName());
@@ -71,17 +69,13 @@ public class ActionSequenceDao {
       return actionSequences;
     }
 
-    log.debug(
-        "Lade ActionSequence-Dateien aus dem Ordner: {}", ACTION_SEQUENCE_FOLDER.getAbsolutePath());
     for (File file : actionSequenceFiles) {
       if (!file.getName().endsWith(".sequence")) continue;
 
       try {
         String content = new String(Files.readAllBytes(file.toPath()));
         ActionSequence actionSequence = JsonUtil.deserializeActionSequence(content);
-
         actionSequences.add(actionSequence);
-        log.debug("ActionSequence geladen: {}", actionSequence.getName());
       } catch (IOException e) {
         log.error("Fehler beim Laden der ActionSequence aus Datei: {}", file.getAbsolutePath(), e);
       }
