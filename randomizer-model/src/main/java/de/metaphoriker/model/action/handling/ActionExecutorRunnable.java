@@ -3,6 +3,7 @@ package de.metaphoriker.model.action.handling;
 import com.google.inject.Inject;
 import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.FocusManager;
+import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.util.concurrent.ThreadLocalRandom;
@@ -21,7 +22,7 @@ public class ActionExecutorRunnable implements Runnable {
 
   @Inject
   public ActionExecutorRunnable(
-          ActionSequenceRepository actionSequenceRepository, ApplicationContext applicationContext) {
+      ActionSequenceRepository actionSequenceRepository, ApplicationContext applicationContext) {
     this.actionSequenceRepository = actionSequenceRepository;
     this.applicationContext = applicationContext;
   }
@@ -51,15 +52,16 @@ public class ActionExecutorRunnable implements Runnable {
         handleApplicationState();
 
         if (applicationContext.getApplicationState() == ApplicationState.RUNNING
-                && !actionSequenceRepository.getActionSequences().isEmpty()) {
+            && !actionSequenceRepository.getActionSequences().isEmpty()) {
 
           log.debug("Dispatching random ActionSequence");
           ActionDispatcher.dispatchCluster(
-                  actionSequenceRepository
-                          .getActionSequences()
-                          .get(
-                                  ThreadLocalRandom.current()
-                                          .nextInt(0, actionSequenceRepository.getActionSequences().size())));
+              actionSequenceRepository.getActionSequences().stream()
+                  .filter(ActionSequence::isActive)
+                  .toList()
+                  .get(
+                      ThreadLocalRandom.current()
+                          .nextInt(0, actionSequenceRepository.getActionSequences().size())));
         }
       }
 
