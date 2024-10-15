@@ -20,7 +20,6 @@ public class Action {
   private static final String EMPTY = "";
 
   private static final Map<String, Integer> stringToKeyCodeMap = new HashMap<>();
-  private static final Map<Integer, String> keyCodeToStringMap = new HashMap<>();
 
   static {
     try {
@@ -120,10 +119,8 @@ public class Action {
     addMapping("MOUSE5", InputEvent.getMaskForButton(5));
   }
 
-  // Helper method to add mappings in both directions
   private static void addMapping(String key, int keyCode) {
     stringToKeyCodeMap.put(key.toUpperCase(), keyCode);
-    keyCodeToStringMap.put(keyCode, key.toUpperCase());
   }
 
   private static boolean isMouseEvent(String key) {
@@ -132,10 +129,6 @@ public class Action {
 
   public static int getKeyCodeForKey(String key) {
     return stringToKeyCodeMap.getOrDefault(key.toUpperCase(), -1);
-  }
-
-  public static String getKeyForKeyCode(int keyCode) {
-    return keyCodeToStringMap.getOrDefault(keyCode, EMPTY);
   }
 
   private final KeyBind keyBind;
