@@ -65,12 +65,13 @@ public class ActionSequenceRepository {
     }
   }
 
-  public synchronized List<ActionSequence> loadActionSequences() {
+  public synchronized void loadActionSequences() {
     if (!isCacheUpdated) {
       log.debug("Cache ist nicht aktuell, aktualisiere Cache");
       updateCache();
+    } else {
+      log.debug("Cache ist aktuell, ignoriere");
     }
-    return getActionSequences();
   }
 
   public synchronized Optional<ActionSequence> getActionSequence(String name) {
