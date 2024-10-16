@@ -22,7 +22,6 @@ import java.io.IOException;
 import java.net.URISyntaxException;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
-
 import javafx.application.Application;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;

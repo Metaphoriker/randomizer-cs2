@@ -18,6 +18,9 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 public class Action implements Cloneable {
 
+  private static final int MWHEELDOWN_KEYCODE = -1;
+  private static final int MWHEELUP_KEYCODE = 1;
+
   protected static final Robot robot;
   private static final String EMPTY = "";
 
@@ -119,10 +122,18 @@ public class Action implements Cloneable {
     addMapping("MOUSE3", InputEvent.getMaskForButton(3));
     addMapping("MOUSE4", InputEvent.getMaskForButton(4));
     addMapping("MOUSE5", InputEvent.getMaskForButton(5));
+
+    // Mouse scroll wheel
+    addMapping("MWHEELDOWN", MWHEELDOWN_KEYCODE);
+    addMapping("MWHEELUP", MWHEELUP_KEYCODE);
   }
 
   private static void addMapping(String key, int keyCode) {
     stringToKeyCodeMap.put(key.toUpperCase(), keyCode);
+  }
+
+  private static boolean isMouseWheelEvent(String key) {
+    return key != null && key.toUpperCase().startsWith("MWHEEL");
   }
 
   private static boolean isMouseEvent(String key) {
@@ -166,13 +177,19 @@ public class Action implements Cloneable {
     executing = true;
     interrupted = false;
 
-    if (isMouseEvent(keyBind.getKey())) {
+    if (isMouseWheelEvent(keyBind.getKey())) {
+      handleMouseWheelEvent(keyCode);
+    } else if (isMouseEvent(keyBind.getKey())) {
       handleMouseEvent(delay, keyCode);
     } else {
       handleKeyEvent(delay, keyCode);
     }
 
     executing = false;
+  }
+
+  private void handleMouseWheelEvent(int keyCode) {
+    robot.mouseWheel(keyCode);
   }
 
   private void handleMouseEvent(long delay, int keyCode) {
