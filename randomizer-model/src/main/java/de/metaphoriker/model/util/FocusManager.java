@@ -8,6 +8,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class FocusManager {
 
+  /**
+   * Checks if the window currently in focus belongs to the "Counter-Strike 2" game.
+   *
+   * @return true if the window in focus is "Counter-Strike 2", false otherwise
+   */
   public static boolean isCs2WindowInFocus() {
     try {
       User32 user32 = User32.INSTANCE;

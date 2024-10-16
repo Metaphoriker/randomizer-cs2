@@ -10,12 +10,6 @@ import java.util.HashMap;
 import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 
-/**
- * Eine Klasse, die den Zustand von Aktionen speichert.
- *
- * <p>Der Zustand besteht aus der Aktion selbst und einer booleschen Flagge, die angibt, ob die
- * Aktion aktiviert ist oder nicht.
- */
 @Slf4j
 public class ActionDao {
 
@@ -23,6 +17,13 @@ public class ActionDao {
       new File(ApplicationContext.getAppdataFolder() + File.separator + "actions.json");
   private static final ObjectMapper OBJECT_MAPPER = new ObjectMapper();
 
+  /**
+   * Loads the states of actions from a storage file.
+   *
+   * @return A map containing the action names as keys and their corresponding boolean states. If the
+   *         storage file does not exist or an error occurs during loading, an empty map is returned.
+   * @throws RuntimeException if an error occurs while loading the file.
+   */
   public Map<String, Boolean> load() {
     if (!STORAGE_FILE.exists()) {
       log.warn("Speicherdatei existiert nicht: {}", STORAGE_FILE.getAbsolutePath());
@@ -40,6 +41,12 @@ public class ActionDao {
     }
   }
 
+  /**
+   * Saves the state of the provided actions to persistent storage.
+   *
+   * @param actions A map where keys represent Action objects and values represent their enabled/disabled state (true/false).
+   *                The state of each action in this map will be saved to a file for future retrieval.
+   */
   public void save(Map<Action, Boolean> actions) {
     Map<String, Boolean> actionStates = new HashMap<>();
     actions.forEach((action, enabled) -> actionStates.put(action.getName(), enabled));
@@ -58,6 +65,13 @@ public class ActionDao {
     }
   }
 
+  /**
+   * Loads the state of each action and applies the state to the provided actions map.
+   * The state is loaded from persistent storage and matched against the action names.
+   *
+   * @param actions A map linking Action objects to their enabled/disabled state. Upon loading,
+   *                this map will be updated to reflect the persisted states where available.
+   */
   public void loadStates(Map<Action, Boolean> actions) {
     Map<String, Boolean> loadedActions = load();
     actions

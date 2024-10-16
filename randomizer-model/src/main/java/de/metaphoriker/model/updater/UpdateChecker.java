@@ -21,6 +21,12 @@ public class UpdateChecker {
     this.versionUrl = versionUrl;
   }
 
+  /**
+   * Checks for the availability of an update by comparing the current version with the latest version available online.
+   * Logs the process and the result of the update check.
+   *
+   * @param version The current version of the software to be checked against the latest version available online.
+   */
   public void checkUpdate(String version) {
     log.debug("Starte Update-Check: aktuelle Version = {}, Versions-URL = {}", version, versionUrl);
 

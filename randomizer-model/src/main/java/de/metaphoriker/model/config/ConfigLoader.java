@@ -15,6 +15,13 @@ public class ConfigLoader {
     "D:/Program Files (x86)/Steam"
   };
 
+  /**
+   * Loads key bindings from default and user configuration files
+   * into the provided KeyBindRepository.
+   *
+   * @param keyBindRepository the repository where key bindings will be loaded
+   * @throws RuntimeException if the key bindings could not be loaded due to a FileNotFoundException
+   */
   public static void loadKeyBinds(KeyBindRepository keyBindRepository) {
     try {
       loadDefaultKeyBinds(keyBindRepository);

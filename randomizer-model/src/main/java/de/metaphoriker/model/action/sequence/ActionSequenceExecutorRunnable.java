@@ -16,6 +16,38 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * The ActionSequenceExecutorRunnable class is a specialized implementation of the Runnable
+ * interface, responsible for executing sequences of actions based on certain conditions and events.
+ *
+ * <p>The main functionality includes: - Registering native hooks for mouse and keyboard events. -
+ * Handling action interruptions when specific keys or mouse buttons are released. - Managing the
+ * lifecycle and execution state of action sequences. - Controlling the wait times between action
+ * sequences, and dynamically updating wait times. - Ensuring application state consistency in
+ * relation to the focus state of the CS2 window.
+ *
+ * <p>Singleton variables: - minWaitTime: The minimum wait time in milliseconds between the
+ * execution of action sequences. - maxWaitTime: The maximum wait time in milliseconds between the
+ * execution of action sequences. - waitTimeUpdated: A flag to indicate that the wait times have
+ * been updated.
+ *
+ * <p>Methods include: - setMinWaitTime: Updates the minimum wait time. - setMaxWaitTime: Updates
+ * the maximum wait time. - registerNativeHookListenerForEachKeyBind: Registers native hooks for
+ * listening to mouse and keyboard events. - processNativeEvent: Processes the native mouse and
+ * keyboard events. - isActionSequenceInactive: Checks if the current action sequence is inactive. -
+ * getCurrentExecutingAction: Retrieves the currently executing action in the current action
+ * sequence. - handleCurrentActionInterruption: Handles interruptions of the current action. - run:
+ * The main loop that controls the execution flow of action sequences. - isWaitTimeExceeded: Checks
+ * if the wait time between actions has been exceeded. - isApplicationRunning: Checks if the
+ * application is in a running state. - processCurrentActionSequence: Processes the current action
+ * sequence if any key has been released. - findInterruptedAction: Finds any action that has been
+ * interrupted. - executeDelayedActionIfNeeded: Executes any delayed actions if needed. -
+ * calculateRemainingWaitTime: Calculates the remaining wait time for the current action. -
+ * chooseAndDispatchRandomSequence: Chooses and dispatches a random active action sequence. -
+ * resetWaitTimeIfUpdated: Resets the wait time if it has been updated. - updateWaitTime: Updates
+ * the wait time for the next action sequence execution. - handleApplicationState: Manages
+ * application state changes in relation to the CS2 window focus.
+ */
 @Slf4j
 public class ActionSequenceExecutorRunnable implements Runnable {
 

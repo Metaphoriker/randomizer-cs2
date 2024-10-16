@@ -12,6 +12,17 @@ import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * The Action class serves as an abstract base for defining specific actions that can be performed,
+ * such as key presses, mouse movements, and delays. Implementations of this class should override
+ * the {@link #execute()} method to define the specific behavior of the action.
+ *
+ * <p>The class provides mechanisms to handle interruptions and delays in an interruptible manner,
+ * as well as cloning capabilities to create identical copies of an action.
+ *
+ * <p>The class also associates each action with a specific {@link KeyBind} and maintains an
+ * execution interval.
+ */
 @Getter
 @Slf4j
 @ToString

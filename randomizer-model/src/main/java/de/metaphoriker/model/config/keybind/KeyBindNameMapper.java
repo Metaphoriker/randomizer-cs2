@@ -13,10 +13,23 @@ public class KeyBindNameMapper {
     initializeDescriptorMappings();
   }
 
+  /**
+   * Checks if the given descriptor exists in the descriptor-to-name map.
+   *
+   * @param descriptor the key to be checked in the map
+   * @return true if the map contains the key; false otherwise
+   */
   public boolean hasKey(String descriptor) {
     return descriptorToNameMap.containsKey(descriptor);
   }
 
+  /**
+   * Retrieves the key name associated with the given descriptor.
+   * If the descriptor does not have a predefined key name, the descriptor itself is returned.
+   *
+   * @param descriptor The descriptor whose key name is to be retrieved.
+   * @return The key name associated with the given descriptor, or the descriptor itself if no key name is found.
+   */
   public String getKeyName(String descriptor) {
     return descriptorToNameMap.getOrDefault(descriptor, descriptor);
   }

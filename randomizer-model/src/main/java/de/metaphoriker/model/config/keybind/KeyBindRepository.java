@@ -14,19 +14,36 @@ public class KeyBindRepository {
   private static final String UNBOUND = "<unbound>";
   private final List<KeyBind> keyBinds = new ArrayList<>();
   private final KeyBindNameMapper keyBindNameMapper = new KeyBindNameMapper();
+
   private String defaultFilePath;
   private String userConfigFilePath;
 
+  /**
+   * Retrieves a KeyBind associated with the given key.
+   *
+   * @param key The key to search for in the key bindings.
+   * @return An Optional containing the KeyBind if found, otherwise an empty Optional.
+   */
   public Optional<KeyBind> getKeyBind(String key) {
     return keyBinds.stream().filter(bind -> bind.getKey().equals(key)).findFirst();
   }
 
+  /**
+   * Initializes the default key bindings from a specified configuration file.
+   *
+   * @param filePath the path to the configuration file containing the default key bindings
+   */
   public void initDefaults(String filePath) {
     this.defaultFilePath = filePath;
     log.info("Initialisiere Standard-KeyBinds von Datei: {}", filePath);
     loadKeyBinds(filePath);
   }
 
+  /**
+   * Initializes modified key bindings from a specified configuration file.
+   *
+   * @param filePath the path to the configuration file containing the modified key bindings
+   */
   public void initModifiedKeyBinds(String filePath) {
     this.userConfigFilePath = filePath;
     log.info("Initialisiere modifizierte KeyBinds von Datei: {}", filePath);

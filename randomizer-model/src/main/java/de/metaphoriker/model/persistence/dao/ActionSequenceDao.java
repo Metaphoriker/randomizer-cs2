@@ -29,6 +29,12 @@ public class ActionSequenceDao {
 
   @Inject JsonUtil jsonUtil;
 
+  /**
+   * Saves the given ActionSequence to a file in the specified folder. The ActionSequence
+   * object is serialized to JSON format before being saved.
+   *
+   * @param actionSequence the ActionSequence object to be saved. Must not be null.
+   */
   public synchronized void saveActionSequence(ActionSequence actionSequence) {
     Objects.requireNonNull(actionSequence, "ActionSequence darf nicht null sein");
 
@@ -44,6 +50,13 @@ public class ActionSequenceDao {
     }
   }
 
+  /**
+   * Deletes the specified ActionSequence from the filesystem.
+   *
+   * @param actionSequence The ActionSequence to be deleted. Must not be null.
+   * @throws NullPointerException if the provided actionSequence is null.
+   * @throws RuntimeException if there is an IOException during the deletion process.
+   */
   public synchronized void deleteActionSequence(ActionSequence actionSequence) {
     Objects.requireNonNull(actionSequence, "ActionSequence darf nicht null sein");
 
@@ -62,6 +75,12 @@ public class ActionSequenceDao {
     }
   }
 
+  /**
+   * Loads all action sequences from the specified folder.
+   *
+   * @return a list of {@link ActionSequence} objects loaded from the folder.
+   * If no files are found or an error occurs during the load, an empty list will be returned.
+   */
   public List<ActionSequence> loadActionSequences() {
     List<ActionSequence> actionSequences = new ArrayList<>();
     File[] actionSequenceFiles = ACTION_SEQUENCE_FOLDER.listFiles();

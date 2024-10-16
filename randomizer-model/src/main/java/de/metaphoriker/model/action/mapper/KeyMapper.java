@@ -108,6 +108,13 @@ public class KeyMapper {
     addMapping("MWHEELUP", MWHEELUP_KEYCODE);
   }
 
+  /**
+   * Retrieves the key code for the given key string.
+   *
+   * @param key the key string for which the key code is to be retrieved.
+   * @return the key code corresponding to the key string, or -1 if the key string is not found in
+   *     the mapping.
+   */
   public int getKeyCodeForKey(String key) {
     return stringToKeyCodeMap.getOrDefault(key.toUpperCase(), -1);
   }
