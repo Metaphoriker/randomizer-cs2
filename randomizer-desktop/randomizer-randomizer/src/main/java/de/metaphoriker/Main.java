@@ -19,7 +19,6 @@ import de.metaphoriker.model.messages.Messages;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import de.metaphoriker.model.updater.Updater;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
-import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
