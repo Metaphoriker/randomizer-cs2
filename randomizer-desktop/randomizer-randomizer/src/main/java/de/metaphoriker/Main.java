@@ -6,6 +6,8 @@ import com.google.inject.Inject;
 import com.google.inject.Injector;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.BaseAction;
+import de.metaphoriker.model.action.custom.MouseMoveAction;
+import de.metaphoriker.model.action.custom.PauseAction;
 import de.metaphoriker.model.action.handling.ActionRepository;
 import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
@@ -21,8 +23,6 @@ import java.awt.*;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.concurrent.ThreadLocalRandom;
-import java.util.function.Supplier;
 import javafx.application.Application;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -140,44 +140,8 @@ public class Main {
 
   private void registerActions() {
     log.debug("Registriere Aktionen...");
-    actionRepository.register(
-        new Action(new KeyBind(KeyBind.EMPTY_KEYBIND.getKey(), "Pause")) {
-          @Override
-          public void execute() {
-            if (getInterval().isEmpty()) return;
-
-            int min = getInterval().getMin();
-            int max = getInterval().getMax();
-            try {
-              Thread.sleep(ThreadLocalRandom.current().nextInt(min, max));
-            } catch (InterruptedException e) {
-              Thread.currentThread().interrupt();
-            }
-          }
-        });
-    actionRepository.register(
-        new Action(new KeyBind(KeyBind.EMPTY_KEYBIND.getKey(), "Mouse Move")) {
-          @Override
-          public void execute() {
-            Point currentPosition = MouseInfo.getPointerInfo().getLocation();
-
-            int currentX = currentPosition.x;
-            int currentY = currentPosition.y;
-
-            boolean moveHorizontally = ThreadLocalRandom.current().nextBoolean();
-
-            Supplier<Integer> randomInt =
-                () ->
-                    moveHorizontally
-                        ? ThreadLocalRandom.current().nextInt(currentX - 5, currentX + 6)
-                        : ThreadLocalRandom.current().nextInt(currentY - 5, currentY + 6);
-
-            int x = moveHorizontally ? randomInt.get() : currentX;
-            int y = moveHorizontally ? currentY : randomInt.get();
-
-            ROBOT.mouseMove(x, y);
-          }
-        });
+    actionRepository.register(new PauseAction());
+    actionRepository.register(new MouseMoveAction());
     actionRepository.register(new BaseAction(new KeyBind("ESCAPE", "Escape")));
     keyBindRepository
         .getKeyBinds()
