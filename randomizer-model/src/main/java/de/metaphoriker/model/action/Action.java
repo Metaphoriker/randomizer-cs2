@@ -1,13 +1,10 @@
 package de.metaphoriker.model.action;
 
+import com.google.inject.Inject;
 import de.metaphoriker.model.cfg.keybind.KeyBind;
 import java.awt.AWTException;
 import java.awt.Robot;
-import java.awt.event.InputEvent;
-import java.awt.event.KeyEvent;
 import java.time.Instant;
-import java.util.HashMap;
-import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
 import lombok.ToString;
@@ -18,13 +15,8 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 public class Action implements Cloneable {
 
-  private static final int MWHEELDOWN_KEYCODE = -1;
-  private static final int MWHEELUP_KEYCODE = 1;
-
   protected static final Robot robot;
   private static final String EMPTY = "";
-
-  private static final Map<String, Integer> stringToKeyCodeMap = new HashMap<>();
 
   static {
     try {
@@ -32,104 +24,6 @@ public class Action implements Cloneable {
     } catch (AWTException e) {
       throw new RuntimeException(e);
     }
-
-    // Letters
-    addMapping("A", KeyEvent.VK_A);
-    addMapping("B", KeyEvent.VK_B);
-    addMapping("C", KeyEvent.VK_C);
-    addMapping("D", KeyEvent.VK_D);
-    addMapping("E", KeyEvent.VK_E);
-    addMapping("F", KeyEvent.VK_F);
-    addMapping("G", KeyEvent.VK_G);
-    addMapping("H", KeyEvent.VK_H);
-    addMapping("I", KeyEvent.VK_I);
-    addMapping("J", KeyEvent.VK_J);
-    addMapping("K", KeyEvent.VK_K);
-    addMapping("L", KeyEvent.VK_L);
-    addMapping("M", KeyEvent.VK_M);
-    addMapping("N", KeyEvent.VK_N);
-    addMapping("O", KeyEvent.VK_O);
-    addMapping("P", KeyEvent.VK_P);
-    addMapping("Q", KeyEvent.VK_Q);
-    addMapping("R", KeyEvent.VK_R);
-    addMapping("S", KeyEvent.VK_S);
-    addMapping("T", KeyEvent.VK_T);
-    addMapping("U", KeyEvent.VK_U);
-    addMapping("V", KeyEvent.VK_V);
-    addMapping("W", KeyEvent.VK_W);
-    addMapping("X", KeyEvent.VK_X);
-    addMapping("Y", KeyEvent.VK_Y);
-    addMapping("Z", KeyEvent.VK_Z);
-
-    // Numbers
-    addMapping("0", KeyEvent.VK_0);
-    addMapping("1", KeyEvent.VK_1);
-    addMapping("2", KeyEvent.VK_2);
-    addMapping("3", KeyEvent.VK_3);
-    addMapping("4", KeyEvent.VK_4);
-    addMapping("5", KeyEvent.VK_5);
-    addMapping("6", KeyEvent.VK_6);
-    addMapping("7", KeyEvent.VK_7);
-    addMapping("8", KeyEvent.VK_8);
-    addMapping("9", KeyEvent.VK_9);
-
-    // Function keys
-    addMapping("F1", KeyEvent.VK_F1);
-    addMapping("F2", KeyEvent.VK_F2);
-    addMapping("F3", KeyEvent.VK_F3);
-    addMapping("F4", KeyEvent.VK_F4);
-    addMapping("F5", KeyEvent.VK_F5);
-    addMapping("F6", KeyEvent.VK_F6);
-    addMapping("F7", KeyEvent.VK_F7);
-    addMapping("F8", KeyEvent.VK_F8);
-    addMapping("F9", KeyEvent.VK_F9);
-    addMapping("F10", KeyEvent.VK_F10);
-    addMapping("F11", KeyEvent.VK_F11);
-    addMapping("F12", KeyEvent.VK_F12);
-
-    // Modifier keys
-    addMapping("CTRL", KeyEvent.VK_CONTROL);
-    addMapping("SHIFT", KeyEvent.VK_SHIFT);
-    addMapping("ALT", KeyEvent.VK_ALT);
-    addMapping("ALTGR", KeyEvent.VK_ALT_GRAPH);
-
-    // Navigation keys
-    addMapping("UP", KeyEvent.VK_UP);
-    addMapping("DOWN", KeyEvent.VK_DOWN);
-    addMapping("LEFT", KeyEvent.VK_LEFT);
-    addMapping("RIGHT", KeyEvent.VK_RIGHT);
-    addMapping("PAGE_UP", KeyEvent.VK_PAGE_UP);
-    addMapping("PAGE_DOWN", KeyEvent.VK_PAGE_DOWN);
-    addMapping("HOME", KeyEvent.VK_HOME);
-    addMapping("END", KeyEvent.VK_END);
-    addMapping("INSERT", KeyEvent.VK_INSERT);
-    addMapping("DELETE", KeyEvent.VK_DELETE);
-
-    // Control keys
-    addMapping("ENTER", KeyEvent.VK_ENTER);
-    addMapping("ESCAPE", KeyEvent.VK_ESCAPE);
-    addMapping("TAB", KeyEvent.VK_TAB);
-    addMapping("BACKSPACE", KeyEvent.VK_BACK_SPACE);
-    addMapping("SPACE", KeyEvent.VK_SPACE);
-    addMapping("CAPSLOCK", KeyEvent.VK_CAPS_LOCK);
-    addMapping("PRINTSCREEN", KeyEvent.VK_PRINTSCREEN);
-    addMapping("SCROLL_LOCK", KeyEvent.VK_SCROLL_LOCK);
-    addMapping("PAUSE", KeyEvent.VK_PAUSE);
-
-    // Mouse keys
-    addMapping("MOUSE1", InputEvent.getMaskForButton(1));
-    addMapping("MOUSE2", InputEvent.getMaskForButton(2));
-    addMapping("MOUSE3", InputEvent.getMaskForButton(3));
-    addMapping("MOUSE4", InputEvent.getMaskForButton(4));
-    addMapping("MOUSE5", InputEvent.getMaskForButton(5));
-
-    // Mouse scroll wheel
-    addMapping("MWHEELDOWN", MWHEELDOWN_KEYCODE);
-    addMapping("MWHEELUP", MWHEELUP_KEYCODE);
-  }
-
-  private static void addMapping(String key, int keyCode) {
-    stringToKeyCodeMap.put(key.toUpperCase(), keyCode);
   }
 
   private static boolean isMouseWheelEvent(String key) {
@@ -140,9 +34,7 @@ public class Action implements Cloneable {
     return key != null && key.toUpperCase().startsWith("MOUSE");
   }
 
-  public static int getKeyCodeForKey(String key) {
-    return stringToKeyCodeMap.getOrDefault(key.toUpperCase(), -1);
-  }
+  @Inject private KeyMapper keyMapper;
 
   private final transient KeyBind keyBind;
   private final Interval interval = Interval.of(0, 0);
@@ -173,7 +65,7 @@ public class Action implements Cloneable {
   }
 
   public void executeDelayed(long delay) {
-    int keyCode = getKeyCodeForKey(keyBind.getKey());
+    int keyCode = keyMapper.getKeyCodeForKey(keyBind.getKey());
     executing = true;
     interrupted = false;
 

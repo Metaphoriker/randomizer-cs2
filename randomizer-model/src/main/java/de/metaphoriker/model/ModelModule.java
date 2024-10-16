@@ -1,6 +1,8 @@
 package de.metaphoriker.model;
 
 import com.google.inject.AbstractModule;
+import de.metaphoriker.model.action.Action;
+import de.metaphoriker.model.action.KeyMapper;
 import de.metaphoriker.model.action.handling.ActionRepository;
 import de.metaphoriker.model.action.sequence.ActionSequenceDispatcher;
 import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
@@ -20,8 +22,10 @@ public class ModelModule extends AbstractModule {
     bind(KeyBindRepository.class).asEagerSingleton();
     bind(ActionSequenceDispatcher.class).asEagerSingleton();
     bind(FileSystemWatcher.class).asEagerSingleton();
+    bind(KeyMapper.class).asEagerSingleton();
 
     bind(ActionSequenceExecutorRunnable.class);
     bind(ActionJsonDeSerializer.class);
+    bind(Action.class);
   }
 }
