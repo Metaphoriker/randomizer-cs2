@@ -5,12 +5,13 @@ import com.github.kwhat.jnativehook.NativeHookException;
 import com.google.inject.Inject;
 import com.google.inject.Injector;
 import de.metaphoriker.model.action.Action;
+import de.metaphoriker.model.action.BaseAction;
 import de.metaphoriker.model.action.handling.ActionRepository;
 import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
-import de.metaphoriker.model.cfg.ConfigLoader;
-import de.metaphoriker.model.cfg.keybind.KeyBind;
-import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
+import de.metaphoriker.model.config.ConfigLoader;
+import de.metaphoriker.model.config.keybind.KeyBind;
+import de.metaphoriker.model.config.keybind.KeyBindRepository;
 import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
 import de.metaphoriker.model.stuff.ApplicationContext;
@@ -174,15 +175,15 @@ public class Main {
             int x = moveHorizontally ? randomInt.get() : currentX;
             int y = moveHorizontally ? currentY : randomInt.get();
 
-            robot.mouseMove(x, y);
+            ROBOT.mouseMove(x, y);
           }
         });
-    actionRepository.register(new Action(new KeyBind("ESCAPE", "Escape")));
+    actionRepository.register(new BaseAction(new KeyBind("ESCAPE", "Escape")));
     keyBindRepository
         .getKeyBinds()
         .forEach(
             keyBind -> {
-              Action action = new Action(keyBind);
+              Action action = new BaseAction(keyBind);
               actionRepository.register(action);
             });
     actionRepository.loadStatesIfExist();

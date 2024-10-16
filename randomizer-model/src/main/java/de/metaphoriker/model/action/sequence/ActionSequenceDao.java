@@ -1,6 +1,7 @@
 package de.metaphoriker.model.action.sequence;
 
-import de.metaphoriker.model.json.JsonUtil;
+import com.google.inject.Inject;
+import de.metaphoriker.model.persistence.JsonUtil;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.io.File;
 import java.io.IOException;
@@ -25,13 +26,15 @@ public class ActionSequenceDao {
     }
   }
 
+  @Inject JsonUtil jsonUtil;
+
   public synchronized void saveActionSequence(ActionSequence actionSequence) {
     Objects.requireNonNull(actionSequence, "ActionSequence darf nicht null sein");
 
     File file = new File(ACTION_SEQUENCE_FOLDER, actionSequence.getName() + ".sequence");
 
     try (PrintWriter writer = new PrintWriter(file)) {
-      String json = JsonUtil.serialize(actionSequence);
+      String json = jsonUtil.serialize(actionSequence);
       writer.println(json);
       writer.flush();
       log.info("ActionSequence erfolgreich gespeichert: {}", actionSequence.getName());
@@ -74,7 +77,7 @@ public class ActionSequenceDao {
 
       try {
         String content = new String(Files.readAllBytes(file.toPath()));
-        ActionSequence actionSequence = JsonUtil.deserialize(content);
+        ActionSequence actionSequence = jsonUtil.deserialize(content);
         actionSequences.add(actionSequence);
       } catch (IOException e) {
         log.error("Fehler beim Laden der ActionSequence aus Datei: {}", file.getAbsolutePath(), e);

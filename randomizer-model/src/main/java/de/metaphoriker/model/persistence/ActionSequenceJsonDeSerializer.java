@@ -1,10 +1,11 @@
-package de.metaphoriker.model.json;
+package de.metaphoriker.model.persistence;
 
 import com.google.gson.*;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import java.lang.reflect.Type;
 import java.util.List;
+import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -35,7 +36,9 @@ public class ActionSequenceJsonDeSerializer
 
     String name = jsonObject.get(NAME_KEY).getAsString();
 
-    List<Action> actions = context.deserialize(jsonObject.get(ACTIONS_KEY), List.class);
+    Type listOfActionType = new TypeToken<List<Action>>() {}.getType();
+    List<Action> actions = context.deserialize(jsonObject.get(ACTIONS_KEY), listOfActionType);
+
     boolean active = jsonObject.get(ACTIVE_KEY).getAsBoolean();
 
     ActionSequence actionSequence = new ActionSequence(name);

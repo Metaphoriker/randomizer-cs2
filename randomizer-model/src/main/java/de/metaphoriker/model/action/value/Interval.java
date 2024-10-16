@@ -1,4 +1,4 @@
-package de.metaphoriker.model.action;
+package de.metaphoriker.model.action.value;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;

@@ -1,14 +1,17 @@
 package de.metaphoriker.model;
 
+import com.google.gson.Gson;
 import com.google.inject.AbstractModule;
-import de.metaphoriker.model.action.Action;
-import de.metaphoriker.model.action.KeyMapper;
 import de.metaphoriker.model.action.handling.ActionRepository;
+import de.metaphoriker.model.action.sequence.ActionSequenceDao;
 import de.metaphoriker.model.action.sequence.ActionSequenceDispatcher;
 import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.action.sequence.ActionSequenceRepository;
-import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
-import de.metaphoriker.model.json.ActionJsonDeSerializer;
+import de.metaphoriker.model.config.keybind.KeyBindRepository;
+import de.metaphoriker.model.persistence.ActionJsonDeSerializer;
+import de.metaphoriker.model.persistence.ActionSequenceJsonDeSerializer;
+import de.metaphoriker.model.persistence.GsonProvider;
+import de.metaphoriker.model.persistence.JsonUtil;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
 
@@ -22,10 +25,13 @@ public class ModelModule extends AbstractModule {
     bind(KeyBindRepository.class).asEagerSingleton();
     bind(ActionSequenceDispatcher.class).asEagerSingleton();
     bind(FileSystemWatcher.class).asEagerSingleton();
-    bind(KeyMapper.class).asEagerSingleton();
+    bind(JsonUtil.class).asEagerSingleton();
+    bind(ActionSequenceDao.class).asEagerSingleton();
 
     bind(ActionSequenceExecutorRunnable.class);
     bind(ActionJsonDeSerializer.class);
-    bind(Action.class);
+    bind(ActionSequenceJsonDeSerializer.class);
+
+    bind(Gson.class).toProvider(GsonProvider.class);
   }
 }

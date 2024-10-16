@@ -1,4 +1,4 @@
-package de.metaphoriker.model.cfg.keybind;
+package de.metaphoriker.model.config.keybind;
 
 import lombok.AllArgsConstructor;
 import lombok.EqualsAndHashCode;

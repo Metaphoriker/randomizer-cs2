@@ -61,7 +61,7 @@ public class ActionRepository {
   public Action getByName(String actionName) {
     Action originalAction =
         actions.keySet().stream()
-            .filter(action -> action.name().equals(actionName))
+            .filter(action -> action.getName().equals(actionName))
             .findFirst()
             .orElseThrow(
                 () -> new IllegalArgumentException("Action nicht gefunden: " + actionName));

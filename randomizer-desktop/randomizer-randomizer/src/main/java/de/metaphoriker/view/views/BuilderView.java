@@ -33,7 +33,7 @@ public class BuilderView extends HBox {
     List<Action> actions = builderViewModel.getEnabledActions();
 
     actions.stream()
-        .map(action -> new Label(action.name()))
+        .map(action -> new Label(action.getName()))
         .forEach(actionFlowPane.getChildren()::add);
   }
 }

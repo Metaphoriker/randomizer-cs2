@@ -1,15 +1,18 @@
 package de.metaphoriker.model.action.sequence;
 
 import java.util.*;
+
+import com.google.inject.Inject;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ActionSequenceRepository {
 
-  private final ActionSequenceDao actionSequenceDao = new ActionSequenceDao();
   private final Map<String, ActionSequence> actionSequencesMap = new HashMap<>();
 
   private boolean isCacheUpdated = false;
+
+  @Inject private ActionSequenceDao actionSequenceDao;
 
   public synchronized void saveActionSequence(ActionSequence actionSequence) {
     Objects.requireNonNull(actionSequence, "ActionSequence darf nicht null sein");

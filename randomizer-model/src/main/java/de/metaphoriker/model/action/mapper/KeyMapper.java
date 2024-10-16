@@ -1,4 +1,4 @@
-package de.metaphoriker.model.action;
+package de.metaphoriker.model.action.mapper;
 
 import java.awt.event.InputEvent;
 import java.awt.event.KeyEvent;

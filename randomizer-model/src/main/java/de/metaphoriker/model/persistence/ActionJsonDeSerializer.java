@@ -1,4 +1,4 @@
-package de.metaphoriker.model.json;
+package de.metaphoriker.model.persistence;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -9,8 +9,8 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.inject.Inject;
 import de.metaphoriker.model.action.Action;
-import de.metaphoriker.model.action.Interval;
 import de.metaphoriker.model.action.handling.ActionRepository;
+import de.metaphoriker.model.action.value.Interval;
 import java.lang.reflect.Type;
 import lombok.extern.slf4j.Slf4j;
 
@@ -25,7 +25,7 @@ public class ActionJsonDeSerializer implements JsonSerializer<Action>, JsonDeser
   @Override
   public JsonElement serialize(Action action, Type type, JsonSerializationContext context) {
     JsonObject jsonObject = new JsonObject();
-    jsonObject.addProperty(NAME_KEY, action.name());
+    jsonObject.addProperty(NAME_KEY, action.getName());
     jsonObject.add(INTERVAL_KEY, context.serialize(action.getInterval()));
     return jsonObject;
   }

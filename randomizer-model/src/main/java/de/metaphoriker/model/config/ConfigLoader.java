@@ -1,6 +1,6 @@
-package de.metaphoriker.model.cfg;
+package de.metaphoriker.model.config;
 
-import de.metaphoriker.model.cfg.keybind.KeyBindRepository;
+import de.metaphoriker.model.config.keybind.KeyBindRepository;
 import java.io.File;
 import java.io.FileNotFoundException;
 import lombok.extern.slf4j.Slf4j;

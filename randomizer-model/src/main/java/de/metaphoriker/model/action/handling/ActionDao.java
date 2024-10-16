@@ -42,7 +42,7 @@ public class ActionDao {
 
   public void save(Map<Action, Boolean> actions) {
     Map<String, Boolean> actionStates = new HashMap<>();
-    actions.forEach((action, enabled) -> actionStates.put(action.name(), enabled));
+    actions.forEach((action, enabled) -> actionStates.put(action.getName(), enabled));
 
     try {
       OBJECT_MAPPER.writeValue(STORAGE_FILE, actionStates);
@@ -64,7 +64,7 @@ public class ActionDao {
         .keySet()
         .forEach(
             action -> {
-              Boolean enabled = loadedActions.get(action.name());
+              Boolean enabled = loadedActions.get(action.getName());
               if (enabled != null) {
                 actions.put(action, enabled);
               }
