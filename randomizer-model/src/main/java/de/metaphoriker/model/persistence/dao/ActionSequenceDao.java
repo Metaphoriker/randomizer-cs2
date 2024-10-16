@@ -1,6 +1,7 @@
-package de.metaphoriker.model.action.sequence;
+package de.metaphoriker.model.persistence.dao;
 
 import com.google.inject.Inject;
+import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.persistence.JsonUtil;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.io.File;

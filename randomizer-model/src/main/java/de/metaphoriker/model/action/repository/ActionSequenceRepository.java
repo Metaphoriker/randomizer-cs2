@@ -1,8 +1,10 @@
-package de.metaphoriker.model.action.sequence;
+package de.metaphoriker.model.action.repository;
 
 import java.util.*;
 
 import com.google.inject.Inject;
+import de.metaphoriker.model.action.sequence.ActionSequence;
+import de.metaphoriker.model.persistence.dao.ActionSequenceDao;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

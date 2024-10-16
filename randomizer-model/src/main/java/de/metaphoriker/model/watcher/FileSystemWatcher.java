@@ -1,6 +1,6 @@
 package de.metaphoriker.model.watcher;
 
-import de.metaphoriker.model.action.sequence.ActionSequenceDao;
+import de.metaphoriker.model.persistence.dao.ActionSequenceDao;
 import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;

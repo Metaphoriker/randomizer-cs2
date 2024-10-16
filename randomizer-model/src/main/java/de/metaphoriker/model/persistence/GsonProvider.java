@@ -6,6 +6,8 @@ import com.google.inject.Inject;
 import com.google.inject.Provider;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.sequence.ActionSequence;
+import de.metaphoriker.model.persistence.de_serializer.ActionJsonDeSerializer;
+import de.metaphoriker.model.persistence.de_serializer.ActionSequenceJsonDeSerializer;
 
 public class GsonProvider implements Provider<Gson> {
 

@@ -1,4 +1,4 @@
-package de.metaphoriker.model.action.handling;
+package de.metaphoriker.model.persistence.dao;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;

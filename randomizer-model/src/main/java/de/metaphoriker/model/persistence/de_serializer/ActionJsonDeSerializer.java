@@ -1,4 +1,4 @@
-package de.metaphoriker.model.persistence;
+package de.metaphoriker.model.persistence.de_serializer;
 
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
@@ -9,7 +9,7 @@ import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
 import com.google.inject.Inject;
 import de.metaphoriker.model.action.Action;
-import de.metaphoriker.model.action.handling.ActionRepository;
+import de.metaphoriker.model.action.repository.ActionRepository;
 import de.metaphoriker.model.action.value.Interval;
 import java.lang.reflect.Type;
 import lombok.extern.slf4j.Slf4j;

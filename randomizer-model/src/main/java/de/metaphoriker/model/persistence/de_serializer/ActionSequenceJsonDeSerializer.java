@@ -1,4 +1,4 @@
-package de.metaphoriker.model.persistence;
+package de.metaphoriker.model.persistence.de_serializer;
 
 import com.google.gson.*;
 import de.metaphoriker.model.action.Action;
