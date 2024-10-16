@@ -7,7 +7,7 @@ import com.github.kwhat.jnativehook.mouse.NativeMouseEvent;
 import com.github.kwhat.jnativehook.mouse.NativeMouseListener;
 import com.google.inject.Inject;
 import de.metaphoriker.model.ApplicationState;
-import de.metaphoriker.model.FocusManager;
+import de.metaphoriker.model.util.FocusManager;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.stuff.ApplicationContext;
 import java.time.Instant;
