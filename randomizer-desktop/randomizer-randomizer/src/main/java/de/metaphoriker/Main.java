@@ -16,7 +16,7 @@ import de.metaphoriker.model.config.keybind.KeyBind;
 import de.metaphoriker.model.config.keybind.KeyBindRepository;
 import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
-import de.metaphoriker.model.stuff.ApplicationContext;
+import de.metaphoriker.model.ApplicationContext;
 import de.metaphoriker.model.updater.Updater;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
 import java.io.File;

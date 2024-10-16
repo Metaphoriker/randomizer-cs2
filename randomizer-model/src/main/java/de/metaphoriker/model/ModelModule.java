@@ -12,7 +12,6 @@ import de.metaphoriker.model.persistence.de_serializer.ActionJsonDeSerializer;
 import de.metaphoriker.model.persistence.de_serializer.ActionSequenceJsonDeSerializer;
 import de.metaphoriker.model.persistence.GsonProvider;
 import de.metaphoriker.model.persistence.JsonUtil;
-import de.metaphoriker.model.stuff.ApplicationContext;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
 
 public class ModelModule extends AbstractModule {

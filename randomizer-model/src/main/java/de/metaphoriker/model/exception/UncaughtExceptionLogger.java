@@ -1,6 +1,6 @@
 package de.metaphoriker.model.exception;
 
-import de.metaphoriker.model.stuff.ApplicationContext;
+import de.metaphoriker.model.ApplicationContext;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;

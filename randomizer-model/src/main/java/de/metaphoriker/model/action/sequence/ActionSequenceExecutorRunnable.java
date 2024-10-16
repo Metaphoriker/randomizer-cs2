@@ -10,7 +10,7 @@ import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.action.repository.ActionSequenceRepository;
 import de.metaphoriker.model.util.FocusManager;
 import de.metaphoriker.model.action.Action;
-import de.metaphoriker.model.stuff.ApplicationContext;
+import de.metaphoriker.model.ApplicationContext;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;

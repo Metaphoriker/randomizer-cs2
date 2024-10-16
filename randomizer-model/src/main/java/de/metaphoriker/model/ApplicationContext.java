@@ -1,6 +1,5 @@
-package de.metaphoriker.model.stuff;
+package de.metaphoriker.model;
 
-import de.metaphoriker.model.ApplicationState;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;

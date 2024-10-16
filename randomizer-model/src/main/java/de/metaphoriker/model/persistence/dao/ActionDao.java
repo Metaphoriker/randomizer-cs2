@@ -3,7 +3,7 @@ package de.metaphoriker.model.persistence.dao;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import de.metaphoriker.model.action.Action;
-import de.metaphoriker.model.stuff.ApplicationContext;
+import de.metaphoriker.model.ApplicationContext;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;

@@ -3,7 +3,7 @@ package de.metaphoriker.model.persistence.dao;
 import com.google.inject.Inject;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.persistence.JsonUtil;
-import de.metaphoriker.model.stuff.ApplicationContext;
+import de.metaphoriker.model.ApplicationContext;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
