@@ -42,6 +42,7 @@ public abstract class Action implements Cloneable {
   }
 
   private final transient KeyBind keyBind;
+  private final transient ActionType actionType;
 
   private final String name;
   private final Interval interval = Interval.of(0, 0);
@@ -57,6 +58,12 @@ public abstract class Action implements Cloneable {
 
   public Action(KeyBind keyBind) {
     this.keyBind = keyBind;
+    this.actionType =
+        isMouseEvent()
+            ? ActionType.MOUSE
+            : isMouseWheelEvent()
+                ? ActionType.MOUSE_WHEEL
+                : hasKey() ? ActionType.KEYBOARD : ActionType.CUSTOM;
     this.name = keyBind.getAction();
   }
 
@@ -98,6 +105,18 @@ public abstract class Action implements Cloneable {
 
       waitedTime += INTERVAL;
     }
+  }
+
+  private boolean isMouseWheelEvent() {
+    return keyBind.getKey().toUpperCase().startsWith("MWHEEL");
+  }
+
+  private boolean isMouseEvent() {
+    return keyBind.getKey().toUpperCase().startsWith("MOUSE");
+  }
+
+  private boolean hasKey() {
+    return !keyBind.getKey().equals(KeyBind.EMPTY_KEYBIND.getKey());
   }
 
   @Override
