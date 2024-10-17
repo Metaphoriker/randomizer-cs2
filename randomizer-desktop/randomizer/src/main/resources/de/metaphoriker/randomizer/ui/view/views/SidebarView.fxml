@@ -6,7 +6,7 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" prefHeight="830.0" prefWidth="80.0"
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" prefHeight="500.0" prefWidth="80.0"
       styleClass="highlighted-vbox" xmlns="http://javafx.com/javafx/22"
       fx:controller="de.metaphoriker.randomizer.ui.view.views.SidebarView">
     <children>
