@@ -28,6 +28,7 @@ import lombok.extern.slf4j.Slf4j;
 @ToString
 public abstract class Action implements Cloneable {
 
+  private static final int INTERVAL = 50;
   protected static final KeyMapper KEY_MAPPER = new KeyMapper();
 
   protected static final Robot ROBOT;
@@ -78,7 +79,6 @@ public abstract class Action implements Cloneable {
   }
 
   private void interruptibleDelay(long delayInMillis) {
-    int interval = 50;
     int waitedTime = 0;
 
     if (delayInMillis <= 0) return;
@@ -90,13 +90,13 @@ public abstract class Action implements Cloneable {
       }
 
       try {
-        Thread.sleep(interval);
+        Thread.sleep(INTERVAL);
       } catch (InterruptedException e) {
         Thread.currentThread().interrupt();
         return;
       }
 
-      waitedTime += interval;
+      waitedTime += INTERVAL;
     }
   }
 
