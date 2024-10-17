@@ -13,14 +13,6 @@ public class BaseAction extends Action {
     super(keyBind);
   }
 
-  private static boolean isMouseWheelEvent(String key) {
-    return key != null && key.toUpperCase().startsWith("MWHEEL");
-  }
-
-  private static boolean isMouseEvent(String key) {
-    return key != null && key.toUpperCase().startsWith("MOUSE");
-  }
-
   @Override
   public void execute() {
     if (getInterval().isEmpty()) {
@@ -37,12 +29,10 @@ public class BaseAction extends Action {
     setExecuting(true);
     setInterrupted(false);
 
-    if (isMouseWheelEvent(getKeyBind().getKey())) {
-      handleMouseWheelEvent(keyCode);
-    } else if (isMouseEvent(getKeyBind().getKey())) {
-      handleMouseEvent(delay, keyCode);
-    } else {
-      handleKeyEvent(delay, keyCode);
+    switch (getActionType()) {
+      case MOUSE -> handleMouseEvent(delay, keyCode);
+      case MOUSE_WHEEL -> handleMouseWheelEvent(keyCode);
+      default -> handleKeyEvent(delay, keyCode);
     }
 
     setExecuting(false);

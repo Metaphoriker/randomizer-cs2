@@ -32,7 +32,6 @@ public class RandomizerApplication extends Application {
     log.debug("Lade Hauptfenster...");
     Parent root = viewProvider.requestView(MainWindow.class);
     Scene scene = new Scene(root);
-    scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     stage.setTitle("Randomizer");
     stage.getIcons().add(ImageUtil.getImage("images/randomizerLogo.jpg"));
     stage.setMinWidth(MIN_WIDTH);
