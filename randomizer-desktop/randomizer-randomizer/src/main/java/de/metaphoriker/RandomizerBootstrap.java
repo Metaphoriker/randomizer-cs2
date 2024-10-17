@@ -48,7 +48,7 @@ public class RandomizerBootstrap {
   }
 
   public void startApplication() {
-    log.debug("Initialisiere Applikation...");
+    log.info("Initialisiere Applikation...");
     if (!Main.testMode) installAndRunUpdaterIfNeeded();
     loadKeyBinds();
     registerActions();
@@ -61,47 +61,47 @@ public class RandomizerBootstrap {
   }
 
   private void loadKeyBinds() {
-    log.debug("Lade KeyBinds...");
+    log.info("Lade KeyBinds...");
     ConfigLoader.loadKeyBinds(keyBindRepository);
   }
 
   private void setupListeners() {
-    log.debug("Richte Listener ein...");
+    log.info("Richte Listener ein...");
     fileSystemWatcher.addFileChangeListener(_ -> cacheActions());
   }
 
   private void setupGlobalExceptionHandler() {
-    log.debug("Richte Global Exception Handler ein...");
+    log.info("Richte Global Exception Handler ein...");
     Thread.currentThread()
         .setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
   }
 
   private void cacheActions() {
-    log.debug("Cache Actions...");
+    log.info("Cache Actions...");
     actionSequenceRepository.updateActionSequencesCache();
   }
 
   private void startExecutors() {
-    log.debug("Starte Executor...");
+    log.info("Starte Executor...");
     startThread(new Thread(actionSequenceExecutorRunnable));
     startThread(new Thread(new FileSystemWatcher()));
   }
 
   private void startThread(Thread thread) {
-    log.debug("Starte Thread: {}", thread.getName());
+    log.info("Starte Thread: {}", thread.getName());
     thread.setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
     thread.setDaemon(true);
     thread.start();
   }
 
   private void installAndRunUpdaterIfNeeded() {
-    log.debug("Richte Appdata Verzeichnis ein...");
+    log.info("Richte Appdata Verzeichnis ein...");
     File updater = installUpdater();
     startUpdaterIfNecessary(updater.getAbsolutePath());
   }
 
   private File installUpdater() {
-    log.debug("Installiere Updater...");
+    log.info("Installiere Updater...");
     File updaterJar = new File(ApplicationContext.getAppdataFolder(), "randomizer-updater.jar");
     try {
       updaterJar.createNewFile();
@@ -118,12 +118,12 @@ public class RandomizerBootstrap {
   }
 
   private void startUpdaterIfNecessary(String path) {
-    log.debug("Starte Updater falls notwendig...");
+    log.info("Starte Updater falls notwendig...");
     try {
       File jarPath =
           new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
       if (Updater.isUpdateAvailable(Updater.getCurrentVersion(), Updater.RANDOMIZER_VERSION_URL)) {
-        log.debug("Updater gestartet");
+        log.info("Updater gestartet");
 
         ProcessBuilder processBuilder =
             new ProcessBuilder(
@@ -141,7 +141,7 @@ public class RandomizerBootstrap {
   }
 
   private void registerActions() {
-    log.debug("Registriere Aktionen...");
+    log.info("Registriere Aktionen...");
     actionRepository.register(new PauseAction());
     actionRepository.register(new MouseMoveAction());
     actionRepository.register(new BaseAction(new KeyBind("ESCAPE", "Escape")));
@@ -157,7 +157,7 @@ public class RandomizerBootstrap {
 
   private void registerNativeKeyHook() {
     try {
-      log.debug("Registriere Native Key Hook...");
+      log.info("Registriere Native Key Hook...");
       GlobalScreen.registerNativeHook();
     } catch (NativeHookException e) {
       log.error("Fehler bei der Registrierung des Native Hooks", e);
