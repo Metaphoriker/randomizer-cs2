@@ -1,6 +1,6 @@
-package de.metaphoriker.view;
+package de.metaphoriker.randomizer.ui.view;
 
-import de.metaphoriker.Main;
+import de.metaphoriker.randomizer.Main;
 import java.io.IOException;
 import java.net.URL;
 import java.text.MessageFormat;

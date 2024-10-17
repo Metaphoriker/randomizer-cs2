@@ -1,7 +1,7 @@
 <component name="ProjectRunConfigurationManager">
   <configuration default="false" name="Starter Test" type="Application" factoryName="Application">
     <option name="ALTERNATIVE_JRE_PATH" value="22" />
-    <option name="MAIN_CLASS_NAME" value="de.metaphoriker.Main" />
+      <option name="MAIN_CLASS_NAME" value="de.metaphoriker.randomizer.Main"/>
     <module name="randomizer-randomizer" />
     <option name="PROGRAM_PARAMETERS" value="-testMode=true" />
     <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/randomizer-desktop/randomizer-randomizer" />

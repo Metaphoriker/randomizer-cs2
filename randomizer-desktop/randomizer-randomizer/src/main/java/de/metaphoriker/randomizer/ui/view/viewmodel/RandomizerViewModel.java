@@ -1,4 +1,4 @@
-package de.metaphoriker.view.viewmodel;
+package de.metaphoriker.randomizer.ui.view.viewmodel;
 
 import com.google.inject.Inject;
 import de.metaphoriker.model.ApplicationContext;

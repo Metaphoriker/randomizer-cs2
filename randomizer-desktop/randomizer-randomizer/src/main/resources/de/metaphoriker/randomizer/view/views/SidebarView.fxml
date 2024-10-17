@@ -6,8 +6,9 @@
 <?import javafx.scene.control.ToggleButton?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.shape.Rectangle?>
-
-<VBox alignment="TOP_CENTER" prefHeight="830.0" prefWidth="80.0" styleClass="highlighted-vbox" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.view.views.SidebarView">
+<VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" prefHeight="830.0" prefWidth="80.0"
+      styleClass="highlighted-vbox" xmlns="http://javafx.com/javafx/22"
+      fx:controller="de.metaphoriker.randomizer.ui.view.views.SidebarView">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
             <children>

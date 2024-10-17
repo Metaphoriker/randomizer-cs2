@@ -1,4 +1,4 @@
-package de.metaphoriker.view;
+package de.metaphoriker.randomizer.ui.view;
 
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;

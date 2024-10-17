@@ -1,8 +1,8 @@
-package de.metaphoriker.view.views;
+package de.metaphoriker.randomizer.ui.view.views;
 
 import com.google.inject.Inject;
-import de.metaphoriker.view.View;
-import de.metaphoriker.view.viewmodel.RandomizerViewModel;
+import de.metaphoriker.randomizer.ui.view.View;
+import de.metaphoriker.randomizer.ui.view.viewmodel.RandomizerViewModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.Initializable;

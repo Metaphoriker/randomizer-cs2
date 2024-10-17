@@ -1,4 +1,4 @@
-package de.metaphoriker;
+package de.metaphoriker.randomizer.bootstrap;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
@@ -18,6 +18,7 @@ import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
 import de.metaphoriker.model.updater.Updater;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
+import de.metaphoriker.randomizer.Main;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
@@ -47,7 +48,7 @@ public class RandomizerBootstrap {
     this.fileSystemWatcher = fileSystemWatcher;
   }
 
-  public void startApplication() {
+  public void initializeApplication() {
     log.info("Initialisiere Applikation...");
     if (!Main.testMode) installAndRunUpdaterIfNeeded();
     loadKeyBinds();

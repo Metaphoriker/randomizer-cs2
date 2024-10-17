@@ -1,4 +1,4 @@
-package de.metaphoriker.view;
+package de.metaphoriker.randomizer.ui.view;
 
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;

@@ -1,6 +1,6 @@
-package de.metaphoriker.util;
+package de.metaphoriker.randomizer.ui.util;
 
-import de.metaphoriker.Main;
+import de.metaphoriker.randomizer.Main;
 import java.net.URL;
 import javafx.geometry.Side;
 import javafx.scene.image.Image;

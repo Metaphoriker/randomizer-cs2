@@ -1,10 +1,10 @@
-package de.metaphoriker.view.views;
+package de.metaphoriker.randomizer.ui.view.views;
 
 import com.google.inject.Inject;
-import de.metaphoriker.util.ImageUtil;
-import de.metaphoriker.view.View;
-import de.metaphoriker.view.ViewProvider;
-import de.metaphoriker.view.viewmodel.SidebarViewModel;
+import de.metaphoriker.randomizer.ui.util.ImageUtil;
+import de.metaphoriker.randomizer.ui.view.View;
+import de.metaphoriker.randomizer.ui.view.ViewProvider;
+import de.metaphoriker.randomizer.ui.view.viewmodel.SidebarViewModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;

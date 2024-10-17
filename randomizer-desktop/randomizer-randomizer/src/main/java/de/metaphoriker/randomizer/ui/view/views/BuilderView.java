@@ -1,9 +1,9 @@
-package de.metaphoriker.view.views;
+package de.metaphoriker.randomizer.ui.view.views;
 
 import com.google.inject.Inject;
 import de.metaphoriker.model.action.Action;
-import de.metaphoriker.view.View;
-import de.metaphoriker.view.viewmodel.BuilderViewModel;
+import de.metaphoriker.randomizer.ui.view.View;
+import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

@@ -10,8 +10,8 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
-
-<HBox prefHeight="830.0" prefWidth="1200.0" spacing="20.0" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.view.views.BuilderView">
+<HBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="830.0" prefWidth="1200.0" spacing="20.0"
+      xmlns="http://javafx.com/javafx/22" fx:controller="de.metaphoriker.randomizer.ui.view.views.BuilderView">
     <children>
         <VBox prefHeight="200.0" prefWidth="360.0">
          <children>

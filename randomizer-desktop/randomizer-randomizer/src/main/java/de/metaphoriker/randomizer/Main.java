@@ -1,8 +1,11 @@
-package de.metaphoriker;
+package de.metaphoriker.randomizer;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
 import de.metaphoriker.model.ModelModule;
+import de.metaphoriker.randomizer.bootstrap.RandomizerBootstrap;
+import de.metaphoriker.randomizer.bootstrap.RandomizerModule;
+import de.metaphoriker.randomizer.ui.RandomizerApplication;
 import javafx.application.Application;
 import lombok.extern.slf4j.Slf4j;
 
@@ -17,7 +20,7 @@ public class Main {
     if (testMode) log.debug("Anwendung wird im Testmodus gestartet");
     initializeInjector();
     RandomizerBootstrap randomizerBootstrap = Main.injector.getInstance(RandomizerBootstrap.class);
-    randomizerBootstrap.startApplication();
+    randomizerBootstrap.initializeApplication();
     log.debug("Starte JavaFX Anwendung...");
     Application.launch(RandomizerApplication.class, args);
   }

@@ -1,11 +1,10 @@
-package de.metaphoriker.view.viewmodel;
-
-import lombok.extern.slf4j.Slf4j;
+package de.metaphoriker.randomizer.ui.view.viewmodel;
 
 import java.awt.*;
 import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class SidebarViewModel {

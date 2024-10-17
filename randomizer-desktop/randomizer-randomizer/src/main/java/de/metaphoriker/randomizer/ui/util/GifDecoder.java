@@ -1,4 +1,4 @@
-package de.metaphoriker.util;
+package de.metaphoriker.randomizer.ui.util;
 
 import java.awt.image.BufferedImage;
 import java.io.File;
