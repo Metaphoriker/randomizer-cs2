@@ -37,7 +37,8 @@ public class Updater {
   }
 
   /**
-   * Updates the target file with content from the specified download URL, providing progress through the listener.
+   * Updates the target file with content from the specified download URL, providing progress
+   * through the listener.
    *
    * @param target the file to update
    * @param downloadUrl the URL to download content from
@@ -56,8 +57,8 @@ public class Updater {
   }
 
   /**
-   * Downloads a file from the specified URL and saves it to the specified destination file, providing
-   * progress updates via a ProgressListener.
+   * Downloads a file from the specified URL and saves it to the specified destination file,
+   * providing progress updates via a ProgressListener.
    *
    * @param source the URL to copy the file from.
    * @param destination the file to which the URL's content will be copied.
@@ -85,8 +86,8 @@ public class Updater {
   }
 
   /**
-   * Checks if an update is available for the given file by comparing its version
-   * with the version retrieved from a specified URL.
+   * Checks if an update is available for the given file by comparing its version with the version
+   * retrieved from a specified URL.
    *
    * @param toUpdate the file to be checked for updates
    * @param versionUrl the URL from which the latest version information can be retrieved
@@ -118,6 +119,25 @@ public class Updater {
       log.error("Fehler bei der Prüfung auf Update von Datei: {}", toUpdate);
     }
     return true;
+  }
+
+  /**
+   * Retrieves the latest version from a specified version URL.
+   *
+   * @param versionUrl the URL from which the latest version information can be retrieved
+   * @return a String representing the latest version.
+   */
+  public static String getLatestVersion(String versionUrl) {
+    log.info("Abrufen der neuesten Version von URL: {}", versionUrl);
+    try (BufferedReader in =
+        new BufferedReader(new InputStreamReader(new URL(versionUrl).openStream()))) {
+      String latestVersion = in.readLine();
+      log.info("Erfolgreich abgerufen: neueste Version = {}", latestVersion);
+      return latestVersion;
+    } catch (IOException e) {
+      log.error("Fehler beim Abrufen der neuesten Version von URL: {}", versionUrl, e);
+      return "UNGÜLTIG";
+    }
   }
 
   /**

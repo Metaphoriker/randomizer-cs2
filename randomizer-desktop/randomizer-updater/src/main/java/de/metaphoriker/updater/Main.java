@@ -18,24 +18,26 @@ public class Main {
     JFrame mainFrame = createMainFrame();
     JLabel statusLabel = createStatusLabel();
     JProgressBar progressBar = createProgressBar();
-    setupUI(mainFrame, statusLabel, progressBar);
+    JLabel versionLabel = createVersionLabel();
+    JLabel latestVersionLabel = createLatestVersionLabel();
+    setupUI(mainFrame, statusLabel, progressBar, versionLabel, latestVersionLabel);
 
     if (args.length != 0) {
       for (String arg : args) {
         if (arg.startsWith("-randomizerLocation=")) {
           File randomizer = extractFilePath(arg);
-          checkAndUpdate(randomizer, statusLabel, progressBar);
+          checkAndUpdate(randomizer, statusLabel, progressBar, latestVersionLabel);
           break;
         }
       }
     } else {
-      statusLabel.setText("No randomizer location specified! DONT OPEN THIS JAR DIRECTLY!");
+      statusLabel.setText("No randomizer location specified! DO NOT OPEN THIS JAR DIRECTLY!");
     }
   }
 
   private static JFrame createMainFrame() {
     JFrame frame = new JFrame();
-    frame.setSize(500, 200);
+    frame.setSize(400, 150);
     frame.setUndecorated(true);
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -45,7 +47,7 @@ public class Main {
 
   private static JLabel createStatusLabel() {
     JLabel label = new JLabel("Checking for updates...", SwingConstants.CENTER);
-    label.setFont(new Font("Arial", Font.PLAIN, 18));
+    label.setFont(new Font("Arial", Font.PLAIN, 14));
     label.setForeground(Color.WHITE);
     return label;
   }
@@ -59,11 +61,39 @@ public class Main {
     return progressBar;
   }
 
-  private static void setupUI(JFrame frame, JLabel label, JProgressBar progressBar) {
+  private static JLabel createVersionLabel() {
+    JLabel label =
+        new JLabel("Current Version: " + Updater.getCurrentVersion(), SwingConstants.LEFT);
+    label.setFont(new Font("Arial", Font.PLAIN, 12));
+    label.setForeground(Color.WHITE);
+    return label;
+  }
+
+  private static JLabel createLatestVersionLabel() {
+    JLabel label = new JLabel("Latest Version: Fetching...", SwingConstants.RIGHT);
+    label.setFont(new Font("Arial", Font.PLAIN, 12));
+    label.setForeground(Color.WHITE);
+    return label;
+  }
+
+  private static void setupUI(
+      JFrame frame,
+      JLabel statusLabel,
+      JProgressBar progressBar,
+      JLabel versionLabel,
+      JLabel latestVersionLabel) {
     JPanel panel = new JPanel(new BorderLayout());
     panel.setBackground(new Color(34, 45, 50));
-    panel.add(label, BorderLayout.NORTH);
-    panel.add(progressBar, BorderLayout.CENTER);
+
+    JPanel versionPanel = new JPanel(new BorderLayout());
+    versionPanel.setBackground(new Color(34, 45, 50));
+    versionPanel.add(versionLabel, BorderLayout.WEST);
+    versionPanel.add(latestVersionLabel, BorderLayout.EAST);
+
+    panel.add(versionPanel, BorderLayout.NORTH);
+    panel.add(statusLabel, BorderLayout.CENTER);
+    panel.add(progressBar, BorderLayout.SOUTH);
+
     frame.add(panel);
     frame.setVisible(true);
   }
@@ -76,11 +106,19 @@ public class Main {
     return new File(pathName, fileName);
   }
 
-  private static void checkAndUpdate(File randomizer, JLabel label, JProgressBar progressBar) {
+  private static void checkAndUpdate(
+      File randomizer, JLabel label, JProgressBar progressBar, JLabel latestVersionLabel) {
     CompletableFuture.supplyAsync(
             () -> Updater.isUpdateAvailable(randomizer, Updater.RANDOMIZER_VERSION_URL))
         .thenAccept(
             isUpdateAvailable -> {
+              CompletableFuture.runAsync(
+                  () -> {
+                    latestVersionLabel.setText(
+                        "Latest Version: "
+                            + Updater.getLatestVersion(Updater.RANDOMIZER_VERSION_URL));
+                  });
+
               if (isUpdateAvailable) {
                 label.setText("Update available. Updating...");
                 CompletableFuture.runAsync(
@@ -106,9 +144,6 @@ public class Main {
                                 label.setText("Update successful!");
                                 progressBar.setValue(100);
                                 progressBar.setString("Completed!");
-                                label.setIcon(
-                                    new ImageIcon(
-                                        Main.class.getResource("images/checkmark_icon.png")));
                               });
                           try {
                             Runtime.getRuntime().exec("java -jar " + randomizer.getAbsolutePath());
@@ -119,10 +154,12 @@ public class Main {
                           }
                         });
               } else {
-                SwingUtilities.invokeLater(() -> label.setText("No update available!"));
-                progressBar.setValue(100);
-                progressBar.setString("Completed!");
-                label.setIcon(new ImageIcon(Main.class.getResource("images/checkmark_icon.png")));
+                SwingUtilities.invokeLater(
+                    () -> {
+                      label.setText("No update available!");
+                      progressBar.setValue(100);
+                      progressBar.setString("Completed!");
+                    });
               }
             });
   }
