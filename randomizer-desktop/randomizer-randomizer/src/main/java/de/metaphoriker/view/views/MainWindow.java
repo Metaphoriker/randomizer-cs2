@@ -18,10 +18,15 @@ import javafx.scene.layout.VBox;
 @View
 public class MainWindow extends HBox implements Initializable {
 
-  @Inject private ViewProvider viewProvider;
+  private final ViewProvider viewProvider;
 
   @FXML private VBox sidebarPlaceholder;
   @FXML private GridPane contentPane;
+
+  @Inject
+  public MainWindow(ViewProvider viewProvider) {
+    this.viewProvider = viewProvider;
+  }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {

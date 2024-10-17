@@ -4,20 +4,23 @@ import com.google.inject.Inject;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.repository.ActionRepository;
 import de.metaphoriker.model.action.repository.ActionSequenceRepository;
-
 import java.util.List;
 
 public class BuilderViewModel {
 
-  @Inject private ActionRepository actionRepository;
-  @Inject private ActionSequenceRepository actionSequenceRepository;
+  private final ActionRepository actionRepository;
+  private final ActionSequenceRepository actionSequenceRepository;
 
   @Inject
-  public BuilderViewModel() {}
+  public BuilderViewModel(
+      ActionRepository actionRepository, ActionSequenceRepository actionSequenceRepository) {
+    this.actionRepository = actionRepository;
+    this.actionSequenceRepository = actionSequenceRepository;
+  }
 
   public List<Action> getEnabledActions() {
     return actionRepository.getActions().keySet().stream()
-        .filter(action -> actionRepository.isEnabled(action))
+        .filter(actionRepository::isEnabled)
         .toList();
   }
 }

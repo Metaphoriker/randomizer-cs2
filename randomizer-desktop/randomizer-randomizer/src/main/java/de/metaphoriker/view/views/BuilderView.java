@@ -15,11 +15,13 @@ import javafx.scene.layout.Priority;
 @View
 public class BuilderView extends HBox {
 
-  @Inject private BuilderViewModel builderViewModel;
+  private final BuilderViewModel builderViewModel;
 
   @FXML private FlowPane actionFlowPane;
 
-  public BuilderView() {
+  @Inject
+  public BuilderView(BuilderViewModel builderViewModel) {
+    this.builderViewModel = builderViewModel;
     Platform.runLater(this::initialize);
   }
 

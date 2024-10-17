@@ -17,14 +17,20 @@ import javafx.scene.shape.Rectangle;
 @View
 public class SidebarView extends VBox implements Initializable {
 
-  @Inject private SidebarViewModel sidebarViewModel;
-  @Inject private ViewProvider viewProvider;
+  private final SidebarViewModel sidebarViewModel;
+  private final ViewProvider viewProvider;
 
   @FXML private ToggleButton randomizerButton;
   @FXML private ToggleButton builderButton;
   @FXML private Rectangle logoShape;
   @FXML private Button websiteButton;
   @FXML private Button discordButton;
+
+  @Inject
+  public SidebarView(SidebarViewModel sidebarViewModel, ViewProvider viewProvider) {
+    this.sidebarViewModel = sidebarViewModel;
+    this.viewProvider = viewProvider;
+  }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
