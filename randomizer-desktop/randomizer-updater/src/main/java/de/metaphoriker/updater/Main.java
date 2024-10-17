@@ -19,15 +19,13 @@ public class Main {
     JLabel statusLabel = createStatusLabel();
     JProgressBar progressBar = createProgressBar();
     JLabel versionComparisonLabel = createVersionComparisonLabel();
-    JLabel updatingLabel = createUpdatingLabel();
-    setupUI(mainFrame, statusLabel, progressBar, versionComparisonLabel, updatingLabel);
+    setupUI(mainFrame, statusLabel, progressBar, versionComparisonLabel);
 
     if (args.length != 0) {
       for (String arg : args) {
         if (arg.startsWith("-randomizerLocation=")) {
           File randomizer = extractFilePath(arg);
-          checkAndUpdate(
-              randomizer, statusLabel, progressBar, versionComparisonLabel, updatingLabel);
+          checkAndUpdate(randomizer, statusLabel, progressBar, versionComparisonLabel);
           break;
         }
       }
@@ -77,11 +75,7 @@ public class Main {
   }
 
   private static void setupUI(
-      JFrame frame,
-      JLabel statusLabel,
-      JProgressBar progressBar,
-      JLabel versionComparisonLabel,
-      JLabel updatingLabel) {
+      JFrame frame, JLabel statusLabel, JProgressBar progressBar, JLabel versionComparisonLabel) {
     JPanel panel = new JPanel(new BorderLayout());
     panel.setBackground(new Color(34, 45, 50));
 
@@ -92,7 +86,6 @@ public class Main {
     JPanel progressPanel = new JPanel(new BorderLayout());
     progressPanel.setBackground(new Color(34, 45, 50));
     progressPanel.add(progressBar, BorderLayout.CENTER);
-    progressPanel.add(updatingLabel, BorderLayout.EAST);
 
     panel.add(versionPanel, BorderLayout.NORTH);
     panel.add(statusLabel, BorderLayout.CENTER);
@@ -114,8 +107,7 @@ public class Main {
       File randomizer,
       JLabel statusLabel,
       JProgressBar progressBar,
-      JLabel versionComparisonLabel,
-      JLabel updatingLabel) {
+      JLabel versionComparisonLabel) {
     CompletableFuture.supplyAsync(
             () -> Updater.isUpdateAvailable(randomizer, Updater.RANDOMIZER_VERSION_URL))
         .thenAccept(
@@ -129,14 +121,13 @@ public class Main {
                         () -> {
                           versionComparisonLabel.setText(
                               String.format(
-                                  "<html><span style='color:red;'>%s</span> ➜ <span style='color:green;'>%s</span></html>",
+                                  "<html><span style='color:red;'>%s</span> -> <span style='color:green;'>%s</span></html>",
                                   currentVersion, latestVersion));
                         });
                   });
 
               if (isUpdateAvailable) {
-                statusLabel.setText("Update available. Updating...");
-                updatingLabel.setText(String.format("Updating %s", randomizer.getName()));
+                statusLabel.setText("Updating...");
                 CompletableFuture.runAsync(
                         () ->
                             Updater.update(
