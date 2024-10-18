@@ -1,6 +1,7 @@
 package de.metaphoriker.model.action.custom;
 
 import de.metaphoriker.model.action.Action;
+import de.metaphoriker.model.action.ActionKey;
 import de.metaphoriker.model.config.keybind.Keybind;
 import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
@@ -9,7 +10,7 @@ import java.util.function.Supplier;
 public class MouseMoveAction extends Action {
 
   public MouseMoveAction() {
-    super(new Keybind(Keybind.EMPTY_KEYBIND.getKey(), "Mouse Move"));
+    super("Mouse move", ActionKey.of(Keybind.EMPTY_KEYBIND.getKey()));
   }
 
   @Override

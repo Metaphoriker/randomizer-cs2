@@ -6,11 +6,11 @@ import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import com.github.kwhat.jnativehook.mouse.NativeMouseEvent;
 import com.github.kwhat.jnativehook.mouse.NativeMouseListener;
 import com.google.inject.Inject;
+import de.metaphoriker.model.ApplicationContext;
 import de.metaphoriker.model.ApplicationState;
+import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.repository.ActionSequenceRepository;
 import de.metaphoriker.model.util.FocusManager;
-import de.metaphoriker.model.action.Action;
-import de.metaphoriker.model.ApplicationContext;
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
@@ -126,7 +126,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
 
   private void handleCurrentActionInterruption(
       String keyText, Integer mouseButton, NativeKeyEvent nativeKeyEvent, Action currentAction) {
-    String actionKey = currentAction.getKeyBind().getKey();
+    String actionKey = currentAction.getActionKey().getKey();
     boolean isKeyBindMatched =
         actionKey.equalsIgnoreCase(keyText)
             || (mouseButton != null && actionKey.equals(String.valueOf(mouseButton)));
