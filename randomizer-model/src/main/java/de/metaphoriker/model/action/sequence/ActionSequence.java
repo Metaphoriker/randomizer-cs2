@@ -14,8 +14,9 @@ import lombok.extern.slf4j.Slf4j;
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ActionSequence {
 
-  @EqualsAndHashCode.Include private final List<Action> actions = new ArrayList<>();
   @EqualsAndHashCode.Include private final String name;
+  @Setter private String description = "";
+  @EqualsAndHashCode.Include private final List<Action> actions = new ArrayList<>();
   @Setter boolean active = true;
 
   public ActionSequence(String name) {
