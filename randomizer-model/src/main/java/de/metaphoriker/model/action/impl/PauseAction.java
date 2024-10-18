@@ -1,4 +1,4 @@
-package de.metaphoriker.model.action.custom;
+package de.metaphoriker.model.action.impl;
 
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.ActionKey;

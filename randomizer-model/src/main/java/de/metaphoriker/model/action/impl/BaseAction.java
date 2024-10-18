@@ -1,5 +1,7 @@
-package de.metaphoriker.model.action;
+package de.metaphoriker.model.action.impl;
 
+import de.metaphoriker.model.action.Action;
+import de.metaphoriker.model.action.ActionKey;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
