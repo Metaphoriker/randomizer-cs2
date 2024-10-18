@@ -2,7 +2,7 @@ package de.metaphoriker.model.action;
 
 import de.metaphoriker.model.action.mapper.KeyMapper;
 import de.metaphoriker.model.action.value.Interval;
-import de.metaphoriker.model.config.keybind.KeyBind;
+import de.metaphoriker.model.config.keybind.Keybind;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.time.Instant;
@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  * <p>The class provides mechanisms to handle interruptions and delays in an interruptible manner,
  * as well as cloning capabilities to create identical copies of an action.
  *
- * <p>The class also associates each action with a specific {@link KeyBind} and maintains an
+ * <p>The class also associates each action with a specific {@link Keybind} and maintains an
  * execution interval.
  */
 @Getter
@@ -41,7 +41,7 @@ public abstract class Action implements Cloneable {
     }
   }
 
-  private final transient KeyBind keyBind;
+  private final transient ActionKey actionKey;
   private final transient ActionType actionType;
 
   private final String name;
@@ -56,15 +56,15 @@ public abstract class Action implements Cloneable {
   @Setter(AccessLevel.PROTECTED)
   private transient volatile Instant expectedEnding = null;
 
-  public Action(KeyBind keyBind) {
-    this.keyBind = keyBind;
+  public Action(String name, ActionKey actionKey) {
+    this.name = name;
+    this.actionKey = actionKey;
     this.actionType =
         isMouseEvent()
             ? ActionType.MOUSE
             : isMouseWheelEvent()
                 ? ActionType.MOUSE_WHEEL
                 : hasKey() ? ActionType.KEYBOARD : ActionType.CUSTOM;
-    this.name = keyBind.getAction();
   }
 
   public void executeDelayed(long delay) {}
@@ -108,15 +108,15 @@ public abstract class Action implements Cloneable {
   }
 
   private boolean isMouseWheelEvent() {
-    return keyBind.getKey().toUpperCase().startsWith("MWHEEL");
+    return actionKey.getKey().toUpperCase().startsWith("MWHEEL");
   }
 
   private boolean isMouseEvent() {
-    return keyBind.getKey().toUpperCase().startsWith("MOUSE");
+    return actionKey.getKey().toUpperCase().startsWith("MOUSE");
   }
 
   private boolean hasKey() {
-    return !keyBind.getKey().equals(KeyBind.EMPTY_KEYBIND.getKey());
+    return !actionKey.getKey().equals(Keybind.EMPTY_KEYBIND.getKey());
   }
 
   @Override

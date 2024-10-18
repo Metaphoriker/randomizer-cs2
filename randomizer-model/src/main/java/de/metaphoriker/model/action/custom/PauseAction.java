@@ -1,13 +1,13 @@
 package de.metaphoriker.model.action.custom;
 
 import de.metaphoriker.model.action.Action;
-import de.metaphoriker.model.config.keybind.KeyBind;
+import de.metaphoriker.model.config.keybind.Keybind;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class PauseAction extends Action {
 
   public PauseAction() {
-    super(new KeyBind(KeyBind.EMPTY_KEYBIND.getKey(), "Pause"));
+    super(new Keybind(Keybind.EMPTY_KEYBIND.getKey(), "Pause"));
   }
 
   @Override

@@ -11,15 +11,15 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode(of = "key")
 @ToString
-public class KeyBind {
+public class Keybind {
 
   /**
    * A KeyBind object representing an unbound key action.
-   * <p>
-   * This constant is used to signify that no key is assigned to a specific action.
-   * The key is set to "<unbound>" and the action is set to "none".
+   *
+   * <p>This constant is used to signify that no key is assigned to a specific action. The key is
+   * set to "<unbound>" and the action is set to "none".
    */
-  public static final KeyBind EMPTY_KEYBIND = new KeyBind("<unbound>", "none");
+  public static final Keybind EMPTY_KEYBIND = new Keybind("<unbound>", "none");
 
   /**
    * The key associated with a specific action in the KeyBind configuration.

@@ -5,6 +5,7 @@ import com.github.kwhat.jnativehook.NativeHookException;
 import com.google.inject.Inject;
 import de.metaphoriker.model.ApplicationContext;
 import de.metaphoriker.model.action.Action;
+import de.metaphoriker.model.action.ActionKey;
 import de.metaphoriker.model.action.BaseAction;
 import de.metaphoriker.model.action.custom.MouseMoveAction;
 import de.metaphoriker.model.action.custom.PauseAction;
@@ -12,7 +13,6 @@ import de.metaphoriker.model.action.repository.ActionRepository;
 import de.metaphoriker.model.action.repository.ActionSequenceRepository;
 import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
 import de.metaphoriker.model.config.ConfigLoader;
-import de.metaphoriker.model.config.keybind.KeyBind;
 import de.metaphoriker.model.config.keybind.KeyBindRepository;
 import de.metaphoriker.model.exception.UncaughtExceptionLogger;
 import de.metaphoriker.model.messages.Messages;
@@ -145,12 +145,12 @@ public class RandomizerBootstrap {
     log.info("Registriere Aktionen...");
     actionRepository.register(new PauseAction());
     actionRepository.register(new MouseMoveAction());
-    actionRepository.register(new BaseAction(new KeyBind("ESCAPE", "Escape")));
+    actionRepository.register(new BaseAction("Escape", ActionKey.of("ESCAPE")));
     keyBindRepository
         .getKeyBinds()
         .forEach(
             keyBind -> {
-              Action action = new BaseAction(keyBind);
+              Action action = new BaseAction(keyBind.getAction(), ActionKey.of(keyBind.getKey()));
               actionRepository.register(action);
             });
     actionRepository.loadStatesIfExist();

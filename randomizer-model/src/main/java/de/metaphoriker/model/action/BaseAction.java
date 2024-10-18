@@ -1,6 +1,5 @@
 package de.metaphoriker.model.action;
 
-import de.metaphoriker.model.config.keybind.KeyBind;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -9,8 +8,8 @@ import lombok.extern.slf4j.Slf4j;
 @Getter
 public class BaseAction extends Action {
 
-  public BaseAction(KeyBind keyBind) {
-    super(keyBind);
+  public BaseAction(String name, ActionKey actionKey) {
+    super(name, actionKey);
   }
 
   @Override
@@ -25,7 +24,7 @@ public class BaseAction extends Action {
 
   @Override
   public void executeDelayed(long delay) {
-    int keyCode = KEY_MAPPER.getKeyCodeForKey(getKeyBind().getKey());
+    int keyCode = KEY_MAPPER.getKeyCodeForKey(getActionKey().getKey());
     setExecuting(true);
     setInterrupted(false);
 
@@ -48,7 +47,7 @@ public class BaseAction extends Action {
     if (!isInterrupted()) {
       ROBOT.mouseRelease(keyCode);
     } else {
-      log.info("Action interrupted, skipping mouse release for mouse: {}", getKeyBind().getKey());
+      log.info("Action interrupted, skipping mouse release for mouse: {}", getActionKey().getKey());
     }
   }
 
@@ -59,10 +58,10 @@ public class BaseAction extends Action {
       if (!isInterrupted()) {
         ROBOT.keyRelease(keyCode);
       } else {
-        log.info("Action interrupted, skipping key release for key: {}", getKeyBind().getKey());
+        log.info("Action interrupted, skipping key release for key: {}", getActionKey().getKey());
       }
     } else {
-      log.warn("Key code not found for key: {}", getKeyBind().getKey());
+      log.warn("Key code not found for key: {}", getActionKey().getKey());
     }
   }
 }
