@@ -1,11 +1,11 @@
 package de.metaphoriker.model.persistence.de_serializer;
 
 import com.google.gson.*;
+import com.google.gson.reflect.TypeToken;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import java.lang.reflect.Type;
 import java.util.List;
-import com.google.gson.reflect.TypeToken;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -13,8 +13,9 @@ public class ActionSequenceJsonDeSerializer
     implements JsonSerializer<ActionSequence>, JsonDeserializer<ActionSequence> {
 
   private static final String NAME_KEY = "name";
-  private static final String ACTIONS_KEY = "actions";
+  private static final String DESCRIPTION_KEY = "description";
   private static final String ACTIVE_KEY = "active";
+  private static final String ACTIONS_KEY = "actions";
 
   @Override
   public JsonElement serialize(
@@ -22,8 +23,9 @@ public class ActionSequenceJsonDeSerializer
     JsonObject jsonObject = new JsonObject();
 
     jsonObject.addProperty(NAME_KEY, actionSequence.getName());
-    jsonObject.add(ACTIONS_KEY, context.serialize(actionSequence.getActions()));
+    jsonObject.addProperty(DESCRIPTION_KEY, actionSequence.getDescription());
     jsonObject.addProperty(ACTIVE_KEY, actionSequence.isActive());
+    jsonObject.add(ACTIONS_KEY, context.serialize(actionSequence.getActions()));
 
     return jsonObject;
   }
@@ -34,16 +36,40 @@ public class ActionSequenceJsonDeSerializer
       throws JsonParseException {
     JsonObject jsonObject = jsonElement.getAsJsonObject();
 
-    String name = jsonObject.get(NAME_KEY).getAsString();
+    for (String key : jsonObject.keySet()) {
+      if (!NAME_KEY.equals(key)
+          && !DESCRIPTION_KEY.equals(key)
+          && !ACTIONS_KEY.equals(key)
+          && !ACTIVE_KEY.equals(key)) {
+        log.warn("Unbekannter Key gefunden: {}", key);
+      }
+    }
 
-    Type listOfActionType = new TypeToken<List<Action>>() {}.getType();
-    List<Action> actions = context.deserialize(jsonObject.get(ACTIONS_KEY), listOfActionType);
+    String name =
+        jsonObject.has(NAME_KEY) && !jsonObject.get(NAME_KEY).isJsonNull()
+            ? jsonObject.get(NAME_KEY).getAsString()
+            : null;
 
-    boolean active = jsonObject.get(ACTIVE_KEY).getAsBoolean();
+    String description =
+        jsonObject.has(DESCRIPTION_KEY) && !jsonObject.get(DESCRIPTION_KEY).isJsonNull()
+            ? jsonObject.get(DESCRIPTION_KEY).getAsString()
+            : null;
+
+    List<Action> actions =
+        jsonObject.has(ACTIONS_KEY) && !jsonObject.get(ACTIONS_KEY).isJsonNull()
+            ? context.deserialize(
+                jsonObject.get(ACTIONS_KEY), new TypeToken<List<Action>>() {}.getType())
+            : null;
+
+    boolean active =
+        jsonObject.has(ACTIVE_KEY)
+            && !jsonObject.get(ACTIVE_KEY).isJsonNull()
+            && jsonObject.get(ACTIVE_KEY).getAsBoolean();
 
     ActionSequence actionSequence = new ActionSequence(name);
-    actionSequence.setActions(actions);
+    actionSequence.setDescription(description);
     actionSequence.setActive(active);
+    actionSequence.setActions(actions);
 
     return actionSequence;
   }
