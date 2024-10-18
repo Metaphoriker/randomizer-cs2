@@ -1,4 +1,4 @@
-package de.metaphoriker.randomizer.ui.view.views;
+package de.metaphoriker.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
 import de.metaphoriker.randomizer.ui.view.View;

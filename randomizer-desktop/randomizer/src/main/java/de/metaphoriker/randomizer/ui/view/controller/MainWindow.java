@@ -1,4 +1,4 @@
-package de.metaphoriker.randomizer.ui.view.views;
+package de.metaphoriker.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
 import de.metaphoriker.randomizer.ui.view.View;
@@ -34,7 +34,9 @@ public class MainWindow extends HBox implements Initializable {
   }
 
   private void registerViewListener() {
-    viewProvider.registerViewChangeListener(BuilderView.class, this::loadBuilderView);
+    viewProvider.registerViewChangeListener(SequencesView.class, this::loadSequencesView);
+    viewProvider.registerViewChangeListener(
+        SequenceBuilderView.class, this::loadSequenceBuilderView);
     viewProvider.registerViewChangeListener(RandomizerView.class, this::loadRandomizerView);
   }
 
@@ -50,9 +52,14 @@ public class MainWindow extends HBox implements Initializable {
     setContentPane(randomizerView);
   }
 
-  private void loadBuilderView() {
-    Parent builderView = viewProvider.requestView(BuilderView.class);
-    setContentPane(builderView);
+  private void loadSequencesView() {
+    Parent sequencesView = viewProvider.requestView(SequencesView.class);
+    setContentPane(sequencesView);
+  }
+
+  private void loadSequenceBuilderView() {
+    Parent sequenceBuilderView = viewProvider.requestView(SequenceBuilderView.class);
+    setContentPane(sequenceBuilderView);
   }
 
   private void setContentPane(Parent node) {

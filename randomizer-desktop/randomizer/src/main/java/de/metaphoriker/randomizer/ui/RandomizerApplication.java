@@ -3,7 +3,7 @@ package de.metaphoriker.randomizer.ui;
 import de.metaphoriker.randomizer.Main;
 import de.metaphoriker.randomizer.ui.util.ImageUtil;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
-import de.metaphoriker.randomizer.ui.view.views.MainWindow;
+import de.metaphoriker.randomizer.ui.view.controller.MainWindow;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;

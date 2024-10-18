@@ -1,4 +1,4 @@
-package de.metaphoriker.randomizer.ui.view.views;
+package de.metaphoriker.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
 import de.metaphoriker.randomizer.ui.util.ImageUtil;
@@ -57,7 +57,7 @@ public class SidebarView extends VBox implements Initializable {
     randomizerButton.setOnAction(
         _ -> updateButtonStateAndToggleView(randomizerButton, RandomizerView.class));
     builderButton.setOnAction(
-        _ -> updateButtonStateAndToggleView(builderButton, BuilderView.class));
+        _ -> updateButtonStateAndToggleView(builderButton, SequencesView.class));
   }
 
   private void updateButtonStateAndToggleView(ToggleButton selectedButton, Class<?> viewClass) {
