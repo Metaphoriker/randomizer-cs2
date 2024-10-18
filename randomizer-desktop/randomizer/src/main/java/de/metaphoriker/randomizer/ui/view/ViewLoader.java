@@ -11,10 +11,11 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ViewLoader {
 
-  public <T> Parent loadView(Class<T> clazz) {
+  public <T> ViewWrapper<T> loadView(Class<T> clazz) {
     FXMLLoader fxmlLoader = new FXMLLoader();
 
-    URL fxmlLocation = clazz.getResource(clazz.getSimpleName() + ".fxml");
+    String name = clazz.getSimpleName().replace("Controller", "");
+    URL fxmlLocation = clazz.getResource(name + ".fxml");
     if (fxmlLocation == null) {
       throw new IllegalStateException(
           MessageFormat.format("FXML Datei konnte nicht gefunden werden für Klasse: {0}", clazz));
@@ -25,7 +26,9 @@ public class ViewLoader {
 
     try {
       log.debug("Lade View {}, FXML Datei: {}", clazz.getSimpleName(), fxmlLocation);
-      return fxmlLoader.load();
+      Parent parent = fxmlLoader.load();
+      T controller = fxmlLoader.getController();
+      return new ViewWrapper<>(parent, controller);
     } catch (IOException e) {
       throw new IllegalStateException(
           MessageFormat.format("FXML konnte nicht geladen werden für die Klasse: {0}", clazz), e);

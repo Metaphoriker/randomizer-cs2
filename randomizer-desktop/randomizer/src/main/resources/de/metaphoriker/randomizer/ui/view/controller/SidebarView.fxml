@@ -8,7 +8,7 @@
 <?import javafx.scene.shape.Rectangle?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" alignment="TOP_CENTER" prefHeight="500.0" prefWidth="80.0"
       styleClass="highlighted-vbox" xmlns="http://javafx.com/javafx/22"
-      fx:controller="de.metaphoriker.randomizer.ui.view.controller.SidebarView">
+      fx:controller="de.metaphoriker.randomizer.ui.view.controller.SidebarViewController">
     <children>
         <VBox alignment="TOP_CENTER" prefHeight="200.0" prefWidth="100.0" spacing="10.0">
             <children>

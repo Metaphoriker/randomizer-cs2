@@ -7,7 +7,7 @@
 <?import javafx.scene.layout.VBox?>
 <HBox xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
       prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/22"
-      fx:controller="de.metaphoriker.randomizer.ui.view.controller.MainWindow">
+      fx:controller="de.metaphoriker.randomizer.ui.view.controller.MainWindowController">
     <children>
         <VBox fx:id="sidebarPlaceholder"/>
         <GridPane fx:id="contentPane" HBox.hgrow="ALWAYS">

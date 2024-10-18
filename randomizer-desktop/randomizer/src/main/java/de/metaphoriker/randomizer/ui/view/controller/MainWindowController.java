@@ -10,12 +10,11 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.layout.GridPane;
-import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 @View
-public class MainWindow extends HBox implements Initializable {
+public class MainWindowController implements Initializable {
 
   private final ViewProvider viewProvider;
 
@@ -23,7 +22,7 @@ public class MainWindow extends HBox implements Initializable {
   @FXML private GridPane contentPane;
 
   @Inject
-  public MainWindow(ViewProvider viewProvider) {
+  public MainWindowController(ViewProvider viewProvider) {
     this.viewProvider = viewProvider;
   }
 
@@ -34,36 +33,22 @@ public class MainWindow extends HBox implements Initializable {
   }
 
   private void registerViewListener() {
-    viewProvider.registerViewChangeListener(SequencesView.class, this::loadSequencesView);
     viewProvider.registerViewChangeListener(
-        SequenceBuilderView.class, this::loadSequenceBuilderView);
-    viewProvider.registerViewChangeListener(RandomizerView.class, this::loadRandomizerView);
+        SidebarViewController.class,
+        _ -> setContent(viewProvider.requestView(SidebarViewController.class).getParent()));
   }
 
   private void loadSidebarView() {
-    Parent sidebarView = viewProvider.requestView(SidebarView.class);
+    Parent sidebarView = viewProvider.requestView(SidebarViewController.class).getParent();
     VBox.setVgrow(sidebarView, Priority.ALWAYS);
     VBox.setVgrow(sidebarPlaceholder, Priority.ALWAYS);
     sidebarPlaceholder.getChildren().add(sidebarView);
   }
 
-  private void loadRandomizerView() {
-    Parent randomizerView = viewProvider.requestView(RandomizerView.class);
-    setContentPane(randomizerView);
-  }
-
-  private void loadSequencesView() {
-    Parent sequencesView = viewProvider.requestView(SequencesView.class);
-    setContentPane(sequencesView);
-  }
-
-  private void loadSequenceBuilderView() {
-    Parent sequenceBuilderView = viewProvider.requestView(SequenceBuilderView.class);
-    setContentPane(sequenceBuilderView);
-  }
-
-  private void setContentPane(Parent node) {
+  private void setContent(Parent node) {
     contentPane.getChildren().clear();
-    contentPane.getChildren().add(node);
+    if (node != null) {
+      contentPane.getChildren().add(node);
+    }
   }
 }
