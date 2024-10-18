@@ -6,7 +6,7 @@
       prefHeight="500.0" prefWidth="620.0" spacing="10.0" xmlns="http://javafx.com/javafx/22">
    <children>
       <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
-      <HBox prefHeight="830.0" prefWidth="415.0" />
+      <HBox prefHeight="500.0" prefWidth="415.0"/>
    </children>
    <padding>
       <Insets bottom="20.0" left="20.0" right="20.0" top="20.0" />
