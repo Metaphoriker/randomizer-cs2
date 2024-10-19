@@ -10,14 +10,15 @@ import lombok.Setter;
 import lombok.extern.slf4j.Slf4j;
 
 @Getter
+@Setter
 @Slf4j
 @EqualsAndHashCode(onlyExplicitlyIncluded = true)
 public class ActionSequence {
 
   @EqualsAndHashCode.Include private final String name;
-  @Setter private String description = "";
+  boolean active = true;
   @EqualsAndHashCode.Include private final List<Action> actions = new ArrayList<>();
-  @Setter boolean active = true;
+  private String description = "";
 
   public ActionSequence(String name) {
     this.name = name;
