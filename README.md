@@ -23,7 +23,7 @@ allowed. No risk of bans!* 🚫👮‍♂️
 
 ## 🛠️ Requirements
 
-- Java 22 or higher ☕
+- [Java 22 or higher ☕](https://www.oracle.com/de/java/technologies/downloads/#jdk23-windows)
 
 ## ⚙️ Installation
 
