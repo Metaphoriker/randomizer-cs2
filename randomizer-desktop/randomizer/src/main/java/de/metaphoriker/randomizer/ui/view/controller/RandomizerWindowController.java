@@ -33,7 +33,7 @@ public class RandomizerWindowController implements Initializable {
     loadControlBar();
   }
 
-  // Note: For this pickOnBounds have to be false
+  // note: for this pickOnBounds have to be false
   private void setupControlBarClickTransparency() {
     navigationBarHolder.addEventFilter(
         MouseEvent.MOUSE_CLICKED,
@@ -44,7 +44,10 @@ public class RandomizerWindowController implements Initializable {
         });
   }
 
-  private void registerViewListener() {}
+  private void registerViewListener() {
+    viewProvider.registerViewChangeListener(
+        RandomizerWindowController.class, _ -> clearContent()); // self-call for clearance
+  }
 
   private void loadControlBar() {
     Parent controlBarParent = viewProvider.requestView(NavigationBarController.class).getParent();
@@ -52,9 +55,13 @@ public class RandomizerWindowController implements Initializable {
   }
 
   private void setContent(Node node) {
-    contentPane.getChildren().clear();
+    clearContent();
     if (node != null) {
       contentPane.getChildren().add(node);
     }
+  }
+
+  private void clearContent() {
+    contentPane.getChildren().clear();
   }
 }

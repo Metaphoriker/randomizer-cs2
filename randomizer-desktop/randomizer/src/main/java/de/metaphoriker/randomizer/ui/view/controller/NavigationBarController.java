@@ -3,6 +3,7 @@ package de.metaphoriker.randomizer.ui.view.controller;
 import com.google.inject.Inject;
 import de.metaphoriker.randomizer.ui.util.ImageUtil;
 import de.metaphoriker.randomizer.ui.view.View;
+import de.metaphoriker.randomizer.ui.view.ViewProvider;
 import de.metaphoriker.randomizer.ui.view.viewmodel.ControlBarViewModel;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -15,20 +16,35 @@ import javafx.scene.control.ToggleButton;
 public class NavigationBarController implements Initializable {
 
   private final ControlBarViewModel controlBarViewModel;
+  private final ViewProvider viewProvider;
 
   @FXML private ToggleButton randomizerButton;
   @FXML private ToggleButton builderButton;
   @FXML private ToggleButton settingsButton;
 
   @Inject
-  public NavigationBarController(ControlBarViewModel controlBarViewModel) {
+  public NavigationBarController(
+      ControlBarViewModel controlBarViewModel, ViewProvider viewProvider) {
     this.controlBarViewModel = controlBarViewModel;
+    this.viewProvider = viewProvider;
   }
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
     setupGraphics();
+    setupBindings();
     setupToggleButtonLogic();
+  }
+
+  private void setupBindings() {
+    controlBarViewModel
+        .getSelectedView()
+        .addListener(
+            (_, _, newView) -> {
+              if (newView != null) {
+                viewProvider.triggerViewChange(newView);
+              }
+            });
   }
 
   private void setupGraphics() {
@@ -56,7 +72,7 @@ public class NavigationBarController implements Initializable {
           button.setSelected(false);
         }
       } else {
-        controlBarViewModel.setSelectedView(null);
+        controlBarViewModel.setSelectedView(RandomizerWindowController.class);
       }
     };
   }
