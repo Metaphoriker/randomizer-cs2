@@ -3,7 +3,7 @@ package de.metaphoriker.randomizer.ui;
 import de.metaphoriker.randomizer.Main;
 import de.metaphoriker.randomizer.ui.util.ImageUtil;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
-import de.metaphoriker.randomizer.ui.view.controller.MainWindowController;
+import de.metaphoriker.randomizer.ui.view.controller.RandomizerWindowController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -30,7 +30,7 @@ public class RandomizerApplication extends Application {
   private void buildAndShowApplication(Stage stage) {
     ViewProvider viewProvider = Main.injector.getInstance(ViewProvider.class);
     log.debug("Lade Hauptfenster...");
-    Parent root = viewProvider.requestView(MainWindowController.class).getParent();
+    Parent root = viewProvider.requestView(RandomizerWindowController.class).getParent();
     Scene scene = new Scene(root);
     stage.setTitle("Randomizer");
     stage.getIcons().add(ImageUtil.getImage("images/randomizerLogo.jpg"));

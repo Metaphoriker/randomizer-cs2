@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" alignment="CENTER" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity"
+      minWidth="-Infinity" prefHeight="32.0" prefWidth="100.0" spacing="10.0"
+      xmlns="http://javafx.com/javafx/22"
+      fx:controller="de.metaphoriker.randomizer.ui.view.controller.NavigationBarController">
+    <children>
+        <ToggleButton fx:id="randomizerButton" mnemonicParsing="false"/>
+        <ToggleButton fx:id="builderButton" mnemonicParsing="false"/>
+        <Separator orientation="VERTICAL" prefHeight="200.0"/>
+        <ToggleButton fx:id="settingsButton" mnemonicParsing="false"/>
+    </children>
+</HBox>
