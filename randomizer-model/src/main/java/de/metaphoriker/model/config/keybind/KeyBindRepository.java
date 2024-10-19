@@ -13,7 +13,7 @@ public class KeyBindRepository {
 
   private static final String UNBOUND = "<unbound>";
   private final List<Keybind> keybinds = new ArrayList<>();
-  private final KeyBindNameMapper keyBindNameMapper = new KeyBindNameMapper();
+  private final KeyBindNameTypeMapper keyBindNameTypeMapper = new KeyBindNameTypeMapper();
 
   private String defaultFilePath;
   private String userConfigFilePath;
@@ -76,8 +76,8 @@ public class KeyBindRepository {
   private void handleKeyBind(String key, String descriptor) {
     if (UNBOUND.equals(descriptor)) {
       keybinds.removeIf(bind -> bind.getKey().equals(key));
-    } else if (keyBindNameMapper.hasKey(descriptor)) {
-      addOrUpdateKeyBind(key, keyBindNameMapper.getKeyName(descriptor));
+    } else if (keyBindNameTypeMapper.hasKey(descriptor)) {
+      addOrUpdateKeyBind(key, keyBindNameTypeMapper.getKeyName(descriptor));
     }
   }
 
