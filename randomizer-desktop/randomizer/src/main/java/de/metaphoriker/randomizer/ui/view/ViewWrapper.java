@@ -2,21 +2,12 @@ package de.metaphoriker.randomizer.ui.view;
 
 import javafx.scene.Parent;
 
-public class ViewWrapper<T> {
-
-  private final Parent parent;
-  private final T controller;
-
-  public ViewWrapper(Parent parent, T controller) {
-    this.parent = parent;
-    this.controller = controller;
-  }
-
-  public Parent getParent() {
-    return parent;
-  }
-
-  public T getController() {
-    return controller;
-  }
-}
+/**
+ * A record that bundles a JavaFX parent node and its associated controller of type <T>.
+ *
+ * @param parent the root node of the FXML scene graph
+ * @param controller the controller responsible for handling the events and interactions of the FXML
+ *     view
+ * @param <T> the type of the controller
+ */
+public record ViewWrapper<T>(Parent parent, T controller) {}

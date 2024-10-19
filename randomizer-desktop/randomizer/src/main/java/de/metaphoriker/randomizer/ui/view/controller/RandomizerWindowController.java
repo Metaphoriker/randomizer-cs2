@@ -50,7 +50,7 @@ public class RandomizerWindowController implements Initializable {
   }
 
   private void loadControlBar() {
-    Parent controlBarParent = viewProvider.requestView(NavigationBarController.class).getParent();
+    Parent controlBarParent = viewProvider.requestView(NavigationBarController.class).parent();
     navigationBarHolder.getChildren().add(controlBarParent);
   }
 

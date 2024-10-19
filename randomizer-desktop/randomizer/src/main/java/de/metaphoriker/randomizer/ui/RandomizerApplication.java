@@ -30,7 +30,7 @@ public class RandomizerApplication extends Application {
   private void buildAndShowApplication(Stage stage) {
     ViewProvider viewProvider = Main.getInjector().getInstance(ViewProvider.class);
     log.debug("Lade Hauptfenster...");
-    Parent root = viewProvider.requestView(RandomizerWindowController.class).getParent();
+    Parent root = viewProvider.requestView(RandomizerWindowController.class).parent();
     Scene scene = new Scene(root);
     stage.setTitle("Randomizer");
     stage.getIcons().add(ImageUtil.getImage("images/randomizerLogo.jpg"));

@@ -11,6 +11,14 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ViewLoader {
 
+  /**
+   * Loads a view and its controller from an FXML file associated with the specified class.
+   *
+   * @param <T> the type of the controller
+   * @param clazz the class of the controller for the corresponding FXML file
+   * @return a {@link ViewWrapper} containing the loaded view and its controller
+   * @throws IllegalStateException if the FXML file could not be found or loaded
+   */
   public <T> ViewWrapper<T> loadView(Class<T> clazz) {
     FXMLLoader fxmlLoader = new FXMLLoader();
 
@@ -25,7 +33,7 @@ public class ViewLoader {
     fxmlLoader.setControllerFactory(param -> Main.getInjector().getInstance(param));
 
     try {
-      log.debug("Lade View {}, FXML Datei: {}", clazz.getSimpleName(), fxmlLocation);
+      log.debug("Lade View {}", clazz.getSimpleName());
       Parent parent = fxmlLoader.load();
       T controller = fxmlLoader.getController();
       return new ViewWrapper<>(parent, controller);
