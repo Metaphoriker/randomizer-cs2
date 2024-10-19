@@ -94,6 +94,14 @@ public class KeyBindRepository {
     keyBinds.add(newKeyBind);
   }
 
+  /**
+   * Reloads the key bindings by clearing the current set and reinitializing them from default and
+   * user configuration files. If the default file path has not been set, an IllegalStateException
+   * will be thrown.
+   *
+   * @throws IllegalStateException if the key binding repository has not been initialized with a
+   *     default file path.
+   */
   public void reloadBinds() {
     keyBinds.clear();
     if (defaultFilePath == null) {
