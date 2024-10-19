@@ -78,6 +78,8 @@ public class KeyBindRepository {
       keyBinds.removeIf(bind -> bind.getKey().equals(key));
     } else if (keyBindNameTypeMapper.hasKey(descriptor)) {
       addOrUpdateKeyBind(key, keyBindNameTypeMapper.getKeyName(descriptor));
+    } else {
+      log.warn("Keinen Deskriptor für {} gefunden, ignoriere...", descriptor);
     }
   }
 

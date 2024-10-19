@@ -2,8 +2,8 @@ package de.metaphoriker.model.persistence.dao;
 
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.ApplicationContext;
+import de.metaphoriker.model.action.Action;
 import java.io.File;
 import java.io.IOException;
 import java.util.HashMap;
@@ -20,8 +20,9 @@ public class ActionDao {
   /**
    * Loads the states of actions from a storage file.
    *
-   * @return A map containing the action names as keys and their corresponding boolean states. If the
-   *         storage file does not exist or an error occurs during loading, an empty map is returned.
+   * @return A map containing the action names as keys and their corresponding boolean states. If
+   *     the storage file does not exist or an error occurs during loading, an empty map is
+   *     returned.
    * @throws RuntimeException if an error occurs while loading the file.
    */
   public Map<String, Boolean> load() {
@@ -44,8 +45,9 @@ public class ActionDao {
   /**
    * Saves the state of the provided actions to persistent storage.
    *
-   * @param actions A map where keys represent Action objects and values represent their enabled/disabled state (true/false).
-   *                The state of each action in this map will be saved to a file for future retrieval.
+   * @param actions A map where keys represent Action objects and values represent their
+   *     enabled/disabled state (true/false). The state of each action in this map will be saved to
+   *     a file for future retrieval.
    */
   public void save(Map<Action, Boolean> actions) {
     Map<String, Boolean> actionStates = new HashMap<>();
@@ -54,7 +56,8 @@ public class ActionDao {
     try {
       OBJECT_MAPPER.writeValue(STORAGE_FILE, actionStates);
       log.info(
-          "Zustände der Aktionen erfolgreich gespeichert in Datei: {}",
+          "Zustände von {} Aktionen erfolgreich gespeichert in Datei: {}",
+          actions.size(),
           STORAGE_FILE.getAbsolutePath());
     } catch (IOException e) {
       log.error(
@@ -66,11 +69,11 @@ public class ActionDao {
   }
 
   /**
-   * Loads the state of each action and applies the state to the provided actions map.
-   * The state is loaded from persistent storage and matched against the action names.
+   * Loads the state of each action and applies the state to the provided actions map. The state is
+   * loaded from persistent storage and matched against the action names.
    *
-   * @param actions A map linking Action objects to their enabled/disabled state. Upon loading,
-   *                this map will be updated to reflect the persisted states where available.
+   * @param actions A map linking Action objects to their enabled/disabled state. Upon loading, this
+   *     map will be updated to reflect the persisted states where available.
    */
   public void loadStates(Map<Action, Boolean> actions) {
     Map<String, Boolean> loadedActions = load();
