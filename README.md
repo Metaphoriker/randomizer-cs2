@@ -2,6 +2,8 @@
 
 [![Build Status](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml/badge.svg?branch=stage)](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml) [![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)
 
+![its-time-for-cs2](https://github.com/user-attachments/assets/a7a41412-c322-4b2d-ae6d-0aa28324d8c9)
+
 ## 🎮 About
 
 **randomizer-cs2** is the ultimate way to spice up your CS2 experience! Ready to add a twist of unpredictability to your
