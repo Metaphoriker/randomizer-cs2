@@ -5,6 +5,7 @@ import com.google.gson.reflect.TypeToken;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import java.lang.reflect.Type;
+import java.util.Collections;
 import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 
@@ -48,18 +49,18 @@ public class ActionSequenceJsonDeSerializer
     String name =
         jsonObject.has(NAME_KEY) && !jsonObject.get(NAME_KEY).isJsonNull()
             ? jsonObject.get(NAME_KEY).getAsString()
-            : null;
+            : "<INVALID>";
 
     String description =
         jsonObject.has(DESCRIPTION_KEY) && !jsonObject.get(DESCRIPTION_KEY).isJsonNull()
             ? jsonObject.get(DESCRIPTION_KEY).getAsString()
-            : null;
+            : "";
 
     List<Action> actions =
         jsonObject.has(ACTIONS_KEY) && !jsonObject.get(ACTIONS_KEY).isJsonNull()
             ? context.deserialize(
                 jsonObject.get(ACTIONS_KEY), new TypeToken<List<Action>>() {}.getType())
-            : null;
+            : Collections.emptyList();
 
     boolean active =
         jsonObject.has(ACTIVE_KEY)
