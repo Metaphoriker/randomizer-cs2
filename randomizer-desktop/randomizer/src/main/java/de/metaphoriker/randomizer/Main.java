@@ -13,14 +13,17 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class Main {
 
+  private static final String TEST_MODE_FLAG = "-testMode=";
+
+  @Getter private static final Injector injector = initializeInjector();
   @Getter private static boolean testMode = false;
-  @Getter private static Injector injector;
 
   public static void main(String[] args) {
     testMode = hasTestModeFlag(args);
-    if (testMode) log.debug("Anwendung wird im Testmodus gestartet");
-    initializeInjector();
-    RandomizerBootstrap randomizerBootstrap = getInjector().getInstance(RandomizerBootstrap.class);
+    if (testMode) {
+      log.debug("Anwendung wird im Testmodus gestartet");
+    }
+    RandomizerBootstrap randomizerBootstrap = injector.getInstance(RandomizerBootstrap.class);
     randomizerBootstrap.initializeApplication();
     log.debug("Starte JavaFX Anwendung...");
     Application.launch(RandomizerApplication.class, args);
@@ -28,14 +31,15 @@ public class Main {
 
   private static boolean hasTestModeFlag(String[] args) {
     for (String arg : args) {
-      if (arg.startsWith("-testMode=")) {
-        return Boolean.parseBoolean(arg.substring(arg.indexOf("=") + 1));
+      if (arg.startsWith(TEST_MODE_FLAG)) {
+        return Boolean.parseBoolean(arg.substring(TEST_MODE_FLAG.length()));
       }
     }
     return false;
   }
 
-  private static void initializeInjector() {
-    Main.injector = Guice.createInjector(new ModelModule(), new RandomizerModule());
+  private static Injector initializeInjector() {
+    log.debug("Initialisiere Guice Injector");
+    return Guice.createInjector(new ModelModule(), new RandomizerModule());
   }
 }
