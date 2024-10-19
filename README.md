@@ -18,8 +18,7 @@ This app randomly triggers **self-made action sequences** at intervals *(default
 These sequences contain simple actions such as **weapon switching**, **shooting**, **moving** or **moving your mouse**.
 Think of it as adding controlled chaos to your movement and actions in CS2! 🕹️
 
-💡 *Because it only sends random button inputs without altering the game directly, using randomizer-cs2 is completely
-allowed. No risk of bans!* 🚫👮‍♂️
+💡 *Because it only sends random button inputs without altering the game directly, using randomizer-cs2 is generally risk-free!* 🚫👮‍♂️
 
 ## 🛠️ Requirements
 
