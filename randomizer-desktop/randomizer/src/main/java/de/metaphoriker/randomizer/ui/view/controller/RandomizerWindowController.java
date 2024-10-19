@@ -28,9 +28,10 @@ public class RandomizerWindowController implements Initializable {
 
   @Override
   public void initialize(URL url, ResourceBundle resourceBundle) {
+    loadControlBar();
+
     registerViewListener();
     setupControlBarClickTransparency();
-    loadControlBar();
   }
 
   // note: for this pickOnBounds have to be false

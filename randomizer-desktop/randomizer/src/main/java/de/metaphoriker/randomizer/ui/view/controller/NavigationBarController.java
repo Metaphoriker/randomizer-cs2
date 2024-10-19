@@ -5,15 +5,13 @@ import de.metaphoriker.randomizer.ui.util.ImageUtil;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
 import de.metaphoriker.randomizer.ui.view.viewmodel.ControlBarViewModel;
-import java.net.URL;
-import java.util.ResourceBundle;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
-import javafx.fxml.Initializable;
 import javafx.scene.control.ToggleButton;
 
 @View
-public class NavigationBarController implements Initializable {
+public class NavigationBarController {
 
   private final ControlBarViewModel controlBarViewModel;
   private final ViewProvider viewProvider;
@@ -27,10 +25,11 @@ public class NavigationBarController implements Initializable {
       ControlBarViewModel controlBarViewModel, ViewProvider viewProvider) {
     this.controlBarViewModel = controlBarViewModel;
     this.viewProvider = viewProvider;
+
+    Platform.runLater(this::initialize);
   }
 
-  @Override
-  public void initialize(URL url, ResourceBundle resourceBundle) {
+  private void initialize() {
     setupGraphics();
     setupBindings();
     setupToggleButtonLogic();

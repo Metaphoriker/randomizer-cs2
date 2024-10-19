@@ -8,13 +8,14 @@ import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RandomizerApplication extends Application {
 
   private static final int MIN_WIDTH = 700;
-  private static final int MIN_HEIGHT = 500;
+  private static final int MIN_HEIGHT = 530;
 
   @Override
   public void start(Stage stage) {
@@ -38,6 +39,7 @@ public class RandomizerApplication extends Application {
     stage.setMinHeight(MIN_HEIGHT);
     stage.setOnCloseRequest(_ -> System.exit(0));
     stage.setScene(scene);
+    stage.initStyle(StageStyle.DECORATED);
     stage.show();
   }
 }
