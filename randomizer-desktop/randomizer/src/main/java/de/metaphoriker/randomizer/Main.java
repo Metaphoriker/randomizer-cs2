@@ -7,19 +7,20 @@ import de.metaphoriker.randomizer.bootstrap.RandomizerBootstrap;
 import de.metaphoriker.randomizer.bootstrap.RandomizerModule;
 import de.metaphoriker.randomizer.ui.RandomizerApplication;
 import javafx.application.Application;
+import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class Main {
 
-  public static boolean testMode = false;
-  public static Injector injector;
+  @Getter private static boolean testMode = false;
+  @Getter private static Injector injector;
 
   public static void main(String[] args) {
     testMode = hasTestModeFlag(args);
     if (testMode) log.debug("Anwendung wird im Testmodus gestartet");
     initializeInjector();
-    RandomizerBootstrap randomizerBootstrap = Main.injector.getInstance(RandomizerBootstrap.class);
+    RandomizerBootstrap randomizerBootstrap = getInjector().getInstance(RandomizerBootstrap.class);
     randomizerBootstrap.initializeApplication();
     log.debug("Starte JavaFX Anwendung...");
     Application.launch(RandomizerApplication.class, args);

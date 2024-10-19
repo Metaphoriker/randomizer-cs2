@@ -50,7 +50,7 @@ public class RandomizerBootstrap {
 
   public void initializeApplication() {
     log.info("Initialisiere Applikation...");
-    if (!Main.testMode) installAndRunUpdaterIfNeeded();
+    if (!Main.isTestMode()) installAndRunUpdaterIfNeeded();
     loadKeyBinds();
     registerActions();
     cacheActions();

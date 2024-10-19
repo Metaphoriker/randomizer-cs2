@@ -28,7 +28,7 @@ public class RandomizerApplication extends Application {
   }
 
   private void buildAndShowApplication(Stage stage) {
-    ViewProvider viewProvider = Main.injector.getInstance(ViewProvider.class);
+    ViewProvider viewProvider = Main.getInjector().getInstance(ViewProvider.class);
     log.debug("Lade Hauptfenster...");
     Parent root = viewProvider.requestView(RandomizerWindowController.class).getParent();
     Scene scene = new Scene(root);

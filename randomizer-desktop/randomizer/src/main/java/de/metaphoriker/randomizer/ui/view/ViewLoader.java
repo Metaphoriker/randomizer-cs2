@@ -22,7 +22,7 @@ public class ViewLoader {
     }
 
     fxmlLoader.setLocation(fxmlLocation);
-    fxmlLoader.setControllerFactory(param -> Main.injector.getInstance(param));
+    fxmlLoader.setControllerFactory(param -> Main.getInjector().getInstance(param));
 
     try {
       log.debug("Lade View {}, FXML Datei: {}", clazz.getSimpleName(), fxmlLocation);
