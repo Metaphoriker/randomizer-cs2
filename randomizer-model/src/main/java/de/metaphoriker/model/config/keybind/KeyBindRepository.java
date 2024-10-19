@@ -12,7 +12,7 @@ import lombok.extern.slf4j.Slf4j;
 public class KeyBindRepository {
 
   private static final String UNBOUND = "<unbound>";
-  private final List<Keybind> keybinds = new ArrayList<>();
+  private final List<KeyBind> keyBinds = new ArrayList<>();
   private final KeyBindNameTypeMapper keyBindNameTypeMapper = new KeyBindNameTypeMapper();
 
   private String defaultFilePath;
@@ -24,8 +24,8 @@ public class KeyBindRepository {
    * @param key The key to search for in the key bindings.
    * @return An Optional containing the KeyBind if found, otherwise an empty Optional.
    */
-  public Optional<Keybind> getKeyBind(String key) {
-    return keybinds.stream().filter(bind -> bind.getKey().equals(key)).findFirst();
+  public Optional<KeyBind> getKeyBind(String key) {
+    return keyBinds.stream().filter(bind -> bind.getKey().equals(key)).findFirst();
   }
 
   /**
@@ -75,25 +75,25 @@ public class KeyBindRepository {
 
   private void handleKeyBind(String key, String descriptor) {
     if (UNBOUND.equals(descriptor)) {
-      keybinds.removeIf(bind -> bind.getKey().equals(key));
+      keyBinds.removeIf(bind -> bind.getKey().equals(key));
     } else if (keyBindNameTypeMapper.hasKey(descriptor)) {
       addOrUpdateKeyBind(key, keyBindNameTypeMapper.getKeyName(descriptor));
     }
   }
 
   private void addOrUpdateKeyBind(String key, String actionName) {
-    Keybind newKeybind = new Keybind(key, actionName);
-    for (int i = 0; i < keybinds.size(); i++) {
-      if (keybinds.get(i).getKey().equals(key)) {
-        keybinds.set(i, newKeybind);
+    KeyBind newKeyBind = new KeyBind(key, actionName);
+    for (int i = 0; i < keyBinds.size(); i++) {
+      if (keyBinds.get(i).getKey().equals(key)) {
+        keyBinds.set(i, newKeyBind);
         return;
       }
     }
-    keybinds.add(newKeybind);
+    keyBinds.add(newKeyBind);
   }
 
   public void reloadBinds() {
-    keybinds.clear();
+    keyBinds.clear();
     if (defaultFilePath == null) {
       throw new IllegalStateException("KeyBindRepository wurde nicht initialisiert");
     }
@@ -104,7 +104,7 @@ public class KeyBindRepository {
     log.info("KeyBinds wurden erfolgreich neu geladen");
   }
 
-  public List<Keybind> getKeyBinds() {
-    return new ArrayList<>(keybinds);
+  public List<KeyBind> getKeyBinds() {
+    return new ArrayList<>(keyBinds);
   }
 }

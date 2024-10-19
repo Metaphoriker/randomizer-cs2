@@ -2,7 +2,7 @@ package de.metaphoriker.model.action;
 
 import de.metaphoriker.model.action.mapper.KeyMapper;
 import de.metaphoriker.model.action.value.Interval;
-import de.metaphoriker.model.config.keybind.Keybind;
+import de.metaphoriker.model.config.keybind.KeyBind;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.time.Instant;
@@ -20,7 +20,7 @@ import lombok.extern.slf4j.Slf4j;
  * <p>The class provides mechanisms to handle interruptions and delays in an interruptible manner,
  * as well as cloning capabilities to create identical copies of an action.
  *
- * <p>The class also associates each action with a specific {@link Keybind} and maintains an
+ * <p>The class also associates each action with a specific {@link KeyBind} and maintains an
  * execution interval.
  */
 @Getter
@@ -116,7 +116,7 @@ public abstract class Action implements Cloneable {
   }
 
   private boolean hasKey() {
-    return !actionKey.getKey().equals(Keybind.EMPTY_KEYBIND.getKey());
+    return !actionKey.getKey().equals(KeyBind.EMPTY_KEY_BIND.getKey());
   }
 
   @Override

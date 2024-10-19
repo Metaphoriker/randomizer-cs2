@@ -2,7 +2,7 @@ package de.metaphoriker.model.action.impl;
 
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.ActionKey;
-import de.metaphoriker.model.config.keybind.Keybind;
+import de.metaphoriker.model.config.keybind.KeyBind;
 import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
@@ -10,7 +10,7 @@ import java.util.function.Supplier;
 public class MouseMoveAction extends Action {
 
   public MouseMoveAction() {
-    super("Mouse move", ActionKey.of(Keybind.EMPTY_KEYBIND.getKey()));
+    super("Mouse move", ActionKey.of(KeyBind.EMPTY_KEY_BIND.getKey()));
   }
 
   @Override

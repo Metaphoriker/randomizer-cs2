@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode(of = "key")
 @ToString
-public class Keybind {
+public class KeyBind {
 
   /**
    * A KeyBind object representing an unbound key action.
@@ -19,7 +19,7 @@ public class Keybind {
    * <p>This constant is used to signify that no key is assigned to a specific action. The key is
    * set to "<unbound>" and the action is set to "none".
    */
-  public static final Keybind EMPTY_KEYBIND = new Keybind("<unbound>", "none");
+  public static final KeyBind EMPTY_KEY_BIND = new KeyBind("<unbound>", "none");
 
   /**
    * The key associated with a specific action in the KeyBind configuration.
