@@ -23,7 +23,6 @@ public class ActionRepository {
    */
   public void register(Action action) {
     actions.put(action, true);
-    ACTION_REGISTRY_STORAGE.save(actions);
     log.info("Action erfolgreich registriert: {}", action);
   }
 
@@ -45,7 +44,6 @@ public class ActionRepository {
    */
   public void enable(Action action) {
     actions.put(action, true);
-    ACTION_REGISTRY_STORAGE.save(actions);
     log.info("Action erfolgreich aktiviert: {}", action);
   }
 
@@ -74,7 +72,6 @@ public class ActionRepository {
    */
   public void disable(Action action) {
     actions.put(action, false);
-    ACTION_REGISTRY_STORAGE.save(actions);
     log.info("Action erfolgreich deaktiviert: {}", action);
   }
 
@@ -86,6 +83,19 @@ public class ActionRepository {
    */
   public boolean isEnabled(Action action) {
     return actions.getOrDefault(action, true);
+  }
+
+  /**
+   * Persists all actions currently in memory to a storage system.
+   *
+   * <p>This method invokes the save method on the ACTION_REGISTRY_STORAGE with the current list of
+   * actions to ensure they are stored.
+   *
+   * <p>This functionality is crucial for maintaining state and ensuring that no actions are lost
+   * between sessions or instances.
+   */
+  public void saveAll() {
+    ACTION_REGISTRY_STORAGE.save(actions);
   }
 
   /**

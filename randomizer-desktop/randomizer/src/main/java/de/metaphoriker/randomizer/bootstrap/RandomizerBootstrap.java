@@ -153,6 +153,7 @@ public class RandomizerBootstrap {
               Action action = new BaseAction(keyBind.getAction(), ActionKey.of(keyBind.getKey()));
               actionRepository.register(action);
             });
+    actionRepository.saveAll();
     actionRepository.loadStatesIfExist();
   }
 
