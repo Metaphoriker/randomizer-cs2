@@ -54,6 +54,22 @@ public class KeyBindNameTypeMapper {
     return nameType.type();
   }
 
+  /**
+   * Retrieves the KeyBindType by its name.
+   *
+   * @param name the name of the KeyBindType to be retrieved
+   * @return the KeyBindType corresponding to the provided name, or KeyBindType.MISCELLANEOUS if no
+   *     matching type is found
+   */
+  public KeyBindType getTypeByName(String name) {
+    for (NameType nameType : descriptorToNameMap.values()) {
+      if (nameType.name().equals(name)) {
+        return nameType.type();
+      }
+    }
+    return KeyBindType.MISCELLANEOUS;
+  }
+
   private void initializeDescriptorMappings() {
     descriptorToNameMap.put("+jump", new NameType("Jump", KeyBindType.MOVEMENT));
     descriptorToNameMap.put("+left", new NameType("Move Left", KeyBindType.MOVEMENT));
