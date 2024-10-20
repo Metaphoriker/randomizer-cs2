@@ -6,6 +6,7 @@ import de.metaphoriker.model.config.keybind.KeyBind;
 import java.awt.AWTException;
 import java.awt.Robot;
 import java.time.Instant;
+import java.util.concurrent.ThreadLocalRandom;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -67,7 +68,34 @@ public abstract class Action implements Cloneable {
                 : hasKey() ? ActionType.KEYBOARD : ActionType.CUSTOM;
   }
 
-  public void executeDelayed(long delay) {}
+  public void execute() {
+    if (getInterval().isEmpty()) {
+      executeWithDelay(0);
+    } else {
+      long delay =
+          ThreadLocalRandom.current().nextInt(getInterval().getMin(), getInterval().getMax());
+      executeWithDelay(delay);
+    }
+  }
+
+  public void executeWithDelay(long delay) {
+    int keyCode = KEY_MAPPER.getKeyCodeForKey(getActionKey().getKey());
+    setExecuting(true);
+    setInterrupted(false);
+
+    try {
+      performActionStart(keyCode);
+      performInterruptibleDelay(delay);
+
+      if (!isInterrupted()) {
+        performActionEnd(keyCode);
+      } else {
+        log.info("Action interrupted, skipping action end for: {}", getActionKey().getKey());
+      }
+    } finally {
+      setExecuting(false);
+    }
+  }
 
   public void setInterval(Interval interval) {
     this.interval.setMax(interval.getMax());
@@ -130,5 +158,7 @@ public abstract class Action implements Cloneable {
     }
   }
 
-  public abstract void execute();
+  protected abstract void performActionStart(int keyCode);
+
+  protected abstract void performActionEnd(int keyCode);
 }

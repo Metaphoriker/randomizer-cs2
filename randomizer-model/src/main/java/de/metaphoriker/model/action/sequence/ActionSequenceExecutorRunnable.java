@@ -199,7 +199,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
       long remainingTimeMs = delayedAt.toEpochMilli() - now.toEpochMilli();
       if (remainingTimeMs > 0) {
         log.debug("Führe verzögerte Aktion aus für {} ms", remainingTimeMs);
-        currentAction.executeDelayed(remainingTimeMs);
+        currentAction.executeWithDelay(remainingTimeMs);
         return true;
       }
     }

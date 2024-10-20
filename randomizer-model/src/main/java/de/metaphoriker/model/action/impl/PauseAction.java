@@ -12,15 +12,19 @@ public class PauseAction extends Action {
   }
 
   @Override
-  public void execute() {
+  protected void performActionStart(int keycode) {
     if (getInterval().isEmpty()) return;
 
     int min = getInterval().getMin();
     int max = getInterval().getMax();
-    try {
-      Thread.sleep(ThreadLocalRandom.current().nextInt(min, max));
-    } catch (InterruptedException e) {
-      Thread.currentThread().interrupt();
-    }
+    int delay = ThreadLocalRandom.current().nextInt(min, max);
+
+    performInterruptibleDelay(delay);
+  }
+
+  @Override
+  protected void performActionEnd(int keycode) {
+    // Da bei einer Pause keine spezifische Aktion am Ende ausgeführt werden muss,
+    // bleibt diese Methode leer.
   }
 }

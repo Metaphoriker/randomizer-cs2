@@ -2,12 +2,9 @@ package de.metaphoriker.model.action.impl;
 
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.ActionKey;
-import java.util.concurrent.ThreadLocalRandom;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
-@Getter
 public class BaseAction extends Action {
 
   public BaseAction(String name, ActionKey actionKey) {
@@ -15,55 +12,19 @@ public class BaseAction extends Action {
   }
 
   @Override
-  public void execute() {
-    if (getInterval().isEmpty()) {
-      executeDelayed(0);
-    } else {
-      executeDelayed(
-          ThreadLocalRandom.current().nextInt(getInterval().getMin(), getInterval().getMax()));
+  protected void performActionStart(int keyCode) {
+    switch (getActionType()) {
+      case MOUSE -> ROBOT.mousePress(keyCode);
+      case MOUSE_WHEEL -> ROBOT.mouseWheel(keyCode);
+      default -> ROBOT.keyPress(keyCode);
     }
   }
 
   @Override
-  public void executeDelayed(long delay) {
-    int keyCode = KEY_MAPPER.getKeyCodeForKey(getActionKey().getKey());
-    setExecuting(true);
-    setInterrupted(false);
-
+  protected void performActionEnd(int keyCode) {
     switch (getActionType()) {
-      case MOUSE -> handleMouseEvent(delay, keyCode);
-      case MOUSE_WHEEL -> handleMouseWheelEvent(keyCode);
-      default -> handleKeyEvent(delay, keyCode);
-    }
-
-    setExecuting(false);
-  }
-
-  private void handleMouseWheelEvent(int keyCode) {
-    ROBOT.mouseWheel(keyCode);
-  }
-
-  private void handleMouseEvent(long delay, int keyCode) {
-    ROBOT.mousePress(keyCode);
-    performInterruptibleDelay(delay);
-    if (!isInterrupted()) {
-      ROBOT.mouseRelease(keyCode);
-    } else {
-      log.info("Action interrupted, skipping mouse release for mouse: {}", getActionKey().getKey());
-    }
-  }
-
-  private void handleKeyEvent(long delay, int keyCode) {
-    if (keyCode != -1) {
-      ROBOT.keyPress(keyCode);
-      performInterruptibleDelay(delay);
-      if (!isInterrupted()) {
-        ROBOT.keyRelease(keyCode);
-      } else {
-        log.info("Action interrupted, skipping key release for key: {}", getActionKey().getKey());
-      }
-    } else {
-      log.warn("Key code not found for key: {}", getActionKey().getKey());
+      case MOUSE -> ROBOT.mouseRelease(keyCode);
+      default -> ROBOT.keyRelease(keyCode);
     }
   }
 }

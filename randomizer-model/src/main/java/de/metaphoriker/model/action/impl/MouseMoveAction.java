@@ -14,7 +14,7 @@ public class MouseMoveAction extends Action {
   }
 
   @Override
-  public void execute() {
+  protected void performActionStart(int keycode) {
     Point currentPosition = MouseInfo.getPointerInfo().getLocation();
 
     int currentX = currentPosition.x;
@@ -32,5 +32,10 @@ public class MouseMoveAction extends Action {
     int y = moveHorizontally ? currentY : randomInt.get();
 
     ROBOT.mouseMove(x, y);
+  }
+
+  @Override
+  protected void performActionEnd(int keycode) {
+    // Für MouseMoveAction gibt es keine "End"-Aktion, daher bleibt diese Methode leer.
   }
 }
