@@ -46,8 +46,6 @@ public class RandomizerWindowController implements Initializable {
   }
 
   private void registerViewListener() {
-    viewProvider.registerViewChangeListener(
-        RandomizerWindowController.class, _ -> clearContent()); // self-call for clearance
     viewProvider.registerViewChangeListener(BuilderViewController.class, _ -> loadBuilderView());
     viewProvider.registerViewChangeListener(
         RandomizerViewController.class, _ -> loadRandomizerView());
