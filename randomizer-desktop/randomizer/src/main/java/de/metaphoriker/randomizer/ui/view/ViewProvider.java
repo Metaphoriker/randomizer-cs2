@@ -49,6 +49,8 @@ public class ViewProvider {
   /**
    * Triggers a view change by notifying the registered listener for the specified view class.
    *
+   * <p>Loads the view if it has to {@link #requestView(Class)}
+   *
    * @param viewClass the class of the view whose change listener should be triggered
    */
   @SuppressWarnings("unchecked")
