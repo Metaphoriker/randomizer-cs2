@@ -82,7 +82,7 @@ public class BuilderViewController {
 
   private void setupDrag(Label label) {
     if (label.getText() == null || label.getText().isEmpty()) return;
-    // TODO: actions validation
+
     label.setOnDragDetected(
         dragEvent -> {
           Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
@@ -105,6 +105,7 @@ public class BuilderViewController {
           dragEvent.consume();
         });
 
+    // TODO: actions validation
     target.setOnDragDropped(
         dragEvent -> {
           Dragboard dragboard = dragEvent.getDragboard();
