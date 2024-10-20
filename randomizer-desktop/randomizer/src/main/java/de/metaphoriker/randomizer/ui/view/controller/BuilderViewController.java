@@ -37,15 +37,29 @@ public class BuilderViewController {
               titledPane.setCollapsible(true);
               titledPane.setAnimated(true);
               titledPane.setExpanded(false);
-              titledPane.setText(type.name());
+              titledPane.setText(type);
               VBox vBox = new VBox();
               actionList.forEach(
                   action -> {
-                    Label label = new Label(action.getName());
+                    Label label = new Label(action);
                     vBox.getChildren().add(label);
                   });
+              applyExpandListener(titledPane);
               titledPane.setContent(vBox);
               actionsVBox.getChildren().add(titledPane);
+            });
+  }
+
+  private void applyExpandListener(TitledPane titledPane) {
+    titledPane
+        .expandedProperty()
+        .addListener(
+            (_, _, newValue) -> {
+              if (newValue) {
+                actionsVBox.getChildren().stream()
+                    .filter(node -> node instanceof TitledPane && node != titledPane)
+                    .forEach(node -> ((TitledPane) node).setExpanded(false));
+              }
             });
   }
 
@@ -54,7 +68,7 @@ public class BuilderViewController {
         .getActionSequences()
         .forEach(
             actionSequence -> {
-              Label label = new Label(actionSequence.getName());
+              Label label = new Label(actionSequence);
               actionSequencesVBox.getChildren().add(label);
             });
   }

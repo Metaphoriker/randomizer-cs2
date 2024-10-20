@@ -8,11 +8,16 @@ import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.config.keybind.KeyBindNameTypeMapper;
 import de.metaphoriker.model.config.keybind.KeyBindType;
 import java.util.ArrayList;
-import java.util.EnumMap;
+import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
+import lombok.Getter;
 
 public class BuilderViewModel {
+
+  @Getter private final StringProperty currentActionSequenceProperty = new SimpleStringProperty();
 
   private final ActionRepository actionRepository;
   private final ActionSequenceRepository actionSequenceRepository;
@@ -28,8 +33,8 @@ public class BuilderViewModel {
     this.keyBindNameTypeMapper = keyBindNameTypeMapper;
   }
 
-  public Map<KeyBindType, List<Action>> getActionToTypeMap() {
-    Map<KeyBindType, List<Action>> actionMap = new EnumMap<>(KeyBindType.class);
+  public Map<String, List<String>> getActionToTypeMap() {
+    Map<String, List<String>> actionMap = new HashMap<>();
 
     actionRepository
         .getActions()
@@ -37,14 +42,27 @@ public class BuilderViewModel {
             (action, _) -> {
               KeyBindType type = keyBindNameTypeMapper.getTypeByName(action.getName());
               if (type != null) {
-                actionMap.computeIfAbsent(type, _ -> new ArrayList<>()).add(action);
+                actionMap
+                    .computeIfAbsent(type.name(), _ -> new ArrayList<>())
+                    .add(action.getName());
               }
             });
-
     return actionMap;
   }
 
-  public List<ActionSequence> getActionSequences() {
-    return actionSequenceRepository.getActionSequences();
+  public List<String> getActionSequences() {
+    return actionSequenceRepository.getActionSequences().stream()
+        .map(ActionSequence::getName)
+        .toList();
+  }
+
+  public List<String> getActionsOfSequence(String sequenceName) {
+    return actionSequenceRepository
+        .getActionSequence(sequenceName)
+        .orElseThrow(IllegalStateException::new)
+        .getActions()
+        .stream()
+        .map(Action::getName)
+        .toList();
   }
 }
