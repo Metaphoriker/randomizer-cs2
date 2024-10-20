@@ -53,26 +53,34 @@ public class NavigationBarController {
   }
 
   private void setupToggleButtonLogic() {
-    randomizerButton
-        .selectedProperty()
-        .addListener(createToggleButtonListener(builderButton, settingsButton));
-    builderButton
-        .selectedProperty()
-        .addListener(createToggleButtonListener(randomizerButton, settingsButton));
-    settingsButton
-        .selectedProperty()
-        .addListener(createToggleButtonListener(randomizerButton, builderButton));
+    addToggleButtonListener(randomizerButton, null, builderButton, settingsButton);
+    addToggleButtonListener(
+        builderButton, BuilderViewController.class, randomizerButton, settingsButton);
+    addToggleButtonListener(settingsButton, null, randomizerButton, builderButton);
   }
 
-  private ChangeListener<Boolean> createToggleButtonListener(ToggleButton... otherButtons) {
-    return (_, _, newValue) -> {
-      if (newValue) {
-        for (ToggleButton button : otherButtons) {
-          button.setSelected(false);
-        }
-      } else {
-        controlBarViewModel.setSelectedView(RandomizerWindowController.class);
-      }
+  private void addToggleButtonListener(
+      ToggleButton button, Class<?> newView, ToggleButton... otherButtons) {
+    ChangeListener<Boolean> listener = createToggleButtonListener(newView, otherButtons);
+    button.selectedProperty().addListener(listener);
+  }
+
+  private ChangeListener<Boolean> createToggleButtonListener(
+      Class<?> newView, ToggleButton... otherButtons) {
+    return (_, _, isSelected) -> {
+      handleToggleSelection(isSelected, newView, otherButtons);
     };
+  }
+
+  private void handleToggleSelection(
+      boolean isSelected, Class<?> newView, ToggleButton... otherButtons) {
+    if (isSelected) {
+      controlBarViewModel.setSelectedView(newView);
+      for (ToggleButton button : otherButtons) {
+        button.setSelected(false);
+      }
+    } else {
+      controlBarViewModel.setSelectedView(RandomizerWindowController.class);
+    }
   }
 }

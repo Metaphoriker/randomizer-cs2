@@ -48,11 +48,17 @@ public class RandomizerWindowController implements Initializable {
   private void registerViewListener() {
     viewProvider.registerViewChangeListener(
         RandomizerWindowController.class, _ -> clearContent()); // self-call for clearance
+    viewProvider.registerViewChangeListener(BuilderViewController.class, _ -> loadBuilderView());
   }
 
   private void loadControlBar() {
     Parent controlBarParent = viewProvider.requestView(NavigationBarController.class).parent();
     navigationBarHolder.getChildren().add(controlBarParent);
+  }
+
+  private void loadBuilderView() {
+    Parent builderViewParent = viewProvider.requestView(BuilderViewController.class).parent();
+    setContent(builderViewParent);
   }
 
   private void setContent(Node node) {

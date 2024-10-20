@@ -59,6 +59,9 @@ public class ViewProvider {
       if (listener != null) {
         listener.accept(viewWrapper.controller());
       }
+    } else {
+      requestView(viewClass);
+      triggerViewChange(viewClass);
     }
   }
 
