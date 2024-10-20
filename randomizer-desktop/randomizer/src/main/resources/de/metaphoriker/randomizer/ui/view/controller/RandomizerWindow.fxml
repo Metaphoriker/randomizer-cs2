@@ -11,12 +11,12 @@
     <children>
         <StackPane prefHeight="500.0" prefWidth="700.0" VBox.vgrow="ALWAYS">
             <children>
-                <GridPane fx:id="contentPane">
+                <GridPane fx:id="contentPane" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS">
                     <columnConstraints>
-                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0"/>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0"/>
                     </columnConstraints>
                     <rowConstraints>
-                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES"/>
+                        <RowConstraints vgrow="ALWAYS" minHeight="10.0" prefHeight="30.0"/>
                     </rowConstraints>
                 </GridPane>
                 <VBox fx:id="navigationBarHolder" alignment="BOTTOM_CENTER" pickOnBounds="false" prefHeight="200.0"
