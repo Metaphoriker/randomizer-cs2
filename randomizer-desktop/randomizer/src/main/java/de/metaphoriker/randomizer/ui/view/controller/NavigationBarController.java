@@ -53,10 +53,12 @@ public class NavigationBarController {
   }
 
   private void setupToggleButtonLogic() {
-    addToggleButtonListener(randomizerButton, null, builderButton, settingsButton);
+    addToggleButtonListener(
+        randomizerButton, RandomizerViewController.class, builderButton, settingsButton);
     addToggleButtonListener(
         builderButton, BuilderViewController.class, randomizerButton, settingsButton);
-    addToggleButtonListener(settingsButton, null, randomizerButton, builderButton);
+    addToggleButtonListener(
+        settingsButton, SettingsViewController.class, randomizerButton, builderButton);
   }
 
   private void addToggleButtonListener(
