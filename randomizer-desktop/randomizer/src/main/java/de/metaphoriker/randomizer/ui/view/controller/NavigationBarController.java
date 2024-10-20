@@ -4,7 +4,7 @@ import com.google.inject.Inject;
 import de.metaphoriker.randomizer.ui.util.ImageUtil;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
-import de.metaphoriker.randomizer.ui.view.viewmodel.ControlBarViewModel;
+import de.metaphoriker.randomizer.ui.view.viewmodel.NavigationBarViewModel;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -13,7 +13,7 @@ import javafx.scene.control.ToggleButton;
 @View
 public class NavigationBarController {
 
-  private final ControlBarViewModel controlBarViewModel;
+  private final NavigationBarViewModel navigationBarViewModel;
   private final ViewProvider viewProvider;
 
   @FXML private ToggleButton randomizerButton;
@@ -22,8 +22,8 @@ public class NavigationBarController {
 
   @Inject
   public NavigationBarController(
-      ControlBarViewModel controlBarViewModel, ViewProvider viewProvider) {
-    this.controlBarViewModel = controlBarViewModel;
+      NavigationBarViewModel navigationBarViewModel, ViewProvider viewProvider) {
+    this.navigationBarViewModel = navigationBarViewModel;
     this.viewProvider = viewProvider;
 
     Platform.runLater(this::initialize);
@@ -36,7 +36,7 @@ public class NavigationBarController {
   }
 
   private void setupBindings() {
-    controlBarViewModel
+    navigationBarViewModel
         .getSelectedView()
         .addListener(
             (_, _, newView) -> {
@@ -61,26 +61,37 @@ public class NavigationBarController {
 
   private void addToggleButtonListener(
       ToggleButton button, Class<?> newView, ToggleButton... otherButtons) {
-    ChangeListener<Boolean> listener = createToggleButtonListener(newView, otherButtons);
-    button.selectedProperty().addListener(listener);
+    button
+        .selectedProperty()
+        .addListener(createToggleButtonListener(button, newView, otherButtons));
   }
 
   private ChangeListener<Boolean> createToggleButtonListener(
-      Class<?> newView, ToggleButton... otherButtons) {
-    return (_, _, isSelected) -> {
-      handleToggleSelection(isSelected, newView, otherButtons);
-    };
+      ToggleButton button, Class<?> newView, ToggleButton... otherButtons) {
+    return (observable, wasSelected, isSelected) ->
+        handleToggleSelection(button, newView, isSelected, otherButtons);
   }
 
   private void handleToggleSelection(
-      boolean isSelected, Class<?> newView, ToggleButton... otherButtons) {
+      ToggleButton button, Class<?> newView, boolean isSelected, ToggleButton... otherButtons) {
     if (isSelected) {
-      controlBarViewModel.setSelectedView(newView);
-      for (ToggleButton button : otherButtons) {
-        button.setSelected(false);
+      navigationBarViewModel.setSelectedView(newView);
+      for (ToggleButton otherButton : otherButtons) {
+        if (otherButton.isSelected()) {
+          otherButton.setSelected(false);
+        }
       }
-    } else {
-      controlBarViewModel.setSelectedView(RandomizerWindowController.class);
+    } else if (!isAnotherButtonSelected(otherButtons)) {
+      Platform.runLater(() -> button.setSelected(true));
     }
+  }
+
+  private boolean isAnotherButtonSelected(ToggleButton... buttons) {
+    for (ToggleButton button : buttons) {
+      if (button.isSelected()) {
+        return true;
+      }
+    }
+    return false;
   }
 }

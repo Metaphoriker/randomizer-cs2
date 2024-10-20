@@ -7,7 +7,7 @@ import lombok.extern.slf4j.Slf4j;
 
 @Getter
 @Slf4j
-public class ControlBarViewModel {
+public class NavigationBarViewModel {
 
   private final ObjectProperty<Class<?>> selectedView = new SimpleObjectProperty<>();
 
