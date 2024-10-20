@@ -129,20 +129,29 @@ public class BuilderViewController {
         .textProperty()
         .addListener(
             (_, _, newValue) -> {
+              if (newValue == null || newValue.isEmpty()) {
+                actionsVBox.getChildren().clear();
+                fillActions();
+                return;
+              }
+
               String filter = newValue.toLowerCase();
               actionsVBox.getChildren().clear();
               builderViewModel
                   .getActionToTypeMap()
                   .forEach(
-                      (type, actionList) -> {
+                      (_, actionList) -> {
                         List<String> filteredActions =
                             actionList.stream()
                                 .filter(action -> action.toLowerCase().contains(filter))
                                 .toList();
 
-                        if (!filteredActions.isEmpty()) {
-                          actionsVBox.getChildren().add(createTitledPane(type, filteredActions));
-                        }
+                        filteredActions.forEach(
+                            action -> {
+                              Label actionLabel = new Label(action);
+                              setupDrag(actionLabel);
+                              actionsVBox.getChildren().add(actionLabel);
+                            });
                       });
             });
   }
@@ -155,7 +164,12 @@ public class BuilderViewController {
     titledPane.setText(type);
 
     VBox vBox = new VBox();
-    actions.forEach(action -> vBox.getChildren().add(new Label(action)));
+    actions.forEach(
+        action -> {
+          Label actionLabel = new Label(action);
+          setupDrag(actionLabel);
+          vBox.getChildren().add(actionLabel);
+        });
     applyExpandListener(titledPane);
     titledPane.setContent(vBox);
 
