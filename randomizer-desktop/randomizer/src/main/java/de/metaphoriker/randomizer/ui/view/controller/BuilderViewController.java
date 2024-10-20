@@ -76,7 +76,7 @@ public class BuilderViewController {
         .forEach(
             actionText -> {
               Label actionLabel = new Label(actionText);
-              setupDrag(actionLabel);
+              setupDrag(actionLabel); // TODO: setup special drag within listview
               builderListView.getItems().add(actionLabel);
             });
   }
