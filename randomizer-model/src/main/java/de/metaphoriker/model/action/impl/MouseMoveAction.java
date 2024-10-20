@@ -31,7 +31,7 @@ public class MouseMoveAction extends Action {
     int x = moveHorizontally ? randomInt.get() : currentX;
     int y = moveHorizontally ? currentY : randomInt.get();
 
-    ROBOT.mouseMove(x, y);
+    KNUFFI.mouseMove(x, y);
   }
 
   @Override

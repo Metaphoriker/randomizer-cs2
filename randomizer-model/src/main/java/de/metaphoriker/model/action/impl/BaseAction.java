@@ -14,17 +14,17 @@ public class BaseAction extends Action {
   @Override
   protected void performActionStart(int keyCode) {
     switch (getActionType()) {
-      case MOUSE -> ROBOT.mousePress(keyCode);
-      case MOUSE_WHEEL -> ROBOT.mouseWheel(keyCode);
-      default -> ROBOT.keyPress(keyCode);
+      case MOUSE -> KNUFFI.mousePress(keyCode);
+      case MOUSE_WHEEL -> KNUFFI.mouseWheel(keyCode);
+      default -> KNUFFI.keyPress(keyCode);
     }
   }
 
   @Override
   protected void performActionEnd(int keyCode) {
     switch (getActionType()) {
-      case MOUSE -> ROBOT.mouseRelease(keyCode);
-      default -> ROBOT.keyRelease(keyCode);
+      case MOUSE -> KNUFFI.mouseRelease(keyCode);
+      default -> KNUFFI.keyRelease(keyCode);
     }
   }
 }

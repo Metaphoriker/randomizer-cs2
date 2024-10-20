@@ -32,11 +32,11 @@ public abstract class Action implements Cloneable {
   private static final int INTERVAL = 50;
   protected static final KeyMapper KEY_MAPPER = new KeyMapper();
 
-  protected static final Robot ROBOT;
+  protected static final Robot KNUFFI;
 
   static {
     try {
-      ROBOT = new Robot();
+      KNUFFI = new Robot();
     } catch (AWTException e) {
       throw new RuntimeException(e);
     }
