@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.ClipboardContent;
@@ -23,7 +24,7 @@ public class BuilderViewController {
   @FXML private TextField searchField;
   @FXML private VBox actionsVBox;
   @FXML private VBox actionSequencesVBox;
-  @FXML private VBox builderVBox;
+  @FXML private ListView<Label> builderListView;
 
   @Inject
   public BuilderViewController(BuilderViewModel builderViewModel) {
@@ -35,7 +36,7 @@ public class BuilderViewController {
     setupBindings();
     fillActions();
     fillActionSequences();
-    setupDrop(builderVBox);
+    setupDrop(builderListView);
 
     actionsVBox
         .getChildren()
@@ -68,7 +69,7 @@ public class BuilderViewController {
   }
 
   private void updateBuilderVBox() {
-    builderVBox.getChildren().clear();
+    builderListView.getItems().clear();
 
     builderViewModel
         .getCurrentActionsProperty()
@@ -76,7 +77,7 @@ public class BuilderViewController {
             actionText -> {
               Label actionLabel = new Label(actionText);
               setupDrag(actionLabel);
-              builderVBox.getChildren().add(actionLabel);
+              builderListView.getItems().add(actionLabel);
             });
   }
 
@@ -96,7 +97,7 @@ public class BuilderViewController {
         });
   }
 
-  private void setupDrop(VBox target) {
+  private void setupDrop(ListView<Label> target) {
     target.setOnDragOver(
         dragEvent -> {
           if (dragEvent.getGestureSource() != target && dragEvent.getDragboard().hasString()) {
