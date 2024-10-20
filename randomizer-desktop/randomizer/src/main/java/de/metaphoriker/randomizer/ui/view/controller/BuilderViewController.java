@@ -9,6 +9,9 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.ClipboardContent;
+import javafx.scene.input.Dragboard;
+import javafx.scene.input.TransferMode;
 import javafx.scene.layout.VBox;
 
 @View
@@ -31,6 +34,24 @@ public class BuilderViewController {
     setupBindings();
     fillActions();
     fillActionSequences();
+    setupDrop(builderVBox);
+
+    actionsVBox
+        .getChildren()
+        .forEach(
+            node -> {
+              if (node instanceof TitledPane) {
+                VBox content = (VBox) ((TitledPane) node).getContent();
+                content
+                    .getChildren()
+                    .forEach(
+                        child -> {
+                          if (child instanceof Label) {
+                            setupDrag((Label) child);
+                          }
+                        });
+              }
+            });
   }
 
   private void setupBindings() {
@@ -39,6 +60,49 @@ public class BuilderViewController {
         .addListener((_, _, newSequenceName) -> fillBuilderWithActionsOfSequence(newSequenceName));
 
     setupSearchFieldListener();
+  }
+
+  private void setupDrag(Label label) {
+    label.setOnDragDetected(
+        dragEvent -> {
+          Dragboard dragboard = label.startDragAndDrop(TransferMode.ANY);
+          dragboard.setDragView(label.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
+
+          ClipboardContent content = new ClipboardContent();
+          content.putString(label.getText());
+          dragboard.setContent(content);
+
+          dragEvent.consume();
+        });
+  }
+
+  private void setupDrop(VBox target) {
+    target.setOnDragOver(
+        dragEvent -> {
+          if (dragEvent.getGestureSource() != target && dragEvent.getDragboard().hasString()) {
+            dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+          }
+          dragEvent.consume();
+        });
+
+    target.setOnDragDropped(
+        dragEvent -> {
+          Dragboard dragboard = dragEvent.getDragboard();
+          boolean success = false;
+
+          if (dragboard.hasString()) {
+            String actionText = dragboard.getString();
+
+            Label actionLabel = new Label(actionText);
+            setupDrag(actionLabel);
+
+            target.getChildren().add(actionLabel);
+            success = true;
+          }
+
+          dragEvent.setDropCompleted(success);
+          dragEvent.consume();
+        });
   }
 
   private void setupSearchFieldListener() {
