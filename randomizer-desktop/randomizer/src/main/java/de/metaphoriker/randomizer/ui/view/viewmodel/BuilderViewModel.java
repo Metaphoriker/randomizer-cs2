@@ -16,6 +16,8 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
+import javafx.collections.ObservableList;
 import lombok.Getter;
 
 public class BuilderViewModel {
@@ -25,6 +27,12 @@ public class BuilderViewModel {
   @Getter
   private final ListProperty<String> currentActionsProperty =
       new SimpleListProperty<>(FXCollections.observableArrayList());
+
+  @Getter
+  private final StringProperty currentActionSequenceDescriptionProperty =
+      new SimpleStringProperty();
+
+  private final ObservableList<Action> actions = FXCollections.observableArrayList();
 
   private final ActionRepository actionRepository;
   private final ActionSequenceRepository actionSequenceRepository;
@@ -38,6 +46,47 @@ public class BuilderViewModel {
     this.actionRepository = actionRepository;
     this.actionSequenceRepository = actionSequenceRepository;
     this.keyBindNameTypeMapper = keyBindNameTypeMapper;
+
+    registerListsListener();
+  }
+
+  private ActionSequence craftActionSequence() {
+    ActionSequence actionSequence = new ActionSequence(currentActionSequenceProperty.get());
+    actionSequence.setActions(actions);
+    actionSequence.setDescription(currentActionSequenceDescriptionProperty.get());
+    return actionSequence;
+  }
+
+  public void saveActionSequence() {
+    ActionSequence actionSequence = craftActionSequence();
+    actionSequenceRepository.saveActionSequence(actionSequence);
+  }
+
+  public void deleteActionSequence(String name) {
+    actionSequenceRepository
+        .getActionSequence(name)
+        .ifPresent(actionSequenceRepository::deleteActionSequence);
+  }
+
+  private void registerListsListener() {
+    currentActionsProperty.addListener(
+        (ListChangeListener<String>)
+            change -> {
+              while (change.next()) {
+                if (change.wasAdded()) {
+                  for (String addedItem : change.getAddedSubList()) {
+                    if (actions.stream().noneMatch(action -> action.getName().equals(addedItem))) {
+                      actions.add(actionRepository.getByName(addedItem));
+                    }
+                  }
+                }
+                if (change.wasRemoved()) {
+                  for (String removedItem : change.getRemoved()) {
+                    actions.removeIf(action -> action.getName().equals(removedItem));
+                  }
+                }
+              }
+            });
   }
 
   public void addAction(String action) {
