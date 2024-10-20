@@ -5,6 +5,7 @@ import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.repository.ActionRepository;
 import de.metaphoriker.model.action.repository.ActionSequenceRepository;
 import de.metaphoriker.model.action.sequence.ActionSequence;
+import de.metaphoriker.model.action.value.Interval;
 import de.metaphoriker.model.config.keybind.KeyBindNameTypeMapper;
 import de.metaphoriker.model.config.keybind.KeyBindType;
 import java.util.ArrayList;
@@ -91,6 +92,17 @@ public class BuilderViewModel {
 
   public void addAction(String action) {
     currentActionsProperty.add(action);
+  }
+
+  public void setActionInterval(String action, int min, int max) throws IllegalArgumentException {
+    if (min >= max) {
+      throw new IllegalArgumentException("Min must be smaller than max");
+    }
+
+    actions.stream()
+        .filter(a -> a.getName().equals(action))
+        .findFirst()
+        .ifPresent(a -> a.setInterval(Interval.of(min, max)));
   }
 
   public void removeAction(String action) {
