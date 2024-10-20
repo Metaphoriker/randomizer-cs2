@@ -71,7 +71,7 @@
                                 <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="NEVER"/>
                                 <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <HBox prefHeight="50.0" prefWidth="200.0" VBox.vgrow="NEVER"/>
+                                        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER"/>
                                         <BorderPane VBox.vgrow="ALWAYS">
                                             <center>
                                                 <ListView fx:id="builderListView" prefHeight="350.0" prefWidth="500.0">
