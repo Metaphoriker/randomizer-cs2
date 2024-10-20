@@ -11,13 +11,20 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import javafx.beans.property.ListProperty;
+import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.collections.FXCollections;
 import lombok.Getter;
 
 public class BuilderViewModel {
 
   @Getter private final StringProperty currentActionSequenceProperty = new SimpleStringProperty();
+
+  @Getter
+  private final ListProperty<String> currentActionsProperty =
+      new SimpleListProperty<>(FXCollections.observableArrayList());
 
   private final ActionRepository actionRepository;
   private final ActionSequenceRepository actionSequenceRepository;
@@ -31,6 +38,18 @@ public class BuilderViewModel {
     this.actionRepository = actionRepository;
     this.actionSequenceRepository = actionSequenceRepository;
     this.keyBindNameTypeMapper = keyBindNameTypeMapper;
+  }
+
+  public void addAction(String action) {
+    currentActionsProperty.add(action);
+  }
+
+  public void removeAction(String action) {
+    currentActionsProperty.remove(action);
+  }
+
+  public void setActions(List<String> actions) {
+    currentActionsProperty.setAll(actions);
   }
 
   public Map<String, List<String>> getActionToTypeMap() {

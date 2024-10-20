@@ -5,6 +5,7 @@ import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import java.util.List;
 import javafx.application.Platform;
+import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -59,13 +60,32 @@ public class BuilderViewController {
         .getCurrentActionSequenceProperty()
         .addListener((_, _, newSequenceName) -> fillBuilderWithActionsOfSequence(newSequenceName));
 
+    builderViewModel
+        .getCurrentActionsProperty()
+        .addListener((ListChangeListener<String>) _ -> updateBuilderVBox());
+
     setupSearchFieldListener();
   }
 
+  private void updateBuilderVBox() {
+    builderVBox.getChildren().clear();
+
+    builderViewModel
+        .getCurrentActionsProperty()
+        .forEach(
+            actionText -> {
+              Label actionLabel = new Label(actionText);
+              setupDrag(actionLabel);
+              builderVBox.getChildren().add(actionLabel);
+            });
+  }
+
   private void setupDrag(Label label) {
+    if (label.getText() == null || label.getText().isEmpty()) return;
+    // TODO: actions validation
     label.setOnDragDetected(
         dragEvent -> {
-          Dragboard dragboard = label.startDragAndDrop(TransferMode.ANY);
+          Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
           dragboard.setDragView(label.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
 
           ClipboardContent content = new ClipboardContent();
@@ -80,7 +100,7 @@ public class BuilderViewController {
     target.setOnDragOver(
         dragEvent -> {
           if (dragEvent.getGestureSource() != target && dragEvent.getDragboard().hasString()) {
-            dragEvent.acceptTransferModes(TransferMode.COPY_OR_MOVE);
+            dragEvent.acceptTransferModes(TransferMode.MOVE);
           }
           dragEvent.consume();
         });
@@ -93,10 +113,7 @@ public class BuilderViewController {
           if (dragboard.hasString()) {
             String actionText = dragboard.getString();
 
-            Label actionLabel = new Label(actionText);
-            setupDrag(actionLabel);
-
-            target.getChildren().add(actionLabel);
+            builderViewModel.addAction(actionText);
             success = true;
           }
 
@@ -110,8 +127,8 @@ public class BuilderViewController {
         .textProperty()
         .addListener(
             (_, _, newValue) -> {
-              actionsVBox.getChildren().clear();
               String filter = newValue.toLowerCase();
+              actionsVBox.getChildren().clear();
               builderViewModel
                   .getActionToTypeMap()
                   .forEach(
@@ -178,7 +195,6 @@ public class BuilderViewController {
 
   private void fillBuilderWithActionsOfSequence(String sequenceName) {
     List<String> actions = builderViewModel.getActionsOfSequence(sequenceName);
-    builderVBox.getChildren().clear();
-    actions.forEach(action -> builderVBox.getChildren().add(new Label(action)));
+    builderViewModel.setActions(actions);
   }
 }
