@@ -61,7 +61,7 @@
                         </VBox>
                     </children>
                 </VBox>
-                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                <VBox fx:id="builderVBox" alignment="CENTER" prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
                     <children>
                         <VBox prefHeight="298.0" prefWidth="399.0"/>
                     </children>

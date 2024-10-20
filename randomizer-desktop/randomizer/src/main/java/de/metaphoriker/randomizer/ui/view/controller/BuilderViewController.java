@@ -3,6 +3,7 @@ package de.metaphoriker.randomizer.ui.view.controller;
 import com.google.inject.Inject;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
+import java.util.List;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -16,6 +17,7 @@ public class BuilderViewController {
 
   @FXML private VBox actionsVBox;
   @FXML private VBox actionSequencesVBox;
+  @FXML private VBox builderVBox;
 
   @Inject
   public BuilderViewController(BuilderViewModel builderViewModel) {
@@ -24,8 +26,18 @@ public class BuilderViewController {
   }
 
   private void initialize() {
+    setupBindings();
     fillActions();
     fillActionSequences();
+  }
+
+  private void setupBindings() {
+    builderViewModel
+        .getCurrentActionSequenceProperty()
+        .addListener(
+            (_, _, newSequenceName) -> {
+              fillBuilderWithActionsOfSequence(newSequenceName);
+            });
   }
 
   private void fillActions() {
@@ -69,7 +81,19 @@ public class BuilderViewController {
         .forEach(
             actionSequence -> {
               Label label = new Label(actionSequence);
+              label.setOnMouseClicked(
+                  _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
               actionSequencesVBox.getChildren().add(label);
             });
+  }
+
+  private void fillBuilderWithActionsOfSequence(String sequenceName) {
+    List<String> actions = builderViewModel.getActionsOfSequence(sequenceName);
+    builderVBox.getChildren().clear();
+    actions.forEach(
+        action -> {
+          Label label = new Label(action);
+          builderVBox.getChildren().add(label);
+        });
   }
 }
