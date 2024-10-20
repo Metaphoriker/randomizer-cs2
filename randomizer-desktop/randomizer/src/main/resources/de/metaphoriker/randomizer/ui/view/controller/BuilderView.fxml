@@ -21,7 +21,7 @@
                                 <HBox alignment="CENTER" prefHeight="25.0" prefWidth="200.0">
                                     <children>
                                         <Label text="Label"/>
-                                        <HBox alignment="CENTER_RIGHT">
+                                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
                                             <children>
                                                 <TextField fx:id="searchField" prefHeight="25.0" prefWidth="100.0"/>
                                                 <Button mnemonicParsing="false"/>
