@@ -27,14 +27,13 @@ public class BuilderViewController {
   @FXML private TextField searchField;
   @FXML private VBox actionsVBox;
   @FXML private VBox actionSequencesVBox;
+  @FXML private VBox builderVBox;
 
   @Inject
   public BuilderViewController(BuilderViewModel builderViewModel) {
     this.builderViewModel = builderViewModel;
     Platform.runLater(this::initialize);
   }
-
-  @FXML private VBox builderVBox;
 
   private void setupBindings() {
     builderViewModel
@@ -44,6 +43,10 @@ public class BuilderViewController {
     builderViewModel
         .getCurrentActionsProperty()
         .addListener((ListChangeListener<String>) _ -> updateBuilderVBox());
+
+    builderVBox
+        .disableProperty()
+        .bind(builderViewModel.getCurrentActionSequenceProperty().isEmpty());
 
     setupSearchFieldListener();
   }
