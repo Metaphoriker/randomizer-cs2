@@ -76,9 +76,7 @@ public class BuilderViewModel {
               while (change.next()) {
                 if (change.wasAdded()) {
                   for (String addedItem : change.getAddedSubList()) {
-                    if (actions.stream().noneMatch(action -> action.getName().equals(addedItem))) {
-                      actions.add(actionRepository.getByName(addedItem));
-                    }
+                    actions.add(actionRepository.getByName(addedItem));
                   }
                 }
                 if (change.wasRemoved()) {
