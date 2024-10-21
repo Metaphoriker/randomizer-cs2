@@ -46,7 +46,7 @@ public abstract class Action implements Cloneable {
   private final transient ActionType actionType;
 
   private final String name;
-  private final Interval interval = Interval.of(0, 0);
+  @Setter private Interval interval = Interval.of(0, 0);
 
   @Setter(AccessLevel.PROTECTED)
   private transient volatile boolean interrupted = false;
@@ -95,11 +95,6 @@ public abstract class Action implements Cloneable {
     } finally {
       setExecuting(false);
     }
-  }
-
-  public void setInterval(Interval interval) {
-    this.interval.setMin(interval.getMin());
-    this.interval.setMax(interval.getMax());
   }
 
   public void interrupt() {
