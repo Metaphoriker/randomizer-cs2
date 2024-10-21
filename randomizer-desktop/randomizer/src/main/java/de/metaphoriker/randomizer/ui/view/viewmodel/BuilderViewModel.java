@@ -24,7 +24,6 @@ import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import lombok.Getter;
 
@@ -48,11 +47,6 @@ public class BuilderViewModel {
   private final ActionRepository actionRepository;
   private final ActionSequenceRepository actionSequenceRepository;
   private final KeyBindNameTypeMapper keyBindNameTypeMapper;
-  private final ChangeListener<Number> INTERVAL_CHANGE_LISTENER =
-      (_, _, _) ->
-          actionInFocusProperty
-              .get()
-              .setInterval(Interval.of(minIntervalProperty.get(), maxIntervalProperty.get()));
 
   @Inject
   public BuilderViewModel(
@@ -72,6 +66,7 @@ public class BuilderViewModel {
     currentActionSequenceProperty.addListener(
         (_, _, newSequence) -> {
           currentActionsProperty.clear();
+          actionInFocusProperty.set(null);
           if (newSequence != null) {
             setActions(newSequence.getActions());
             sequenceNameProperty.set(newSequence.getName());
@@ -82,16 +77,37 @@ public class BuilderViewModel {
 
   private void setupActionInFocusListener() {
     actionInFocusProperty.addListener(
-        (_, _, newAction) -> {
-          if (newAction == null) return;
-          minIntervalProperty.set(newAction.getInterval().getMin());
-          maxIntervalProperty.set(newAction.getInterval().getMax());
+        (_, oldAction, newAction) -> {
+          if (oldAction != null) {
+            oldAction.setInterval(
+                Interval.of(minIntervalProperty.get(), maxIntervalProperty.get()));
+          }
+
+          if (newAction != null) {
+            minIntervalProperty.set(newAction.getInterval().getMin());
+            maxIntervalProperty.set(newAction.getInterval().getMax());
+          }
         });
   }
 
   private void setupMinAndMaxIntervalListener() {
-    minIntervalProperty.addListener(INTERVAL_CHANGE_LISTENER);
-    maxIntervalProperty.addListener(INTERVAL_CHANGE_LISTENER);
+    minIntervalProperty.addListener(
+        (_, _, newValue) -> {
+          Action action = actionInFocusProperty.get();
+          if (action != null) {
+            Interval currentInterval = action.getInterval();
+            currentInterval.setMin(newValue.intValue());
+          }
+        });
+
+    maxIntervalProperty.addListener(
+        (_, _, newValue) -> {
+          Action action = actionInFocusProperty.get();
+          if (action != null) {
+            Interval currentInterval = action.getInterval();
+            currentInterval.setMax(newValue.intValue());
+          }
+        });
   }
 
   public void openSequenceFolder() throws IOException {
@@ -144,17 +160,6 @@ public class BuilderViewModel {
 
   public void addActionAt(Action action, int index) {
     currentActionsProperty.add(index, action);
-  }
-
-  public void setActionInterval(Action action, int min, int max) throws IllegalArgumentException {
-    if (min >= max) {
-      throw new IllegalArgumentException("Min must be smaller than max");
-    }
-
-    currentActionsProperty.stream()
-        .filter(a -> a.equals(action))
-        .findFirst()
-        .ifPresent(a -> a.setInterval(Interval.of(min, max)));
   }
 
   public void removeActionAt(int index) {

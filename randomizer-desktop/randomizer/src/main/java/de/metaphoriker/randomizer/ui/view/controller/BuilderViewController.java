@@ -62,15 +62,18 @@ public class BuilderViewController {
   }
 
   private void setupSliderBindings() {
-    minSlider
-        .valueProperty()
-        .addListener((_, _, newValue) -> minSliderLabel.setText(newValue.intValue() + " ms"));
-    minSlider.valueProperty().bindBidirectional(builderViewModel.getMinIntervalProperty());
+    minSlider.setValue(builderViewModel.getMinIntervalProperty().get());
+    maxSlider.setValue(builderViewModel.getMaxIntervalProperty().get());
 
-    maxSlider
-        .valueProperty()
-        .addListener((_, _, newValue) -> maxSliderLabel.setText(newValue.intValue() + " ms"));
+    minSlider.valueProperty().bindBidirectional(builderViewModel.getMinIntervalProperty());
+    builderViewModel
+        .getMinIntervalProperty()
+        .addListener((_, _, newValue) -> minSliderLabel.setText(newValue.intValue() + " ms"));
+
     maxSlider.valueProperty().bindBidirectional(builderViewModel.getMaxIntervalProperty());
+    builderViewModel
+        .getMaxIntervalProperty()
+        .addListener((_, _, newValue) -> maxSliderLabel.setText(newValue.intValue() + " ms"));
   }
 
   private void setupBindings() {
@@ -105,7 +108,11 @@ public class BuilderViewController {
 
     builderViewModel
         .getActionInFocusProperty()
-        .addListener((_, _, newValue) -> actionInFocusLabel.setText(newValue.getName()));
+        .addListener(
+            (_, _, newValue) -> {
+              if (newValue == null) return;
+              actionInFocusLabel.setText(newValue.getName());
+            });
 
     setupSearchFieldListener();
     setupSliderBindings();
