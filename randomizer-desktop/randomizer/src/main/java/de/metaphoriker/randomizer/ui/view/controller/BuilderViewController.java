@@ -8,7 +8,9 @@ import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
@@ -16,6 +18,8 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 @View
@@ -257,10 +261,27 @@ public class BuilderViewController {
         .getActionSequences()
         .forEach(
             actionSequence -> {
+              HBox hBox = new HBox();
               Label label = new Label(actionSequence);
               label.setOnMouseClicked(
                   _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
-              actionSequencesVBox.getChildren().add(label);
+
+              hBox.getChildren().add(label);
+              Button deleteSequenceButton = new Button("Delete");
+              deleteSequenceButton.setOnAction(
+                  event -> {
+                    builderViewModel.deleteActionSequence(actionSequence);
+                    fillActionSequences();
+                    event.consume();
+                  });
+
+              HBox buttonHBox = new HBox();
+              buttonHBox.setAlignment(Pos.CENTER_RIGHT);
+              HBox.setHgrow(buttonHBox, Priority.ALWAYS);
+              buttonHBox.getChildren().add(deleteSequenceButton);
+              hBox.getChildren().add(buttonHBox);
+
+              actionSequencesVBox.getChildren().add(hBox);
             });
   }
 
