@@ -71,6 +71,9 @@ public class BuilderViewModel {
             setActions(newSequence.getActions());
             sequenceNameProperty.set(newSequence.getName());
             sequenceDescriptionProperty.set(newSequence.getDescription());
+          } else {
+            sequenceNameProperty.set("");
+            sequenceDescriptionProperty.set("");
           }
         });
   }

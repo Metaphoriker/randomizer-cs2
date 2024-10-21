@@ -363,6 +363,8 @@ public class BuilderViewController {
               deleteSequenceButton.setOnAction(
                   event -> {
                     builderViewModel.deleteActionSequence(actionSequence);
+                    if (builderViewModel.getCurrentActionSequenceProperty().get() == actionSequence)
+                      builderViewModel.getCurrentActionSequenceProperty().set(null);
                     fillActionSequences();
                     event.consume();
                   });
@@ -378,6 +380,7 @@ public class BuilderViewController {
   }
 
   private void fillBuilderWithActionsOfSequence(ActionSequence sequence) {
+    if (sequence == null) return;
     List<Action> actions = builderViewModel.getActionsOfSequence(sequence);
     builderViewModel.setActions(actions);
   }
