@@ -118,7 +118,9 @@ public class BuilderViewController {
         .addListener(
             (_, _, newValue) -> {
               String description = newValue;
-              if (description.isEmpty()) description = "No description provided";
+              if (description.isEmpty()
+                  && builderViewModel.getCurrentActionSequenceProperty().get() != null)
+                description = "No description provided";
               sequenceDescriptionLabel.setText(description);
             });
 
@@ -358,7 +360,12 @@ public class BuilderViewController {
               deleteSequenceButton.setOnAction(
                   event -> {
                     builderViewModel.deleteActionSequence(actionSequence);
-                    if (builderViewModel.getCurrentActionSequenceProperty().get() == actionSequence)
+                    if (builderViewModel.getCurrentActionSequenceProperty().get() != null
+                        && builderViewModel
+                            .getCurrentActionSequenceProperty()
+                            .get()
+                            .getName()
+                            .equalsIgnoreCase(actionSequence.getName()))
                       builderViewModel.getCurrentActionSequenceProperty().set(null);
                     fillActionSequences();
                     event.consume();
