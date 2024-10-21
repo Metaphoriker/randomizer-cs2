@@ -8,6 +8,9 @@ import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.action.value.Interval;
 import de.metaphoriker.model.config.keybind.KeyBindNameTypeMapper;
 import de.metaphoriker.model.config.keybind.KeyBindType;
+import de.metaphoriker.model.persistence.dao.ActionSequenceDao;
+import java.awt.*;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -75,6 +78,10 @@ public class BuilderViewModel {
     actionSequence.setActions(actions);
     actionSequence.setDescription(currentActionSequenceDescriptionProperty.get());
     return actionSequence;
+  }
+
+  public void openSequenceFolder() throws IOException {
+    Desktop.getDesktop().open(ActionSequenceDao.ACTION_SEQUENCE_FOLDER);
   }
 
   public void createNewActionSequence() {

@@ -3,6 +3,7 @@ package de.metaphoriker.randomizer.ui.view.controller;
 import com.google.inject.Inject;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
+import java.io.IOException;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -75,6 +76,15 @@ public class BuilderViewController {
   void onAddSequence(ActionEvent event) {
     builderViewModel.createNewActionSequence();
     fillActionSequences();
+  }
+
+  @FXML
+  void onOpenSequenceFolder(ActionEvent event) {
+    try {
+      builderViewModel.openSequenceFolder();
+    } catch (IOException e) {
+      throw new RuntimeException(e); // TODO: send alert
+    }
   }
 
   private void initialize() {
