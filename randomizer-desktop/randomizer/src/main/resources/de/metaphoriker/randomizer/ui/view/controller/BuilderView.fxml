@@ -135,14 +135,14 @@
                                         <Label text="Time Frame"/>
                                         <Label text="Sets the time frame how long the Action should last"
                                                wrapText="true"/>
-                                        <HBox prefHeight="25.0" prefWidth="200.0">
+                                        <HBox prefHeight="25.0" prefWidth="200.0" spacing="5.0">
                                             <children>
                                                 <Label text="Minimum Value:"/>
                                                 <Label fx:id="minSliderLabel" text="0 ms"/>
                                             </children>
                                         </HBox>
                                         <Slider fx:id="minSlider" max="10000.0"/>
-                                        <HBox prefHeight="25.0" prefWidth="200.0">
+                                        <HBox prefHeight="25.0" prefWidth="200.0" spacing="5.0">
                                             <children>
                                                 <Label text="Maximum Value:"/>
                                                 <Label fx:id="maxSliderLabel" text="0 ms"/>
@@ -153,6 +153,9 @@
                                 </VBox>
                                 <Separator prefWidth="200.0"/>
                             </children>
+                            <padding>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                            </padding>
                         </VBox>
                     </children>
                 </VBox>
