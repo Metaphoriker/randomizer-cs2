@@ -66,14 +66,35 @@ public class BuilderViewController {
     maxSlider.setValue(builderViewModel.getMaxIntervalProperty().get());
 
     minSlider.valueProperty().bindBidirectional(builderViewModel.getMinIntervalProperty());
-    builderViewModel
-        .getMinIntervalProperty()
-        .addListener((_, _, newValue) -> minSliderLabel.setText(newValue.intValue() + " ms"));
-
     maxSlider.valueProperty().bindBidirectional(builderViewModel.getMaxIntervalProperty());
-    builderViewModel
-        .getMaxIntervalProperty()
-        .addListener((_, _, newValue) -> maxSliderLabel.setText(newValue.intValue() + " ms"));
+
+    minSlider
+        .valueProperty()
+        .addListener(
+            (_, _, newValue) -> {
+              int minValue = newValue.intValue();
+              int maxValue = builderViewModel.getMaxIntervalProperty().get();
+
+              if (minValue > maxValue) {
+                builderViewModel.getMaxIntervalProperty().set(Math.max(minValue + 1, maxValue));
+              }
+
+              minSliderLabel.setText(minValue + " ms");
+            });
+
+    maxSlider
+        .valueProperty()
+        .addListener(
+            (_, _, newValue) -> {
+              int maxValue = newValue.intValue();
+              int minValue = builderViewModel.getMinIntervalProperty().get();
+
+              if (maxValue < minValue) {
+                builderViewModel.getMinIntervalProperty().set(Math.min(maxValue - 1, minValue));
+              }
+
+              maxSliderLabel.setText(maxValue + " ms");
+            });
   }
 
   private void setupBindings() {
