@@ -123,6 +123,8 @@ public class BuilderViewController {
         .forEach(
             actionText -> {
               Label actionLabel = new Label(actionText);
+              actionLabel.setOnMouseClicked(
+                  _ -> builderViewModel.getActionInFocusProperty().set(actionText));
               setupDragAlreadyDropped(actionLabel); // setup special drag within listview
               builderVBox.getChildren().add(actionLabel);
             });
@@ -131,7 +133,7 @@ public class BuilderViewController {
   private void setupDrag(Label label) {
     if (label.getText() == null || label.getText().isEmpty()) return;
 
-    label.setCursor(Cursor.OPEN_HAND);
+    label.setCursor(Cursor.HAND);
     label.setOnDragDetected(
         dragEvent -> {
           Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
