@@ -208,7 +208,20 @@ public class BuilderViewController {
   }
 
   private void setupDragAlreadyDropped(Label label, Action action) {
-    setupDrag(label, action);
+    label.setCursor(Cursor.HAND);
+    label.setOnDragDetected(
+        dragEvent -> {
+          Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
+          dragboard.setDragView(label.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
+
+          ClipboardContent content = new ClipboardContent();
+          String serializedAction = jsonUtil.serialize(action);
+          builderViewModel.removeAction(action);
+          content.putString(serializedAction);
+
+          dragboard.setContent(content);
+          dragEvent.consume();
+        });
 
     label.setOnDragDropped(
         dragEvent -> {
