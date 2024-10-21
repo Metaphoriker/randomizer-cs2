@@ -88,7 +88,7 @@ public class BuilderViewController {
     try {
       builderViewModel.openSequenceFolder();
     } catch (IOException e) {
-      throw new RuntimeException(e); // TODO: send alert
+      throw new IllegalStateException("Konnte Sequencefolder nicht öffnen, Fehler:", e);
     }
   }
 
