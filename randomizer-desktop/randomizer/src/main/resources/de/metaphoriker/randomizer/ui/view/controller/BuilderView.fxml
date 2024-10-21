@@ -79,8 +79,8 @@
                                                 <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="100.0"
                                                       BorderPane.alignment="CENTER">
                                                     <children>
-                                                        <Label fx:id="sequenceNameLabel" text="Label"/>
-                                                        <Label fx:id="sequenceDescriptionLabel" text="Label"/>
+                                                        <Label fx:id="sequenceNameLabel"/>
+                                                        <Label fx:id="sequenceDescriptionLabel"/>
                                                     </children>
                                                     <padding>
                                                         <Insets left="5.0" top="5.0"/>
@@ -128,7 +128,7 @@
                     <children>
                         <VBox fx:id="actionSettingsVBox" prefHeight="200.0" prefWidth="100.0">
                             <children>
-                                <Label fx:id="actionInFocusLabel" text="Label"/>
+                                <Label fx:id="actionInFocusLabel"/>
                                 <Separator prefWidth="200.0"/>
                                 <VBox prefHeight="200.0" prefWidth="100.0">
                                     <children>
