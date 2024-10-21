@@ -36,6 +36,7 @@ public class RandomizerApplication extends Application {
     Scene scene = new Scene(root);
     stage.setTitle("Randomizer");
     stage.getIcons().add(ImageUtil.getRawImage("images/randomizerLogo.jpg"));
+    scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     stage.setMinWidth(MIN_WIDTH);
     stage.setMinHeight(MIN_HEIGHT);
     stage.setOnCloseRequest(_ -> System.exit(0));
