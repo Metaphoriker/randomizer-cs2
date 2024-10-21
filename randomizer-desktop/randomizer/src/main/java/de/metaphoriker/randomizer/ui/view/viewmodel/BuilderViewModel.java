@@ -91,9 +91,9 @@ public class BuilderViewModel {
   }
 
   private ActionSequence craftActionSequence() {
-    ActionSequence actionSequence =
-        new ActionSequence(currentActionSequenceProperty.get().getName());
+    ActionSequence actionSequence = new ActionSequence(sequenceNameProperty.get());
     actionSequence.setActions(new ArrayList<>(actions));
+    actionSequence.setDescription(sequenceDescriptionProperty.get());
     return actionSequence;
   }
 
