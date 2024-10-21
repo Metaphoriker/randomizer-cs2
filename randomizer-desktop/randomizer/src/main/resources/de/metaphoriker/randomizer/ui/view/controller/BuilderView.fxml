@@ -47,7 +47,8 @@
                                         <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="122.0"
                                               HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Button fx:id="addSequenceButton" mnemonicParsing="false"/>
+                                                <Button fx:id="addSequenceButton" mnemonicParsing="false"
+                                                        onAction="#onAddSequence"/>
                                                 <Button fx:id="sequenceFolderButton" mnemonicParsing="false"/>
                                             </children>
                                         </HBox>

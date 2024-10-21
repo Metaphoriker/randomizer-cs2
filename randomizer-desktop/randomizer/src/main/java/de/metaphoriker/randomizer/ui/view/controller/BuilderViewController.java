@@ -67,6 +67,12 @@ public class BuilderViewController {
     builderViewModel.getCurrentActionSequenceProperty().set("");
   }
 
+  @FXML
+  void onAddSequence(ActionEvent event) {
+    builderViewModel.createNewActionSequence();
+    fillActionSequences();
+  }
+
   private void initialize() {
     setupBindings();
     fillActions();
@@ -246,6 +252,7 @@ public class BuilderViewController {
   }
 
   private void fillActionSequences() {
+    actionSequencesVBox.getChildren().clear();
     builderViewModel
         .getActionSequences()
         .forEach(

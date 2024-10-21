@@ -77,6 +77,19 @@ public class BuilderViewModel {
     return actionSequence;
   }
 
+  public void createNewActionSequence() {
+    int sequenceCount = 1;
+    String name = "Unnamed " + sequenceCount;
+    while (actionSequenceRepository.getActionSequence(name).isPresent()) {
+      sequenceCount++;
+      name = "Unnamed " + sequenceCount;
+    }
+
+    ActionSequence actionSequence = new ActionSequence(name);
+    actionSequenceRepository.saveActionSequence(actionSequence);
+    currentActionSequenceProperty.set(name);
+  }
+
   public void addRandomActions(int count) {
     Set<Action> allActions = actionRepository.getActions().keySet();
     for (int i = 0; i < ThreadLocalRandom.current().nextInt(1, count); i++) {
