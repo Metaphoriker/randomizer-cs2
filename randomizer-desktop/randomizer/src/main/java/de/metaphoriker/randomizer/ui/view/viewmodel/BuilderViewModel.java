@@ -119,23 +119,42 @@ public class BuilderViewModel {
         .ifPresent(actionSequenceRepository::deleteActionSequence);
   }
 
+  private final ListChangeListener<String> LIST_CHANGE_LISTENER =
+      change -> {
+        while (change.next()) {
+          if (change.wasAdded()) {
+            handleAddedItems(change.getAddedSubList());
+          }
+          if (change.wasRemoved()) {
+            handleRemovedItems(change.getRemoved());
+          }
+          if (change.wasReplaced() || change.wasUpdated()) {
+            handleReplacedOrUpdatedItems();
+          }
+        }
+      };
+
   private void registerListsListener() {
-    currentActionsProperty.addListener(
-        (ListChangeListener<String>)
-            change -> {
-              while (change.next()) {
-                if (change.wasAdded()) {
-                  for (String addedItem : change.getAddedSubList()) {
-                    actions.add(actionRepository.getByName(addedItem));
-                  }
-                }
-                if (change.wasRemoved()) {
-                  for (String removedItem : change.getRemoved()) {
-                    actions.removeIf(action -> action.getName().equals(removedItem));
-                  }
-                }
-              }
-            });
+    currentActionsProperty.addListener(LIST_CHANGE_LISTENER);
+  }
+
+  private void handleAddedItems(List<? extends String> addedItems) {
+    for (String addedItem : addedItems) {
+      actions.add(actionRepository.getByName(addedItem));
+    }
+  }
+
+  private void handleRemovedItems(List<? extends String> removedItems) {
+    for (String removedItem : removedItems) {
+      actions.removeIf(action -> action.getName().equals(removedItem));
+    }
+  }
+
+  private void handleReplacedOrUpdatedItems() {
+    actions.clear();
+    for (String item : currentActionsProperty) {
+      actions.add(actionRepository.getByName(item));
+    }
   }
 
   public void addAction(String action) {
