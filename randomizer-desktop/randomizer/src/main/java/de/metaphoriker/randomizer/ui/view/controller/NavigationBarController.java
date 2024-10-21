@@ -18,7 +18,6 @@ public class NavigationBarController {
 
   @FXML private ToggleButton randomizerButton;
   @FXML private ToggleButton builderButton;
-  @FXML private ToggleButton settingsButton;
 
   @Inject
   public NavigationBarController(
@@ -49,16 +48,11 @@ public class NavigationBarController {
   private void setupGraphics() {
     randomizerButton.setGraphic(ImageUtil.getImageView("images/randomizerIcon.png"));
     builderButton.setGraphic(ImageUtil.getImageView("images/randomizerIcon.png"));
-    settingsButton.setGraphic(ImageUtil.getImageView("images/randomizerIcon.png"));
   }
 
   private void setupToggleButtonLogic() {
-    addToggleButtonListener(
-        randomizerButton, RandomizerViewController.class, builderButton, settingsButton);
-    addToggleButtonListener(
-        builderButton, BuilderViewController.class, randomizerButton, settingsButton);
-    addToggleButtonListener(
-        settingsButton, SettingsViewController.class, randomizerButton, builderButton);
+    addToggleButtonListener(randomizerButton, RandomizerViewController.class, builderButton);
+    addToggleButtonListener(builderButton, BuilderViewController.class, randomizerButton);
   }
 
   private void addToggleButtonListener(
@@ -70,8 +64,7 @@ public class NavigationBarController {
 
   private ChangeListener<Boolean> createToggleButtonListener(
       ToggleButton button, Class<?> newView, ToggleButton... otherButtons) {
-    return (observable, wasSelected, isSelected) ->
-        handleToggleSelection(button, newView, isSelected, otherButtons);
+    return (_, _, isSelected) -> handleToggleSelection(button, newView, isSelected, otherButtons);
   }
 
   private void handleToggleSelection(
