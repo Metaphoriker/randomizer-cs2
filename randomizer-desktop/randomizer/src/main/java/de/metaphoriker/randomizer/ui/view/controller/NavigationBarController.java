@@ -1,7 +1,6 @@
 package de.metaphoriker.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
-import de.metaphoriker.randomizer.ui.util.ImageUtil;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
 import de.metaphoriker.randomizer.ui.view.viewmodel.NavigationBarViewModel;
@@ -29,7 +28,6 @@ public class NavigationBarController {
   }
 
   private void initialize() {
-    setupGraphics();
     setupBindings();
     setupToggleButtonLogic();
   }
@@ -43,11 +41,6 @@ public class NavigationBarController {
                 viewProvider.triggerViewChange(newView);
               }
             });
-  }
-
-  private void setupGraphics() {
-    randomizerButton.setGraphic(ImageUtil.getImageView("images/homeIcon.png"));
-    builderButton.setGraphic(ImageUtil.getImageView("images/builderIcon.png"));
   }
 
   private void setupToggleButtonLogic() {

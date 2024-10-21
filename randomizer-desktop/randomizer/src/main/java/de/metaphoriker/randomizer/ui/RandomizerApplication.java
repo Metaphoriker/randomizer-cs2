@@ -1,13 +1,13 @@
 package de.metaphoriker.randomizer.ui;
 
 import de.metaphoriker.randomizer.Main;
-import de.metaphoriker.randomizer.ui.util.ImageUtil;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
 import de.metaphoriker.randomizer.ui.view.controller.RandomizerWindowController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -35,7 +35,7 @@ public class RandomizerApplication extends Application {
     Parent root = viewProvider.requestView(RandomizerWindowController.class).parent();
     Scene scene = new Scene(root);
     stage.setTitle("Randomizer");
-    stage.getIcons().add(ImageUtil.getRawImage("images/randomizerLogo.jpg"));
+    stage.getIcons().add(new Image("de/metaphoriker/randomizer/images/randomizerLogo.jpg"));
     scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     stage.setMinWidth(MIN_WIDTH);
     stage.setMinHeight(MIN_HEIGHT);

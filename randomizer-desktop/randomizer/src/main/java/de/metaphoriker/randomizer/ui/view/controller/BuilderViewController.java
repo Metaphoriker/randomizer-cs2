@@ -5,7 +5,6 @@ import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.config.keybind.KeyBindType;
 import de.metaphoriker.model.persistence.JsonUtil;
-import de.metaphoriker.randomizer.ui.util.ImageUtil;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import java.io.IOException;
@@ -40,19 +39,14 @@ public class BuilderViewController {
   @FXML private Label actionInFocusLabel;
   @FXML private VBox actionSequencesVBox;
   @FXML private VBox actionSettingsVBox;
-  @FXML private Button actionsClearButton;
   @FXML private VBox actionsVBox;
-  @FXML private Button addSequenceButton;
   @FXML private VBox builderVBox;
   @FXML private Slider maxSlider;
   @FXML private Label maxSliderLabel;
   @FXML private Slider minSlider;
   @FXML private Label minSliderLabel;
-  @FXML private Button randomizeButton;
-  @FXML private Button saveSequenceButton;
   @FXML private TextField searchField;
   @FXML private Label sequenceDescriptionLabel;
-  @FXML private Button sequenceFolderButton;
   @FXML private Label sequenceNameLabel;
 
   @Inject
@@ -60,14 +54,6 @@ public class BuilderViewController {
     this.builderViewModel = builderViewModel;
     this.jsonUtil = jsonUtil;
     Platform.runLater(this::initialize);
-  }
-
-  private void setupGraphics() {
-    actionsClearButton.setGraphic(ImageUtil.getImageView("images/deleteIcon.png"));
-    addSequenceButton.setGraphic(ImageUtil.getImageView("images/addSequenceIcon.png"));
-    randomizeButton.setGraphic(ImageUtil.getImageView("images/shuffleIcon.png"));
-    saveSequenceButton.setGraphic(ImageUtil.getImageView("images/saveIcon.png"));
-    sequenceFolderButton.setGraphic(ImageUtil.getImageView("images/folderIcon.png"));
   }
 
   private void setupSliderBindings() {
@@ -184,7 +170,6 @@ public class BuilderViewController {
     fillActions();
     fillActionSequences();
     setupDrop(builderVBox);
-    setupGraphics();
   }
 
   private void updateBuilderVBox() {
@@ -369,8 +354,7 @@ public class BuilderViewController {
                   _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
 
               hBox.getChildren().add(label);
-              Button deleteSequenceButton = new Button();
-              deleteSequenceButton.setGraphic(ImageUtil.getImageView("images/deleteIcon.png"));
+              Button deleteSequenceButton = new Button("DEL");
               deleteSequenceButton.setOnAction(
                   event -> {
                     builderViewModel.deleteActionSequence(actionSequence);
