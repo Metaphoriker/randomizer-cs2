@@ -53,7 +53,6 @@ public class BuilderViewController {
   @FXML private TextField searchField;
   @FXML private Label sequenceDescriptionLabel;
   @FXML private Button sequenceFolderButton;
-  @FXML private Button searchButton;
   @FXML private Label sequenceNameLabel;
 
   @Inject
@@ -69,7 +68,6 @@ public class BuilderViewController {
     randomizeButton.setGraphic(ImageUtil.getImageView("images/shuffleIcon.png"));
     saveSequenceButton.setGraphic(ImageUtil.getImageView("images/saveIcon.png"));
     sequenceFolderButton.setGraphic(ImageUtil.getImageView("images/folderIcon.png"));
-    searchButton.setGraphic(ImageUtil.getImageView("images/searchIcon.png"));
   }
 
   private void setupSliderBindings() {
