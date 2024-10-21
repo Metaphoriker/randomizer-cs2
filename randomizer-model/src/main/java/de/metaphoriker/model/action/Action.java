@@ -49,12 +49,15 @@ public abstract class Action implements Cloneable {
   @Setter private Interval interval = Interval.of(0, 0);
 
   @Setter(AccessLevel.PROTECTED)
+  @ToString.Exclude
   private transient volatile boolean interrupted = false;
 
   @Setter(AccessLevel.PROTECTED)
+  @ToString.Exclude
   private transient volatile boolean executing = false;
 
   @Setter(AccessLevel.PROTECTED)
+  @ToString.Exclude
   private transient volatile Instant expectedEnding = null;
 
   public Action(String name, ActionKey actionKey) {
