@@ -30,6 +30,8 @@ public class BuilderViewModel {
 
   @Getter private final StringProperty currentActionSequenceProperty = new SimpleStringProperty();
 
+  @Getter private final StringProperty actionInFocusProperty = new SimpleStringProperty();
+
   @Getter
   private final ListProperty<String> currentActionsProperty =
       new SimpleListProperty<>(FXCollections.observableArrayList());

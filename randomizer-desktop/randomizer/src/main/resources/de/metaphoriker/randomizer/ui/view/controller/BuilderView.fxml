@@ -5,6 +5,7 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.Slider?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.BorderPane?>
@@ -123,7 +124,37 @@
                         </HBox>
                     </children>
                 </VBox>
-                <VBox prefHeight="200.0" prefWidth="150.0"/>
+                <VBox prefHeight="200.0" prefWidth="150.0">
+                    <children>
+                        <VBox fx:id="actionSettingsVBox" prefHeight="200.0" prefWidth="100.0">
+                            <children>
+                                <Label text="Label"/>
+                                <Separator prefWidth="200.0"/>
+                                <VBox prefHeight="200.0" prefWidth="100.0">
+                                    <children>
+                                        <Label text="Label"/>
+                                        <Label text="Label"/>
+                                        <HBox prefHeight="25.0" prefWidth="200.0">
+                                            <children>
+                                                <Label text="Label"/>
+                                                <Label text="Label"/>
+                                            </children>
+                                        </HBox>
+                                        <Slider/>
+                                        <HBox prefHeight="25.0" prefWidth="200.0">
+                                            <children>
+                                                <Label text="Label"/>
+                                                <Label text="Label"/>
+                                            </children>
+                                        </HBox>
+                                        <Slider/>
+                                    </children>
+                                </VBox>
+                                <Separator prefWidth="200.0"/>
+                            </children>
+                        </VBox>
+                    </children>
+                </VBox>
             </children>
         </HBox>
     </children>

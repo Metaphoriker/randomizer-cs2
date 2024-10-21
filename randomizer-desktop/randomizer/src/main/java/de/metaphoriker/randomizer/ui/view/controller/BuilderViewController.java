@@ -33,6 +33,7 @@ public class BuilderViewController {
   @FXML private VBox actionsVBox;
   @FXML private VBox actionSequencesVBox;
   @FXML private VBox builderVBox;
+  @FXML private VBox actionSettingsVBox;
 
   @Inject
   public BuilderViewController(BuilderViewModel builderViewModel) {
@@ -52,6 +53,10 @@ public class BuilderViewController {
     builderVBox
         .disableProperty()
         .bind(builderViewModel.getCurrentActionSequenceProperty().isEmpty());
+
+    actionSettingsVBox
+        .visibleProperty()
+        .bind(builderViewModel.getActionInFocusProperty().isNotEmpty());
 
     setupSearchFieldListener();
   }
