@@ -33,7 +33,7 @@
                                     </children>
                                 </HBox>
                                 <Separator prefWidth="200.0"/>
-                                <ScrollPane hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                <ScrollPane hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                                     <content>
                                         <VBox fx:id="actionsVBox" prefHeight="215.0" prefWidth="134.0"/>
                                     </content>
@@ -57,7 +57,7 @@
                                     </children>
                                 </HBox>
                                 <Separator prefWidth="200.0"/>
-                                <ScrollPane hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                <ScrollPane hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                                     <content>
                                         <VBox fx:id="actionSequencesVBox" prefHeight="215.0" prefWidth="134.0"/>
                                     </content>
