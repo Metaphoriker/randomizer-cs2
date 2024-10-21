@@ -26,13 +26,13 @@ public class BuilderViewController {
   @FXML private TextField searchField;
   @FXML private VBox actionsVBox;
   @FXML private VBox actionSequencesVBox;
-  int currentDraggedIndex = -1;
 
   @Inject
   public BuilderViewController(BuilderViewModel builderViewModel) {
     this.builderViewModel = builderViewModel;
     Platform.runLater(this::initialize);
   }
+
   @FXML private VBox builderVBox;
 
   private void setupBindings() {
@@ -94,8 +94,6 @@ public class BuilderViewController {
 
           ClipboardContent content = new ClipboardContent();
           content.putString(label.getText());
-
-          currentDraggedIndex = builderVBox.getChildren().indexOf(label);
 
           dragboard.setContent(content);
           dragEvent.consume();
