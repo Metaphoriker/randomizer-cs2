@@ -46,8 +46,8 @@ public class NavigationBarController {
   }
 
   private void setupGraphics() {
-    randomizerButton.setGraphic(ImageUtil.getImageView("images/randomizerIcon.png"));
-    builderButton.setGraphic(ImageUtil.getImageView("images/randomizerIcon.png"));
+    randomizerButton.setGraphic(ImageUtil.getImageView("images/homeIcon.png"));
+    builderButton.setGraphic(ImageUtil.getImageView("images/builderIcon.png"));
   }
 
   private void setupToggleButtonLogic() {

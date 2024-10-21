@@ -5,6 +5,7 @@ import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.config.keybind.KeyBindType;
 import de.metaphoriker.model.persistence.JsonUtil;
+import de.metaphoriker.randomizer.ui.util.ImageUtil;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import java.io.IOException;
@@ -59,6 +60,14 @@ public class BuilderViewController {
     this.builderViewModel = builderViewModel;
     this.jsonUtil = jsonUtil;
     Platform.runLater(this::initialize);
+  }
+
+  private void setupGraphics() {
+    actionsClearButton.setGraphic(ImageUtil.getImageView("images/deleteIcon.png"));
+    addSequenceButton.setGraphic(ImageUtil.getImageView("images/addSequenceIcon.png"));
+    randomizeButton.setGraphic(ImageUtil.getImageView("images/shuffleIcon.png"));
+    saveSequenceButton.setGraphic(ImageUtil.getImageView("images/saveIcon.png"));
+    sequenceFolderButton.setGraphic(ImageUtil.getImageView("images/folderIcon.png"));
   }
 
   private void setupSliderBindings() {
@@ -175,6 +184,7 @@ public class BuilderViewController {
     fillActions();
     fillActionSequences();
     setupDrop(builderVBox);
+    setupGraphics();
   }
 
   private void updateBuilderVBox() {
@@ -359,7 +369,8 @@ public class BuilderViewController {
                   _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
 
               hBox.getChildren().add(label);
-              Button deleteSequenceButton = new Button("Delete");
+              Button deleteSequenceButton = new Button();
+              deleteSequenceButton.setGraphic(ImageUtil.getImageView("images/deleteIcon.png"));
               deleteSequenceButton.setOnAction(
                   event -> {
                     builderViewModel.deleteActionSequence(actionSequence);
