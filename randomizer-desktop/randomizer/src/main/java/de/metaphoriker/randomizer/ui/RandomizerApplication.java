@@ -7,6 +7,7 @@ import de.metaphoriker.randomizer.ui.view.controller.RandomizerWindowController;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
 
@@ -20,6 +21,7 @@ public class RandomizerApplication extends Application {
   public void start(Stage stage) {
     log.debug("Starte Randomizer...");
     try {
+      Thread.setDefaultUncaughtExceptionHandler(new UIUncaughtExceptionHandler());
       buildAndShowApplication(stage);
       log.debug("Hauptfenster angezeigt");
     } catch (Exception e) {
@@ -39,5 +41,23 @@ public class RandomizerApplication extends Application {
     stage.setOnCloseRequest(_ -> System.exit(0));
     stage.setScene(scene);
     stage.show();
+  }
+
+  public static class UIUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
+    @Override
+    public void uncaughtException(Thread t, Throwable e) {
+      log.error("Unexpected error", e);
+      Alert alert = new Alert(Alert.AlertType.ERROR);
+      alert.setTitle("An unexpected error occured");
+      alert.setHeaderText("Please open an Issue on GitHub with the following text:");
+      alert.setContentText(e.toString());
+      Throwable cause = e.getCause();
+      while (cause != null) {
+        e = cause;
+        cause = e.getCause();
+      }
+      alert.setContentText("An unexpected error occurred:\n" + e);
+      alert.showAndWait();
+    }
   }
 }
