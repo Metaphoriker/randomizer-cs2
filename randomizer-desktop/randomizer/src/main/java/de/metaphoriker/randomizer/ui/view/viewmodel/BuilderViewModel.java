@@ -20,6 +20,8 @@ import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
+import javafx.beans.property.SimpleStringProperty;
+import javafx.beans.property.StringProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -36,6 +38,9 @@ public class BuilderViewModel {
   @Getter
   private final ListProperty<Action> currentActionsProperty =
       new SimpleListProperty<>(FXCollections.observableArrayList());
+
+  @Getter private final StringProperty sequenceNameProperty = new SimpleStringProperty();
+  @Getter private final StringProperty sequenceDescriptionProperty = new SimpleStringProperty();
 
   private final ObservableList<Action> actions = FXCollections.observableArrayList();
 
@@ -55,6 +60,7 @@ public class BuilderViewModel {
     bindActionSequenceChange();
     registerListsListener();
   }
+
   private final ListChangeListener<Action> LIST_CHANGE_LISTENER =
       change -> {
         while (change.next()) {
@@ -74,6 +80,8 @@ public class BuilderViewModel {
           currentActionsProperty.clear();
           if (newSequence != null) {
             setActions(newSequence.getActions());
+            sequenceNameProperty.set(newSequence.getName());
+            sequenceDescriptionProperty.set(newSequence.getDescription());
           }
         });
   }

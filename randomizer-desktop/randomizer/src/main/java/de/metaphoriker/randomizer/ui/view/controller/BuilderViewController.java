@@ -40,6 +40,8 @@ public class BuilderViewController {
   @FXML private VBox actionSequencesVBox;
   @FXML private VBox builderVBox;
   @FXML private VBox actionSettingsVBox;
+  @FXML private Label sequenceNameLabel;
+  @FXML private Label sequenceDescriptionLabel;
 
   @Inject
   public BuilderViewController(BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
@@ -64,6 +66,19 @@ public class BuilderViewController {
     actionSettingsVBox
         .visibleProperty()
         .bind(builderViewModel.getActionInFocusProperty().isNotNull());
+
+    builderViewModel
+        .getSequenceNameProperty()
+        .addListener((_, _, newValue) -> sequenceNameLabel.setText(newValue));
+
+    builderViewModel
+        .getSequenceDescriptionProperty()
+        .addListener(
+            (_, _, newValue) -> {
+              String description = newValue;
+              if (description.isEmpty()) description = "No description provided";
+              sequenceDescriptionLabel.setText(description);
+            });
 
     setupSearchFieldListener();
   }

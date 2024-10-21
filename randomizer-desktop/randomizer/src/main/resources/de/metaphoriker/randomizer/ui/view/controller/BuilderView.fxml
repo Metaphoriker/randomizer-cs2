@@ -79,8 +79,8 @@
                                                 <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="100.0"
                                                       BorderPane.alignment="CENTER">
                                                     <children>
-                                                        <Label text="Label"/>
-                                                        <Label text="Label"/>
+                                                        <Label fx:id="sequenceNameLabel" text="Label"/>
+                                                        <Label fx:id="sequenceDescriptionLabel" text="Label"/>
                                                     </children>
                                                     <padding>
                                                         <Insets left="5.0" top="5.0"/>
