@@ -48,7 +48,24 @@ public class BuilderViewModel {
     this.actionSequenceRepository = actionSequenceRepository;
     this.keyBindNameTypeMapper = keyBindNameTypeMapper;
 
+    bindActionSequenceChange();
     registerListsListener();
+  }
+
+  private void bindActionSequenceChange() {
+    currentActionSequenceProperty.addListener(
+        (_, _, newSequence) -> {
+          actions.clear();
+          currentActionsProperty.clear();
+          currentActionSequenceDescriptionProperty.set("");
+
+          ActionSequence actionSequence =
+              actionSequenceRepository.getActionSequence(newSequence).orElse(null);
+          if (actionSequence != null) {
+            setActions(actionSequence.getActions().stream().map(Action::getName).toList());
+            currentActionSequenceDescriptionProperty.set(actionSequence.getDescription());
+          }
+        });
   }
 
   private ActionSequence craftActionSequence() {
