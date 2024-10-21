@@ -90,9 +90,14 @@
                                                     <children>
                                                         <VBox alignment="CENTER">
                                                             <children>
-                                                                <Button mnemonicParsing="false"/>
-                                                                <Button mnemonicParsing="false"/>
-                                                                <Button mnemonicParsing="false"/>
+                                                                <Button fx:id="randomizeButton" mnemonicParsing="false"
+                                                                        onAction="#onRandomize"/>
+                                                                <Button fx:id="actionsClearButton"
+                                                                        mnemonicParsing="false"
+                                                                        onAction="#onActionsClear"/>
+                                                                <Button fx:id="saveSequenceButton"
+                                                                        mnemonicParsing="false"
+                                                                        onAction="#onSaveSequence"/>
                                                             </children>
                                                         </VBox>
                                                     </children>

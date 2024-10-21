@@ -6,6 +6,7 @@ import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import java.util.List;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
@@ -45,6 +46,22 @@ public class BuilderViewController {
         .addListener((ListChangeListener<String>) _ -> updateBuilderVBox());
 
     setupSearchFieldListener();
+  }
+
+  @FXML
+  void onRandomize(ActionEvent event) {
+    builderViewModel.addRandomActions(10);
+  }
+
+  @FXML
+  void onActionsClear(ActionEvent event) {
+    builderViewModel.setActions(List.of());
+  }
+
+  @FXML
+  void onSaveSequence(ActionEvent event) {
+    builderViewModel.saveActionSequence();
+    builderViewModel.getCurrentActionSequenceProperty().set("");
   }
 
   private void initialize() {

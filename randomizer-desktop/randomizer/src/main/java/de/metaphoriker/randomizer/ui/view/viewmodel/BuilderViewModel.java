@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
+import java.util.concurrent.ThreadLocalRandom;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleStringProperty;
@@ -73,6 +75,15 @@ public class BuilderViewModel {
     actionSequence.setActions(actions);
     actionSequence.setDescription(currentActionSequenceDescriptionProperty.get());
     return actionSequence;
+  }
+
+  public void addRandomActions(int count) {
+    Set<Action> allActions = actionRepository.getActions().keySet();
+    for (int i = 0; i < ThreadLocalRandom.current().nextInt(1, count); i++) {
+      int randomIndex = (int) (Math.random() * allActions.size());
+      String randomAction = allActions.toArray(new Action[0])[randomIndex].getName();
+      currentActionsProperty.add(randomAction);
+    }
   }
 
   public void saveActionSequence() {
