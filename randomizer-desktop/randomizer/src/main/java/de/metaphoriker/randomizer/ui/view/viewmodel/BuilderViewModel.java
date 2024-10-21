@@ -16,15 +16,16 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ThreadLocalRandom;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
-import javafx.collections.ListChangeListener;
-import javafx.collections.ObservableList;
 import lombok.Getter;
 
 public class BuilderViewModel {
@@ -41,12 +42,17 @@ public class BuilderViewModel {
 
   @Getter private final StringProperty sequenceNameProperty = new SimpleStringProperty();
   @Getter private final StringProperty sequenceDescriptionProperty = new SimpleStringProperty();
-
-  private final ObservableList<Action> actions = FXCollections.observableArrayList();
+  @Getter private final IntegerProperty minIntervalProperty = new SimpleIntegerProperty();
+  @Getter private final IntegerProperty maxIntervalProperty = new SimpleIntegerProperty();
 
   private final ActionRepository actionRepository;
   private final ActionSequenceRepository actionSequenceRepository;
   private final KeyBindNameTypeMapper keyBindNameTypeMapper;
+  private final ChangeListener<Number> INTERVAL_CHANGE_LISTENER =
+      (_, _, _) ->
+          actionInFocusProperty
+              .get()
+              .setInterval(Interval.of(minIntervalProperty.get(), maxIntervalProperty.get()));
 
   @Inject
   public BuilderViewModel(
@@ -57,26 +63,14 @@ public class BuilderViewModel {
     this.actionSequenceRepository = actionSequenceRepository;
     this.keyBindNameTypeMapper = keyBindNameTypeMapper;
 
-    bindActionSequenceChange();
-    registerListsListener();
+    setupActionSequenceListener();
+    setupMinAndMaxIntervalListener();
+    setupActionInFocusListener();
   }
 
-  private final ListChangeListener<Action> LIST_CHANGE_LISTENER =
-      change -> {
-        while (change.next()) {
-          if (change.wasAdded()) {
-            actions.addAll(change.getAddedSubList());
-          }
-          if (change.wasRemoved()) {
-            actions.removeAll(change.getRemoved());
-          }
-        }
-      };
-
-  private void bindActionSequenceChange() {
+  private void setupActionSequenceListener() {
     currentActionSequenceProperty.addListener(
         (_, _, newSequence) -> {
-          actions.clear();
           currentActionsProperty.clear();
           if (newSequence != null) {
             setActions(newSequence.getActions());
@@ -86,13 +80,27 @@ public class BuilderViewModel {
         });
   }
 
+  private void setupActionInFocusListener() {
+    actionInFocusProperty.addListener(
+        (_, _, newAction) -> {
+          if (newAction == null) return;
+          minIntervalProperty.set(newAction.getInterval().getMin());
+          maxIntervalProperty.set(newAction.getInterval().getMax());
+        });
+  }
+
+  private void setupMinAndMaxIntervalListener() {
+    minIntervalProperty.addListener(INTERVAL_CHANGE_LISTENER);
+    maxIntervalProperty.addListener(INTERVAL_CHANGE_LISTENER);
+  }
+
   public void openSequenceFolder() throws IOException {
     Desktop.getDesktop().open(ActionSequenceDao.ACTION_SEQUENCE_FOLDER);
   }
 
   private ActionSequence craftActionSequence() {
     ActionSequence actionSequence = new ActionSequence(sequenceNameProperty.get());
-    actionSequence.setActions(new ArrayList<>(actions));
+    actionSequence.setActions(new ArrayList<>(currentActionsProperty.get()));
     actionSequence.setDescription(sequenceDescriptionProperty.get());
     return actionSequence;
   }
@@ -130,10 +138,6 @@ public class BuilderViewModel {
         .ifPresent(actionSequenceRepository::deleteActionSequence);
   }
 
-  private void registerListsListener() {
-    currentActionsProperty.addListener(LIST_CHANGE_LISTENER);
-  }
-
   public void addAction(Action action) {
     currentActionsProperty.add(action);
   }
@@ -147,7 +151,7 @@ public class BuilderViewModel {
       throw new IllegalArgumentException("Min must be smaller than max");
     }
 
-    actions.stream()
+    currentActionsProperty.stream()
         .filter(a -> a.equals(action))
         .findFirst()
         .ifPresent(a -> a.setInterval(Interval.of(min, max)));

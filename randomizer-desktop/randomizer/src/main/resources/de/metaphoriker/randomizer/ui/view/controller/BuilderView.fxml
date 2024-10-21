@@ -128,26 +128,27 @@
                     <children>
                         <VBox fx:id="actionSettingsVBox" prefHeight="200.0" prefWidth="100.0">
                             <children>
-                                <Label text="Label"/>
+                                <Label fx:id="actionInFocusLabel" text="Label"/>
                                 <Separator prefWidth="200.0"/>
                                 <VBox prefHeight="200.0" prefWidth="100.0">
                                     <children>
-                                        <Label text="Label"/>
-                                        <Label text="Label"/>
+                                        <Label text="Time Frame"/>
+                                        <Label text="Sets the time frame how long the Action should last"
+                                               wrapText="true"/>
                                         <HBox prefHeight="25.0" prefWidth="200.0">
                                             <children>
-                                                <Label text="Label"/>
-                                                <Label text="Label"/>
+                                                <Label text="Minimum Value:"/>
+                                                <Label fx:id="minSliderLabel" text="Label"/>
                                             </children>
                                         </HBox>
-                                        <Slider/>
+                                        <Slider fx:id="minSlider" max="10000.0"/>
                                         <HBox prefHeight="25.0" prefWidth="200.0">
                                             <children>
-                                                <Label text="Label"/>
-                                                <Label text="Label"/>
+                                                <Label text="Maximum Value:"/>
+                                                <Label fx:id="maxSliderLabel" text="Label"/>
                                             </children>
                                         </HBox>
-                                        <Slider/>
+                                        <Slider fx:id="maxSlider" max="10000.0"/>
                                     </children>
                                 </VBox>
                                 <Separator prefWidth="200.0"/>

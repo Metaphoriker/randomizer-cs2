@@ -98,8 +98,8 @@ public abstract class Action implements Cloneable {
   }
 
   public void setInterval(Interval interval) {
-    this.interval.setMax(interval.getMax());
     this.interval.setMin(interval.getMin());
+    this.interval.setMax(interval.getMax());
   }
 
   public void interrupt() {

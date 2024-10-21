@@ -18,6 +18,7 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.ClipboardContent;
@@ -35,19 +36,41 @@ public class BuilderViewController {
   private final BuilderViewModel builderViewModel;
   private final JsonUtil jsonUtil;
 
-  @FXML private TextField searchField;
-  @FXML private VBox actionsVBox;
+  @FXML private Label actionInFocusLabel;
   @FXML private VBox actionSequencesVBox;
-  @FXML private VBox builderVBox;
   @FXML private VBox actionSettingsVBox;
-  @FXML private Label sequenceNameLabel;
+  @FXML private Button actionsClearButton;
+  @FXML private VBox actionsVBox;
+  @FXML private Button addSequenceButton;
+  @FXML private VBox builderVBox;
+  @FXML private Slider maxSlider;
+  @FXML private Label maxSliderLabel;
+  @FXML private Slider minSlider;
+  @FXML private Label minSliderLabel;
+  @FXML private Button randomizeButton;
+  @FXML private Button saveSequenceButton;
+  @FXML private TextField searchField;
   @FXML private Label sequenceDescriptionLabel;
+  @FXML private Button sequenceFolderButton;
+  @FXML private Label sequenceNameLabel;
 
   @Inject
   public BuilderViewController(BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
     this.builderViewModel = builderViewModel;
     this.jsonUtil = jsonUtil;
     Platform.runLater(this::initialize);
+  }
+
+  private void setupSliderBindings() {
+    minSlider
+        .valueProperty()
+        .addListener((_, _, newValue) -> minSliderLabel.setText(newValue.intValue() + " ms"));
+    minSlider.valueProperty().bindBidirectional(builderViewModel.getMinIntervalProperty());
+
+    maxSlider
+        .valueProperty()
+        .addListener((_, _, newValue) -> maxSliderLabel.setText(newValue.intValue() + " ms"));
+    maxSlider.valueProperty().bindBidirectional(builderViewModel.getMaxIntervalProperty());
   }
 
   private void setupBindings() {
@@ -80,7 +103,12 @@ public class BuilderViewController {
               sequenceDescriptionLabel.setText(description);
             });
 
+    builderViewModel
+        .getActionInFocusProperty()
+        .addListener((_, _, newValue) -> actionInFocusLabel.setText(newValue.getName()));
+
     setupSearchFieldListener();
+    setupSliderBindings();
   }
 
   @FXML
