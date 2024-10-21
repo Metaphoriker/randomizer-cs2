@@ -64,7 +64,7 @@ public class BuilderViewController {
   @FXML
   void onSaveSequence(ActionEvent event) {
     builderViewModel.saveActionSequence();
-    builderViewModel.getCurrentActionSequenceProperty().set("");
+    fillActionSequences();
   }
 
   @FXML
