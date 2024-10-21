@@ -104,8 +104,13 @@
                                                 </VBox>
                                             </right>
                                             <center>
-                                                <VBox fx:id="builderVBox" prefHeight="350.0" prefWidth="450.0"
-                                                      BorderPane.alignment="CENTER"/>
+                                                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER"
+                                                            prefHeight="350.0" prefWidth="450.0">
+                                                    <content>
+                                                        <VBox fx:id="builderVBox" prefHeight="316.0" prefWidth="284.0"
+                                                              VBox.vgrow="ALWAYS"/>
+                                                    </content>
+                                                </ScrollPane>
                                             </center>
                                         </BorderPane>
                                         <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER"/>
