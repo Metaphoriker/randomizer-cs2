@@ -376,7 +376,6 @@ public class BuilderViewController {
               HBox.setHgrow(buttonHBox, Priority.ALWAYS);
               buttonHBox.getChildren().add(deleteSequenceButton);
               hBox.getChildren().add(buttonHBox);
-              hBox.setCursor(Cursor.HAND);
 
               actionSequencesVBox.getChildren().add(hBox);
             });
