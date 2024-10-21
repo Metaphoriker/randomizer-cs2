@@ -94,6 +94,10 @@ public class BuilderViewModel {
     currentActionsProperty.add(action);
   }
 
+  public void addActionAt(String action, int index) {
+    currentActionsProperty.add(index, action);
+  }
+
   public void setActionInterval(String action, int min, int max) throws IllegalArgumentException {
     if (min >= max) {
       throw new IllegalArgumentException("Min must be smaller than max");
@@ -103,6 +107,10 @@ public class BuilderViewModel {
         .filter(a -> a.getName().equals(action))
         .findFirst()
         .ifPresent(a -> a.setInterval(Interval.of(min, max)));
+  }
+
+  public void removeActionAt(int index) {
+    currentActionsProperty.remove(index);
   }
 
   public void removeAction(String action) {

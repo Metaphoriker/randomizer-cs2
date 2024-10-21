@@ -7,8 +7,9 @@ import java.util.List;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.ClipboardContent;
@@ -19,24 +20,38 @@ import javafx.scene.layout.VBox;
 @View
 public class BuilderViewController {
 
+  private final Separator dropIndicator = new Separator();
   private final BuilderViewModel builderViewModel;
 
   @FXML private TextField searchField;
   @FXML private VBox actionsVBox;
   @FXML private VBox actionSequencesVBox;
-  @FXML private ListView<Label> builderListView;
+  int currentDraggedIndex = -1;
 
   @Inject
   public BuilderViewController(BuilderViewModel builderViewModel) {
     this.builderViewModel = builderViewModel;
     Platform.runLater(this::initialize);
   }
+  @FXML private VBox builderVBox;
+
+  private void setupBindings() {
+    builderViewModel
+        .getCurrentActionSequenceProperty()
+        .addListener((_, _, newSequenceName) -> fillBuilderWithActionsOfSequence(newSequenceName));
+
+    builderViewModel
+        .getCurrentActionsProperty()
+        .addListener((ListChangeListener<String>) _ -> updateBuilderVBox());
+
+    setupSearchFieldListener();
+  }
 
   private void initialize() {
     setupBindings();
     fillActions();
     fillActionSequences();
-    setupDrop(builderListView);
+    setupDrop(builderVBox);
 
     actionsVBox
         .getChildren()
@@ -56,34 +71,22 @@ public class BuilderViewController {
             });
   }
 
-  private void setupBindings() {
-    builderViewModel
-        .getCurrentActionSequenceProperty()
-        .addListener((_, _, newSequenceName) -> fillBuilderWithActionsOfSequence(newSequenceName));
-
-    builderViewModel
-        .getCurrentActionsProperty()
-        .addListener((ListChangeListener<String>) _ -> updateBuilderVBox());
-
-    setupSearchFieldListener();
-  }
-
   private void updateBuilderVBox() {
-    builderListView.getItems().clear();
-
+    builderVBox.getChildren().clear();
     builderViewModel
         .getCurrentActionsProperty()
         .forEach(
             actionText -> {
               Label actionLabel = new Label(actionText);
-              setupDrag(actionLabel); // TODO: setup special drag within listview
-              builderListView.getItems().add(actionLabel);
+              setupDragAlreadyDropped(actionLabel); // setup special drag within listview
+              builderVBox.getChildren().add(actionLabel);
             });
   }
 
   private void setupDrag(Label label) {
     if (label.getText() == null || label.getText().isEmpty()) return;
 
+    label.setCursor(Cursor.OPEN_HAND);
     label.setOnDragDetected(
         dragEvent -> {
           Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
@@ -91,13 +94,40 @@ public class BuilderViewController {
 
           ClipboardContent content = new ClipboardContent();
           content.putString(label.getText());
-          dragboard.setContent(content);
 
+          currentDraggedIndex = builderVBox.getChildren().indexOf(label);
+
+          dragboard.setContent(content);
           dragEvent.consume();
         });
   }
 
-  private void setupDrop(ListView<Label> target) {
+  private void setupDragAlreadyDropped(Label label) {
+    setupDrag(label);
+
+    label.setOnDragDropped(
+        dragEvent -> {
+          Dragboard dragboard = dragEvent.getDragboard();
+          boolean success = false;
+
+          if (dragboard.hasString()) {
+            int index = builderVBox.getChildren().indexOf(label);
+            builderViewModel.addActionAt(dragboard.getString(), Math.max(0, index - 1));
+            success = true;
+          }
+
+          dragEvent.setDropCompleted(success);
+          dragEvent.consume();
+        });
+
+    label.setOnDragEntered(
+        _ ->
+            builderVBox.getChildren().add(builderVBox.getChildren().indexOf(label), dropIndicator));
+
+    label.setOnDragExited(_ -> builderVBox.getChildren().remove(dropIndicator));
+  }
+
+  private void setupDrop(VBox target) {
     target.setOnDragOver(
         dragEvent -> {
           if (dragEvent.getGestureSource() != target && dragEvent.getDragboard().hasString()) {

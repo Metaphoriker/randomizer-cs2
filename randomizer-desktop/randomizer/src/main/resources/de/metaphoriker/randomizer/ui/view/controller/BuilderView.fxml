@@ -3,7 +3,6 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
@@ -73,13 +72,6 @@
                                     <children>
                                         <HBox prefHeight="75.0" prefWidth="200.0" VBox.vgrow="NEVER"/>
                                         <BorderPane VBox.vgrow="ALWAYS">
-                                            <center>
-                                                <ListView fx:id="builderListView" prefHeight="350.0" prefWidth="500.0">
-                                                    <padding>
-                                                        <Insets right="5.0"/>
-                                                    </padding>
-                                                </ListView>
-                                            </center>
                                             <top>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="100.0"
                                                       BorderPane.alignment="CENTER">
@@ -106,6 +98,10 @@
                                                     </children>
                                                 </VBox>
                                             </right>
+                                            <center>
+                                                <VBox fx:id="builderVBox" prefHeight="350.0" prefWidth="450.0"
+                                                      BorderPane.alignment="CENTER"/>
+                                            </center>
                                         </BorderPane>
                                         <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER"/>
                                     </children>
