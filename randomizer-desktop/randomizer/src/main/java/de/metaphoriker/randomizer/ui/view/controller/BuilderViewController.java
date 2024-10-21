@@ -1,6 +1,10 @@
 package de.metaphoriker.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
+import de.metaphoriker.model.action.Action;
+import de.metaphoriker.model.action.sequence.ActionSequence;
+import de.metaphoriker.model.config.keybind.KeyBindType;
+import de.metaphoriker.model.persistence.JsonUtil;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import java.io.IOException;
@@ -27,7 +31,9 @@ import javafx.scene.layout.VBox;
 public class BuilderViewController {
 
   private final Separator dropIndicator = new Separator();
+
   private final BuilderViewModel builderViewModel;
+  private final JsonUtil jsonUtil;
 
   @FXML private TextField searchField;
   @FXML private VBox actionsVBox;
@@ -36,27 +42,28 @@ public class BuilderViewController {
   @FXML private VBox actionSettingsVBox;
 
   @Inject
-  public BuilderViewController(BuilderViewModel builderViewModel) {
+  public BuilderViewController(BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
     this.builderViewModel = builderViewModel;
+    this.jsonUtil = jsonUtil;
     Platform.runLater(this::initialize);
   }
 
   private void setupBindings() {
     builderViewModel
         .getCurrentActionSequenceProperty()
-        .addListener((_, _, newSequenceName) -> fillBuilderWithActionsOfSequence(newSequenceName));
+        .addListener((_, _, newSequence) -> fillBuilderWithActionsOfSequence(newSequence));
 
     builderViewModel
         .getCurrentActionsProperty()
-        .addListener((ListChangeListener<String>) _ -> updateBuilderVBox());
+        .addListener((ListChangeListener<Action>) _ -> updateBuilderVBox());
 
     builderVBox
         .disableProperty()
-        .bind(builderViewModel.getCurrentActionSequenceProperty().isEmpty());
+        .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
 
     actionSettingsVBox
         .visibleProperty()
-        .bind(builderViewModel.getActionInFocusProperty().isNotEmpty());
+        .bind(builderViewModel.getActionInFocusProperty().isNotNull());
 
     setupSearchFieldListener();
   }
@@ -97,23 +104,6 @@ public class BuilderViewController {
     fillActions();
     fillActionSequences();
     setupDrop(builderVBox);
-
-    actionsVBox
-        .getChildren()
-        .forEach(
-            node -> {
-              if (node instanceof TitledPane) {
-                VBox content = (VBox) ((TitledPane) node).getContent();
-                content
-                    .getChildren()
-                    .forEach(
-                        child -> {
-                          if (child instanceof Label) {
-                            setupDrag((Label) child);
-                          }
-                        });
-              }
-            });
   }
 
   private void updateBuilderVBox() {
@@ -121,18 +111,16 @@ public class BuilderViewController {
     builderViewModel
         .getCurrentActionsProperty()
         .forEach(
-            actionText -> {
-              Label actionLabel = new Label(actionText);
+            action -> {
+              Label actionLabel = new Label(action.getName());
               actionLabel.setOnMouseClicked(
-                  _ -> builderViewModel.getActionInFocusProperty().set(actionText));
-              setupDragAlreadyDropped(actionLabel); // setup special drag within listview
+                  _ -> builderViewModel.getActionInFocusProperty().set(action));
+              setupDragAlreadyDropped(actionLabel, action); // setup special drag within listview
               builderVBox.getChildren().add(actionLabel);
             });
   }
 
-  private void setupDrag(Label label) {
-    if (label.getText() == null || label.getText().isEmpty()) return;
-
+  private void setupDrag(Label label, Action action) {
     label.setCursor(Cursor.HAND);
     label.setOnDragDetected(
         dragEvent -> {
@@ -140,15 +128,16 @@ public class BuilderViewController {
           dragboard.setDragView(label.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
 
           ClipboardContent content = new ClipboardContent();
-          content.putString(label.getText());
+          String serializedAction = jsonUtil.serialize(action);
+          content.putString(serializedAction);
 
           dragboard.setContent(content);
           dragEvent.consume();
         });
   }
 
-  private void setupDragAlreadyDropped(Label label) {
-    setupDrag(label);
+  private void setupDragAlreadyDropped(Label label, Action action) {
+    setupDrag(label, action);
 
     label.setOnDragDropped(
         dragEvent -> {
@@ -156,8 +145,10 @@ public class BuilderViewController {
           boolean success = false;
 
           if (dragboard.hasString()) {
+            String serializedAction = dragboard.getString();
+            Action droppedAction = jsonUtil.deserializeAction(serializedAction);
             int index = builderVBox.getChildren().indexOf(label);
-            builderViewModel.addActionAt(dragboard.getString(), Math.max(0, index - 1));
+            builderViewModel.addActionAt(droppedAction, Math.max(0, index - 1));
             success = true;
           }
 
@@ -181,16 +172,16 @@ public class BuilderViewController {
           dragEvent.consume();
         });
 
-    // TODO: actions validation
     target.setOnDragDropped(
         dragEvent -> {
           Dragboard dragboard = dragEvent.getDragboard();
           boolean success = false;
 
           if (dragboard.hasString()) {
-            String actionText = dragboard.getString();
+            String serializedAction = dragboard.getString();
+            Action droppedAction = jsonUtil.deserializeAction(serializedAction);
 
-            builderViewModel.addAction(actionText);
+            builderViewModel.addAction(droppedAction);
             success = true;
           }
 
@@ -216,33 +207,33 @@ public class BuilderViewController {
                   .getActionToTypeMap()
                   .forEach(
                       (_, actionList) -> {
-                        List<String> filteredActions =
+                        List<Action> filteredActions =
                             actionList.stream()
-                                .filter(action -> action.toLowerCase().contains(filter))
+                                .filter(action -> action.getName().toLowerCase().contains(filter))
                                 .toList();
 
                         filteredActions.forEach(
                             action -> {
-                              Label actionLabel = new Label(action);
-                              setupDrag(actionLabel);
+                              Label actionLabel = new Label(action.getName());
+                              setupDrag(actionLabel, action);
                               actionsVBox.getChildren().add(actionLabel);
                             });
                       });
             });
   }
 
-  private TitledPane createTitledPane(String type, List<String> actions) {
+  private TitledPane createTitledPane(KeyBindType type, List<Action> actions) {
     TitledPane titledPane = new TitledPane();
     titledPane.setCollapsible(true);
     titledPane.setAnimated(true);
     titledPane.setExpanded(false);
-    titledPane.setText(type);
+    titledPane.setText(type.name());
 
     VBox vBox = new VBox();
     actions.forEach(
         action -> {
-          Label actionLabel = new Label(action);
-          setupDrag(actionLabel);
+          Label actionLabel = new Label(action.getName());
+          setupDrag(actionLabel, action);
           vBox.getChildren().add(actionLabel);
         });
     applyExpandListener(titledPane);
@@ -279,7 +270,7 @@ public class BuilderViewController {
         .forEach(
             actionSequence -> {
               HBox hBox = new HBox();
-              Label label = new Label(actionSequence);
+              Label label = new Label(actionSequence.getName());
               label.setOnMouseClicked(
                   _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
 
@@ -302,8 +293,8 @@ public class BuilderViewController {
             });
   }
 
-  private void fillBuilderWithActionsOfSequence(String sequenceName) {
-    List<String> actions = builderViewModel.getActionsOfSequence(sequenceName);
+  private void fillBuilderWithActionsOfSequence(ActionSequence sequence) {
+    List<Action> actions = builderViewModel.getActionsOfSequence(sequence);
     builderViewModel.setActions(actions);
   }
 }

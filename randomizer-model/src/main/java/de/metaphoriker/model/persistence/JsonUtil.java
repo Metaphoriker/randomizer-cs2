@@ -2,6 +2,7 @@ package de.metaphoriker.model.persistence;
 
 import com.google.gson.Gson;
 import com.google.inject.Inject;
+import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 
 public class JsonUtil {
@@ -19,7 +20,7 @@ public class JsonUtil {
    * @param actionSequence the ActionSequence object to be serialized
    * @return the JSON representation of the given ActionSequence object
    */
-  public String serialize(ActionSequence actionSequence) {
+  public String serialize(Object actionSequence) {
     return gson.toJson(actionSequence);
   }
 
@@ -29,7 +30,17 @@ public class JsonUtil {
    * @param json The JSON string to be deserialized.
    * @return The {@link ActionSequence} object represented by the JSON string.
    */
-  public ActionSequence deserialize(String json) {
+  public ActionSequence deserializeActionSequence(String json) {
     return gson.fromJson(json, ActionSequence.class);
+  }
+
+  /**
+   * Deserializes a JSON string into an {@link Action} object.
+   *
+   * @param json The JSON string to be deserialized.
+   * @return The {@link Action} object represented by the JSON string.
+   */
+  public Action deserializeAction(String json) {
+    return gson.fromJson(json, Action.class);
   }
 }

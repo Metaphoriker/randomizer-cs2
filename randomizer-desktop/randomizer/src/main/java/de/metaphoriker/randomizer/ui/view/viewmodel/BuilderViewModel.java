@@ -15,12 +15,11 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Set;
 import java.util.concurrent.ThreadLocalRandom;
 import javafx.beans.property.ListProperty;
+import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleListProperty;
-import javafx.beans.property.SimpleStringProperty;
-import javafx.beans.property.StringProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -28,17 +27,15 @@ import lombok.Getter;
 
 public class BuilderViewModel {
 
-  @Getter private final StringProperty currentActionSequenceProperty = new SimpleStringProperty();
+  @Getter
+  private final ObjectProperty<ActionSequence> currentActionSequenceProperty =
+      new SimpleObjectProperty<>();
 
-  @Getter private final StringProperty actionInFocusProperty = new SimpleStringProperty();
+  @Getter private final ObjectProperty<Action> actionInFocusProperty = new SimpleObjectProperty<>();
 
   @Getter
-  private final ListProperty<String> currentActionsProperty =
+  private final ListProperty<Action> currentActionsProperty =
       new SimpleListProperty<>(FXCollections.observableArrayList());
-
-  @Getter
-  private final StringProperty currentActionSequenceDescriptionProperty =
-      new SimpleStringProperty();
 
   private final ObservableList<Action> actions = FXCollections.observableArrayList();
 
@@ -58,32 +55,38 @@ public class BuilderViewModel {
     bindActionSequenceChange();
     registerListsListener();
   }
+  private final ListChangeListener<Action> LIST_CHANGE_LISTENER =
+      change -> {
+        while (change.next()) {
+          if (change.wasAdded()) {
+            actions.addAll(change.getAddedSubList());
+          }
+          if (change.wasRemoved()) {
+            actions.removeAll(change.getRemoved());
+          }
+        }
+      };
 
   private void bindActionSequenceChange() {
     currentActionSequenceProperty.addListener(
         (_, _, newSequence) -> {
           actions.clear();
           currentActionsProperty.clear();
-          currentActionSequenceDescriptionProperty.set("");
-
-          ActionSequence actionSequence =
-              actionSequenceRepository.getActionSequence(newSequence).orElse(null);
-          if (actionSequence != null) {
-            setActions(actionSequence.getActions().stream().map(Action::getName).toList());
-            currentActionSequenceDescriptionProperty.set(actionSequence.getDescription());
+          if (newSequence != null) {
+            setActions(newSequence.getActions());
           }
         });
   }
 
-  private ActionSequence craftActionSequence() {
-    ActionSequence actionSequence = new ActionSequence(currentActionSequenceProperty.get());
-    actionSequence.setActions(actions);
-    actionSequence.setDescription(currentActionSequenceDescriptionProperty.get());
-    return actionSequence;
-  }
-
   public void openSequenceFolder() throws IOException {
     Desktop.getDesktop().open(ActionSequenceDao.ACTION_SEQUENCE_FOLDER);
+  }
+
+  private ActionSequence craftActionSequence() {
+    ActionSequence actionSequence =
+        new ActionSequence(currentActionSequenceProperty.get().getName());
+    actionSequence.setActions(new ArrayList<>(actions));
+    return actionSequence;
   }
 
   public void createNewActionSequence() {
@@ -96,16 +99,7 @@ public class BuilderViewModel {
 
     ActionSequence actionSequence = new ActionSequence(name);
     actionSequenceRepository.saveActionSequence(actionSequence);
-    currentActionSequenceProperty.set(name);
-  }
-
-  public void addRandomActions(int count) {
-    Set<Action> allActions = actionRepository.getActions().keySet();
-    for (int i = 0; i < ThreadLocalRandom.current().nextInt(1, count); i++) {
-      int randomIndex = (int) (Math.random() * allActions.size());
-      String randomAction = allActions.toArray(new Action[0])[randomIndex].getName();
-      currentActionsProperty.add(randomAction);
-    }
+    currentActionSequenceProperty.set(actionSequence);
   }
 
   public void saveActionSequence() {
@@ -113,65 +107,40 @@ public class BuilderViewModel {
     actionSequenceRepository.saveActionSequence(actionSequence);
   }
 
-  public void deleteActionSequence(String name) {
-    actionSequenceRepository
-        .getActionSequence(name)
-        .ifPresent(actionSequenceRepository::deleteActionSequence);
+  public void addRandomActions(int count) {
+    List<Action> allActions = new ArrayList<>(actionRepository.getActions().keySet());
+    for (int i = 0; i < ThreadLocalRandom.current().nextInt(1, count); i++) {
+      int randomIndex = (int) (Math.random() * allActions.size());
+      Action randomAction = allActions.get(randomIndex);
+      currentActionsProperty.add(randomAction);
+    }
   }
 
-  private final ListChangeListener<String> LIST_CHANGE_LISTENER =
-      change -> {
-        while (change.next()) {
-          if (change.wasAdded()) {
-            handleAddedItems(change.getAddedSubList());
-          }
-          if (change.wasRemoved()) {
-            handleRemovedItems(change.getRemoved());
-          }
-          if (change.wasReplaced() || change.wasUpdated()) {
-            handleReplacedOrUpdatedItems();
-          }
-        }
-      };
+  public void deleteActionSequence(ActionSequence sequence) {
+    actionSequenceRepository
+        .getActionSequence(sequence.getName())
+        .ifPresent(actionSequenceRepository::deleteActionSequence);
+  }
 
   private void registerListsListener() {
     currentActionsProperty.addListener(LIST_CHANGE_LISTENER);
   }
 
-  private void handleAddedItems(List<? extends String> addedItems) {
-    for (String addedItem : addedItems) {
-      actions.add(actionRepository.getByName(addedItem));
-    }
-  }
-
-  private void handleRemovedItems(List<? extends String> removedItems) {
-    for (String removedItem : removedItems) {
-      actions.removeIf(action -> action.getName().equals(removedItem));
-    }
-  }
-
-  private void handleReplacedOrUpdatedItems() {
-    actions.clear();
-    for (String item : currentActionsProperty) {
-      actions.add(actionRepository.getByName(item));
-    }
-  }
-
-  public void addAction(String action) {
+  public void addAction(Action action) {
     currentActionsProperty.add(action);
   }
 
-  public void addActionAt(String action, int index) {
+  public void addActionAt(Action action, int index) {
     currentActionsProperty.add(index, action);
   }
 
-  public void setActionInterval(String action, int min, int max) throws IllegalArgumentException {
+  public void setActionInterval(Action action, int min, int max) throws IllegalArgumentException {
     if (min >= max) {
       throw new IllegalArgumentException("Min must be smaller than max");
     }
 
     actions.stream()
-        .filter(a -> a.getName().equals(action))
+        .filter(a -> a.equals(action))
         .findFirst()
         .ifPresent(a -> a.setInterval(Interval.of(min, max)));
   }
@@ -180,16 +149,16 @@ public class BuilderViewModel {
     currentActionsProperty.remove(index);
   }
 
-  public void removeAction(String action) {
+  public void removeAction(Action action) {
     currentActionsProperty.remove(action);
   }
 
-  public void setActions(List<String> actions) {
+  public void setActions(List<Action> actions) {
     currentActionsProperty.setAll(actions);
   }
 
-  public Map<String, List<String>> getActionToTypeMap() {
-    Map<String, List<String>> actionMap = new HashMap<>();
+  public Map<KeyBindType, List<Action>> getActionToTypeMap() {
+    Map<KeyBindType, List<Action>> actionMap = new HashMap<>();
 
     actionRepository
         .getActions()
@@ -197,27 +166,20 @@ public class BuilderViewModel {
             (action, _) -> {
               KeyBindType type = keyBindNameTypeMapper.getTypeByName(action.getName());
               if (type != null) {
-                actionMap
-                    .computeIfAbsent(type.name(), _ -> new ArrayList<>())
-                    .add(action.getName());
+                actionMap.computeIfAbsent(type, _ -> new ArrayList<>()).add(action);
               }
             });
     return actionMap;
   }
 
-  public List<String> getActionSequences() {
-    return actionSequenceRepository.getActionSequences().stream()
-        .map(ActionSequence::getName)
-        .toList();
+  public List<ActionSequence> getActionSequences() {
+    return actionSequenceRepository.getActionSequences();
   }
 
-  public List<String> getActionsOfSequence(String sequenceName) {
+  public List<Action> getActionsOfSequence(ActionSequence sequence) {
     return actionSequenceRepository
-        .getActionSequence(sequenceName)
+        .getActionSequence(sequence.getName())
         .orElseThrow(IllegalStateException::new)
-        .getActions()
-        .stream()
-        .map(Action::getName)
-        .toList();
+        .getActions();
   }
 }

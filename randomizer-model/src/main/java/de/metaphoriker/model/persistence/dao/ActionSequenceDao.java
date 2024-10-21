@@ -1,9 +1,9 @@
 package de.metaphoriker.model.persistence.dao;
 
 import com.google.inject.Inject;
+import de.metaphoriker.model.ApplicationContext;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.persistence.JsonUtil;
-import de.metaphoriker.model.ApplicationContext;
 import java.io.File;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -97,7 +97,7 @@ public class ActionSequenceDao {
 
       try {
         String content = new String(Files.readAllBytes(file.toPath()));
-        ActionSequence actionSequence = jsonUtil.deserialize(content);
+        ActionSequence actionSequence = jsonUtil.deserializeActionSequence(content);
         actionSequences.add(actionSequence);
       } catch (IOException e) {
         log.error("Fehler beim Laden der ActionSequence aus Datei: {}", file.getAbsolutePath(), e);
