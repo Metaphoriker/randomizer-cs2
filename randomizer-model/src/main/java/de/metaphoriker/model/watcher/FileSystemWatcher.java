@@ -5,11 +5,22 @@ import java.io.IOException;
 import java.nio.file.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Consumer;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * The {@code FileSystemWatcher} class monitors changes to a specified directory and notifies
+ * registered listeners about file creation and deletion events.
+ *
+ * <p>This watcher specifically monitors files with the ".sequence" extension, invoking the
+ * registered {@code Consumer} instances whenever such a file is created, deleted or modified.
+ */
 @Slf4j
 public class FileSystemWatcher implements Runnable {
+
+  private static final long DEBOUNCE_TIME_MS = 50;
 
   private final List<Consumer<Path>> fileChangeListeners = new ArrayList<>();
 
@@ -17,13 +28,18 @@ public class FileSystemWatcher implements Runnable {
     fileChangeListeners.add(fileChangeListener);
   }
 
+  private final Map<Path, Long> lastModifiedTimes = new ConcurrentHashMap<>();
+
   @Override
   public void run() {
     try (WatchService watcher = FileSystems.getDefault().newWatchService()) {
 
       Path clusterDirectory = ActionSequenceDao.ACTION_SEQUENCE_FOLDER.toPath();
       clusterDirectory.register(
-          watcher, StandardWatchEventKinds.ENTRY_CREATE, StandardWatchEventKinds.ENTRY_DELETE);
+          watcher,
+          StandardWatchEventKinds.ENTRY_CREATE,
+          StandardWatchEventKinds.ENTRY_DELETE,
+          StandardWatchEventKinds.ENTRY_MODIFY);
 
       log.debug("Started watching the directory: {}", clusterDirectory);
 
@@ -38,8 +54,13 @@ public class FileSystemWatcher implements Runnable {
           Path filename = ev.context();
 
           if (filename.toString().endsWith(".sequence")) {
-            fileChangeListeners.forEach(consumer -> consumer.accept(filename));
-            log.debug("Detected {} on file: {}", kind.name(), filename);
+            Long lastModifiedTime = lastModifiedTimes.getOrDefault(filename, 0L);
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastModifiedTime > DEBOUNCE_TIME_MS) { // entprellzeit
+              lastModifiedTimes.put(filename, currentTime);
+              fileChangeListeners.forEach(consumer -> consumer.accept(filename));
+              log.debug("Detected {} on file: {}", kind.name(), filename);
+            }
           }
         }
 

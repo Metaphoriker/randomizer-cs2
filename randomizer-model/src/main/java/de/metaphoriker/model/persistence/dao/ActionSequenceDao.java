@@ -39,7 +39,10 @@ public class ActionSequenceDao {
     Objects.requireNonNull(actionSequence, "ActionSequence darf nicht null sein");
 
     File file = new File(ACTION_SEQUENCE_FOLDER, actionSequence.getName() + ".sequence");
+    writeActionSequenceToFile(actionSequence, file);
+  }
 
+  private void writeActionSequenceToFile(ActionSequence actionSequence, File file) {
     try (PrintWriter writer = new PrintWriter(file)) {
       String json = jsonUtil.serialize(actionSequence);
       writer.println(json);
