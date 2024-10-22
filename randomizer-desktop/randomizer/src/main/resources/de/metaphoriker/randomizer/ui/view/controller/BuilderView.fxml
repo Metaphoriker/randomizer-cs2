@@ -11,31 +11,29 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="500.0" prefWidth="700.0" xmlns="http://javafx.com/javafx/22"
-            fx:controller="de.metaphoriker.randomizer.ui.view.controller.BuilderViewController">
+
+<AnchorPane prefHeight="536.0" prefWidth="704.0" styleClass="builder-view" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.randomizer.ui.view.controller.BuilderViewController">
     <children>
-        <HBox prefHeight="500.0" prefWidth="700.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0"
-              AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <HBox layoutX="9.0" layoutY="20.0" prefHeight="488.0" prefWidth="688.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" styleClass="builder">
             <children>
-                <VBox prefHeight="200.0" prefWidth="150.0" spacing="10.0" VBox.vgrow="ALWAYS">
+                <VBox prefHeight="488.0" prefWidth="140.0" VBox.vgrow="ALWAYS" styleClass="builder-left-bar">
                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                        <VBox prefHeight="240.0" prefWidth="144.0" VBox.vgrow="ALWAYS" styleClass="builder-actions">
                             <children>
-                                <HBox alignment="CENTER" prefHeight="25.0" prefWidth="200.0" spacing="5.0">
+                                <HBox prefHeight="24.0" prefWidth="144.0" styleClass="builder-actions-top">
                                     <children>
-                                        <Label text="Label"/>
-                                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                                        <Label text="Label" styleClass="builder-actions-label"/>
+                                        <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" styleClass="builder-actions-search">
                                             <children>
-                                                <TextField fx:id="searchField" prefHeight="25.0" prefWidth="115.0"
-                                                           HBox.hgrow="ALWAYS"/>
+                                                <TextField fx:id="searchField" prefHeight="25.0" prefWidth="115.0" HBox.hgrow="ALWAYS" styleClass="builder-actions-searchfield"/>
                                             </children>
                                         </HBox>
                                     </children>
                                 </HBox>
-                                <Separator prefWidth="200.0"/>
+                                <Separator prefWidth="144.0" styleClass="separator"/>
                                 <ScrollPane hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                                     <content>
-                                        <VBox fx:id="actionsVBox" prefHeight="215.0" prefWidth="134.0"/>
+                                        <VBox fx:id="actionsVBox" prefHeight="215.0" prefWidth="134.0" />
                                     </content>
                                 </ScrollPane>
                             </children>
@@ -44,22 +42,19 @@
                             <children>
                                 <HBox alignment="CENTER" prefHeight="25.0" prefWidth="200.0">
                                     <children>
-                                        <Label text="Label"/>
-                                        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="122.0"
-                                              HBox.hgrow="ALWAYS">
+                                        <Label text="Label" />
+                                        <HBox alignment="CENTER_RIGHT" prefHeight="50.0" prefWidth="122.0" HBox.hgrow="ALWAYS">
                                             <children>
-                                                <Button fx:id="addSequenceButton" mnemonicParsing="false"
-                                                        onAction="#onAddSequence"/>
-                                                <Button fx:id="sequenceFolderButton" mnemonicParsing="false"
-                                                        onAction="#onOpenSequenceFolder"/>
+                                                <Button fx:id="addSequenceButton" mnemonicParsing="false" onAction="#onAddSequence" text="a" />
+                                                <Button fx:id="sequenceFolderButton" mnemonicParsing="false" onAction="#onOpenSequenceFolder" text="a" />
                                             </children>
                                         </HBox>
                                     </children>
                                 </HBox>
-                                <Separator prefWidth="200.0"/>
+                                <Separator prefWidth="200.0" />
                                 <ScrollPane hbarPolicy="NEVER" vbarPolicy="ALWAYS" VBox.vgrow="ALWAYS">
                                     <content>
-                                        <VBox fx:id="actionSequencesVBox" prefHeight="215.0" prefWidth="134.0"/>
+                                        <VBox fx:id="actionSequencesVBox" prefHeight="215.0" prefWidth="134.0" />
                                     </content>
                                 </ScrollPane>
                             </children>
@@ -74,42 +69,33 @@
                                     <children>
                                         <BorderPane VBox.vgrow="ALWAYS">
                                             <top>
-                                                <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="100.0"
-                                                      BorderPane.alignment="CENTER">
+                                                <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="100.0" BorderPane.alignment="CENTER">
                                                     <children>
-                                                        <Label fx:id="sequenceNameLabel"/>
-                                                        <Label fx:id="sequenceDescriptionLabel"/>
+                                                        <Label fx:id="sequenceNameLabel" />
+                                                        <Label fx:id="sequenceDescriptionLabel" />
                                                     </children>
                                                     <padding>
-                                                        <Insets left="5.0" top="5.0"/>
+                                                        <Insets left="5.0" top="5.0" />
                                                     </padding>
                                                 </VBox>
                                             </top>
                                             <right>
-                                                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="25.0"
-                                                      spacing="5.0" BorderPane.alignment="CENTER">
+                                                <VBox alignment="CENTER" prefHeight="200.0" prefWidth="25.0" spacing="5.0" BorderPane.alignment="CENTER">
                                                     <children>
                                                         <VBox alignment="CENTER">
                                                             <children>
-                                                                <Button fx:id="randomizeButton" mnemonicParsing="false"
-                                                                        onAction="#onRandomize"/>
-                                                                <Button fx:id="actionsClearButton"
-                                                                        mnemonicParsing="false"
-                                                                        onAction="#onActionsClear"/>
-                                                                <Button fx:id="saveSequenceButton"
-                                                                        mnemonicParsing="false"
-                                                                        onAction="#onSaveSequence"/>
+                                                                <Button fx:id="randomizeButton" mnemonicParsing="false" onAction="#onRandomize" text="a" />
+                                                                <Button fx:id="actionsClearButton" mnemonicParsing="false" onAction="#onActionsClear" text="a" />
+                                                                <Button fx:id="saveSequenceButton" mnemonicParsing="false" onAction="#onSaveSequence" text="a" />
                                                             </children>
                                                         </VBox>
                                                     </children>
                                                 </VBox>
                                             </right>
                                             <center>
-                                                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER"
-                                                            prefHeight="350.0" prefWidth="450.0">
+                                                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="350.0" prefWidth="450.0">
                                                     <content>
-                                                        <VBox fx:id="builderVBox" prefHeight="316.0" prefWidth="284.0"
-                                                              VBox.vgrow="ALWAYS"/>
+                                                        <VBox fx:id="builderVBox" prefHeight="316.0" prefWidth="284.0" VBox.vgrow="ALWAYS" />
                                                     </content>
                                                 </ScrollPane>
                                             </center>
@@ -120,37 +106,36 @@
                         </HBox>
                     </children>
                 </VBox>
-                <VBox prefHeight="200.0" prefWidth="150.0">
+                <VBox prefHeight="200.0" prefWidth="150.0" stylesheets="@../../application.css">
                     <children>
                         <VBox fx:id="actionSettingsVBox" prefHeight="200.0" prefWidth="100.0">
                             <children>
-                                <Label fx:id="actionInFocusLabel"/>
-                                <Separator prefWidth="200.0"/>
+                                <Label fx:id="actionInFocusLabel" />
+                                <Separator prefWidth="200.0" />
                                 <VBox prefHeight="200.0" prefWidth="100.0">
                                     <children>
-                                        <Label text="Time Frame"/>
-                                        <Label text="Sets the time frame how long the Action should last"
-                                               wrapText="true"/>
+                                        <Label text="Time Frame" />
+                                        <Label text="Sets the time frame how long the Action should last" wrapText="true" />
                                         <HBox prefHeight="25.0" prefWidth="200.0" spacing="5.0">
                                             <children>
-                                                <Label text="Minimum Value:"/>
-                                                <Label fx:id="minSliderLabel" text="0 ms"/>
+                                                <Label text="Minimum Value:" />
+                                                <Label fx:id="minSliderLabel" text="0 ms" />
                                             </children>
                                         </HBox>
-                                        <Slider fx:id="minSlider" max="10000.0"/>
+                                        <Slider fx:id="minSlider" max="10000.0" />
                                         <HBox prefHeight="25.0" prefWidth="200.0" spacing="5.0">
                                             <children>
-                                                <Label text="Maximum Value:"/>
-                                                <Label fx:id="maxSliderLabel" text="0 ms"/>
+                                                <Label text="Maximum Value:" />
+                                                <Label fx:id="maxSliderLabel" text="0 ms" />
                                             </children>
                                         </HBox>
-                                        <Slider fx:id="maxSlider" max="10000.0"/>
+                                        <Slider fx:id="maxSlider" max="10000.0" />
                                     </children>
                                 </VBox>
-                                <Separator prefWidth="200.0"/>
+                                <Separator prefWidth="200.0" />
                             </children>
                             <padding>
-                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0"/>
+                                <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
                             </padding>
                         </VBox>
                     </children>
@@ -159,6 +144,6 @@
         </HBox>
     </children>
     <padding>
-        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0"/>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
     </padding>
 </AnchorPane>
