@@ -1,33 +1,18 @@
-.highlight-label {
-    -fx-text-fill: #d32f2f;
-    -fx-font-size: 16px;
-    -fx-font-weight: bold;
-    -fx-padding: 5 0;
-    -fx-border-color: #d32f2f;
-    -fx-border-width: 0 0 2 0;
-    -fx-border-style: solid;
+.navigation-bar {
+    -fx-pref-width: 64px;
+    -fx-pref-height: 32px;
+    -fx-max-width: 64px;
+    -fx-max-height: 32px;
+    -fx-spacing: 12px;
+    -fx-padding: 6px;
+    -fx-alignment: center;
+    -fx-background-radius: 8px;
+
+    -fx-background-color: #143840;
+    -fx-effect: dropshadow(three-pass-box, #C444C3, 10, 0.0, 0, 5);
 }
 
-.highlight-label:hover {
-    -fx-border-color: #f44336;
-}
-
-.primary-button {
-    -fx-background-radius: 25;
-    -fx-background-color: linear-gradient(#6a1b9a, #8e24aa);
-    -fx-text-fill: white;
-    -fx-font-size: 14px;
-    -fx-font-weight: bold;
-    -fx-padding: 10 20;
-    -fx-effect: dropshadow(three-pass-box, rgba(0, 0, 0, 0.2), 5, 0.0, 0, 2);
-    -fx-cursor: hand;
-}
-
-.primary-button:hover {
-    -fx-background-color: linear-gradient(#8e24aa, #ab47bc);
-}
-
-.primary-button:pressed {
-    -fx-background-color: #4a148c;
-    -fx-effect: none;
+.builder-button .randomizer-button {
+    -fx-max-width: 20px;
+    -fx-max-height: 20px;
 }
