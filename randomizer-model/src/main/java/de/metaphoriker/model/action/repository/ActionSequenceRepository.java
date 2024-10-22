@@ -18,7 +18,6 @@ public class ActionSequenceRepository {
   @Inject
   public ActionSequenceRepository(ActionSequenceDao actionSequenceDao) {
     this.actionSequenceDao = actionSequenceDao;
-    updateCache();
   }
 
   /**
