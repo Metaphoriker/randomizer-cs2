@@ -45,18 +45,6 @@
                             </children>
                         </VBox>
                     </center>
-                    <top>
-                        <HBox prefHeight="75.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
-                    </top>
-                    <left>
-                        <HBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER"/>
-                    </left>
-                    <right>
-                        <HBox prefHeight="100.0" prefWidth="100.0" BorderPane.alignment="CENTER"/>
-                    </right>
-                    <bottom>
-                        <HBox prefHeight="75.0" prefWidth="200.0" BorderPane.alignment="CENTER"/>
-                    </bottom>
                 </BorderPane>
             </children>
         </VBox>

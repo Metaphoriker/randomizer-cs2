@@ -70,10 +70,8 @@
                     <children>
                         <HBox VBox.vgrow="ALWAYS">
                             <children>
-                                <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="NEVER"/>
                                 <VBox alignment="CENTER" HBox.hgrow="ALWAYS">
                                     <children>
-                                        <HBox prefHeight="75.0" prefWidth="200.0" VBox.vgrow="NEVER"/>
                                         <BorderPane VBox.vgrow="ALWAYS">
                                             <top>
                                                 <VBox alignment="CENTER_LEFT" prefHeight="50.0" prefWidth="100.0"
@@ -116,10 +114,8 @@
                                                 </ScrollPane>
                                             </center>
                                         </BorderPane>
-                                        <HBox prefHeight="100.0" prefWidth="200.0" VBox.vgrow="NEVER"/>
                                     </children>
                                 </VBox>
-                                <HBox prefHeight="100.0" prefWidth="200.0" HBox.hgrow="NEVER"/>
                             </children>
                         </HBox>
                     </children>
