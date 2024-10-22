@@ -1,5 +1,6 @@
 package de.metaphoriker.model.config.keybind;
 
+import com.google.inject.Inject;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -13,10 +14,16 @@ public class KeyBindRepository {
 
   private static final String UNBOUND = "<unbound>";
   private final List<KeyBind> keyBinds = new ArrayList<>();
-  private final KeyBindNameTypeMapper keyBindNameTypeMapper = new KeyBindNameTypeMapper();
+
+  private final KeyBindNameTypeMapper keyBindNameTypeMapper;
 
   private String defaultFilePath;
   private String userConfigFilePath;
+
+  @Inject
+  public KeyBindRepository(KeyBindNameTypeMapper keyBindNameTypeMapper) {
+    this.keyBindNameTypeMapper = keyBindNameTypeMapper;
+  }
 
   /**
    * Retrieves a KeyBind associated with the given key.
