@@ -356,20 +356,7 @@ public class BuilderViewController {
                   _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
 
               hBox.getChildren().add(label);
-              Button deleteSequenceButton = new Button("DEL");
-              deleteSequenceButton.setOnAction(
-                  event -> {
-                    builderViewModel.deleteActionSequence(actionSequence);
-                    if (builderViewModel.getCurrentActionSequenceProperty().get() != null
-                        && builderViewModel
-                            .getCurrentActionSequenceProperty()
-                            .get()
-                            .getName()
-                            .equalsIgnoreCase(actionSequence.getName()))
-                      builderViewModel.getCurrentActionSequenceProperty().set(null);
-                    fillActionSequences();
-                    event.consume();
-                  });
+              Button deleteSequenceButton = createDeleteButton(actionSequence);
 
               HBox buttonHBox = new HBox();
               buttonHBox.setAlignment(Pos.CENTER_RIGHT);
@@ -379,6 +366,24 @@ public class BuilderViewController {
 
               actionSequencesVBox.getChildren().add(hBox);
             });
+  }
+
+  private Button createDeleteButton(ActionSequence actionSequence) {
+    Button deleteSequenceButton = new Button("DEL");
+    deleteSequenceButton.setOnAction(
+        event -> {
+          builderViewModel.deleteActionSequence(actionSequence);
+          if (builderViewModel.getCurrentActionSequenceProperty().get() != null
+              && builderViewModel
+                  .getCurrentActionSequenceProperty()
+                  .get()
+                  .getName()
+                  .equalsIgnoreCase(actionSequence.getName()))
+            builderViewModel.getCurrentActionSequenceProperty().set(null);
+          fillActionSequences();
+          event.consume();
+        });
+    return deleteSequenceButton;
   }
 
   private void fillBuilderWithActionsOfSequence(ActionSequence sequence) {
