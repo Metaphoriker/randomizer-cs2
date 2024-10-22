@@ -25,6 +25,11 @@ import java.net.URISyntaxException;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * The RandomizerBootstrap class is responsible for initializing and configuring the application. It
+ * sets up repositories, executors, file watchers, exception handlers, and loads necessary
+ * configurations.
+ */
 @Slf4j
 public class RandomizerBootstrap {
 
