@@ -11,7 +11,6 @@ import javafx.scene.control.ToggleButton;
 
 @View
 public class NavigationBarController {
-
   private final NavigationBarViewModel navigationBarViewModel;
   private final ViewProvider viewProvider;
 
@@ -23,7 +22,6 @@ public class NavigationBarController {
       NavigationBarViewModel navigationBarViewModel, ViewProvider viewProvider) {
     this.navigationBarViewModel = navigationBarViewModel;
     this.viewProvider = viewProvider;
-
     Platform.runLater(this::initialize);
   }
 
@@ -33,14 +31,19 @@ public class NavigationBarController {
   }
 
   private void setupBindings() {
+    addListenerForSelectedViewChange();
+  }
+
+  private void addListenerForSelectedViewChange() {
     navigationBarViewModel
         .getSelectedView()
-        .addListener(
-            (_, _, newView) -> {
-              if (newView != null) {
-                viewProvider.triggerViewChange(newView);
-              }
-            });
+        .addListener((_, _, newView) -> triggerViewChange(newView));
+  }
+
+  private void triggerViewChange(Class<?> newView) {
+    if (newView != null) {
+      viewProvider.triggerViewChange(newView);
+    }
   }
 
   private void setupToggleButtonLogic() {
@@ -64,12 +67,22 @@ public class NavigationBarController {
       ToggleButton button, Class<?> newView, boolean isSelected, ToggleButton... otherButtons) {
     if (isSelected) {
       navigationBarViewModel.setSelectedView(newView);
-      for (ToggleButton otherButton : otherButtons) {
-        if (otherButton.isSelected()) {
-          otherButton.setSelected(false);
-        }
+      deselectOtherButtons(otherButtons);
+    } else {
+      reactivateButtonIfNoneSelected(button, otherButtons);
+    }
+  }
+
+  private void deselectOtherButtons(ToggleButton... otherButtons) {
+    for (ToggleButton otherButton : otherButtons) {
+      if (otherButton.isSelected()) {
+        otherButton.setSelected(false);
       }
-    } else if (!isAnotherButtonSelected(otherButtons)) {
+    }
+  }
+
+  private void reactivateButtonIfNoneSelected(ToggleButton button, ToggleButton... otherButtons) {
+    if (!isAnotherButtonSelected(otherButtons)) {
       Platform.runLater(() -> button.setSelected(true));
     }
   }
