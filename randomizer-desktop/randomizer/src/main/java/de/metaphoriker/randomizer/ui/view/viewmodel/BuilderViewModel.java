@@ -29,6 +29,8 @@ import lombok.Getter;
 
 public class BuilderViewModel {
 
+  private static final String UNNAMED_SEQUENCE_PREFIX = "Unnamed";
+
   @Getter
   private final ObjectProperty<ActionSequence> currentActionSequenceProperty =
       new SimpleObjectProperty<>();
@@ -56,9 +58,12 @@ public class BuilderViewModel {
     this.actionRepository = actionRepository;
     this.actionSequenceRepository = actionSequenceRepository;
     this.keyBindNameTypeMapper = keyBindNameTypeMapper;
+    setupListeners();
+  }
 
+  private void setupListeners() {
     setupActionSequenceListener();
-    setupMinAndMaxIntervalListener();
+    setupMinAndMaxIntervalListeners();
     setupActionInFocusListener();
   }
 
@@ -85,7 +90,6 @@ public class BuilderViewModel {
             oldAction.setInterval(
                 Interval.of(minIntervalProperty.get(), maxIntervalProperty.get()));
           }
-
           if (newAction != null) {
             minIntervalProperty.set(newAction.getInterval().getMin());
             maxIntervalProperty.set(newAction.getInterval().getMax());
@@ -93,24 +97,23 @@ public class BuilderViewModel {
         });
   }
 
-  private void setupMinAndMaxIntervalListener() {
+  private void setupMinAndMaxIntervalListeners() {
     minIntervalProperty.addListener(
-        (_, _, newValue) -> {
-          Action action = actionInFocusProperty.get();
-          if (action != null) {
-            Interval currentInterval = action.getInterval();
-            currentInterval.setMin(newValue.intValue());
-          }
-        });
-
+        (_, _, newValue) -> updateIntervalProperty(newValue.intValue(), true));
     maxIntervalProperty.addListener(
-        (_, _, newValue) -> {
-          Action action = actionInFocusProperty.get();
-          if (action != null) {
-            Interval currentInterval = action.getInterval();
-            currentInterval.setMax(newValue.intValue());
-          }
-        });
+        (_, _, newValue) -> updateIntervalProperty(newValue.intValue(), false));
+  }
+
+  private void updateIntervalProperty(int newValue, boolean isMin) {
+    Action currentAction = actionInFocusProperty.get();
+    if (currentAction != null) {
+      Interval interval = currentAction.getInterval();
+      if (isMin) {
+        interval.setMin(newValue);
+      } else {
+        interval.setMax(newValue);
+      }
+    }
   }
 
   public void openSequenceFolder() throws IOException {
@@ -125,16 +128,20 @@ public class BuilderViewModel {
   }
 
   public void createNewActionSequence() {
-    int sequenceCount = 1;
-    String name = "Unnamed " + sequenceCount;
-    while (actionSequenceRepository.getActionSequence(name).isPresent()) {
-      sequenceCount++;
-      name = "Unnamed " + sequenceCount;
-    }
-
+    String name = generateUniqueSequenceName();
     ActionSequence actionSequence = new ActionSequence(name);
     actionSequenceRepository.saveActionSequence(actionSequence);
     currentActionSequenceProperty.set(actionSequence);
+  }
+
+  private String generateUniqueSequenceName() {
+    int sequenceCount = 1;
+    String name = UNNAMED_SEQUENCE_PREFIX + sequenceCount;
+    while (actionSequenceRepository.getActionSequence(name).isPresent()) {
+      sequenceCount++;
+      name = UNNAMED_SEQUENCE_PREFIX + sequenceCount;
+    }
+    return name;
   }
 
   public void saveActionSequence() {
@@ -144,7 +151,8 @@ public class BuilderViewModel {
 
   public void addRandomActions(int count) {
     List<Action> allActions = new ArrayList<>(actionRepository.getActions().keySet());
-    for (int i = 0; i < ThreadLocalRandom.current().nextInt(1, count); i++) {
+    int randomCount = ThreadLocalRandom.current().nextInt(1, count);
+    for (int i = 0; i < randomCount; i++) {
       int randomIndex = (int) (Math.random() * allActions.size());
       Action randomAction = allActions.get(randomIndex);
       currentActionsProperty.add(randomAction);
@@ -165,10 +173,6 @@ public class BuilderViewModel {
     currentActionsProperty.add(index, action);
   }
 
-  public void removeActionAt(int index) {
-    currentActionsProperty.remove(index);
-  }
-
   public void removeAction(Action action) {
     currentActionsProperty.remove(action);
   }
@@ -179,7 +183,6 @@ public class BuilderViewModel {
 
   public Map<KeyBindType, List<Action>> getActionToTypeMap() {
     Map<KeyBindType, List<Action>> actionMap = new HashMap<>();
-
     actionRepository
         .getActions()
         .forEach(
