@@ -1,6 +1,6 @@
 # <img src="https://github.com/user-attachments/assets/ab28eba7-4b88-47b4-be10-ac4487d66e23" alt="randomizer" width="24" height="24" style="vertical-align: middle;" /> Randomizer-CS2 (WiP)
 
-[![Build Status](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml/badge.svg?branch=stage)](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml) [![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)
+[![Build Status](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml/badge.svg?branch=stage)](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml) [![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2) ![Downloads](https://img.shields.io/github/downloads/Metaphoriker/randomizer-cs2/total?style=flat)
 
 ![its-time-for-cs2](https://github.com/user-attachments/assets/a7a41412-c322-4b2d-ae6d-0aa28324d8c9)
 
