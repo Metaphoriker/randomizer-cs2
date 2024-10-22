@@ -14,15 +14,8 @@ import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
 
 /**
- * The Action class serves as an abstract base for defining specific actions that can be performed,
- * such as key presses, mouse movements, and delays. Implementations of this class should override
- * the {@link #execute()} method to define the specific behavior of the action.
- *
- * <p>The class provides mechanisms to handle interruptions and delays in an interruptible manner,
- * as well as cloning capabilities to create identical copies of an action.
- *
- * <p>The class also associates each action with a specific {@link KeyBind} and maintains an
- * execution interval.
+ * Represents an abstract action that can be performed by a robot. The action can have a specified
+ * interval, and supports interruptions.
  */
 @Getter
 @Slf4j
@@ -45,7 +38,14 @@ public abstract class Action implements Cloneable {
   private final transient ActionKey actionKey;
   private final transient ActionType actionType;
 
+  /** The name representing a unique identifier. */
   private final String name;
+
+  /**
+   * Represents an interval with a start and end time.
+   *
+   * <p>Default values are 0
+   */
   @Setter private Interval interval = Interval.of(0, 0);
 
   @Setter(AccessLevel.PROTECTED)
@@ -71,6 +71,10 @@ public abstract class Action implements Cloneable {
                 : hasKey() ? ActionType.KEYBOARD : ActionType.CUSTOM;
   }
 
+  /**
+   * Executes an action with a certain delay. If no interval is specified, the action is executed
+   * immediately. When an interval is specified, a random delay within the interval is chosen.
+   */
   public void execute() {
     if (getInterval().isEmpty()) {
       executeWithDelay(0);
@@ -81,6 +85,14 @@ public abstract class Action implements Cloneable {
     }
   }
 
+  /**
+   * Executes an action with a specified delay. It begins by performing an action start using a key
+   * code, waits for the specified delay allowing for interruption, and then, if not interrupted,
+   * performs the action end.
+   *
+   * @param delay the time period (in milliseconds) to wait between performing the start and end of
+   *     the action
+   */
   public void executeWithDelay(long delay) {
     int keyCode = KEY_MAPPER.getKeyCodeForKey(getActionKey().getKey());
     setExecuting(true);
@@ -100,10 +112,22 @@ public abstract class Action implements Cloneable {
     }
   }
 
+  /**
+   * Interrupts the current process.
+   *
+   * <p>This method sets the interrupted flag to true, indicating that the process should be
+   * terminated as soon as possible.
+   */
   public void interrupt() {
     interrupted = true;
   }
 
+  /**
+   * Performs a delay that can be interrupted. If the interval is not empty, it calculates the
+   * expected end time and calls the interruptible delay method.
+   *
+   * @param delay the delay duration in milliseconds
+   */
   protected void performInterruptibleDelay(long delay) {
     if (!getInterval().isEmpty()) {
       expectedEnding = Instant.now().plusMillis(delay);
@@ -156,7 +180,17 @@ public abstract class Action implements Cloneable {
     }
   }
 
+  /**
+   * Triggers the start of a specific action based on the provided key code.
+   *
+   * @param keyCode the code of the key that was pressed to initiate the action
+   */
   protected abstract void performActionStart(int keyCode);
 
+  /**
+   * Executes the final action corresponding to the specified key code.
+   *
+   * @param keyCode the key code representing a specific action to end
+   */
   protected abstract void performActionEnd(int keyCode);
 }

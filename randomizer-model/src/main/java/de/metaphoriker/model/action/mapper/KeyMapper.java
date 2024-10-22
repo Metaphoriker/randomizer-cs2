@@ -5,6 +5,11 @@ import java.awt.event.KeyEvent;
 import java.util.HashMap;
 import java.util.Map;
 
+/**
+ * The KeyMapper class provides a mapping between key strings and their corresponding key codes. It
+ * supports common keyboard keys, function keys, modifier keys, navigation keys, control keys, and
+ * mouse buttons and scroll wheel events.
+ */
 public class KeyMapper {
 
   private static final int MWHEELDOWN_KEYCODE = -1;

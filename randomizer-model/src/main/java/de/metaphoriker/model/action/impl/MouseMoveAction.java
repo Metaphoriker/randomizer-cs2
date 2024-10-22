@@ -7,6 +7,17 @@ import java.awt.*;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.function.Supplier;
 
+/**
+ * The {@code MouseMoveAction} class represents an action that simulates mouse movement. This action
+ * randomly moves the mouse pointer within a small range around its current position either
+ * horizontally or vertically.
+ *
+ * <p>This class extends from the {@link Action} class and provides specific implementations for
+ * starting and stopping the mouse move action.
+ *
+ * <p>The action has a default name "Mouse move" and uses a key bind represented by an {@link
+ * ActionKey} created from an unbound key.
+ */
 public class MouseMoveAction extends Action {
 
   public MouseMoveAction() {

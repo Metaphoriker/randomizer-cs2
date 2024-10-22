@@ -20,7 +20,12 @@ public class ActionJsonDeSerializer implements JsonSerializer<Action>, JsonDeser
   private static final String NAME_KEY = "name";
   private static final String INTERVAL_KEY = "interval";
 
-  @Inject private ActionRepository actionRepository;
+  private final ActionRepository actionRepository;
+
+  @Inject
+  public ActionJsonDeSerializer(ActionRepository actionRepository) {
+    this.actionRepository = actionRepository;
+  }
 
   @Override
   public JsonElement serialize(Action action, Type type, JsonSerializationContext context) {
@@ -30,25 +35,32 @@ public class ActionJsonDeSerializer implements JsonSerializer<Action>, JsonDeser
     return jsonObject;
   }
 
+  private static void validateAction(String actionName, Action action) {
+    if (action == null) {
+      throw new JsonParseException("No Action found with the name: " + actionName);
+    }
+  }
+
   @Override
   public Action deserialize(JsonElement jsonElement, Type type, JsonDeserializationContext context)
       throws JsonParseException {
     JsonObject jsonObject = jsonElement.getAsJsonObject();
-    String name = jsonObject.get(NAME_KEY).getAsString();
+    String actionName = jsonObject.get(NAME_KEY).getAsString();
 
     try {
-      Action action = actionRepository.getByName(name);
-      if (action == null) {
-        throw new JsonParseException("No Action found with the name: " + name);
-      }
-
-      Interval interval = context.deserialize(jsonObject.get(INTERVAL_KEY), Interval.class);
-      action.setInterval(interval);
-
-      return action;
-    } catch (Exception e) {
-      log.error("Failed to deserialize Action: {}", name, e);
-      throw new JsonParseException("Failed to deserialize Action: " + name, e);
+      return assembleAction(jsonObject, actionName, context);
+    } catch (Exception exception) {
+      log.error("Failed to deserialize Action: {}", actionName, exception);
+      throw new JsonParseException("Failed to deserialize Action: " + actionName, exception);
     }
+  }
+
+  private Action assembleAction(
+      JsonObject jsonObject, String actionName, JsonDeserializationContext context) {
+    Action action = actionRepository.getByName(actionName);
+    validateAction(actionName, action);
+    Interval interval = context.deserialize(jsonObject.get(INTERVAL_KEY), Interval.class);
+    action.setInterval(interval);
+    return action;
   }
 }

@@ -35,43 +35,53 @@ public class ActionSequenceJsonDeSerializer
   public ActionSequence deserialize(
       JsonElement jsonElement, Type type, JsonDeserializationContext context)
       throws JsonParseException {
+
     JsonObject jsonObject = jsonElement.getAsJsonObject();
+    warnOnUnknownKeys(jsonObject);
 
-    for (String key : jsonObject.keySet()) {
-      if (!NAME_KEY.equals(key)
-          && !DESCRIPTION_KEY.equals(key)
-          && !ACTIONS_KEY.equals(key)
-          && !ACTIVE_KEY.equals(key)) {
-        log.warn("Unbekannter Key gefunden: {}", key);
-      }
-    }
-
-    String name =
-        jsonObject.has(NAME_KEY) && !jsonObject.get(NAME_KEY).isJsonNull()
-            ? jsonObject.get(NAME_KEY).getAsString()
-            : "<INVALID>";
-
-    String description =
-        jsonObject.has(DESCRIPTION_KEY) && !jsonObject.get(DESCRIPTION_KEY).isJsonNull()
-            ? jsonObject.get(DESCRIPTION_KEY).getAsString()
-            : "";
-
-    List<Action> actions =
-        jsonObject.has(ACTIONS_KEY) && !jsonObject.get(ACTIONS_KEY).isJsonNull()
-            ? context.deserialize(
-                jsonObject.get(ACTIONS_KEY), new TypeToken<List<Action>>() {}.getType())
-            : Collections.emptyList();
-
-    boolean active =
-        jsonObject.has(ACTIVE_KEY)
-            && !jsonObject.get(ACTIVE_KEY).isJsonNull()
-            && jsonObject.get(ACTIVE_KEY).getAsBoolean();
+    String name = extractStringValue(jsonObject, NAME_KEY, "<INVALID>");
+    String description = extractStringValue(jsonObject, DESCRIPTION_KEY, "");
+    List<Action> actions = extractActions(jsonObject, context);
+    boolean active = extractBooleanValue(jsonObject, ACTIVE_KEY);
 
     ActionSequence actionSequence = new ActionSequence(name);
     actionSequence.setDescription(description);
     actionSequence.setActive(active);
     actionSequence.setActions(actions);
-
     return actionSequence;
+  }
+
+  private void warnOnUnknownKeys(JsonObject jsonObject) {
+    for (String key : jsonObject.keySet()) {
+      if (!isValidKey(key)) {
+        log.warn("Unbekannter Key gefunden: {}", key);
+      }
+    }
+  }
+
+  private boolean isValidKey(String key) {
+    return NAME_KEY.equals(key)
+        || DESCRIPTION_KEY.equals(key)
+        || ACTIONS_KEY.equals(key)
+        || ACTIVE_KEY.equals(key);
+  }
+
+  private String extractStringValue(JsonObject jsonObject, String key, String defaultValue) {
+    return jsonObject.has(key) && !jsonObject.get(key).isJsonNull()
+        ? jsonObject.get(key).getAsString()
+        : defaultValue;
+  }
+
+  private List<Action> extractActions(JsonObject jsonObject, JsonDeserializationContext context) {
+    return jsonObject.has(ACTIONS_KEY) && !jsonObject.get(ACTIONS_KEY).isJsonNull()
+        ? context.deserialize(
+            jsonObject.get(ACTIONS_KEY), new TypeToken<List<Action>>() {}.getType())
+        : Collections.emptyList();
+  }
+
+  private boolean extractBooleanValue(JsonObject jsonObject, String key) {
+    return jsonObject.has(key)
+        && !jsonObject.get(key).isJsonNull()
+        && jsonObject.get(key).getAsBoolean();
   }
 }

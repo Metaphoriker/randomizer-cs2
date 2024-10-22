@@ -30,8 +30,8 @@ public class ActionSequenceDao {
   @Inject JsonUtil jsonUtil;
 
   /**
-   * Saves the given ActionSequence to a file in the specified folder. The ActionSequence
-   * object is serialized to JSON format before being saved.
+   * Saves the given ActionSequence to a file in the specified folder. The ActionSequence object is
+   * serialized to JSON format before being saved.
    *
    * @param actionSequence the ActionSequence object to be saved. Must not be null.
    */
@@ -81,14 +81,14 @@ public class ActionSequenceDao {
   /**
    * Loads all action sequences from the specified folder.
    *
-   * @return a list of {@link ActionSequence} objects loaded from the folder.
-   * If no files are found or an error occurs during the load, an empty list will be returned.
+   * @return a list of {@link ActionSequence} objects loaded from the folder. If no files are found
+   *     or an error occurs during the load, an empty list will be returned.
    */
   public List<ActionSequence> loadActionSequences() {
     List<ActionSequence> actionSequences = new ArrayList<>();
     File[] actionSequenceFiles = ACTION_SEQUENCE_FOLDER.listFiles();
 
-    if (actionSequenceFiles == null || actionSequenceFiles.length == 0) {
+    if (areFilesEmpty(actionSequenceFiles)) {
       log.warn(
           "Keine ActionSequence-Dateien gefunden im Ordner: {}",
           ACTION_SEQUENCE_FOLDER.getAbsolutePath());
@@ -96,18 +96,30 @@ public class ActionSequenceDao {
     }
 
     for (File file : actionSequenceFiles) {
-      if (!file.getName().endsWith(".sequence")) continue;
-
-      try {
-        String content = new String(Files.readAllBytes(file.toPath()));
-        ActionSequence actionSequence = jsonUtil.deserializeActionSequence(content);
-        actionSequences.add(actionSequence);
-      } catch (IOException e) {
-        log.error("Fehler beim Laden der ActionSequence aus Datei: {}", file.getAbsolutePath(), e);
+      if (isSequenceFile(file)) {
+        actionSequences.add(loadActionSequenceFromFile(file));
       }
     }
 
     log.info("Insgesamt {} ActionSequences erfolgreich geladen", actionSequences.size());
     return actionSequences;
+  }
+
+  private boolean areFilesEmpty(File[] files) {
+    return files == null || files.length == 0;
+  }
+
+  private boolean isSequenceFile(File file) {
+    return file.getName().endsWith(".sequence");
+  }
+
+  private ActionSequence loadActionSequenceFromFile(File file) {
+    try {
+      String content = new String(Files.readAllBytes(file.toPath()));
+      return jsonUtil.deserializeActionSequence(content);
+    } catch (IOException e) {
+      log.error("Fehler beim Laden der ActionSequence aus Datei: {}", file.getAbsolutePath(), e);
+      return null;
+    }
   }
 }

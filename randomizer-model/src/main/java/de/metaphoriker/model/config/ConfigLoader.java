@@ -16,8 +16,8 @@ public class ConfigLoader {
   };
 
   /**
-   * Loads key bindings from default and user configuration files
-   * into the provided KeyBindRepository.
+   * Loads key bindings from default and user configuration files into the provided
+   * KeyBindRepository.
    *
    * @param keyBindRepository the repository where key bindings will be loaded
    * @throws RuntimeException if the key bindings could not be loaded due to a FileNotFoundException
@@ -72,15 +72,27 @@ public class ConfigLoader {
     for (String steamPath : STEAM_PATHS) {
       File userdataFolder = new File(steamPath + "/userdata");
       if (userdataFolder.exists()) {
-        File[] userDirs = userdataFolder.listFiles(File::isDirectory);
+        File[] userDirs = listUserDirectories(userdataFolder);
         if (userDirs != null) {
-          for (File userDir : userDirs) {
-            File gameFolder = new File(userDir, "730/remote/cs2_user_keys.vcfg");
-            if (gameFolder.exists()) {
-              return gameFolder.getAbsolutePath();
-            }
+          String configFilePath = searchInUserDirectories(userDirs);
+          if (configFilePath != null) {
+            return configFilePath;
           }
         }
+      }
+    }
+    return null;
+  }
+
+  private static File[] listUserDirectories(File userdataFolder) {
+    return userdataFolder.listFiles(File::isDirectory);
+  }
+
+  private static String searchInUserDirectories(File[] userDirs) {
+    for (File userDir : userDirs) {
+      File gameFolder = new File(userDir, "730/remote/cs2_user_keys.vcfg");
+      if (gameFolder.exists()) {
+        return gameFolder.getAbsolutePath();
       }
     }
     return null;

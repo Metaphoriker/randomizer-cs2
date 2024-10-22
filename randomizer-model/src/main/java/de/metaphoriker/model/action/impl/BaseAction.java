@@ -4,6 +4,11 @@ import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.ActionKey;
 import lombok.extern.slf4j.Slf4j;
 
+/**
+ * BaseAction is a specific implementation of the Action class designed to handle different types of
+ * user actions. Depending on the action type, it can simulate mouse presses, mouse wheel movements,
+ * and key presses.
+ */
 @Slf4j
 public class BaseAction extends Action {
 

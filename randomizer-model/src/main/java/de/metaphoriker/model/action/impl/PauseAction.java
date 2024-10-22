@@ -5,6 +5,13 @@ import de.metaphoriker.model.action.ActionKey;
 import de.metaphoriker.model.config.keybind.KeyBind;
 import java.util.concurrent.ThreadLocalRandom;
 
+/**
+ * The PauseAction class represents an action that pauses execution for a random duration within a
+ * specified interval.
+ *
+ * <p>This class extends the Action class and leverages the functionality of performing
+ * interruptible delays. No specific action is performed at the end of the pause duration.
+ */
 public class PauseAction extends Action {
 
   public PauseAction() {

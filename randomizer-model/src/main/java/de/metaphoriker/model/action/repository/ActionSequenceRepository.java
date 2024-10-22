@@ -13,7 +13,13 @@ public class ActionSequenceRepository {
 
   private boolean isCacheUpdated = false;
 
-  @Inject private ActionSequenceDao actionSequenceDao;
+  private final ActionSequenceDao actionSequenceDao;
+
+  @Inject
+  public ActionSequenceRepository(ActionSequenceDao actionSequenceDao) {
+    this.actionSequenceDao = actionSequenceDao;
+    updateCache();
+  }
 
   /**
    * Saves an action sequence to the storage and updates the cache.
