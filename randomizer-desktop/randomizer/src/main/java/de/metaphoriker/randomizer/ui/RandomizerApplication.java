@@ -35,7 +35,7 @@ public class RandomizerApplication extends Application {
     Parent root = viewProvider.requestView(RandomizerWindowController.class).parent();
     Scene scene = new Scene(root);
     stage.setTitle("Randomizer");
-    stage.getIcons().add(new Image("de/metaphoriker/randomizer/images/randomizerLogo.jpg"));
+    stage.getIcons().add(new Image("de/metaphoriker/randomizer/images/randomizer.png"));
     scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     stage.setMinWidth(MIN_WIDTH);
     stage.setMinHeight(MIN_HEIGHT);
