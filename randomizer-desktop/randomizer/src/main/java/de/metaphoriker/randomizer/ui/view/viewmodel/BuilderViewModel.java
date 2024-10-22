@@ -29,7 +29,7 @@ import lombok.Getter;
 
 public class BuilderViewModel {
 
-  private static final String UNNAMED_SEQUENCE_PREFIX = "Unnamed";
+  private static final String SEQUENCE_CREATION_NAME_PREFIX = "Unnamed";
 
   @Getter
   private final ObjectProperty<ActionSequence> currentActionSequenceProperty =
@@ -136,10 +136,10 @@ public class BuilderViewModel {
 
   private String generateUniqueSequenceName() {
     int sequenceCount = 1;
-    String name = UNNAMED_SEQUENCE_PREFIX + sequenceCount;
+    String name = SEQUENCE_CREATION_NAME_PREFIX + sequenceCount;
     while (actionSequenceRepository.getActionSequence(name).isPresent()) {
       sequenceCount++;
-      name = UNNAMED_SEQUENCE_PREFIX + sequenceCount;
+      name = SEQUENCE_CREATION_NAME_PREFIX + sequenceCount;
     }
     return name;
   }
