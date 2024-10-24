@@ -12,6 +12,14 @@
     -fx-effect: dropshadow(three-pass-box, #C444C3, 10, 0.0, 0, 5);
 }
 
+.randomizer-window {
+    -fx-pref-width: 704px;
+    -fx-pref-height: 536px;
+    -fx-min-width: 704px;
+    -fx-min-height: 536px;
+    -fx-background-color: #050E10;
+}
+
 /* Buttons */
 .builder-button, .randomizer-button {
     -fx-max-width: 20px;
