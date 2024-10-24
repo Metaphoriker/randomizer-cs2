@@ -12,15 +12,15 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-<AnchorPane prefHeight="536.0" prefWidth="704.0" styleClass="builder-view" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.randomizer.ui.view.controller.BuilderViewController">
+<AnchorPane prefHeight="488.0" prefWidth="688.0" styleClass="builder-view" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.randomizer.ui.view.controller.BuilderViewController">
     <children>
         <HBox prefHeight="488.0" prefWidth="688.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" styleClass="builder">
             <children>
                 <VBox prefHeight="488.0" prefWidth="140.0" VBox.vgrow="ALWAYS" styleClass="builder-left-bar">
                     <children>
-                        <VBox prefHeight="240.0" prefWidth="144.0" VBox.vgrow="ALWAYS" styleClass="builder-actions">
+                        <VBox prefHeight="240.0" prefWidth="140.0" VBox.vgrow="ALWAYS" styleClass="builder-actions">
                             <children>
-                                <HBox prefHeight="24.0" prefWidth="144.0" styleClass="builder-actions-top">
+                                <HBox prefHeight="24.0" prefWidth="140.0" styleClass="builder-actions-top">
                                     <children>
                                         <Label text="Label" styleClass="builder-actions-label"/>
                                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" styleClass="builder-actions-search">
@@ -30,17 +30,17 @@
                                         </HBox>
                                     </children>
                                 </HBox>
-                                <Separator prefWidth="144.0" />
+                                <Separator prefWidth="140.0" />
                                 <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" VBox.vgrow="ALWAYS" fitToHeight="true" fitToWidth="true" styleClass="builder-actions-scrollpane">
                                     <content>
-                                        <VBox fx:id="actionsVBox" minHeight="210.0" prefWidth="144.0" styleClass="builder-actions-categories"/>
+                                        <VBox fx:id="actionsVBox" minHeight="210.0" prefWidth="140.0" styleClass="builder-actions-categories"/>
                                     </content>
                                 </ScrollPane>
                             </children>
                         </VBox>
-                        <VBox prefHeight="240.0" prefWidth="144.0" VBox.vgrow="ALWAYS" styleClass="builder-sequences">
+                        <VBox prefHeight="240.0" prefWidth="140.0" VBox.vgrow="ALWAYS" styleClass="builder-sequences">
                             <children>
-                                <HBox prefHeight="24.0" prefWidth="144.0" styleClass="builder-sequences-top">
+                                <HBox prefHeight="24.0" prefWidth="140.0" styleClass="builder-sequences-top">
                                     <children>
                                         <Label text="Label" styleClass="builder-sequences-label"/>
                                         <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="14.0" HBox.hgrow="ALWAYS" styleClass="builder-sequences-buttons">
@@ -51,7 +51,7 @@
                                         </HBox>
                                     </children>
                                 </HBox>
-                                <Separator prefWidth="144.0" />
+                                <Separator prefWidth="140.0" />
                                 <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="builder-sequences-scrollpane">
                                     <content>
                                         <VBox fx:id="actionSequencesVBox" prefHeight="210.0" styleClass="builder-actions-sequences"/>
@@ -111,8 +111,8 @@
                         <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="action-settings-vbox">
                             <children>
                                 <Label fx:id="actionInFocusLabel" text="Action Name" styleClass="action-focus-label"/>
-                                <Separator prefWidth="144.0" />
-                                <VBox prefWidth="144.0">
+                                <Separator prefWidth="140.0" />
+                                <VBox prefWidth="140.0">
                                     <children>
                                         <Label text="Time Frame" styleClass="time-frame-label"/>
                                         <Label text="Sets the time frame how long the Action should last" wrapText="true" styleClass="time-frame-description"/>
@@ -132,7 +132,7 @@
                                         <Slider fx:id="maxSlider" max="10000.0" />
                                     </children>
                                 </VBox>
-                                <Separator prefWidth="144.0" />
+                                <Separator prefWidth="140.0" />
                             </children>
                         </VBox>
                     </children>

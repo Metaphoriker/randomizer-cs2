@@ -15,8 +15,6 @@
 .randomizer-window {
     -fx-pref-width: 704px;
     -fx-pref-height: 536px;
-    -fx-min-width: 704px;
-    -fx-min-height: 536px;
     -fx-background-color: #050E10;
 }
 
@@ -28,23 +26,20 @@
 
 /* Builder View */
 .builder-view, .builder {
-    -fx-pref-width: 704px;
-    -fx-pref-height: 536px;
-    -fx-min-width: 704px;
-    -fx-min-height: 536px;
+    -fx-pref-width: 688px;
+    -fx-pref-height: 488px;
     -fx-alignment: center;
     -fx-background-color: #050E10;
 }
 
 .builder {
-    -fx-pref-width: 688px;
-    -fx-pref-height: 488px;
     -fx-spacing: 24px;
 }
 
 /* Left Bar, Actions, and Sequences */
 .builder-left-bar, .builder-actions, .builder-sequences {
-    -fx-pref-width: 144px;
+    -fx-pref-width: 140px;
+    -fx-min-width: 140px;
     -fx-alignment: center;
     -fx-spacing: 8px;
 }
@@ -58,7 +53,7 @@
 
 /* Top Section */
 .builder-actions-top, .builder-sequences-top {
-    -fx-pref-width: 144px;
+    -fx-pref-width: 140px;
     -fx-pref-height: 24px;
     -fx-alignment: center;
     -fx-spacing: 4px;
@@ -202,7 +197,7 @@
 
 /* Time Frame */
 .time-frame {
-    -fx-pref-width: 144px;
+    -fx-pref-width: 140px;
 }
 
 .time-frame-label {
@@ -225,7 +220,7 @@
 
 /* Separator and Lines */
 .separator, .line {
-    -fx-pref-width: 144px;
+    -fx-pref-width: 140px;
     -fx-background-color: #52287E;
     -fx-border-color: #52287E;
 }
