@@ -8,7 +8,7 @@
     -fx-padding: 6px;
     -fx-alignment: center;
     -fx-background-radius: 8px;
-    -fx-background-color: #143840;
+    -fx-background-color: #213539;
     -fx-effect: dropshadow(three-pass-box, #C444C3, 10, 0.0, 0, 5);
 }
 
@@ -79,6 +79,8 @@
 }
 
 .builder-actions-searchfield {
+    -fx-pref-width: 82px;
+    -fx-pref-height: 16px;
     -fx-font-family: Roboto;
     -fx-font-size: 10px;
     -fx-font-style: normal;

@@ -14,7 +14,7 @@
 
 <AnchorPane prefHeight="536.0" prefWidth="704.0" styleClass="builder-view" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.randomizer.ui.view.controller.BuilderViewController">
     <children>
-        <HBox layoutX="9.0" layoutY="20.0" prefHeight="488.0" prefWidth="688.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" styleClass="builder">
+        <HBox prefHeight="488.0" prefWidth="688.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" styleClass="builder">
             <children>
                 <VBox prefHeight="488.0" prefWidth="140.0" VBox.vgrow="ALWAYS" styleClass="builder-left-bar">
                     <children>
@@ -25,7 +25,7 @@
                                         <Label text="Label" styleClass="builder-actions-label"/>
                                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" styleClass="builder-actions-search">
                                             <children>
-                                                <TextField fx:id="searchField" prefHeight="25.0" prefWidth="115.0" HBox.hgrow="ALWAYS" styleClass="builder-actions-searchfield"/>
+                                                <TextField fx:id="searchField" prefHeight="16.0" prefWidth="82.0" HBox.hgrow="ALWAYS" styleClass="builder-actions-searchfield"/>
                                             </children>
                                         </HBox>
                                     </children>
