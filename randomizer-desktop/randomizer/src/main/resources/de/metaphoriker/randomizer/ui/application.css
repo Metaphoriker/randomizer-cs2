@@ -28,12 +28,15 @@
 .builder-view, .builder {
     -fx-pref-width: 688px;
     -fx-pref-height: 488px;
+    -fx-min-width: 688px;
+    -fx-min-height: 488px;
     -fx-alignment: center;
     -fx-background-color: #050E10;
 }
 
 .builder {
     -fx-spacing: 24px;
+    -fx-padding: 0px -10px 0px 0px;
 }
 
 /* Left Bar, Actions, and Sequences */
@@ -119,6 +122,8 @@
 .sequence-builder {
     -fx-pref-width: 360px;
     -fx-pref-height: 300px;
+    -fx-min-width: 360px;
+    -fx-min-height: 300px;
     -fx-padding: 94px 0px;
     -fx-border-radius: 8px;
     -fx-effect: dropshadow(three-pass-box, #C444C3, 15, 0.0, 0, 0);
@@ -184,6 +189,7 @@
 /* Action Settings */
 .action-settings {
     -fx-pref-width: 140px;
+    -fx-min-width: 140px;
     -fx-pref-height: 488px;
     -fx-background-color: #0C171A;
     -fx-border-radius: 8px;
