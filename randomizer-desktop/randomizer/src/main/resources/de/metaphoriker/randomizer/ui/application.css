@@ -18,8 +18,69 @@
     -fx-background-color: #050E10;
 }
 
+.randomizer-view {
+    -fx-pref-width: 688px;
+    -fx-pref-height: 488px;
+    -fx-min-width: 688px;
+    -fx-min-height: 488px;
+    -fx-padding: 8px;
+}
+
+.settings-button-hbox {
+    -fx-pref-width: 688;
+    -fx-pref-height: 20;
+    -fx-alignment: center-right;
+}
+
+.randomizer-logbook {
+    -fx-pref-width: 420px;
+    -fx-pref-height: 350px;
+    -fx-min-width: 420px;
+    -fx-min-height: 350px;
+    -fx-background-color: #0C171A;
+    -fx-effect: dropshadow(three-pass-box, #C444C3, 15, 0.0, 0, 0);
+}
+
+.logbook-active-sequence {
+    -fx-pref-width: 420px;
+    -fx-pref-height: 20px;
+    -fx-alignment: center-left;
+    -fx-padding: 8px;
+}
+
+.logbook-sequence-name {
+    -fx-font-family: Roboto;
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+    -fx-text-fill: #C444C3;
+}
+
+.logbook-button-vbox {
+    -fx-pref-width: 28px;
+    -fx-pref-height: 398px;
+    -fx-alignment: center;
+}
+
+.logbook-active-actions {
+    -fx-pref-width: 398px;
+    -fx-pref-height: 322px;
+    -fx-padding: 0px 0px 8px 8px;
+}
+
+.logbook-buttons {
+    -fx-max-width: 28px;
+    -fx-max-height: 56px;
+    -fx-padding: 8px;
+    -fx-spacing: 12px;
+    -fx-alignment: center;
+    -fx-background-color: #0C171A;
+    -fx-effect: innershadow(three-pass-box, #C444C3, 10, 0.0, 0, 0);
+}
+
+
 /* Buttons */
-.builder-button, .randomizer-button {
+.builder-button, .randomizer-button, .settings-button {
     -fx-max-width: 20px;
     -fx-max-height: 20px;
 }
