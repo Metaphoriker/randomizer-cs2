@@ -32,6 +32,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   private final ActionSequenceRepository actionSequenceRepository;
   private final ApplicationContext applicationContext;
   private final ActionSequenceDispatcher actionSequenceDispatcher;
+
   @Inject
   public ActionSequenceExecutorRunnable(
       ActionSequenceRepository actionSequenceRepository,
@@ -202,7 +203,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
     if (delayedAt != null) {
       long remainingTimeMs = delayedAt.toEpochMilli() - now.toEpochMilli();
       if (remainingTimeMs > 0) {
-        log.debug("Führe verzögerte Aktion aus für {} ms", remainingTimeMs);
+        log.debug("Führe Aktion für {} ms fort.", remainingTimeMs);
         currentAction.executeWithDelay(remainingTimeMs);
         return true;
       }
@@ -223,6 +224,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
       currentActionSequence =
           sequences.get(ThreadLocalRandom.current().nextInt(0, sequences.size()));
       actionSequenceDispatcher.dispatchSequence(currentActionSequence);
+      log.info("Sequence {} wurde dispatched.", currentActionSequence.getName());
     } else {
       log.warn("Keine aktiven ActionSequences gefunden.");
     }
