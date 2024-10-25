@@ -370,6 +370,7 @@ public class BuilderViewController {
 
   private Button createDeleteButton(ActionSequence actionSequence) {
     Button deleteSequenceButton = new Button("DEL");
+    deleteSequenceButton.getStyleClass().add("builder-button");
     deleteSequenceButton.setOnAction(
         event -> {
           builderViewModel.deleteActionSequence(actionSequence);
