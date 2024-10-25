@@ -33,7 +33,7 @@ public class ViewLoader {
     fxmlLoader.setControllerFactory(param -> Main.getInjector().getInstance(param));
 
     try {
-      log.debug("Lade View {}", clazz.getSimpleName());
+      log.debug("Lade View {}", name);
       Parent parent = fxmlLoader.load();
       T controller = fxmlLoader.getController();
       return new ViewWrapper<>(parent, controller);
