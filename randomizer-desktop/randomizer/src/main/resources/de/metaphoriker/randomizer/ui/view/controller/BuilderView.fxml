@@ -11,7 +11,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 <AnchorPane prefHeight="488.0" prefWidth="688.0" styleClass="builder-view" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.randomizer.ui.view.controller.BuilderViewController">
     <children>
         <HBox prefHeight="488.0" prefWidth="688.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="0.0" styleClass="builder">
@@ -22,7 +21,7 @@
                             <children>
                                 <HBox prefHeight="24.0" prefWidth="140.0" styleClass="builder-actions-top">
                                     <children>
-                                        <Label text="Label" styleClass="builder-actions-label"/>
+                                        <Label text="Actions" styleClass="builder-actions-label"/>
                                         <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS" styleClass="builder-actions-search">
                                             <children>
                                                 <TextField fx:id="searchField" prefHeight="16.0" prefWidth="82.0" HBox.hgrow="ALWAYS" styleClass="builder-actions-searchfield"/>
@@ -42,7 +41,7 @@
                             <children>
                                 <HBox prefHeight="24.0" prefWidth="140.0" styleClass="builder-sequences-top">
                                     <children>
-                                        <Label text="Label" styleClass="builder-sequences-label"/>
+                                        <Label text="Sequences" styleClass="builder-sequences-label"/>
                                         <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="14.0" HBox.hgrow="ALWAYS" styleClass="builder-sequences-buttons">
                                             <children>
                                                 <Button fx:id="addSequenceButton" mnemonicParsing="false" onAction="#onAddSequence" text="a" styleClass="add-sequence-button"/>
