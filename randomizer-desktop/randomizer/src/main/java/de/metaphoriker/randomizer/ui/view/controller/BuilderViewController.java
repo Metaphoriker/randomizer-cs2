@@ -31,6 +31,8 @@ import javafx.scene.layout.VBox;
 @View
 public class BuilderViewController {
 
+  private static final String DELETE_ICON_PATH = "de/metaphoriker/randomizer/images/deleteIcon.png";
+
   private final Separator dropIndicator = new Separator();
 
   private final BuilderViewModel builderViewModel;
@@ -369,8 +371,9 @@ public class BuilderViewController {
   }
 
   private Button createDeleteButton(ActionSequence actionSequence) {
-    Button deleteSequenceButton = new Button("DEL");
+    Button deleteSequenceButton = new Button("");
     deleteSequenceButton.getStyleClass().add("builder-button");
+    // deleteSequenceButton.setGraphic(new ImageView(new Image(DELETE_ICON_PATH)));
     deleteSequenceButton.setOnAction(
         event -> {
           builderViewModel.deleteActionSequence(actionSequence);
