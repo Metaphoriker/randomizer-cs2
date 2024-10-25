@@ -73,6 +73,7 @@ public class FileSystemWatcher implements Runnable {
 
     } catch (IOException e) {
       log.error("IOException occurred while watching directory: ", e);
+      Thread.currentThread().interrupt();
     } catch (InterruptedException e) {
       log.warn("FileSystemWatcher was interrupted: ", e);
       Thread.currentThread().interrupt();
