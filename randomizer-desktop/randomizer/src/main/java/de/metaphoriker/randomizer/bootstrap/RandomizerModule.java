@@ -4,6 +4,7 @@ import com.google.inject.AbstractModule;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import de.metaphoriker.randomizer.ui.view.viewmodel.NavigationBarViewModel;
+import de.metaphoriker.randomizer.ui.view.viewmodel.RandomizerViewModel;
 
 public class RandomizerModule extends AbstractModule {
 
@@ -11,6 +12,7 @@ public class RandomizerModule extends AbstractModule {
   protected void configure() {
     bind(NavigationBarViewModel.class).asEagerSingleton();
     bind(BuilderViewModel.class).asEagerSingleton();
+    bind(RandomizerViewModel.class).asEagerSingleton();
     bind(ViewProvider.class).asEagerSingleton();
   }
 }

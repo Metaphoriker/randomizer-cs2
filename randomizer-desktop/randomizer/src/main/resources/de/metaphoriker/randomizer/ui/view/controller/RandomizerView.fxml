@@ -7,7 +7,6 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-
 <AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.randomizer.ui.view.controller.RandomizerViewController">
     <children>
         <VBox prefHeight="488.0" prefWidth="688.0" styleClass="randomizer-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
@@ -23,12 +22,14 @@
                             <children>
                                 <HBox prefHeight="22.0" prefWidth="350.0" styleClass="logbook-active-sequence">
                                     <children>
-                                        <Label text="Sequence Name" styleClass="logbook-sequence-name"/>
+                                        <Label fx:id="sequenceNameLabel" text="Sequence Name"
+                                               styleClass="logbook-sequence-name"/>
                                     </children>
                                 </HBox>
                                 <HBox prefHeight="398.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <VBox prefHeight="398.0" prefWidth="322.0" HBox.hgrow="ALWAYS" styleClass="logbook-active-actions"/>
+                                        <VBox fx:id="actionsVBox" prefHeight="398.0" prefWidth="322.0"
+                                              HBox.hgrow="ALWAYS" styleClass="logbook-active-actions"/>
                                         <VBox prefHeight="398.0" prefWidth="28.0" styleClass="logbook-button-vbox">
                                             <children>
                                                 <VBox alignment="CENTER" prefHeight="56.0" prefWidth="28.0" VBox.vgrow="ALWAYS" styleClass="logbook-buttons">
