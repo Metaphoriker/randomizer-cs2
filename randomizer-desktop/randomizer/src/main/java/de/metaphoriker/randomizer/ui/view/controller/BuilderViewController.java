@@ -310,12 +310,14 @@ public class BuilderViewController {
     titledPane.setCollapsible(true);
     titledPane.setAnimated(true);
     titledPane.setExpanded(false);
+    titledPane.getStyleClass().add("builder-actions-category");
     titledPane.setText(type.name());
 
     VBox vBox = new VBox();
     actions.forEach(
         action -> {
           Label actionLabel = new Label(action.getName());
+          actionLabel.getStyleClass().add("builder-actions-title");
           setupDrag(actionLabel, action);
           vBox.getChildren().add(actionLabel);
         });
@@ -354,6 +356,7 @@ public class BuilderViewController {
             actionSequence -> {
               HBox hBox = new HBox();
               Label label = new Label(actionSequence.getName());
+              label.getStyleClass().add("builder-sequences-title");
               label.setOnMouseClicked(
                   _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
 

@@ -56,6 +56,11 @@
     -fx-text-fill: #C444C3;
 }
 
+/* The styling for the actions within the active sequence */
+.logbook-sequence-actions-name {
+
+}
+
 .logbook-button-vbox {
     -fx-pref-width: 28px;
     -fx-pref-height: 398px;
@@ -171,6 +176,21 @@
     -fx-spacing: 4px;
     -fx-alignment: top-center;
     -fx-background-color: #0C171A;
+}
+
+/* The styling for the category container - TitledPane */
+.builder-actions-category {
+
+}
+
+/* The styling for the names of the Actions in the Builder */
+.builder-actions-title {
+
+}
+
+/* The styling for the names of ActionSequences in the Builder */
+.builder-sequences-title {
+
 }
 
 /* Sequence Buttons */
