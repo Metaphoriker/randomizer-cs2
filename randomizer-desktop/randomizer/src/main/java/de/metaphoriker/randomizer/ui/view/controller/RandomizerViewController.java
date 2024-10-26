@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.viewmodel.RandomizerViewModel;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -20,6 +21,16 @@ public class RandomizerViewController {
   public RandomizerViewController(RandomizerViewModel randomizerViewModel) {
     this.randomizerViewModel = randomizerViewModel;
     Platform.runLater(this::initialize);
+  }
+
+  @FXML
+  void onRun(ActionEvent event) {
+    randomizerViewModel.setApplicationStateToRunning();
+  }
+
+  @FXML
+  void onStop(ActionEvent event) {
+    randomizerViewModel.setApplicationStateToStopped();
   }
 
   private void initialize() {

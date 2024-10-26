@@ -7,18 +7,22 @@
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.randomizer.ui.view.controller.RandomizerViewController">
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22"
+            fx:controller="de.metaphoriker.randomizer.ui.view.controller.RandomizerViewController">
     <children>
-        <VBox prefHeight="488.0" prefWidth="688.0" styleClass="randomizer-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox prefHeight="488.0" prefWidth="688.0" styleClass="randomizer-view" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="688.0" styleClass="settings-button-hbox">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="20" prefWidth="20" styleClass="settings-button" text="a" />
+                        <Button mnemonicParsing="false" prefHeight="20" prefWidth="20" styleClass="settings-button"
+                                text="a"/>
                     </children>
                 </HBox>
                 <BorderPane prefHeight="420.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
                     <center>
-                        <VBox prefHeight="420.0" prefWidth="350.0" styleClass="randomizer-logbook" BorderPane.alignment="CENTER">
+                        <VBox prefHeight="420.0" prefWidth="350.0" styleClass="randomizer-logbook"
+                              BorderPane.alignment="CENTER">
                             <children>
                                 <HBox prefHeight="22.0" prefWidth="350.0" styleClass="logbook-active-sequence">
                                     <children>
@@ -32,10 +36,13 @@
                                               HBox.hgrow="ALWAYS" styleClass="logbook-active-actions"/>
                                         <VBox prefHeight="398.0" prefWidth="28.0" styleClass="logbook-button-vbox">
                                             <children>
-                                                <VBox alignment="CENTER" prefHeight="56.0" prefWidth="28.0" VBox.vgrow="ALWAYS" styleClass="logbook-buttons">
+                                                <VBox alignment="CENTER" prefHeight="56.0" prefWidth="28.0"
+                                                      VBox.vgrow="ALWAYS" styleClass="logbook-buttons">
                                                     <children>
-                                                        <Button mnemonicParsing="false" text="a" />
-                                                        <Button mnemonicParsing="false" text="a" />
+                                                        <Button fx:id="runButton" mnemonicParsing="false" text="a"
+                                                                onAction="#onRun"/>
+                                                        <Button fx:id="stopButton" mnemonicParsing="false" text="a"
+                                                                onAction="#onStop"/>
                                                     </children>
                                                 </VBox>
                                             </children>
@@ -45,9 +52,9 @@
                             </children>
                         </VBox>
                     </center>
-               <VBox.margin>
-                  <Insets bottom="69.0" left="134.0" right="134.0" top="49.0" />
-               </VBox.margin>
+                    <VBox.margin>
+                        <Insets bottom="69.0" left="134.0" right="134.0" top="49.0"/>
+                    </VBox.margin>
                 </BorderPane>
             </children>
         </VBox>
