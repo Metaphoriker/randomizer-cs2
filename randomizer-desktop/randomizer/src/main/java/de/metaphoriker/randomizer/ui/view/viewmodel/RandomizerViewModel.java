@@ -11,7 +11,9 @@ import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class RandomizerViewModel {
 
   private final ActionSequenceDispatcher actionSequenceDispatcher;
@@ -33,6 +35,8 @@ public class RandomizerViewModel {
   }
 
   private void initialize() {
+    applicationContext.registerApplicationStateChangeListener(
+        state -> log.info("ApplicationState changed to {}", state));
     setupInternalHandler();
     setupInternalListener();
   }
