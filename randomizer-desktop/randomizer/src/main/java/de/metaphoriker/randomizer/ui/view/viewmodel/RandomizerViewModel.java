@@ -3,6 +3,7 @@ package de.metaphoriker.randomizer.ui.view.viewmodel;
 import com.google.inject.Inject;
 import de.metaphoriker.model.ApplicationContext;
 import de.metaphoriker.model.ApplicationState;
+import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.action.sequence.ActionSequenceDispatcher;
 import javafx.beans.property.ObjectProperty;
@@ -17,6 +18,8 @@ public class RandomizerViewModel {
   @Getter
   private final ObjectProperty<ActionSequence> currentActionSequenceProperty =
       new SimpleObjectProperty<>();
+
+  @Getter private final ObjectProperty<Action> currentActionProperty = new SimpleObjectProperty<>();
 
   @Inject
   public RandomizerViewModel(
@@ -36,5 +39,8 @@ public class RandomizerViewModel {
 
   private void setupInternalHandler() {
     actionSequenceDispatcher.registerGenericSequenceHandler(currentActionSequenceProperty::set);
+    actionSequenceDispatcher.registerGenericActionSequenceFinishHandler(
+        _ -> currentActionSequenceProperty.set(null));
+    actionSequenceDispatcher.registerGenericActionHandler(currentActionProperty::set);
   }
 }

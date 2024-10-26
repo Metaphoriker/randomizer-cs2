@@ -34,14 +34,20 @@ public class RandomizerViewController {
   }
 
   private void initialize() {
-    setupBindings();
+    setupListener();
   }
 
-  private void setupBindings() {
+  private void setupListener() {
     randomizerViewModel
         .getCurrentActionSequenceProperty()
         .addListener(
             (_, _, sequence) -> {
+              if (sequence == null) {
+                sequenceNameLabel.setText("");
+                actionsVBox.getChildren().clear();
+                return;
+              }
+
               sequenceNameLabel.setText(sequence.getName());
               actionsVBox.getChildren().clear();
               sequence
@@ -51,6 +57,13 @@ public class RandomizerViewController {
                         Label actionLabel = new Label(action.getName());
                         actionsVBox.getChildren().add(actionLabel);
                       });
+            });
+
+    randomizerViewModel
+        .getCurrentActionProperty()
+        .addListener(
+            (_, _, action) -> {
+              // TODO: set current action as running
             });
   }
 }
