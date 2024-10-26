@@ -12,11 +12,10 @@ public class ActionSequenceDispatcher {
   private static final String ACTION_DISPATCHED = "Action successfully dispatched: {}";
   private static final String SEQUENCE_DISPATCHED = "ActionSequence successfully dispatched: {}";
 
-  private final List<Consumer<ActionSequence>> genericActionSequenceHandlers =
-      new CopyOnWriteArrayList<>();
-  private final List<Consumer<Action>> genericActionHandlers = new CopyOnWriteArrayList<>();
-  private final List<Consumer<Action>> onActionFinishHandlers = new CopyOnWriteArrayList<>();
-  private final List<Consumer<ActionSequence>> onActionSequenceFinishHandlers =
+  private final List<Consumer<ActionSequence>> sequenceHandlers = new CopyOnWriteArrayList<>();
+  private final List<Consumer<Action>> actionHandlers = new CopyOnWriteArrayList<>();
+  private final List<Consumer<Action>> actionFinishHandlers = new CopyOnWriteArrayList<>();
+  private final List<Consumer<ActionSequence>> actionSequenceFinishHandlers =
       new CopyOnWriteArrayList<>();
 
   public ActionSequenceDispatcher() {}
@@ -27,7 +26,7 @@ public class ActionSequenceDispatcher {
    * @param action the Action to be dispatched
    */
   private void dispatch(Action action) {
-    dispatchToHandlers(action, genericActionHandlers);
+    dispatchToHandlers(action, actionHandlers);
     action.execute();
     finishActionProcessing(action);
     log.info(ACTION_DISPATCHED, action);
@@ -39,18 +38,18 @@ public class ActionSequenceDispatcher {
    * @param actionSequence the ActionSequence to be dispatched
    */
   public void dispatchSequence(ActionSequence actionSequence) {
-    dispatchToHandlers(actionSequence, genericActionSequenceHandlers);
+    dispatchToHandlers(actionSequence, sequenceHandlers);
     actionSequence.getActions().forEach(this::dispatch);
     finishSequenceProcessing(actionSequence);
     log.info(SEQUENCE_DISPATCHED, actionSequence);
   }
 
   private void finishActionProcessing(Action action) {
-    onActionFinishHandlers.forEach(handler -> safeAccept(handler, action));
+    actionFinishHandlers.forEach(handler -> safeAccept(handler, action));
   }
 
   private void finishSequenceProcessing(ActionSequence actionSequence) {
-    onActionSequenceFinishHandlers.forEach(handler -> safeAccept(handler, actionSequence));
+    actionSequenceFinishHandlers.forEach(handler -> safeAccept(handler, actionSequence));
   }
 
   /**
@@ -58,8 +57,8 @@ public class ActionSequenceDispatcher {
    *
    * @param handler the Consumer to handle finished actions
    */
-  public void registerGenericActionFinishHandler(Consumer<Action> handler) {
-    onActionFinishHandlers.add(handler);
+  public void registerActionFinishHandler(Consumer<Action> handler) {
+    actionFinishHandlers.add(handler);
   }
 
   /**
@@ -67,8 +66,8 @@ public class ActionSequenceDispatcher {
    *
    * @param handler the Consumer to handle finished action sequences
    */
-  public void registerGenericActionSequenceFinishHandler(Consumer<ActionSequence> handler) {
-    onActionSequenceFinishHandlers.add(handler);
+  public void registerSequenceFinishHandler(Consumer<ActionSequence> handler) {
+    actionSequenceFinishHandlers.add(handler);
   }
 
   /**
@@ -76,8 +75,8 @@ public class ActionSequenceDispatcher {
    *
    * @param handler the Consumer to process Action events
    */
-  public void registerGenericActionHandler(Consumer<Action> handler) {
-    genericActionHandlers.add(handler);
+  public void registerActionHandler(Consumer<Action> handler) {
+    actionHandlers.add(handler);
   }
 
   /**
@@ -85,8 +84,8 @@ public class ActionSequenceDispatcher {
    *
    * @param handler the Consumer to process ActionSequence events
    */
-  public void registerGenericSequenceHandler(Consumer<ActionSequence> handler) {
-    genericActionSequenceHandlers.add(handler);
+  public void registerSequenceHandler(Consumer<ActionSequence> handler) {
+    sequenceHandlers.add(handler);
   }
 
   private <T> void dispatchToHandlers(T item, List<Consumer<T>> handlers) {

@@ -6,7 +6,9 @@ import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.action.sequence.ActionSequenceDispatcher;
+import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import lombok.Getter;
 
@@ -20,13 +22,19 @@ public class RandomizerViewModel {
       new SimpleObjectProperty<>();
 
   @Getter private final ObjectProperty<Action> currentActionProperty = new SimpleObjectProperty<>();
+  @Getter private final BooleanProperty waitingProperty = new SimpleBooleanProperty(false);
 
   @Inject
   public RandomizerViewModel(
       ActionSequenceDispatcher actionSequenceDispatcher, ApplicationContext applicationContext) {
     this.actionSequenceDispatcher = actionSequenceDispatcher;
     this.applicationContext = applicationContext;
+    initialize();
+  }
+
+  private void initialize() {
     setupInternalHandler();
+    setupInternalListener();
   }
 
   public void setApplicationStateToRunning() {
@@ -38,9 +46,12 @@ public class RandomizerViewModel {
   }
 
   private void setupInternalHandler() {
-    actionSequenceDispatcher.registerGenericSequenceHandler(currentActionSequenceProperty::set);
-    actionSequenceDispatcher.registerGenericActionSequenceFinishHandler(
-        _ -> currentActionSequenceProperty.set(null));
-    actionSequenceDispatcher.registerGenericActionHandler(currentActionProperty::set);
+    actionSequenceDispatcher.registerSequenceHandler(currentActionSequenceProperty::set);
+    actionSequenceDispatcher.registerSequenceFinishHandler(_ -> waitingProperty.set(true));
+    actionSequenceDispatcher.registerActionHandler(currentActionProperty::set);
+  }
+
+  private void setupInternalListener() {
+    currentActionSequenceProperty.addListener((_, _, _) -> waitingProperty.set(false));
   }
 }

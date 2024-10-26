@@ -42,12 +42,6 @@ public class RandomizerViewController {
         .getCurrentActionSequenceProperty()
         .addListener(
             (_, _, sequence) -> {
-              if (sequence == null) {
-                sequenceNameLabel.setText("");
-                actionsVBox.getChildren().clear();
-                return;
-              }
-
               sequenceNameLabel.setText(sequence.getName());
               actionsVBox.getChildren().clear();
               sequence
@@ -64,6 +58,16 @@ public class RandomizerViewController {
         .addListener(
             (_, _, action) -> {
               // TODO: set current action as running
+            });
+
+    randomizerViewModel
+        .getWaitingProperty()
+        .addListener(
+            (_, _, isWaiting) -> {
+              if (isWaiting) {
+                sequenceNameLabel.setText("");
+                actionsVBox.getChildren().clear();
+              }
             });
   }
 }
