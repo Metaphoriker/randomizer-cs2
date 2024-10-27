@@ -373,7 +373,7 @@ public class BuilderViewController {
               hBox.setCursor(Cursor.HAND);
               Label label = new Label(actionSequence.getName());
               label.getStyleClass().add("builder-sequences-title");
-              label.setOnMouseClicked(
+              hBox.setOnMouseClicked(
                   _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
 
               hBox.getChildren().add(label);
