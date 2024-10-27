@@ -23,6 +23,7 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class ActionSequenceExecutorRunnable implements Runnable {
 
+  private static final int FOCUS_CHECK_INTERVAL = 500; // in ms
   private static final String KEY_RELEASE_LOG = "Interruption erkannt mit {}: {}";
 
   private static volatile int minWaitTime = 30 * 1000;
@@ -32,6 +33,8 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   private final ActionSequenceRepository actionSequenceRepository;
   private final ApplicationContext applicationContext;
   private final ActionSequenceDispatcher actionSequenceDispatcher;
+
+  private long lastFocusCheckTime = 0;
 
   @Inject
   public ActionSequenceExecutorRunnable(
@@ -147,6 +150,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   public void run() {
     while (!Thread.currentThread().isInterrupted()) {
       if (!hasReleasedAnyKey && !waitTimeUpdated && !isWaitTimeExceeded()) {
+        handleApplicationState();
         try {
           Thread.sleep(50);
         } catch (InterruptedException e) {
@@ -154,7 +158,6 @@ public class ActionSequenceExecutorRunnable implements Runnable {
         }
         continue;
       }
-      handleApplicationState();
       if (isApplicationRunning() && !actionSequenceRepository.getActionSequences().isEmpty()) {
         if (processCurrentActionSequence()) continue;
         chooseAndDispatchRandomSequence();
@@ -241,8 +244,11 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   }
 
   private void handleApplicationState() {
-    ApplicationState currentState = applicationContext.getApplicationState();
+    long currentTime = Instant.now().toEpochMilli();
+    if (currentTime - lastFocusCheckTime < FOCUS_CHECK_INTERVAL) return;
+    lastFocusCheckTime = currentTime;
 
+    ApplicationState currentState = applicationContext.getApplicationState();
     if (currentState == ApplicationState.AWAITING && FocusManager.isCs2WindowInFocus()) {
       applicationContext.setApplicationState(ApplicationState.RUNNING);
       log.info("ApplicationState geändert zu: RUNNING");
