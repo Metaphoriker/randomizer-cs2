@@ -50,6 +50,9 @@ public class BuilderViewController {
   @FXML private TextField searchField;
   @FXML private Label sequenceDescriptionLabel;
   @FXML private Label sequenceNameLabel;
+  @FXML private Button randomizeButton;
+  @FXML private Button actionsClearButton;
+  @FXML private Button saveSequenceButton;
 
   @Inject
   public BuilderViewController(BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
@@ -104,6 +107,18 @@ public class BuilderViewController {
         .addListener((ListChangeListener<Action>) _ -> updateBuilderVBox());
 
     builderVBox
+        .disableProperty()
+        .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
+
+    randomizeButton
+        .disableProperty()
+        .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
+
+    actionsClearButton
+        .disableProperty()
+        .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
+
+    saveSequenceButton
         .disableProperty()
         .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
 
