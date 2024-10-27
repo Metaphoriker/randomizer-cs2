@@ -9,7 +9,8 @@
 <VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22"
       fx:controller="de.metaphoriker.randomizer.ui.view.controller.RandomizerWindowController">
     <children>
-        <StackPane prefHeight="536.0" prefWidth="704.0" VBox.vgrow="ALWAYS" styleClass="randomizer-window">
+        <StackPane fx:id="stackPane" prefHeight="536.0" prefWidth="704.0" VBox.vgrow="ALWAYS"
+                   styleClass="randomizer-window">
             <children>
                 <GridPane fx:id="contentPane" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS">
                     <columnConstraints>

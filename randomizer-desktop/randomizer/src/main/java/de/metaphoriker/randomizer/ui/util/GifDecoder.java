@@ -1,15 +1,14 @@
 package de.metaphoriker.randomizer.ui.util;
 
 import java.awt.image.BufferedImage;
-import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import javax.imageio.ImageIO;
 import javax.imageio.ImageReader;
 import javax.imageio.metadata.IIOMetadata;
 import javax.imageio.metadata.IIOMetadataNode;
-import javax.imageio.stream.ImageInputStream;
 import lombok.Getter;
 import org.w3c.dom.NodeList;
 
@@ -21,8 +20,8 @@ public class GifDecoder {
 
   @Getter private int totalDuration;
 
-  public GifDecoder(File gifFile) throws IOException {
-    decodeGifFile(gifFile);
+  public GifDecoder(String gifResourcePath) throws IOException {
+    decodeGifFile(gifResourcePath);
     calculateTotalDuration();
   }
 
@@ -32,10 +31,14 @@ public class GifDecoder {
    * @param gifFile the GIF file to be decoded
    * @throws IOException if an error occurs during reading the GIF file
    */
-  private void decodeGifFile(File gifFile) throws IOException {
-    try (ImageInputStream inputStream = ImageIO.createImageInputStream(gifFile)) {
+  private void decodeGifFile(String gifResourcePath) throws IOException {
+    try (InputStream inputStream =
+        getClass().getClassLoader().getResourceAsStream(gifResourcePath)) {
+      if (inputStream == null) {
+        throw new IOException("GIF resource not found: " + gifResourcePath);
+      }
       ImageReader reader = ImageIO.getImageReadersByFormatName("gif").next();
-      reader.setInput(inputStream, false);
+      reader.setInput(ImageIO.createImageInputStream(inputStream), false);
 
       int numFrames = reader.getNumImages(true);
       for (int i = 0; i < numFrames; i++) {

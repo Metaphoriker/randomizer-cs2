@@ -1,23 +1,32 @@
 package de.metaphoriker.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
+import de.metaphoriker.randomizer.ui.util.GifDecoder;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 @View
 public class RandomizerWindowController implements Initializable {
 
   private final ViewProvider viewProvider;
 
+  @FXML private StackPane stackPane;
   @FXML private GridPane contentPane;
   @FXML private VBox navigationBarHolder;
 
@@ -32,6 +41,30 @@ public class RandomizerWindowController implements Initializable {
 
     registerViewListener();
     setupControlBarClickTransparency();
+
+    addPreloadingGif();
+  }
+
+  private void addPreloadingGif() {
+    try {
+      String gifResourcePath = "de/metaphoriker/randomizer/gif/its-time.gif";
+      GifDecoder gifDecoder = new GifDecoder(gifResourcePath);
+      ImageView e = new ImageView(new Image(gifResourcePath));
+
+      e.fitHeightProperty().bind(stackPane.heightProperty());
+      e.fitWidthProperty().bind(stackPane.widthProperty());
+
+      stackPane.getChildren().add(e);
+      executeAfterDelay(gifDecoder.getTotalDuration(), () -> stackPane.getChildren().remove(e));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
+  private void executeAfterDelay(int millis, Runnable action) {
+    Timeline delay = new Timeline(new KeyFrame(Duration.millis(millis), _ -> action.run()));
+    delay.setCycleCount(1);
+    delay.play();
   }
 
   // note: for this pickOnBounds have to be false
