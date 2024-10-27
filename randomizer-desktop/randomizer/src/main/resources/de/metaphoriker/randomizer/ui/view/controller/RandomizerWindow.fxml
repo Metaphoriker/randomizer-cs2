@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22"
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" xmlns="http://javafx.com/javafx/22"
       fx:controller="de.metaphoriker.randomizer.ui.view.controller.RandomizerWindowController">
     <children>
         <StackPane fx:id="stackPane" prefHeight="536.0" prefWidth="704.0" VBox.vgrow="ALWAYS"

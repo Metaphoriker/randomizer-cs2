@@ -26,6 +26,7 @@ public class RandomizerWindowController implements Initializable {
 
   private final ViewProvider viewProvider;
 
+  @FXML private VBox root;
   @FXML private StackPane stackPane;
   @FXML private GridPane contentPane;
   @FXML private VBox navigationBarHolder;
@@ -51,8 +52,8 @@ public class RandomizerWindowController implements Initializable {
       GifDecoder gifDecoder = new GifDecoder(gifResourcePath);
       ImageView e = new ImageView(new Image(gifResourcePath));
 
-      e.fitHeightProperty().bind(stackPane.heightProperty());
-      e.fitWidthProperty().bind(stackPane.widthProperty());
+      e.fitHeightProperty().bind(root.heightProperty());
+      e.fitWidthProperty().bind(root.widthProperty());
 
       stackPane.getChildren().add(e);
       executeAfterDelay(gifDecoder.getTotalDuration(), () -> stackPane.getChildren().remove(e));
