@@ -154,12 +154,10 @@ public class ActionSequenceExecutorRunnable implements Runnable {
         }
         continue;
       }
-      if (FocusManager.isCs2WindowInFocus()) {
-        handleApplicationState();
-        if (isApplicationRunning() && !actionSequenceRepository.getActionSequences().isEmpty()) {
-          if (processCurrentActionSequence()) continue;
-          chooseAndDispatchRandomSequence();
-        }
+      handleApplicationState();
+      if (isApplicationRunning() && !actionSequenceRepository.getActionSequences().isEmpty()) {
+        if (processCurrentActionSequence()) continue;
+        chooseAndDispatchRandomSequence();
       }
       resetWaitTimeIfUpdated();
       updateWaitTime();
