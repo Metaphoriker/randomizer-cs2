@@ -6,7 +6,7 @@
 <HBox styleClass="navigation-bar" xmlns="http://javafx.com/javafx/22" xmlns:fx="http://javafx.com/fxml/1" prefHeight="32.0" prefWidth="64.0"
       fx:controller="de.metaphoriker.randomizer.ui.view.controller.NavigationBarController">
     <children>
-        <ToggleButton fx:id="randomizerButton" mnemonicParsing="false" styleClass="randomizer-button" text="a" />
-        <ToggleButton fx:id="builderButton" mnemonicParsing="false" styleClass="builder-button" text="a" />
+        <ToggleButton fx:id="randomizerButton" mnemonicParsing="false" styleClass="navigation-bar-randomizer"/>
+        <ToggleButton fx:id="builderButton" mnemonicParsing="false" styleClass="navigation-bar-builder"/>
     </children>
 </HBox>

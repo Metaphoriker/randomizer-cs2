@@ -44,8 +44,8 @@
                                         <Label text="Sequences" styleClass="builder-sequences-label"/>
                                         <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="14.0" HBox.hgrow="ALWAYS" styleClass="builder-sequences-buttons">
                                             <children>
-                                                <Button fx:id="addSequenceButton" mnemonicParsing="false" onAction="#onAddSequence" text="a" styleClass="add-sequence-button"/>
-                                                <Button fx:id="sequenceFolderButton" mnemonicParsing="false" onAction="#onOpenSequenceFolder" text="a" styleClass="sequence-folder-button"/>
+                                                <Button fx:id="addSequenceButton" mnemonicParsing="false" onAction="#onAddSequence" styleClass="builder-sequences-add-sequence-button"/>
+                                                <Button fx:id="sequenceFolderButton" mnemonicParsing="false" onAction="#onOpenSequenceFolder" styleClass="builder-sequences-folder-button"/>
                                             </children>
                                         </HBox>
                                     </children>

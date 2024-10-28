@@ -334,6 +334,7 @@ public class BuilderViewController {
           Label actionLabel = new Label(action.getName());
           actionLabel.getStyleClass().add("builder-actions-title");
           setupDrag(actionLabel, action);
+          vBox.getStyleClass().add("builder-actions-title-vbox");
           vBox.getChildren().add(actionLabel);
         });
     applyExpandListener(titledPane);
@@ -371,6 +372,7 @@ public class BuilderViewController {
             actionSequence -> {
               HBox hBox = new HBox();
               hBox.setCursor(Cursor.HAND);
+              hBox.getStyleClass().add("builder-sequences-hbox");
               Label label = new Label(actionSequence.getName());
               label.getStyleClass().add("builder-sequences-title");
               hBox.setOnMouseClicked(
@@ -391,7 +393,7 @@ public class BuilderViewController {
 
   private Button createDeleteButton(ActionSequence actionSequence) {
     Button deleteSequenceButton = new Button("");
-    deleteSequenceButton.getStyleClass().add("builder-button");
+    deleteSequenceButton.getStyleClass().add("builder-sequences-delete-button");
     // deleteSequenceButton.setGraphic(new ImageView(new Image(DELETE_ICON_PATH)));
     deleteSequenceButton.setOnAction(
         event -> {
