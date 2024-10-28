@@ -79,22 +79,22 @@
                                                 </VBox>
                                             </top>
                                             <right>
-                                                <VBox alignment="CENTER" prefHeight="300.0" prefWidth="28.0" BorderPane.alignment="CENTER" styleClass="sequence-builder-buttons-vbox">
+                                                <VBox alignment="CENTER" prefHeight="300.0" prefWidth="48.0" BorderPane.alignment="CENTER" styleClass="sequence-builder-buttons-vbox">
                                                     <children>
                                                         <VBox alignment="CENTER" styleClass="sequence-builder-buttons">
                                                             <children>
-                                                                <Button fx:id="randomizeButton" mnemonicParsing="false" onAction="#onRandomize" text="a" />
-                                                                <Button fx:id="actionsClearButton" mnemonicParsing="false" onAction="#onActionsClear" text="a" />
-                                                                <Button fx:id="saveSequenceButton" mnemonicParsing="false" onAction="#onSaveSequence" text="a" />
+                                                                <Button fx:id="randomizeButton" mnemonicParsing="false" onAction="#onRandomize" styleClass="builder-randomize-button"/>
+                                                                <Button fx:id="actionsClearButton" mnemonicParsing="false" onAction="#onActionsClear" styleClass="builder-actions-clear-button"/>
+                                                                <Button fx:id="saveSequenceButton" mnemonicParsing="false" onAction="#onSaveSequence" styleClass="builder-save-sequence-button"/>
                                                             </children>
                                                         </VBox>
                                                     </children>
                                                 </VBox>
                                             </right>
                                             <center>
-                                                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER" prefHeight="272.0" prefWidth="332.0" styleClass="builder-selected-actions">
+                                                <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" vbarPolicy="NEVER" prefHeight="272.0" prefWidth="324.0" styleClass="builder-selected-actions-scrollpane">
                                                     <content>
-                                                        <VBox fx:id="builderVBox" prefHeight="272.0" prefWidth="332.0" VBox.vgrow="ALWAYS" styleClass="selected-actions-vbox"/>
+                                                        <VBox fx:id="builderVBox" prefHeight="272.0" prefWidth="324.0" VBox.vgrow="ALWAYS" styleClass="builder-selected-actions-vbox"/>
                                                     </content>
                                                 </ScrollPane>
                                             </center>
@@ -109,7 +109,7 @@
                     <children>
                         <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="action-settings-vbox">
                             <children>
-                                <Label fx:id="actionInFocusLabel" text="Action Name" styleClass="action-focus-label"/>
+                                <Label fx:id="actionInFocusLabel" text="Action Name" styleClass="action-in-focus-label"/>
                                 <Separator prefWidth="140.0" />
                                 <VBox prefWidth="140.0">
                                     <children>

@@ -198,6 +198,7 @@ public class BuilderViewController {
         .forEach(
             action -> {
               Label actionLabel = new Label(action.getName());
+              actionLabel.getStyleClass().add("selected-actions-label");
               actionLabel.setOnMouseClicked(
                   _ -> builderViewModel.getActionInFocusProperty().set(action));
               setupDragAlreadyDropped(actionLabel, action); // setup special drag within listview
