@@ -27,12 +27,14 @@
     -fx-background-image: url("../images/homeIcon.png");
 }
 
+/* Randomizer Window */
 .randomizer-window {
     -fx-pref-width: 704px;
     -fx-pref-height: 536px;
     -fx-background-color: #050E10;
 }
 
+/* Randomizer View */
 .randomizer-view {
     -fx-pref-width: 688px;
     -fx-pref-height: 488px;
@@ -41,10 +43,18 @@
     -fx-padding: 8px;
 }
 
-.settings-button-hbox {
+.randomizer-settings-button-hbox {
     -fx-pref-width: 688;
     -fx-pref-height: 20;
     -fx-alignment: center-right;
+}
+
+.randomizer-settings-button {
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/settingsIcon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 20px 20px;
 }
 
 .randomizer-logbook {
@@ -71,9 +81,15 @@
     -fx-text-fill: #C444C3;
 }
 
-/* The styling for the actions within the active sequence */
 .logbook-sequence-actions-name {
-
+    -fx-font-family: Roboto;
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+    -fx-text-fill: #DAF0F3;
+    -fx-padding: 0px 3px;
+    -fx-background-radius: 4px;
+    -fx-background-color: #213539;
 }
 
 .logbook-button-vbox {
@@ -98,11 +114,19 @@
     -fx-effect: innershadow(three-pass-box, #C444C3, 10, 0.0, 0, 0);
 }
 
+.logbook-run-button, .logbook-stop-button {
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 32px 32px;
+}
 
-/* Buttons */
-.builder-button, .randomizer-button, .settings-button {
-    -fx-max-width: 20px;
-    -fx-max-height: 20px;
+.logbook-run-button {
+    -fx-background-image: url("../images/playIcon.png");
+}
+
+.logbook-stop-button {
+    -fx-background-image: url("../images/stopIcon.png");
 }
 
 .builder-sequences-hbox {

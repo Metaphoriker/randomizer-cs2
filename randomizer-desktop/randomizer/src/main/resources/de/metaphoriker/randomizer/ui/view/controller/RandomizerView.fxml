@@ -13,10 +13,9 @@
         <VBox prefHeight="488.0" prefWidth="688.0" styleClass="randomizer-view" AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="688.0" styleClass="settings-button-hbox">
+                <HBox alignment="CENTER_RIGHT" prefHeight="20.0" prefWidth="688.0" styleClass="randomizer-settings-button-hbox">
                     <children>
-                        <Button mnemonicParsing="false" prefHeight="20" prefWidth="20" styleClass="settings-button"
-                                text="a"/>
+                        <Button mnemonicParsing="false" prefHeight="20" prefWidth="20" styleClass="randomizer-settings-button"/>
                     </children>
                 </HBox>
                 <BorderPane prefHeight="420.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
@@ -39,10 +38,10 @@
                                                 <VBox alignment="CENTER" prefHeight="56.0" prefWidth="28.0"
                                                       VBox.vgrow="ALWAYS" styleClass="logbook-buttons">
                                                     <children>
-                                                        <Button fx:id="runButton" mnemonicParsing="false" text="a"
-                                                                onAction="#onRun"/>
-                                                        <Button fx:id="stopButton" mnemonicParsing="false" text="a"
-                                                                onAction="#onStop"/>
+                                                        <Button fx:id="runButton" mnemonicParsing="false"
+                                                                onAction="#onRun" styleClass="logbook-run-button"/>
+                                                        <Button fx:id="stopButton" mnemonicParsing="false"
+                                                                onAction="#onStop" styleClass="logbook-stop-button"/>
                                                     </children>
                                                 </VBox>
                                             </children>
