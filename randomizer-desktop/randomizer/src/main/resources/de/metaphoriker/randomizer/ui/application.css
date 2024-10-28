@@ -1,7 +1,5 @@
 /* Navigation Bar */
 .navigation-bar {
-    -fx-pref-width: 64px;
-    -fx-pref-height: 32px;
     -fx-max-width: 64px;
     -fx-max-height: 32px;
     -fx-spacing: 12px;
@@ -36,8 +34,6 @@
 
 /* Randomizer View */
 .randomizer-view {
-    -fx-pref-width: 688px;
-    -fx-pref-height: 488px;
     -fx-min-width: 688px;
     -fx-min-height: 488px;
     -fx-padding: 8px;
@@ -58,8 +54,6 @@
 }
 
 .randomizer-logbook {
-    -fx-pref-width: 420px;
-    -fx-pref-height: 350px;
     -fx-min-width: 420px;
     -fx-min-height: 350px;
     -fx-background-color: #0C171A;
@@ -92,16 +86,16 @@
     -fx-background-color: #213539;
 }
 
-.logbook-button-vbox {
-    -fx-pref-width: 28px;
-    -fx-pref-height: 398px;
-    -fx-alignment: center;
-}
-
 .logbook-active-actions {
     -fx-pref-width: 398px;
     -fx-pref-height: 322px;
     -fx-padding: 0px 0px 8px 8px;
+}
+
+.logbook-button-vbox {
+    -fx-pref-width: 28px;
+    -fx-pref-height: 398px;
+    -fx-alignment: center;
 }
 
 .logbook-buttons {
@@ -132,8 +126,6 @@
 
 /* Builder View*/
 .builder-view, .builder {
-    -fx-pref-width: 688px;
-    -fx-pref-height: 488px;
     -fx-min-width: 688px;
     -fx-min-height: 488px;
     -fx-alignment: center;
@@ -149,17 +141,16 @@
 /* Left Bar - Actions */
 .builder-left-bar {
     -fx-pref-width: 140px;
-    -fx-min-width: 140px;
+    -fx-pref-height: 488;
     -fx-alignment: center;
     -fx-spacing: 8px;
 }
 
 .builder-actions {
-    -fx-pref-width: 140px;
     -fx-min-width: 140px;
+    -fx-min-height: 240px;
     -fx-alignment: center;
     -fx-spacing: 6px;
-    -fx-min-height: 240px;
     -fx-background-radius: 8px;
     -fx-background-color: #0C171A;
 }
@@ -201,6 +192,7 @@
 }
 
 .builder-actions-scrollpane {
+    -fx-pref-width: 140px;
     -fx-pref-height: 210px;
     -fx-alignment: center;
     -fx-spacing: 4px;
@@ -209,6 +201,7 @@
 }
 
 .builder-actions-categories {
+    -fx-pref-width: 140px;
     -fx-spacing: 4px;
     -fx-alignment: top-center;
     -fx-background-color: #0C171A;
@@ -255,10 +248,9 @@
 
 /* Left Bar - Sequences*/
 .builder-sequences {
-    -fx-pref-width: 140px;
     -fx-min-width: 140px;
-    -fx-alignment: center;
     -fx-min-height: 240px;
+    -fx-alignment: center;
     -fx-spacing: 6px;
     -fx-background-radius: 8px;
     -fx-background-color: #0C171A;
@@ -282,6 +274,8 @@
 }
 
 .builder-sequences-buttons {
+    -fx-pref-width: 14px;
+    -fx-pref-height: 34px;
     -fx-background-radius: 8px;
     -fx-alignment: center-right;
     -fx-spacing: 8px;
@@ -306,6 +300,7 @@
 
 .builder-sequences-scrollpane {
     -fx-pref-height: 210px;
+    -fx-pref-width: 140px;
     -fx-alignment: center;
     -fx-spacing: 4px;
     -fx-padding: 4px;
@@ -313,6 +308,7 @@
 }
 
 .builder-actions-sequences {
+    -fx-pref-width: 140px;
     -fx-spacing: 4px;
     -fx-alignment: top-center;
     -fx-background-color: #0C171A;
@@ -344,8 +340,6 @@
 
 /* Sequence Builder */
 .sequence-builder {
-    -fx-pref-width: 360px;
-    -fx-pref-height: 300px;
     -fx-min-width: 360px;
     -fx-min-height: 300px;
     -fx-padding: 94px 0px;
@@ -378,15 +372,17 @@
 }
 
 .sequence-builder-buttons-vbox, .sequence-builder-buttons {
-    -fx-background-color: #0C171A;
+    -fx-pref-height: 300px;
     -fx-pref-width: 36px;
+    -fx-alignment: center;
+    -fx-background-color: #0C171A;
 }
 
 .sequence-builder-buttons {
     -fx-pref-width: 36px;
-    -fx-pref-height: 112px;
+    -fx-pref-height: 96px;
     -fx-padding: 0px 6px;
-    -fx-spacing: 12px;
+    -fx-spacing: 4px;
     -fx-alignment: center;
     -fx-effect: innershadow(three-pass-box, #C444C3, 10, 0.0, 0, 0);
 }
@@ -440,7 +436,6 @@
 
 /* Action Settings */
 .action-settings {
-    -fx-pref-width: 140px;
     -fx-min-width: 140px;
     -fx-pref-height: 488px;
     -fx-background-color: #0C171A;
@@ -449,8 +444,16 @@
 }
 
 .action-settings-vbox {
+    -fx-pref-width: 140px;
+    -fx-pref-height: 488px;
     -fx-padding: 8px 0px;
     -fx-spacing: 4px;
+}
+
+.action-time-frame-vbox{
+    -fx-pref-width: 140px;
+    -fx-spacing: 4px;
+    -fx-padding: 4px 0px;
 }
 
 .action-in-focus-label {

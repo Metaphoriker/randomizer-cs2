@@ -23,7 +23,7 @@
                         <VBox prefHeight="420.0" prefWidth="350.0" styleClass="randomizer-logbook"
                               BorderPane.alignment="CENTER">
                             <children>
-                                <HBox prefHeight="22.0" prefWidth="350.0" styleClass="logbook-active-sequence">
+                                <HBox prefHeight="20.0" prefWidth="420.0" styleClass="logbook-active-sequence">
                                     <children>
                                         <Label fx:id="sequenceNameLabel" text="Sequence Name"
                                                styleClass="logbook-sequence-name"/>

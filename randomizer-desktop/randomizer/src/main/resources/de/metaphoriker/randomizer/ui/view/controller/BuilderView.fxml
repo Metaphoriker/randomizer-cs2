@@ -32,7 +32,7 @@
                                 <Separator prefWidth="140.0" />
                                 <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" VBox.vgrow="ALWAYS" fitToHeight="true" fitToWidth="true" styleClass="builder-actions-scrollpane">
                                     <content>
-                                        <VBox fx:id="actionsVBox" minHeight="210.0" prefWidth="140.0" styleClass="builder-actions-categories"/>
+                                        <VBox fx:id="actionsVBox" prefWidth="140.0" styleClass="builder-actions-categories"/>
                                     </content>
                                 </ScrollPane>
                             </children>
@@ -53,7 +53,7 @@
                                 <Separator prefWidth="140.0" />
                                 <ScrollPane hbarPolicy="NEVER" vbarPolicy="NEVER" fitToHeight="true" fitToWidth="true" VBox.vgrow="ALWAYS" styleClass="builder-sequences-scrollpane">
                                     <content>
-                                        <VBox fx:id="actionSequencesVBox" prefHeight="210.0" styleClass="builder-actions-sequences"/>
+                                        <VBox fx:id="actionSequencesVBox" styleClass="builder-actions-sequences"/>
                                     </content>
                                 </ScrollPane>
                             </children>
@@ -79,7 +79,7 @@
                                                 </VBox>
                                             </top>
                                             <right>
-                                                <VBox alignment="CENTER" prefHeight="300.0" prefWidth="48.0" BorderPane.alignment="CENTER" styleClass="sequence-builder-buttons-vbox">
+                                                <VBox alignment="CENTER" prefHeight="300.0" prefWidth="36.0" BorderPane.alignment="CENTER" styleClass="sequence-builder-buttons-vbox">
                                                     <children>
                                                         <VBox alignment="CENTER" styleClass="sequence-builder-buttons">
                                                             <children>
@@ -111,7 +111,7 @@
                             <children>
                                 <Label fx:id="actionInFocusLabel" text="Action Name" styleClass="action-in-focus-label"/>
                                 <Separator prefWidth="140.0" />
-                                <VBox prefWidth="140.0">
+                                <VBox prefWidth="140.0" styleClass="action-time-frame-vbox">
                                     <children>
                                         <Label text="Time Frame" styleClass="time-frame-label"/>
                                         <Label text="Sets the time frame how long the Action should last" wrapText="true" styleClass="time-frame-description"/>
