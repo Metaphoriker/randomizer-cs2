@@ -14,5 +14,5 @@ import lombok.Value;
 @Value(staticConstructor = "of")
 public class ActionKey {
 
-  String key;
+    String key;
 }

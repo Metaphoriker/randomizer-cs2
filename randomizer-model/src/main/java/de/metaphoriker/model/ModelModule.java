@@ -17,22 +17,22 @@ import de.metaphoriker.model.watcher.FileSystemWatcher;
 
 public class ModelModule extends AbstractModule {
 
-  @Override
-  protected void configure() {
-    bind(ApplicationContext.class).asEagerSingleton();
-    bind(ActionRepository.class).asEagerSingleton();
-    bind(ActionSequenceRepository.class).asEagerSingleton();
-    bind(KeyBindRepository.class).asEagerSingleton();
-    bind(KeyBindNameTypeMapper.class).asEagerSingleton();
-    bind(ActionSequenceDispatcher.class).asEagerSingleton();
-    bind(FileSystemWatcher.class).asEagerSingleton();
-    bind(JsonUtil.class).asEagerSingleton();
-    bind(ActionSequenceDao.class).asEagerSingleton();
+    @Override
+    protected void configure() {
+        bind(ApplicationContext.class).asEagerSingleton();
+        bind(ActionRepository.class).asEagerSingleton();
+        bind(ActionSequenceRepository.class).asEagerSingleton();
+        bind(KeyBindRepository.class).asEagerSingleton();
+        bind(KeyBindNameTypeMapper.class).asEagerSingleton();
+        bind(ActionSequenceDispatcher.class).asEagerSingleton();
+        bind(FileSystemWatcher.class).asEagerSingleton();
+        bind(JsonUtil.class).asEagerSingleton();
+        bind(ActionSequenceDao.class).asEagerSingleton();
 
-    bind(ActionSequenceExecutorRunnable.class);
-    bind(ActionJsonDeSerializer.class);
-    bind(ActionSequenceJsonDeSerializer.class);
+        bind(ActionSequenceExecutorRunnable.class);
+        bind(ActionJsonDeSerializer.class);
+        bind(ActionSequenceJsonDeSerializer.class);
 
-    bind(Gson.class).toProvider(GsonProvider.class);
-  }
+        bind(Gson.class).toProvider(GsonProvider.class);
+    }
 }

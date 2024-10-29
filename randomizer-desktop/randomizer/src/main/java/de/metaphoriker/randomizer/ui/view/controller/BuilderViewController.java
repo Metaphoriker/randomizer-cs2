@@ -7,8 +7,6 @@ import de.metaphoriker.model.config.keybind.KeyBindType;
 import de.metaphoriker.model.persistence.JsonUtil;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
-import java.io.IOException;
-import java.util.List;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
@@ -28,393 +26,411 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
+import java.io.IOException;
+import java.util.List;
+
 @View
 public class BuilderViewController {
 
-  private static final String DELETE_ICON_PATH = "de/metaphoriker/randomizer/images/deleteIcon.png";
+    private static final String DELETE_ICON_PATH = "de/metaphoriker/randomizer/images/deleteIcon.png";
 
-  private final Separator dropIndicator = new Separator();
+    private final Separator dropIndicator = new Separator();
 
-  private final BuilderViewModel builderViewModel;
-  private final JsonUtil jsonUtil;
+    private final BuilderViewModel builderViewModel;
+    private final JsonUtil jsonUtil;
 
-  @FXML private Label actionInFocusLabel;
-  @FXML private VBox actionSequencesVBox;
-  @FXML private VBox actionSettingsVBox;
-  @FXML private VBox actionsVBox;
-  @FXML private VBox builderVBox;
-  @FXML private Slider maxSlider;
-  @FXML private Label maxSliderLabel;
-  @FXML private Slider minSlider;
-  @FXML private Label minSliderLabel;
-  @FXML private TextField searchField;
-  @FXML private Label sequenceDescriptionLabel;
-  @FXML private Label sequenceNameLabel;
-  @FXML private Button randomizeButton;
-  @FXML private Button actionsClearButton;
-  @FXML private Button saveSequenceButton;
+    @FXML
+    private Label actionInFocusLabel;
+    @FXML
+    private VBox actionSequencesVBox;
+    @FXML
+    private VBox actionSettingsVBox;
+    @FXML
+    private VBox actionsVBox;
+    @FXML
+    private VBox builderVBox;
+    @FXML
+    private Slider maxSlider;
+    @FXML
+    private Label maxSliderLabel;
+    @FXML
+    private Slider minSlider;
+    @FXML
+    private Label minSliderLabel;
+    @FXML
+    private TextField searchField;
+    @FXML
+    private Label sequenceDescriptionLabel;
+    @FXML
+    private Label sequenceNameLabel;
+    @FXML
+    private Button randomizeButton;
+    @FXML
+    private Button actionsClearButton;
+    @FXML
+    private Button saveSequenceButton;
 
-  @Inject
-  public BuilderViewController(BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
-    this.builderViewModel = builderViewModel;
-    this.jsonUtil = jsonUtil;
-    Platform.runLater(this::initialize);
-  }
-
-  private void setupSliderBindings() {
-    minSlider.setValue(builderViewModel.getMinIntervalProperty().get());
-    maxSlider.setValue(builderViewModel.getMaxIntervalProperty().get());
-
-    minSlider.valueProperty().bindBidirectional(builderViewModel.getMinIntervalProperty());
-    maxSlider.valueProperty().bindBidirectional(builderViewModel.getMaxIntervalProperty());
-
-    minSlider
-        .valueProperty()
-        .addListener(
-            (_, _, newValue) -> {
-              int minValue = newValue.intValue();
-              int maxValue = builderViewModel.getMaxIntervalProperty().get();
-
-              if (minValue > maxValue) {
-                builderViewModel.getMaxIntervalProperty().set(Math.max(minValue + 1, maxValue));
-              }
-
-              minSliderLabel.setText(minValue + " ms");
-            });
-
-    maxSlider
-        .valueProperty()
-        .addListener(
-            (_, _, newValue) -> {
-              int maxValue = newValue.intValue();
-              int minValue = builderViewModel.getMinIntervalProperty().get();
-
-              if (maxValue < minValue) {
-                builderViewModel.getMinIntervalProperty().set(Math.min(maxValue - 1, minValue));
-              }
-
-              maxSliderLabel.setText(maxValue + " ms");
-            });
-  }
-
-  private void setupBindings() {
-    builderViewModel
-        .getCurrentActionSequenceProperty()
-        .addListener((_, _, newSequence) -> fillBuilderWithActionsOfSequence(newSequence));
-
-    builderViewModel
-        .getCurrentActionsProperty()
-        .addListener((ListChangeListener<Action>) _ -> updateBuilderVBox());
-
-    builderVBox
-        .disableProperty()
-        .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
-
-    randomizeButton
-        .disableProperty()
-        .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
-
-    actionsClearButton
-        .disableProperty()
-        .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
-
-    saveSequenceButton
-        .disableProperty()
-        .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
-
-    actionSettingsVBox
-        .visibleProperty()
-        .bind(builderViewModel.getActionInFocusProperty().isNotNull());
-
-    builderViewModel
-        .getSequenceNameProperty()
-        .addListener((_, _, newValue) -> sequenceNameLabel.setText(newValue));
-
-    builderViewModel
-        .getSequenceDescriptionProperty()
-        .addListener(
-            (_, _, newValue) -> {
-              String description = newValue;
-              if (description.isEmpty()
-                  && builderViewModel.getCurrentActionSequenceProperty().get() != null)
-                description = "No description provided";
-              sequenceDescriptionLabel.setText(description);
-            });
-
-    builderViewModel
-        .getActionInFocusProperty()
-        .addListener(
-            (_, _, newValue) -> {
-              if (newValue == null) return;
-              actionInFocusLabel.setText(newValue.getName());
-            });
-
-    setupSearchFieldListener();
-    setupSliderBindings();
-  }
-
-  @FXML
-  void onRandomize(ActionEvent event) {
-    builderViewModel.addRandomActions(10);
-  }
-
-  @FXML
-  void onActionsClear(ActionEvent event) {
-    builderViewModel.setActions(List.of());
-  }
-
-  @FXML
-  void onSaveSequence(ActionEvent event) {
-    builderViewModel.saveActionSequence();
-    fillActionSequences();
-  }
-
-  @FXML
-  void onAddSequence(ActionEvent event) {
-    builderViewModel.createNewActionSequence();
-    fillActionSequences();
-  }
-
-  @FXML
-  void onOpenSequenceFolder(ActionEvent event) {
-    try {
-      builderViewModel.openSequenceFolder();
-    } catch (IOException e) {
-      throw new IllegalStateException("Konnte Sequencefolder nicht öffnen, Fehler:", e);
+    @Inject
+    public BuilderViewController(BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
+        this.builderViewModel = builderViewModel;
+        this.jsonUtil = jsonUtil;
+        Platform.runLater(this::initialize);
     }
-  }
 
-  private void initialize() {
-    setupBindings();
-    fillActions();
-    fillActionSequences();
-    setupDrop(builderVBox);
-  }
+    private void setupSliderBindings() {
+        minSlider.setValue(builderViewModel.getMinIntervalProperty().get());
+        maxSlider.setValue(builderViewModel.getMaxIntervalProperty().get());
 
-  private void updateBuilderVBox() {
-    builderVBox.getChildren().clear();
-    builderViewModel
-        .getCurrentActionsProperty()
-        .forEach(
-            action -> {
-              Label actionLabel = new Label(action.getName());
-              actionLabel.getStyleClass().add("selected-actions-label");
-              actionLabel.setOnMouseClicked(
-                  _ -> builderViewModel.getActionInFocusProperty().set(action));
-              setupDragAlreadyDropped(actionLabel, action); // setup special drag within listview
-              builderVBox.getChildren().add(actionLabel);
-            });
-  }
+        minSlider.valueProperty().bindBidirectional(builderViewModel.getMinIntervalProperty());
+        maxSlider.valueProperty().bindBidirectional(builderViewModel.getMaxIntervalProperty());
 
-  private void setupDrag(Label label, Action action) {
-    label.setCursor(Cursor.HAND);
-    label.setOnDragDetected(
-        dragEvent -> {
-          Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
-          dragboard.setDragView(label.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
+        minSlider
+                .valueProperty()
+                .addListener(
+                        (_, _, newValue) -> {
+                            int minValue = newValue.intValue();
+                            int maxValue = builderViewModel.getMaxIntervalProperty().get();
 
-          ClipboardContent content = new ClipboardContent();
-          String serializedAction = jsonUtil.serialize(action);
-          content.putString(serializedAction);
+                            if (minValue > maxValue) {
+                                builderViewModel.getMaxIntervalProperty().set(Math.max(minValue + 1, maxValue));
+                            }
 
-          dragboard.setContent(content);
-          dragEvent.consume();
-        });
-  }
+                            minSliderLabel.setText(minValue + " ms");
+                        });
 
-  private void setupDragAlreadyDropped(Label label, Action action) {
-    label.setCursor(Cursor.HAND);
-    label.setOnDragDetected(
-        dragEvent -> {
-          Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
-          dragboard.setDragView(label.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
+        maxSlider
+                .valueProperty()
+                .addListener(
+                        (_, _, newValue) -> {
+                            int maxValue = newValue.intValue();
+                            int minValue = builderViewModel.getMinIntervalProperty().get();
 
-          ClipboardContent content = new ClipboardContent();
-          String serializedAction = jsonUtil.serialize(action);
-          builderViewModel.removeAction(action);
-          content.putString(serializedAction);
+                            if (maxValue < minValue) {
+                                builderViewModel.getMinIntervalProperty().set(Math.min(maxValue - 1, minValue));
+                            }
 
-          dragboard.setContent(content);
-          dragEvent.consume();
-        });
+                            maxSliderLabel.setText(maxValue + " ms");
+                        });
+    }
 
-    label.setOnDragDropped(
-        dragEvent -> {
-          Dragboard dragboard = dragEvent.getDragboard();
-          boolean success = false;
+    private void setupBindings() {
+        builderViewModel
+                .getCurrentActionSequenceProperty()
+                .addListener((_, _, newSequence) -> fillBuilderWithActionsOfSequence(newSequence));
 
-          if (dragboard.hasString()) {
-            String serializedAction = dragboard.getString();
-            Action droppedAction = jsonUtil.deserializeAction(serializedAction);
-            int index = builderVBox.getChildren().indexOf(label);
-            builderViewModel.addActionAt(droppedAction, Math.max(0, index - 1));
-            success = true;
-          }
+        builderViewModel
+                .getCurrentActionsProperty()
+                .addListener((ListChangeListener<Action>) _ -> updateBuilderVBox());
 
-          dragEvent.setDropCompleted(success);
-          dragEvent.consume();
-        });
+        builderVBox
+                .disableProperty()
+                .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
 
-    label.setOnDragEntered(
-        _ ->
-            builderVBox.getChildren().add(builderVBox.getChildren().indexOf(label), dropIndicator));
+        randomizeButton
+                .disableProperty()
+                .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
 
-    label.setOnDragExited(_ -> builderVBox.getChildren().remove(dropIndicator));
-  }
+        actionsClearButton
+                .disableProperty()
+                .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
 
-  private void setupDrop(VBox target) {
-    target.setOnDragOver(
-        dragEvent -> {
-          if (dragEvent.getGestureSource() != target && dragEvent.getDragboard().hasString()) {
-            dragEvent.acceptTransferModes(TransferMode.MOVE);
-          }
-          dragEvent.consume();
-        });
+        saveSequenceButton
+                .disableProperty()
+                .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
 
-    target.setOnDragDropped(
-        dragEvent -> {
-          Dragboard dragboard = dragEvent.getDragboard();
-          boolean success = false;
+        actionSettingsVBox
+                .visibleProperty()
+                .bind(builderViewModel.getActionInFocusProperty().isNotNull());
 
-          if (dragboard.hasString()) {
-            String serializedAction = dragboard.getString();
-            Action droppedAction = jsonUtil.deserializeAction(serializedAction);
+        builderViewModel
+                .getSequenceNameProperty()
+                .addListener((_, _, newValue) -> sequenceNameLabel.setText(newValue));
 
-            builderViewModel.addAction(droppedAction);
-            success = true;
-          }
+        builderViewModel
+                .getSequenceDescriptionProperty()
+                .addListener(
+                        (_, _, newValue) -> {
+                            String description = newValue;
+                            if (description.isEmpty()
+                                    && builderViewModel.getCurrentActionSequenceProperty().get() != null)
+                                description = "No description provided";
+                            sequenceDescriptionLabel.setText(description);
+                        });
 
-          dragEvent.setDropCompleted(success);
-          dragEvent.consume();
-        });
-  }
+        builderViewModel
+                .getActionInFocusProperty()
+                .addListener(
+                        (_, _, newValue) -> {
+                            if (newValue == null) return;
+                            actionInFocusLabel.setText(newValue.getName());
+                        });
 
-  private void setupSearchFieldListener() {
-    searchField
-        .textProperty()
-        .addListener(
-            (_, _, newValue) -> {
-              if (newValue == null || newValue.isEmpty()) {
-                actionsVBox.getChildren().clear();
-                fillActions();
-                return;
-              }
+        setupSearchFieldListener();
+        setupSliderBindings();
+    }
 
-              String filter = newValue.toLowerCase();
-              actionsVBox.getChildren().clear();
-              builderViewModel
-                  .getActionToTypeMap()
-                  .forEach(
-                      (_, actionList) -> {
-                        List<Action> filteredActions =
-                            actionList.stream()
-                                .filter(action -> action.getName().toLowerCase().contains(filter))
-                                .toList();
+    @FXML
+    void onRandomize(ActionEvent event) {
+        builderViewModel.addRandomActions(10);
+    }
 
-                        filteredActions.forEach(
-                            action -> {
-                              Label actionLabel = new Label(action.getName());
-                              setupDrag(actionLabel, action);
-                              actionsVBox.getChildren().add(actionLabel);
-                            });
-                      });
-            });
-  }
+    @FXML
+    void onActionsClear(ActionEvent event) {
+        builderViewModel.setActions(List.of());
+    }
 
-  private TitledPane createTitledPane(KeyBindType type, List<Action> actions) {
-    TitledPane titledPane = new TitledPane();
-    titledPane.setCollapsible(true);
-    titledPane.setAnimated(true);
-    titledPane.setExpanded(false);
-    titledPane.getStyleClass().add("builder-actions-category");
-    titledPane.setText(type.name());
+    @FXML
+    void onSaveSequence(ActionEvent event) {
+        builderViewModel.saveActionSequence();
+        fillActionSequences();
+    }
 
-    VBox vBox = new VBox();
-    actions.forEach(
-        action -> {
-          Label actionLabel = new Label(action.getName());
-          actionLabel.getStyleClass().add("builder-actions-title");
-          setupDrag(actionLabel, action);
-          vBox.getStyleClass().add("builder-actions-title-vbox");
-          vBox.getChildren().add(actionLabel);
-        });
-    applyExpandListener(titledPane);
-    titledPane.setContent(vBox);
+    @FXML
+    void onAddSequence(ActionEvent event) {
+        builderViewModel.createNewActionSequence();
+        fillActionSequences();
+    }
 
-    return titledPane;
-  }
+    @FXML
+    void onOpenSequenceFolder(ActionEvent event) {
+        try {
+            builderViewModel.openSequenceFolder();
+        } catch (IOException e) {
+            throw new IllegalStateException("Konnte Sequencefolder nicht öffnen, Fehler:", e);
+        }
+    }
 
-  private void fillActions() {
-    builderViewModel
-        .getActionToTypeMap()
-        .forEach(
-            (type, actionList) ->
-                actionsVBox.getChildren().add(createTitledPane(type, actionList)));
-  }
+    private void initialize() {
+        setupBindings();
+        fillActions();
+        fillActionSequences();
+        setupDrop(builderVBox);
+    }
 
-  private void applyExpandListener(TitledPane titledPane) {
-    titledPane
-        .expandedProperty()
-        .addListener(
-            (_, _, newValue) -> {
-              if (newValue) {
-                actionsVBox.getChildren().stream()
-                    .filter(node -> node instanceof TitledPane && node != titledPane)
-                    .forEach(node -> ((TitledPane) node).setExpanded(false));
-              }
-            });
-  }
+    private void updateBuilderVBox() {
+        builderVBox.getChildren().clear();
+        builderViewModel
+                .getCurrentActionsProperty()
+                .forEach(
+                        action -> {
+                            Label actionLabel = new Label(action.getName());
+                            actionLabel.getStyleClass().add("selected-actions-label");
+                            actionLabel.setOnMouseClicked(
+                                    _ -> builderViewModel.getActionInFocusProperty().set(action));
+                            setupDragAlreadyDropped(actionLabel, action); // setup special drag within listview
+                            builderVBox.getChildren().add(actionLabel);
+                        });
+    }
 
-  private void fillActionSequences() {
-    actionSequencesVBox.getChildren().clear();
-    builderViewModel
-        .getActionSequences()
-        .forEach(
-            actionSequence -> {
-              HBox hBox = new HBox();
-              hBox.setCursor(Cursor.HAND);
-              hBox.getStyleClass().add("builder-sequences-hbox");
-              Label label = new Label(actionSequence.getName());
-              label.getStyleClass().add("builder-sequences-title");
-              hBox.setOnMouseClicked(
-                  _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
+    private void setupDrag(Label label, Action action) {
+        label.setCursor(Cursor.HAND);
+        label.setOnDragDetected(
+                dragEvent -> {
+                    Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
+                    dragboard.setDragView(label.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
 
-              hBox.getChildren().add(label);
-              Button deleteSequenceButton = createDeleteButton(actionSequence);
+                    ClipboardContent content = new ClipboardContent();
+                    String serializedAction = jsonUtil.serialize(action);
+                    content.putString(serializedAction);
 
-              HBox buttonHBox = new HBox();
-              buttonHBox.setAlignment(Pos.CENTER_RIGHT);
-              HBox.setHgrow(buttonHBox, Priority.ALWAYS);
-              buttonHBox.getChildren().add(deleteSequenceButton);
-              hBox.getChildren().add(buttonHBox);
+                    dragboard.setContent(content);
+                    dragEvent.consume();
+                });
+    }
 
-              actionSequencesVBox.getChildren().add(hBox);
-            });
-  }
+    private void setupDragAlreadyDropped(Label label, Action action) {
+        label.setCursor(Cursor.HAND);
+        label.setOnDragDetected(
+                dragEvent -> {
+                    Dragboard dragboard = label.startDragAndDrop(TransferMode.MOVE);
+                    dragboard.setDragView(label.snapshot(null, null), dragEvent.getX(), dragEvent.getY());
 
-  private Button createDeleteButton(ActionSequence actionSequence) {
-    Button deleteSequenceButton = new Button("");
-    deleteSequenceButton.getStyleClass().add("builder-sequences-delete-button");
-    // deleteSequenceButton.setGraphic(new ImageView(new Image(DELETE_ICON_PATH)));
-    deleteSequenceButton.setOnAction(
-        event -> {
-          builderViewModel.deleteActionSequence(actionSequence);
-          if (builderViewModel.getCurrentActionSequenceProperty().get() != null
-              && builderViewModel
-                  .getCurrentActionSequenceProperty()
-                  .get()
-                  .getName()
-                  .equalsIgnoreCase(actionSequence.getName()))
-            builderViewModel.getCurrentActionSequenceProperty().set(null);
-          fillActionSequences();
-          event.consume();
-        });
-    return deleteSequenceButton;
-  }
+                    ClipboardContent content = new ClipboardContent();
+                    String serializedAction = jsonUtil.serialize(action);
+                    builderViewModel.removeAction(action);
+                    content.putString(serializedAction);
 
-  private void fillBuilderWithActionsOfSequence(ActionSequence sequence) {
-    if (sequence == null) return;
-    List<Action> actions = builderViewModel.getActionsOfSequence(sequence);
-    builderViewModel.setActions(actions);
-  }
+                    dragboard.setContent(content);
+                    dragEvent.consume();
+                });
+
+        label.setOnDragDropped(
+                dragEvent -> {
+                    Dragboard dragboard = dragEvent.getDragboard();
+                    boolean success = false;
+
+                    if (dragboard.hasString()) {
+                        String serializedAction = dragboard.getString();
+                        Action droppedAction = jsonUtil.deserializeAction(serializedAction);
+                        int index = builderVBox.getChildren().indexOf(label);
+                        builderViewModel.addActionAt(droppedAction, Math.max(0, index - 1));
+                        success = true;
+                    }
+
+                    dragEvent.setDropCompleted(success);
+                    dragEvent.consume();
+                });
+
+        label.setOnDragEntered(
+                _ ->
+                        builderVBox.getChildren().add(builderVBox.getChildren().indexOf(label), dropIndicator));
+
+        label.setOnDragExited(_ -> builderVBox.getChildren().remove(dropIndicator));
+    }
+
+    private void setupDrop(VBox target) {
+        target.setOnDragOver(
+                dragEvent -> {
+                    if (dragEvent.getGestureSource() != target && dragEvent.getDragboard().hasString()) {
+                        dragEvent.acceptTransferModes(TransferMode.MOVE);
+                    }
+                    dragEvent.consume();
+                });
+
+        target.setOnDragDropped(
+                dragEvent -> {
+                    Dragboard dragboard = dragEvent.getDragboard();
+                    boolean success = false;
+
+                    if (dragboard.hasString()) {
+                        String serializedAction = dragboard.getString();
+                        Action droppedAction = jsonUtil.deserializeAction(serializedAction);
+
+                        builderViewModel.addAction(droppedAction);
+                        success = true;
+                    }
+
+                    dragEvent.setDropCompleted(success);
+                    dragEvent.consume();
+                });
+    }
+
+    private void setupSearchFieldListener() {
+        searchField
+                .textProperty()
+                .addListener(
+                        (_, _, newValue) -> {
+                            if (newValue == null || newValue.isEmpty()) {
+                                actionsVBox.getChildren().clear();
+                                fillActions();
+                                return;
+                            }
+
+                            String filter = newValue.toLowerCase();
+                            actionsVBox.getChildren().clear();
+                            builderViewModel
+                                    .getActionToTypeMap()
+                                    .forEach(
+                                            (_, actionList) -> {
+                                                List<Action> filteredActions =
+                                                        actionList.stream()
+                                                                .filter(action -> action.getName().toLowerCase().contains(filter))
+                                                                .toList();
+
+                                                filteredActions.forEach(
+                                                        action -> {
+                                                            Label actionLabel = new Label(action.getName());
+                                                            setupDrag(actionLabel, action);
+                                                            actionsVBox.getChildren().add(actionLabel);
+                                                        });
+                                            });
+                        });
+    }
+
+    private TitledPane createTitledPane(KeyBindType type, List<Action> actions) {
+        TitledPane titledPane = new TitledPane();
+        titledPane.setCollapsible(true);
+        titledPane.setAnimated(true);
+        titledPane.setExpanded(false);
+        titledPane.getStyleClass().add("builder-actions-category");
+        titledPane.setText(type.name());
+
+        VBox vBox = new VBox();
+        actions.forEach(
+                action -> {
+                    Label actionLabel = new Label(action.getName());
+                    actionLabel.getStyleClass().add("builder-actions-title");
+                    setupDrag(actionLabel, action);
+                    vBox.getStyleClass().add("builder-actions-title-vbox");
+                    vBox.getChildren().add(actionLabel);
+                });
+        applyExpandListener(titledPane);
+        titledPane.setContent(vBox);
+
+        return titledPane;
+    }
+
+    private void fillActions() {
+        builderViewModel
+                .getActionToTypeMap()
+                .forEach(
+                        (type, actionList) ->
+                                actionsVBox.getChildren().add(createTitledPane(type, actionList)));
+    }
+
+    private void applyExpandListener(TitledPane titledPane) {
+        titledPane
+                .expandedProperty()
+                .addListener(
+                        (_, _, newValue) -> {
+                            if (newValue) {
+                                actionsVBox.getChildren().stream()
+                                        .filter(node -> node instanceof TitledPane && node != titledPane)
+                                        .forEach(node -> ((TitledPane) node).setExpanded(false));
+                            }
+                        });
+    }
+
+    private void fillActionSequences() {
+        actionSequencesVBox.getChildren().clear();
+        builderViewModel
+                .getActionSequences()
+                .forEach(
+                        actionSequence -> {
+                            HBox hBox = new HBox();
+                            hBox.setCursor(Cursor.HAND);
+                            hBox.getStyleClass().add("builder-sequences-hbox");
+                            Label label = new Label(actionSequence.getName());
+                            label.getStyleClass().add("builder-sequences-title");
+                            hBox.setOnMouseClicked(
+                                    _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
+
+                            hBox.getChildren().add(label);
+                            Button deleteSequenceButton = createDeleteButton(actionSequence);
+
+                            HBox buttonHBox = new HBox();
+                            buttonHBox.setAlignment(Pos.CENTER_RIGHT);
+                            HBox.setHgrow(buttonHBox, Priority.ALWAYS);
+                            buttonHBox.getChildren().add(deleteSequenceButton);
+                            hBox.getChildren().add(buttonHBox);
+
+                            actionSequencesVBox.getChildren().add(hBox);
+                        });
+    }
+
+    private Button createDeleteButton(ActionSequence actionSequence) {
+        Button deleteSequenceButton = new Button("");
+        deleteSequenceButton.getStyleClass().add("builder-sequences-delete-button");
+        // deleteSequenceButton.setGraphic(new ImageView(new Image(DELETE_ICON_PATH)));
+        deleteSequenceButton.setOnAction(
+                event -> {
+                    builderViewModel.deleteActionSequence(actionSequence);
+                    if (builderViewModel.getCurrentActionSequenceProperty().get() != null
+                            && builderViewModel
+                            .getCurrentActionSequenceProperty()
+                            .get()
+                            .getName()
+                            .equalsIgnoreCase(actionSequence.getName()))
+                        builderViewModel.getCurrentActionSequenceProperty().set(null);
+                    fillActionSequences();
+                    event.consume();
+                });
+        return deleteSequenceButton;
+    }
+
+    private void fillBuilderWithActionsOfSequence(ActionSequence sequence) {
+        if (sequence == null) return;
+        List<Action> actions = builderViewModel.getActionsOfSequence(sequence);
+        builderViewModel.setActions(actions);
+    }
 }

@@ -4,9 +4,6 @@ import com.google.inject.Inject;
 import de.metaphoriker.randomizer.ui.util.GifDecoder;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
-import java.io.IOException;
-import java.net.URL;
-import java.util.ResourceBundle;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
@@ -21,15 +18,23 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
 
+import java.io.IOException;
+import java.net.URL;
+import java.util.ResourceBundle;
+
 @View
 public class RandomizerWindowController implements Initializable {
 
   private final ViewProvider viewProvider;
 
-  @FXML private VBox root;
-  @FXML private StackPane stackPane;
-  @FXML private GridPane contentPane;
-  @FXML private VBox navigationBarHolder;
+  @FXML
+  private VBox root;
+  @FXML
+  private StackPane stackPane;
+  @FXML
+  private GridPane contentPane;
+  @FXML
+  private VBox navigationBarHolder;
 
   @Inject
   public RandomizerWindowController(ViewProvider viewProvider) {
@@ -71,18 +76,18 @@ public class RandomizerWindowController implements Initializable {
   // note: for this pickOnBounds have to be false
   private void setupControlBarClickTransparency() {
     navigationBarHolder.addEventFilter(
-        MouseEvent.MOUSE_CLICKED,
-        event -> {
-          if (event.getTarget() == navigationBarHolder) {
-            event.consume();
-          }
-        });
+            MouseEvent.MOUSE_CLICKED,
+            event -> {
+              if (event.getTarget() == navigationBarHolder) {
+                event.consume();
+              }
+            });
   }
 
   private void registerViewListener() {
     viewProvider.registerViewChangeListener(BuilderViewController.class, _ -> loadBuilderView());
     viewProvider.registerViewChangeListener(
-        RandomizerViewController.class, _ -> loadRandomizerView());
+            RandomizerViewController.class, _ -> loadRandomizerView());
   }
 
   private void loadControlBar() {

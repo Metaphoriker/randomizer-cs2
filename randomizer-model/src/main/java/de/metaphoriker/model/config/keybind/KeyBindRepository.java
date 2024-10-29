@@ -1,13 +1,14 @@
 package de.metaphoriker.model.config.keybind;
 
 import com.google.inject.Inject;
+import lombok.extern.slf4j.Slf4j;
+
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 import java.util.Scanner;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class KeyBindRepository {
@@ -29,6 +30,7 @@ public class KeyBindRepository {
    * Retrieves a KeyBind associated with the given key.
    *
    * @param key The key to search for in the key bindings.
+   *
    * @return An Optional containing the KeyBind if found, otherwise an empty Optional.
    */
   public Optional<KeyBind> getKeyBind(String key) {
@@ -107,12 +109,10 @@ public class KeyBindRepository {
   }
 
   /**
-   * Reloads the key bindings by clearing the current set and reinitializing them from default and
-   * user configuration files. If the default file path has not been set, an IllegalStateException
-   * will be thrown.
+   * Reloads the key bindings by clearing the current set and reinitializing them from default and user configuration
+   * files. If the default file path has not been set, an IllegalStateException will be thrown.
    *
-   * @throws IllegalStateException if the key binding repository has not been initialized with a
-   *     default file path.
+   * @throws IllegalStateException if the key binding repository has not been initialized with a default file path.
    */
   public void reloadBinds() {
     keyBinds.clear();

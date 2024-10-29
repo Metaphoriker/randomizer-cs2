@@ -9,13 +9,6 @@ import de.metaphoriker.model.action.value.Interval;
 import de.metaphoriker.model.config.keybind.KeyBindNameTypeMapper;
 import de.metaphoriker.model.config.keybind.KeyBindType;
 import de.metaphoriker.model.persistence.dao.ActionSequenceDao;
-import java.awt.*;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
-import java.util.concurrent.ThreadLocalRandom;
 import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
@@ -28,34 +21,51 @@ import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import lombok.Getter;
 
+import java.awt.*;
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+import java.util.concurrent.ThreadLocalRandom;
+
 public class BuilderViewModel {
 
   private static final String SEQUENCE_CREATION_NAME_PREFIX = "Unnamed";
 
   @Getter
   private final ObjectProperty<ActionSequence> currentActionSequenceProperty =
-      new SimpleObjectProperty<>();
+          new SimpleObjectProperty<>();
 
-  @Getter private final ObjectProperty<Action> actionInFocusProperty = new SimpleObjectProperty<>();
+  @Getter
+  private final ObjectProperty<Action> actionInFocusProperty = new SimpleObjectProperty<>();
 
   @Getter
   private final ListProperty<Action> currentActionsProperty =
-      new SimpleListProperty<>(FXCollections.observableArrayList());
+          new SimpleListProperty<>(FXCollections.observableArrayList());
 
-  @Getter private final StringProperty sequenceNameProperty = new SimpleStringProperty();
-  @Getter private final StringProperty sequenceDescriptionProperty = new SimpleStringProperty();
-  @Getter private final IntegerProperty minIntervalProperty = new SimpleIntegerProperty();
-  @Getter private final IntegerProperty maxIntervalProperty = new SimpleIntegerProperty();
+  @Getter
+  private final StringProperty sequenceNameProperty = new SimpleStringProperty();
+  @Getter
+  private final StringProperty sequenceDescriptionProperty = new SimpleStringProperty();
+  @Getter
+  private final IntegerProperty minIntervalProperty = new SimpleIntegerProperty();
+  @Getter
+  private final IntegerProperty maxIntervalProperty = new SimpleIntegerProperty();
 
   private final ActionRepository actionRepository;
   private final ActionSequenceRepository actionSequenceRepository;
   private final KeyBindNameTypeMapper keyBindNameTypeMapper;
+  private final ChangeListener<Number> minIntervalListener =
+          (_, _, newValue) -> updateIntervalProperty(newValue.intValue(), true);
+  private final ChangeListener<Number> maxIntervalListener =
+          (_, _, newValue) -> updateIntervalProperty(newValue.intValue(), false);
 
   @Inject
   public BuilderViewModel(
-      ActionRepository actionRepository,
-      ActionSequenceRepository actionSequenceRepository,
-      KeyBindNameTypeMapper keyBindNameTypeMapper) {
+          ActionRepository actionRepository,
+          ActionSequenceRepository actionSequenceRepository,
+          KeyBindNameTypeMapper keyBindNameTypeMapper) {
     this.actionRepository = actionRepository;
     this.actionSequenceRepository = actionSequenceRepository;
     this.keyBindNameTypeMapper = keyBindNameTypeMapper;
@@ -70,39 +80,34 @@ public class BuilderViewModel {
 
   private void setupActionSequenceListener() {
     currentActionSequenceProperty.addListener(
-        (_, _, newSequence) -> {
-          currentActionsProperty.clear();
-          actionInFocusProperty.set(null);
-          if (newSequence != null) {
-            setActions(newSequence.getActions());
-            sequenceNameProperty.set(newSequence.getName());
-            sequenceDescriptionProperty.set(newSequence.getDescription());
-          } else {
-            sequenceNameProperty.set("");
-            sequenceDescriptionProperty.set("");
-          }
-        });
+            (_, _, newSequence) -> {
+              currentActionsProperty.clear();
+              actionInFocusProperty.set(null);
+              if (newSequence != null) {
+                setActions(newSequence.getActions());
+                sequenceNameProperty.set(newSequence.getName());
+                sequenceDescriptionProperty.set(newSequence.getDescription());
+              } else {
+                sequenceNameProperty.set("");
+                sequenceDescriptionProperty.set("");
+              }
+            });
   }
-
-  private final ChangeListener<Number> minIntervalListener =
-      (_, _, newValue) -> updateIntervalProperty(newValue.intValue(), true);
-  private final ChangeListener<Number> maxIntervalListener =
-      (_, _, newValue) -> updateIntervalProperty(newValue.intValue(), false);
 
   private void setupActionInFocusListener() {
     actionInFocusProperty.addListener(
-        (_, _, newAction) -> {
-          if (newAction != null) {
-            minIntervalProperty.removeListener(minIntervalListener);
-            maxIntervalProperty.removeListener(maxIntervalListener);
+            (_, _, newAction) -> {
+              if (newAction != null) {
+                minIntervalProperty.removeListener(minIntervalListener);
+                maxIntervalProperty.removeListener(maxIntervalListener);
 
-            minIntervalProperty.set(newAction.getInterval().getMin());
-            maxIntervalProperty.set(newAction.getInterval().getMax());
+                minIntervalProperty.set(newAction.getInterval().getMin());
+                maxIntervalProperty.set(newAction.getInterval().getMax());
 
-            minIntervalProperty.addListener(minIntervalListener);
-            maxIntervalProperty.addListener(maxIntervalListener);
-          }
-        });
+                minIntervalProperty.addListener(minIntervalListener);
+                maxIntervalProperty.addListener(maxIntervalListener);
+              }
+            });
   }
 
   private void setupMinAndMaxIntervalListeners() {
@@ -167,8 +172,8 @@ public class BuilderViewModel {
 
   public void deleteActionSequence(ActionSequence sequence) {
     actionSequenceRepository
-        .getActionSequence(sequence.getName())
-        .ifPresent(actionSequenceRepository::deleteActionSequence);
+            .getActionSequence(sequence.getName())
+            .ifPresent(actionSequenceRepository::deleteActionSequence);
   }
 
   public void addAction(Action action) {
@@ -190,14 +195,14 @@ public class BuilderViewModel {
   public Map<KeyBindType, List<Action>> getActionToTypeMap() {
     Map<KeyBindType, List<Action>> actionMap = new HashMap<>();
     actionRepository
-        .getActions()
-        .forEach(
-            (action, _) -> {
-              KeyBindType type = keyBindNameTypeMapper.getTypeByName(action.getName());
-              if (type != null) {
-                actionMap.computeIfAbsent(type, _ -> new ArrayList<>()).add(action);
-              }
-            });
+            .getActions()
+            .forEach(
+                    (action, _) -> {
+                      KeyBindType type = keyBindNameTypeMapper.getTypeByName(action.getName());
+                      if (type != null) {
+                        actionMap.computeIfAbsent(type, _ -> new ArrayList<>()).add(action);
+                      }
+                    });
     return actionMap;
   }
 
@@ -207,8 +212,8 @@ public class BuilderViewModel {
 
   public List<Action> getActionsOfSequence(ActionSequence sequence) {
     return actionSequenceRepository
-        .getActionSequence(sequence.getName())
-        .orElseThrow(IllegalStateException::new)
-        .getActions();
+            .getActionSequence(sequence.getName())
+            .orElseThrow(IllegalStateException::new)
+            .getActions();
   }
 }

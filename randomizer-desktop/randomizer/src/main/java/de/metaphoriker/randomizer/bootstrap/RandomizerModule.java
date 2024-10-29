@@ -8,11 +8,11 @@ import de.metaphoriker.randomizer.ui.view.viewmodel.RandomizerViewModel;
 
 public class RandomizerModule extends AbstractModule {
 
-  @Override
-  protected void configure() {
-    bind(NavigationBarViewModel.class).asEagerSingleton();
-    bind(BuilderViewModel.class).asEagerSingleton();
-    bind(RandomizerViewModel.class).asEagerSingleton();
-    bind(ViewProvider.class).asEagerSingleton();
-  }
+    @Override
+    protected void configure() {
+        bind(NavigationBarViewModel.class).asEagerSingleton();
+        bind(BuilderViewModel.class).asEagerSingleton();
+        bind(RandomizerViewModel.class).asEagerSingleton();
+        bind(ViewProvider.class).asEagerSingleton();
+    }
 }

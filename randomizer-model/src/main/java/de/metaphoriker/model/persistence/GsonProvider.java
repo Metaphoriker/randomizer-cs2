@@ -11,22 +11,22 @@ import de.metaphoriker.model.persistence.de_serializer.ActionSequenceJsonDeSeria
 
 public class GsonProvider implements Provider<Gson> {
 
-  private final ActionJsonDeSerializer actionJsonDeSerializer;
-  private final ActionSequenceJsonDeSerializer actionSequenceJsonDeSerializer;
+    private final ActionJsonDeSerializer actionJsonDeSerializer;
+    private final ActionSequenceJsonDeSerializer actionSequenceJsonDeSerializer;
 
-  @Inject
-  public GsonProvider(
-      ActionJsonDeSerializer actionJsonDeSerializer,
-      ActionSequenceJsonDeSerializer actionSequenceJsonDeSerializer) {
-    this.actionJsonDeSerializer = actionJsonDeSerializer;
-    this.actionSequenceJsonDeSerializer = actionSequenceJsonDeSerializer;
-  }
+    @Inject
+    public GsonProvider(
+            ActionJsonDeSerializer actionJsonDeSerializer,
+            ActionSequenceJsonDeSerializer actionSequenceJsonDeSerializer) {
+        this.actionJsonDeSerializer = actionJsonDeSerializer;
+        this.actionSequenceJsonDeSerializer = actionSequenceJsonDeSerializer;
+    }
 
-  @Override
-  public Gson get() {
-    return new GsonBuilder()
-        .registerTypeAdapter(Action.class, actionJsonDeSerializer)
-        .registerTypeAdapter(ActionSequence.class, actionSequenceJsonDeSerializer)
-        .create();
-  }
+    @Override
+    public Gson get() {
+        return new GsonBuilder()
+                .registerTypeAdapter(Action.class, actionJsonDeSerializer)
+                .registerTypeAdapter(ActionSequence.class, actionSequenceJsonDeSerializer)
+                .create();
+    }
 }

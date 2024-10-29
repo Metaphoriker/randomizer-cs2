@@ -11,14 +11,15 @@ import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.repository.ActionSequenceRepository;
 import de.metaphoriker.model.util.FocusManager;
+import lombok.extern.slf4j.Slf4j;
+
 import java.time.Instant;
 import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
-import lombok.extern.slf4j.Slf4j;
 
 /**
- * The ActionSequenceExecutorRunnable class is a specialized implementation of the Runnable
- * interface, responsible for executing sequences of actions based on certain conditions and events.
+ * The ActionSequenceExecutorRunnable class is a specialized implementation of the Runnable interface, responsible for
+ * executing sequences of actions based on certain conditions and events.
  */
 @Slf4j
 public class ActionSequenceExecutorRunnable implements Runnable {
@@ -35,12 +36,16 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   private final ActionSequenceDispatcher actionSequenceDispatcher;
 
   private long lastFocusCheckTime = 0;
+  private volatile ActionSequence currentActionSequence;
+  private volatile long lastCycle;
+  private volatile int lastWaitTime;
+  private volatile boolean hasReleasedAnyKey = false;
 
   @Inject
   public ActionSequenceExecutorRunnable(
-      ActionSequenceRepository actionSequenceRepository,
-      ApplicationContext applicationContext,
-      ActionSequenceDispatcher actionSequenceDispatcher) {
+          ActionSequenceRepository actionSequenceRepository,
+          ApplicationContext applicationContext,
+          ActionSequenceDispatcher actionSequenceDispatcher) {
     this.actionSequenceRepository = actionSequenceRepository;
     this.applicationContext = applicationContext;
     this.actionSequenceDispatcher = actionSequenceDispatcher;
@@ -57,11 +62,6 @@ public class ActionSequenceExecutorRunnable implements Runnable {
     waitTimeUpdated = true;
   }
 
-  private volatile ActionSequence currentActionSequence;
-  private volatile long lastCycle;
-  private volatile int lastWaitTime;
-  private volatile boolean hasReleasedAnyKey = false;
-
   /**
    * Sets the maximum wait time for the action sequence executor.
    *
@@ -76,25 +76,25 @@ public class ActionSequenceExecutorRunnable implements Runnable {
     log.info("Registering native key and mouse listener");
 
     GlobalScreen.addNativeMouseListener(
-        new NativeMouseListener() {
-          @Override
-          public void nativeMouseReleased(NativeMouseEvent nativeEvent) {
-            processNativeEvent(null, nativeEvent.getButton(), null);
-          }
-        });
+            new NativeMouseListener() {
+              @Override
+              public void nativeMouseReleased(NativeMouseEvent nativeEvent) {
+                processNativeEvent(null, nativeEvent.getButton(), null);
+              }
+            });
 
     GlobalScreen.addNativeKeyListener(
-        new NativeKeyListener() {
-          @Override
-          public void nativeKeyReleased(NativeKeyEvent nativeEvent) {
-            processNativeEvent(
-                NativeKeyEvent.getKeyText(nativeEvent.getKeyCode()), null, nativeEvent);
-          }
-        });
+            new NativeKeyListener() {
+              @Override
+              public void nativeKeyReleased(NativeKeyEvent nativeEvent) {
+                processNativeEvent(
+                        NativeKeyEvent.getKeyText(nativeEvent.getKeyCode()), null, nativeEvent);
+              }
+            });
   }
 
   private void processNativeEvent(
-      String keyText, Integer mouseButton, NativeKeyEvent nativeKeyEvent) {
+          String keyText, Integer mouseButton, NativeKeyEvent nativeKeyEvent) {
     if (isActionSequenceInactive()) {
       return;
     }
@@ -111,17 +111,17 @@ public class ActionSequenceExecutorRunnable implements Runnable {
 
   private Action getCurrentExecutingAction() {
     return currentActionSequence.getActions().stream()
-        .filter(Action::isExecuting)
-        .findFirst()
-        .orElse(null);
+            .filter(Action::isExecuting)
+            .findFirst()
+            .orElse(null);
   }
 
   private void handleCurrentActionInterruption(
-      String keyText, Integer mouseButton, NativeKeyEvent nativeKeyEvent, Action currentAction) {
+          String keyText, Integer mouseButton, NativeKeyEvent nativeKeyEvent, Action currentAction) {
     String actionKey = currentAction.getActionKey().getKey();
     boolean isKeyBindMatched =
-        actionKey.equalsIgnoreCase(keyText)
-            || (mouseButton != null && actionKey.equals(String.valueOf(mouseButton)));
+            actionKey.equalsIgnoreCase(keyText)
+                    || (mouseButton != null && actionKey.equals(String.valueOf(mouseButton)));
 
     if (isKeyBindMatched) {
       hasReleasedAnyKey = true;
@@ -131,8 +131,8 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   }
 
   /**
-   * The {@code run} method contains the main loop for a thread, which will continue to run until
-   * the thread is interrupted. This method performs a series of checks and actions within the loop:
+   * The {@code run} method contains the main loop for a thread, which will continue to run until the thread is
+   * interrupted. This method performs a series of checks and actions within the loop:
    *
    * <ul>
    *   <li>It checks if no keys have been released, the wait time has not been updated, and if the
@@ -143,7 +143,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
    *       application's running state.
    *   <li>The wait time is reset and updated as needed during each iteration of the loop.
    * </ul>
-   *
+   * <p>
    * If the thread's sleep is interrupted, a {@code RuntimeException} is thrown.
    */
   @Override
@@ -192,9 +192,9 @@ public class ActionSequenceExecutorRunnable implements Runnable {
 
   private Action findInterruptedAction() {
     return currentActionSequence.getActions().stream()
-        .filter(Action::isInterrupted)
-        .findFirst()
-        .orElse(null);
+            .filter(Action::isInterrupted)
+            .findFirst()
+            .orElse(null);
   }
 
   private boolean executeDelayedActionIfNeeded(Action currentAction) {
@@ -218,12 +218,12 @@ public class ActionSequenceExecutorRunnable implements Runnable {
 
   private void chooseAndDispatchRandomSequence() {
     List<ActionSequence> sequences =
-        actionSequenceRepository.getActionSequences().stream()
-            .filter(ActionSequence::isActive)
-            .toList();
+            actionSequenceRepository.getActionSequences().stream()
+                    .filter(ActionSequence::isActive)
+                    .toList();
     if (!sequences.isEmpty()) {
       currentActionSequence =
-          sequences.get(ThreadLocalRandom.current().nextInt(0, sequences.size()));
+              sequences.get(ThreadLocalRandom.current().nextInt(0, sequences.size()));
       actionSequenceDispatcher.dispatchSequence(currentActionSequence);
       log.info("Sequence {} wurde dispatched.", currentActionSequence.getName());
     } else {

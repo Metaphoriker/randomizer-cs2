@@ -1,8 +1,9 @@
 package de.metaphoriker.model.config.keybind;
 
+import lombok.extern.slf4j.Slf4j;
+
 import java.util.HashMap;
 import java.util.Map;
-import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class KeyBindNameTypeMapper {
@@ -17,6 +18,7 @@ public class KeyBindNameTypeMapper {
    * Checks if the given descriptor exists in the descriptor-to-name map.
    *
    * @param descriptor the key to be checked in the map
+   *
    * @return true if the map contains the key; false otherwise
    */
   public boolean hasKey(String descriptor) {
@@ -24,12 +26,12 @@ public class KeyBindNameTypeMapper {
   }
 
   /**
-   * Retrieves the key name associated with the given descriptor. If the descriptor does not have a
-   * predefined key name, the descriptor itself is returned.
+   * Retrieves the key name associated with the given descriptor. If the descriptor does not have a predefined key
+   * name, the descriptor itself is returned.
    *
    * @param descriptor The descriptor whose key name is to be retrieved.
-   * @return The key name associated with the given descriptor, or the descriptor itself if no key
-   *     name is found.
+   *
+   * @return The key name associated with the given descriptor, or the descriptor itself if no key name is found.
    */
   public String getKeyName(String descriptor) {
     if (!hasKey(descriptor)) {
@@ -43,7 +45,9 @@ public class KeyBindNameTypeMapper {
    * Retrieves the {@link KeyBindType} associated with the given descriptor.
    *
    * @param descriptor the key used to retrieve the associated Type
+   *
    * @return the Type associated with the given descriptor
+   *
    * @throws IllegalStateException if the given descriptor does not have an associated Type
    */
   public KeyBindType getType(String descriptor) {
@@ -58,8 +62,9 @@ public class KeyBindNameTypeMapper {
    * Retrieves the KeyBindType by its name.
    *
    * @param name the name of the KeyBindType to be retrieved
-   * @return the KeyBindType corresponding to the provided name, or KeyBindType.MISCELLANEOUS if no
-   *     matching type is found
+   *
+   * @return the KeyBindType corresponding to the provided name, or KeyBindType.MISCELLANEOUS if no matching type is
+   * found
    */
   public KeyBindType getTypeByName(String name) {
     for (NameType nameType : descriptorToNameMap.values()) {
@@ -85,10 +90,10 @@ public class KeyBindNameTypeMapper {
     descriptorToNameMap.put("slot4", new NameType("Select Slot 4", KeyBindType.INVENTORY));
     descriptorToNameMap.put("invnext", new NameType("Next Inventory Item", KeyBindType.INVENTORY));
     descriptorToNameMap.put(
-        "invprev", new NameType("Previous Inventory Item", KeyBindType.INVENTORY));
+            "invprev", new NameType("Previous Inventory Item", KeyBindType.INVENTORY));
     descriptorToNameMap.put("lastinv", new NameType("Last Inventory Item", KeyBindType.INVENTORY));
     descriptorToNameMap.put(
-        "sellbackall", new NameType("Sell Back All Items", KeyBindType.INVENTORY));
+            "sellbackall", new NameType("Sell Back All Items", KeyBindType.INVENTORY));
 
     descriptorToNameMap.put("drop", new NameType("Drop Item", KeyBindType.WEAPON));
     descriptorToNameMap.put("+reload", new NameType("Reload", KeyBindType.WEAPON));
@@ -97,7 +102,7 @@ public class KeyBindNameTypeMapper {
     descriptorToNameMap.put("+lookatweapon", new NameType("Inspect Weapon", KeyBindType.WEAPON));
 
     descriptorToNameMap.put(
-        "+use", new NameType("Use Object / Interact", KeyBindType.MISCELLANEOUS));
+            "+use", new NameType("Use Object / Interact", KeyBindType.MISCELLANEOUS));
     descriptorToNameMap.put("messagemode", new NameType("Open Chat", KeyBindType.MISCELLANEOUS));
     descriptorToNameMap.put("player_ping", new NameType("Player Ping", KeyBindType.MISCELLANEOUS));
     descriptorToNameMap.put("jpeg", new NameType("Take Screenshot", KeyBindType.MISCELLANEOUS));
@@ -106,5 +111,6 @@ public class KeyBindNameTypeMapper {
     log.info("{} Deskriptoren initialisiert.", descriptorToNameMap.size());
   }
 
-  public record NameType(String name, KeyBindType type) {}
+  public record NameType(String name, KeyBindType type) {
+  }
 }

@@ -12,15 +12,15 @@ import lombok.ToString;
 @ToString
 public class Interval {
 
-  private int min;
-  private int max;
+    private int min;
+    private int max;
 
-  /**
-   * Checks if the interval is empty, i.e., both minimum and maximum values are zero.
-   *
-   * @return true if the interval is empty, false otherwise
-   */
-  public boolean isEmpty() {
-    return min == 0 && max == 0;
-  }
+    /**
+     * Checks if the interval is empty, i.e., both minimum and maximum values are zero.
+     *
+     * @return true if the interval is empty, false otherwise
+     */
+    public boolean isEmpty() {
+        return min == 0 && max == 0;
+    }
 }

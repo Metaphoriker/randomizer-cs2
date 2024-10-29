@@ -16,46 +16,48 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class RandomizerViewModel {
 
-  private final ActionSequenceDispatcher actionSequenceDispatcher;
-  private final ApplicationContext applicationContext;
+    private final ActionSequenceDispatcher actionSequenceDispatcher;
+    private final ApplicationContext applicationContext;
 
-  @Getter
-  private final ObjectProperty<ActionSequence> currentActionSequenceProperty =
-      new SimpleObjectProperty<>();
+    @Getter
+    private final ObjectProperty<ActionSequence> currentActionSequenceProperty =
+            new SimpleObjectProperty<>();
 
-  @Getter private final ObjectProperty<Action> currentActionProperty = new SimpleObjectProperty<>();
-  @Getter private final BooleanProperty waitingProperty = new SimpleBooleanProperty(false);
+    @Getter
+    private final ObjectProperty<Action> currentActionProperty = new SimpleObjectProperty<>();
+    @Getter
+    private final BooleanProperty waitingProperty = new SimpleBooleanProperty(false);
 
-  @Inject
-  public RandomizerViewModel(
-      ActionSequenceDispatcher actionSequenceDispatcher, ApplicationContext applicationContext) {
-    this.actionSequenceDispatcher = actionSequenceDispatcher;
-    this.applicationContext = applicationContext;
-    initialize();
-  }
+    @Inject
+    public RandomizerViewModel(
+            ActionSequenceDispatcher actionSequenceDispatcher, ApplicationContext applicationContext) {
+        this.actionSequenceDispatcher = actionSequenceDispatcher;
+        this.applicationContext = applicationContext;
+        initialize();
+    }
 
-  private void initialize() {
-    applicationContext.registerApplicationStateChangeListener(
-        state -> log.info("ApplicationState changed to {}", state));
-    setupInternalHandler();
-    setupInternalListener();
-  }
+    private void initialize() {
+        applicationContext.registerApplicationStateChangeListener(
+                state -> log.info("ApplicationState changed to {}", state));
+        setupInternalHandler();
+        setupInternalListener();
+    }
 
-  public void setApplicationStateToRunning() {
-    applicationContext.setApplicationState(ApplicationState.RUNNING);
-  }
+    public void setApplicationStateToRunning() {
+        applicationContext.setApplicationState(ApplicationState.RUNNING);
+    }
 
-  public void setApplicationStateToStopped() {
-    applicationContext.setApplicationState(ApplicationState.IDLING);
-  }
+    public void setApplicationStateToStopped() {
+        applicationContext.setApplicationState(ApplicationState.IDLING);
+    }
 
-  private void setupInternalHandler() {
-    actionSequenceDispatcher.registerSequenceHandler(currentActionSequenceProperty::set);
-    actionSequenceDispatcher.registerSequenceFinishHandler(_ -> waitingProperty.set(true));
-    actionSequenceDispatcher.registerActionHandler(currentActionProperty::set);
-  }
+    private void setupInternalHandler() {
+        actionSequenceDispatcher.registerSequenceHandler(currentActionSequenceProperty::set);
+        actionSequenceDispatcher.registerSequenceFinishHandler(_ -> waitingProperty.set(true));
+        actionSequenceDispatcher.registerActionHandler(currentActionProperty::set);
+    }
 
-  private void setupInternalListener() {
-    currentActionSequenceProperty.addListener((_, _, _) -> waitingProperty.set(false));
-  }
+    private void setupInternalListener() {
+        currentActionSequenceProperty.addListener((_, _, _) -> waitingProperty.set(false));
+    }
 }
