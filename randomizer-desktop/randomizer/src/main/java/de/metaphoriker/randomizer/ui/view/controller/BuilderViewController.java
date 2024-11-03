@@ -169,7 +169,6 @@ public class BuilderViewController {
     }
 
     private void initActionSettings() {
-        sequenceNameLabel.setCursor(Cursor.HAND);
         actionSettingsController = viewProvider.requestView(ActionSettingsController.class).controller();
         actionSettingsController.bindOnVisibleProperty(visible -> {
             if (visible)
@@ -189,6 +188,7 @@ public class BuilderViewController {
     }
 
     private void initTitleSettings() {
+        sequenceNameLabel.setCursor(Cursor.HAND);
         TitleSettingsController titleSettingsController = viewProvider.requestView(TitleSettingsController.class).controller();
         titleSettingsController.onInput(input -> {
             builderViewModel.getSequenceNameProperty().set(input);
@@ -201,6 +201,7 @@ public class BuilderViewController {
     }
 
     private void initDescriptionSettings() {
+        sequenceDescriptionLabel.setCursor(Cursor.HAND);
         DescriptionSettingsController descriptionSettingsController = viewProvider.requestView(DescriptionSettingsController.class).controller();
         descriptionSettingsController.setOnInput(input -> {
             builderViewModel.getSequenceDescriptionProperty().set(input);
