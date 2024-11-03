@@ -6,6 +6,8 @@ import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.config.keybind.KeyBindType;
 import de.metaphoriker.model.persistence.JsonUtil;
 import de.metaphoriker.randomizer.ui.view.View;
+import de.metaphoriker.randomizer.ui.view.ViewProvider;
+import de.metaphoriker.randomizer.ui.view.component.ActionSettingsController;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -16,7 +18,6 @@ import javafx.scene.Cursor;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.input.ClipboardContent;
@@ -34,27 +35,16 @@ public class BuilderViewController {
 
     private final Separator dropIndicator = new Separator();
 
+    private final ViewProvider viewProvider;
     private final BuilderViewModel builderViewModel;
     private final JsonUtil jsonUtil;
 
     @FXML
-    private Label actionInFocusLabel;
-    @FXML
     private VBox actionSequencesVBox;
-    @FXML
-    private VBox actionSettingsVBox;
     @FXML
     private VBox actionsVBox;
     @FXML
     private VBox builderVBox;
-    @FXML
-    private Slider maxSlider;
-    @FXML
-    private Label maxSliderLabel;
-    @FXML
-    private Slider minSlider;
-    @FXML
-    private Label minSliderLabel;
     @FXML
     private TextField searchField;
     @FXML
@@ -67,48 +57,17 @@ public class BuilderViewController {
     private Button actionsClearButton;
     @FXML
     private Button saveSequenceButton;
+    @FXML
+    private VBox settingsHolder;
+
+    private ActionSettingsController actionSettingsController;
 
     @Inject
-    public BuilderViewController(BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
+    public BuilderViewController(ViewProvider viewProvider, BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
+        this.viewProvider = viewProvider;
         this.builderViewModel = builderViewModel;
         this.jsonUtil = jsonUtil;
         Platform.runLater(this::initialize);
-    }
-
-    private void setupSliderBindings() {
-        minSlider.setValue(builderViewModel.getMinIntervalProperty().get());
-        maxSlider.setValue(builderViewModel.getMaxIntervalProperty().get());
-
-        minSlider.valueProperty().bindBidirectional(builderViewModel.getMinIntervalProperty());
-        maxSlider.valueProperty().bindBidirectional(builderViewModel.getMaxIntervalProperty());
-
-        minSlider
-                .valueProperty()
-                .addListener(
-                        (_, _, newValue) -> {
-                            int minValue = newValue.intValue();
-                            int maxValue = builderViewModel.getMaxIntervalProperty().get();
-
-                            if (minValue > maxValue) {
-                                builderViewModel.getMaxIntervalProperty().set(Math.max(minValue + 1, maxValue));
-                            }
-
-                            minSliderLabel.setText(minValue + " ms");
-                        });
-
-        maxSlider
-                .valueProperty()
-                .addListener(
-                        (_, _, newValue) -> {
-                            int maxValue = newValue.intValue();
-                            int minValue = builderViewModel.getMinIntervalProperty().get();
-
-                            if (maxValue < minValue) {
-                                builderViewModel.getMinIntervalProperty().set(Math.min(maxValue - 1, minValue));
-                            }
-
-                            maxSliderLabel.setText(maxValue + " ms");
-                        });
     }
 
     private void setupBindings() {
@@ -136,10 +95,6 @@ public class BuilderViewController {
                 .disableProperty()
                 .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
 
-        actionSettingsVBox
-                .visibleProperty()
-                .bind(builderViewModel.getActionInFocusProperty().isNotNull());
-
         builderViewModel
                 .getSequenceNameProperty()
                 .addListener((_, _, newValue) -> sequenceNameLabel.setText(newValue));
@@ -155,16 +110,7 @@ public class BuilderViewController {
                             sequenceDescriptionLabel.setText(description);
                         });
 
-        builderViewModel
-                .getActionInFocusProperty()
-                .addListener(
-                        (_, _, newValue) -> {
-                            if (newValue == null) return;
-                            actionInFocusLabel.setText(newValue.getName());
-                        });
-
         setupSearchFieldListener();
-        setupSliderBindings();
     }
 
     @FXML
@@ -199,10 +145,22 @@ public class BuilderViewController {
     }
 
     private void initialize() {
+        initActionSettings();
         setupBindings();
         fillActions();
         fillActionSequences();
         setupDrop(builderVBox);
+    }
+
+    private void initActionSettings() {
+        actionSettingsController = viewProvider.requestView(ActionSettingsController.class).controller();
+        actionSettingsController.bindOnVisibleProperty(visible -> {
+            if (visible)
+                settingsHolder.getChildren().setAll(viewProvider.requestView(ActionSettingsController.class).parent());
+            else
+                settingsHolder.getChildren().clear();
+        });
+        builderViewModel.getCurrentActionSequenceProperty().addListener((_, _, _) -> actionSettingsController.setAction(null));
     }
 
     private void updateBuilderVBox() {
@@ -214,7 +172,7 @@ public class BuilderViewController {
                             Label actionLabel = new Label(action.getName());
                             actionLabel.getStyleClass().add("selected-actions-label");
                             actionLabel.setOnMouseClicked(
-                                    _ -> builderViewModel.getActionInFocusProperty().set(action));
+                                    _ -> actionSettingsController.setAction(action));
                             setupDragAlreadyDropped(actionLabel, action); // setup special drag within listview
                             builderVBox.getChildren().add(actionLabel);
                         });
