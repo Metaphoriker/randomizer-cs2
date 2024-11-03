@@ -27,6 +27,20 @@
     -fx-background-image: url("../images/homeIcon.png");
 }
 
+.navigation-bar-builder:hover, .navigation-bar-randomizer:hover {
+    -fx-background-color: #C444C3;
+    -fx-background-radius: 4px;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
+.navigation-bar-builder:selected, .navigation-bar-randomizer:selected {
+    -fx-background-color: #C444C3;
+    -fx-background-radius: 4px;
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
+}
+
 /* Randomizer Window */
 .randomizer-window {
     -fx-pref-width: 704px;
