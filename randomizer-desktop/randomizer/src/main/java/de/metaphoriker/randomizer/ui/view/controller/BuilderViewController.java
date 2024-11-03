@@ -189,7 +189,10 @@ public class BuilderViewController {
             builderViewModel.getSequenceNameProperty().set(input);
             settingsHolder.getChildren().clear();
         });
-        sequenceNameLabel.setOnMouseClicked(_ -> settingsHolder.getChildren().setAll(viewProvider.requestView(TitleSettingsController.class).parent()));
+        sequenceNameLabel.setOnMouseClicked(_ -> {
+            actionSettingsController.setAction(null);
+            settingsHolder.getChildren().setAll(viewProvider.requestView(TitleSettingsController.class).parent());
+        });
     }
 
     private void updateBuilderVBox() {
