@@ -17,8 +17,8 @@
                     <children>
                         <Label styleClass="time-frame-description" text="Set the description of the ActionSequence"
                                wrapText="true"/>
-                        <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0"
-                                  promptText="Set the description"/>
+                        <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" promptText="Set the description"
+                                  wrapText="true"/>
                         <VBox alignment="BOTTOM_RIGHT" prefHeight="45.0" prefWidth="140.0">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onApply" text="Apply"/>
