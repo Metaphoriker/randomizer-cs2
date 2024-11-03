@@ -8,6 +8,7 @@ import de.metaphoriker.model.persistence.JsonUtil;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
 import de.metaphoriker.randomizer.ui.view.component.ActionSettingsController;
+import de.metaphoriker.randomizer.ui.view.component.TextSettingsController;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -61,6 +62,7 @@ public class BuilderViewController {
     private VBox settingsHolder;
 
     private ActionSettingsController actionSettingsController;
+    private TextSettingsController textSettingsController;
 
     @Inject
     public BuilderViewController(ViewProvider viewProvider, BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
@@ -146,6 +148,7 @@ public class BuilderViewController {
 
     private void initialize() {
         initActionSettings();
+        initTextSettings();
         setupBindings();
         fillActions();
         fillActionSequences();
@@ -161,6 +164,10 @@ public class BuilderViewController {
                 settingsHolder.getChildren().clear();
         });
         builderViewModel.getCurrentActionSequenceProperty().addListener((_, _, _) -> actionSettingsController.setAction(null));
+    }
+
+    private void initTextSettings() {
+        textSettingsController = viewProvider.requestView(TextSettingsController.class).controller();
     }
 
     private void updateBuilderVBox() {
