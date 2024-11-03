@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="140.0" styleClass="action-settings"
+      xmlns="http://javafx.com/javafx/22"
+      fx:controller="de.metaphoriker.randomizer.ui.view.component.TitleSettingsController">
+    <children>
+        <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="action-settings-vbox">
+            <children>
+                <Label fx:id="actionInFocusLabel" styleClass="action-in-focus-label" text="Name Changer"/>
+                <Separator prefWidth="140.0"/>
+                <VBox prefWidth="140.0" styleClass="action-time-frame-vbox">
+                    <children>
+                        <Label styleClass="time-frame-description" text="Set the title/name of the ActionSequence"
+                               wrapText="true"/>
+                        <TextField fx:id="textField" promptText="Set a name"/>
+                    </children>
+                </VBox>
+                <Separator prefWidth="140.0"/>
+            </children>
+        </VBox>
+    </children>
+</VBox>

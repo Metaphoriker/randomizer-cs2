@@ -8,7 +8,7 @@ import de.metaphoriker.model.persistence.JsonUtil;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
 import de.metaphoriker.randomizer.ui.view.component.ActionSettingsController;
-import de.metaphoriker.randomizer.ui.view.component.TextSettingsController;
+import de.metaphoriker.randomizer.ui.view.component.TitleSettingsController;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
@@ -16,6 +16,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
@@ -29,6 +30,7 @@ import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 import java.io.IOException;
+import java.util.Comparator;
 import java.util.List;
 
 @View
@@ -62,7 +64,7 @@ public class BuilderViewController {
     private VBox settingsHolder;
 
     private ActionSettingsController actionSettingsController;
-    private TextSettingsController textSettingsController;
+    private TitleSettingsController titleSettingsController;
 
     @Inject
     public BuilderViewController(ViewProvider viewProvider, BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
@@ -127,6 +129,13 @@ public class BuilderViewController {
 
     @FXML
     void onSaveSequence(ActionEvent event) {
+        if (doesAnotherActionSequenceWithThisNameExist()) {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setContentText("A sequence with this name already exist.");
+            alert.show();
+            return;
+        }
         builderViewModel.saveActionSequence();
         fillActionSequences();
     }
@@ -166,8 +175,21 @@ public class BuilderViewController {
         builderViewModel.getCurrentActionSequenceProperty().addListener((_, _, _) -> actionSettingsController.setAction(null));
     }
 
+    private boolean doesAnotherActionSequenceWithThisNameExist() {
+        return builderViewModel
+                .getActionSequences()
+                .stream()
+                .filter(actionSequence -> !actionSequence.equals(builderViewModel.getCurrentActionSequenceProperty().get()))
+                .anyMatch(actionSequence -> actionSequence.getName().equalsIgnoreCase(builderViewModel.getSequenceNameProperty().get()));
+    }
+
     private void initTextSettings() {
-        textSettingsController = viewProvider.requestView(TextSettingsController.class).controller();
+        titleSettingsController = viewProvider.requestView(TitleSettingsController.class).controller();
+        titleSettingsController.onInput(input -> {
+            builderViewModel.getSequenceNameProperty().set(input);
+            settingsHolder.getChildren().clear();
+        });
+        sequenceNameLabel.setOnMouseClicked(_ -> settingsHolder.getChildren().setAll(viewProvider.requestView(TitleSettingsController.class).parent()));
     }
 
     private void updateBuilderVBox() {
@@ -346,29 +368,29 @@ public class BuilderViewController {
 
     private void fillActionSequences() {
         actionSequencesVBox.getChildren().clear();
-        builderViewModel
-                .getActionSequences()
-                .forEach(
-                        actionSequence -> {
-                            HBox hBox = new HBox();
-                            hBox.setCursor(Cursor.HAND);
-                            hBox.getStyleClass().add("builder-sequences-hbox");
-                            Label label = new Label(actionSequence.getName());
-                            label.getStyleClass().add("builder-sequences-title");
-                            hBox.setOnMouseClicked(
-                                    _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
+        List<ActionSequence> actionSequences = builderViewModel.getActionSequences();
+        actionSequences.sort(Comparator.comparing(ActionSequence::getName));
+        actionSequences.forEach(
+                actionSequence -> {
+                    HBox hBox = new HBox();
+                    hBox.setCursor(Cursor.HAND);
+                    hBox.getStyleClass().add("builder-sequences-hbox");
+                    Label label = new Label(actionSequence.getName());
+                    label.getStyleClass().add("builder-sequences-title");
+                    hBox.setOnMouseClicked(
+                            _ -> builderViewModel.getCurrentActionSequenceProperty().set(actionSequence));
 
-                            hBox.getChildren().add(label);
-                            Button deleteSequenceButton = createDeleteButton(actionSequence);
+                    hBox.getChildren().add(label);
+                    Button deleteSequenceButton = createDeleteButton(actionSequence);
 
-                            HBox buttonHBox = new HBox();
-                            buttonHBox.setAlignment(Pos.CENTER_RIGHT);
-                            HBox.setHgrow(buttonHBox, Priority.ALWAYS);
-                            buttonHBox.getChildren().add(deleteSequenceButton);
-                            hBox.getChildren().add(buttonHBox);
+                    HBox buttonHBox = new HBox();
+                    buttonHBox.setAlignment(Pos.CENTER_RIGHT);
+                    HBox.setHgrow(buttonHBox, Priority.ALWAYS);
+                    buttonHBox.getChildren().add(deleteSequenceButton);
+                    hBox.getChildren().add(buttonHBox);
 
-                            actionSequencesVBox.getChildren().add(hBox);
-                        });
+                    actionSequencesVBox.getChildren().add(hBox);
+                });
     }
 
     private Button createDeleteButton(ActionSequence actionSequence) {
