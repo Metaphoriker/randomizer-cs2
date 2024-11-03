@@ -165,6 +165,7 @@ public class BuilderViewController {
     }
 
     private void initActionSettings() {
+        sequenceNameLabel.setCursor(Cursor.HAND);
         actionSettingsController = viewProvider.requestView(ActionSettingsController.class).controller();
         actionSettingsController.bindOnVisibleProperty(visible -> {
             if (visible)
