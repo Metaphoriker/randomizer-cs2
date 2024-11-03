@@ -77,7 +77,10 @@ public class BuilderViewController {
     private void setupBindings() {
         builderViewModel
                 .getCurrentActionSequenceProperty()
-                .addListener((_, _, newSequence) -> fillBuilderWithActionsOfSequence(newSequence));
+                .addListener((_, _, newSequence) -> {
+                    fillBuilderWithActionsOfSequence(newSequence);
+                    settingsHolder.getChildren().clear();
+                });
 
         builderViewModel
                 .getCurrentActionsProperty()
