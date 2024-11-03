@@ -58,6 +58,7 @@
 .randomizer-logbook {
     -fx-min-width: 420px;
     -fx-min-height: 350px;
+    -fx-background-radius: 8px;
     -fx-background-color: #0C171A;
     -fx-effect: dropshadow(three-pass-box, #C444C3, 15, 0.0, 0, 0);
 }
@@ -103,6 +104,7 @@
 .logbook-buttons {
     -fx-max-width: 28px;
     -fx-max-height: 56px;
+    -fx-background-radius: 4px 0px 0px 4px;
     -fx-padding: 8px;
     -fx-spacing: 12px;
     -fx-alignment: center;
@@ -197,6 +199,7 @@
     -fx-pref-width: 140px;
     -fx-pref-height: 210px;
     -fx-alignment: center;
+    -fx-background-radius: 8px;
     -fx-spacing: 4px;
     -fx-padding: 4px;
     -fx-background-color: #0C171A;
@@ -304,6 +307,7 @@
     -fx-pref-height: 210px;
     -fx-pref-width: 140px;
     -fx-alignment: center;
+    -fx-background-radius: 8px;
     -fx-spacing: 4px;
     -fx-padding: 4px;
     -fx-background-color: #0C171A;
@@ -345,7 +349,6 @@
     -fx-min-width: 360px;
     -fx-min-height: 300px;
     -fx-padding: 94px 0px;
-    -fx-border-radius: 8px;
     -fx-effect: dropshadow(three-pass-box, #C444C3, 15, 0.0, 0, 0);
 }
 
@@ -353,6 +356,7 @@
     -fx-pref-height: 46px;
     -fx-spacing: 4px;
     -fx-padding: 8px;
+    -fx-background-radius: 8px 8px 0px 0px;
     -fx-alignment: center-left;
     -fx-background-color: #0C171A;
 }
@@ -373,9 +377,10 @@
     -fx-text-fill: #738487;
 }
 
-.sequence-builder-buttons-vbox, .sequence-builder-buttons {
+.sequence-builder-buttons-vbox {
     -fx-pref-height: 300px;
     -fx-pref-width: 36px;
+    -fx-background-radius: 0px 0px 8px 0px;
     -fx-alignment: center;
     -fx-background-color: #0C171A;
 }
@@ -383,9 +388,11 @@
 .sequence-builder-buttons {
     -fx-pref-width: 36px;
     -fx-pref-height: 96px;
+    -fx-background-radius: 4px 0px 0px 4px;
     -fx-padding: 0px 6px;
     -fx-spacing: 4px;
     -fx-alignment: center;
+    -fx-background-color: #0C171A;
     -fx-effect: innershadow(three-pass-box, #C444C3, 10, 0.0, 0, 0);
 }
 
@@ -408,15 +415,20 @@
     -fx-background-image: url("../images/saveIcon.png");
 }
 
-.builder-selected-actions-scrollpane, .builder-selected-actions-vbox {
+.builder-selected-actions-scrollpane {
     -fx-pref-width: 324px;
     -fx-pref-height: 272px;
+    -fx-background-radius: 0px 0px 0px 8px;
+    -fx-padding: 0px 0px 8px 4px;
     -fx-background-color: #0C171A;
 }
 
 .builder-selected-actions-vbox {
+    -fx-pref-width: 324px;
+    -fx-pref-height: 272px;
     -fx-spacing: 4px;
-    -fx-padding: 0px 0px 0px 8px;
+    -fx-padding: 0px 0px 8px 8px;
+    -fx-background-color: #0C171A;
 }
 
 .selected-actions-label {
@@ -440,9 +452,9 @@
 .action-settings {
     -fx-min-width: 140px;
     -fx-pref-height: 488px;
-    -fx-background-color: #0C171A;
-    -fx-border-radius: 8px;
     -fx-alignment: top-left;
+    -fx-background-radius: 8px;
+    -fx-background-color: #0C171A;
 }
 
 .action-settings-vbox {
