@@ -379,14 +379,14 @@
 
 .sequence-builder-buttons-vbox {
     -fx-pref-height: 300px;
-    -fx-pref-width: 36px;
+    -fx-pref-width: 48px;
     -fx-background-radius: 0px 0px 8px 0px;
-    -fx-alignment: center;
+    -fx-alignment: center-right;
     -fx-background-color: #0C171A;
 }
 
 .sequence-builder-buttons {
-    -fx-pref-width: 36px;
+    -fx-max-width: 36px;
     -fx-pref-height: 96px;
     -fx-background-radius: 4px 0px 0px 4px;
     -fx-padding: 0px 6px;
@@ -416,15 +416,38 @@
 }
 
 .builder-selected-actions-scrollpane {
-    -fx-pref-width: 324px;
+    -fx-pref-width: 312px;
     -fx-pref-height: 272px;
     -fx-background-radius: 0px 0px 0px 8px;
     -fx-padding: 0px 0px 8px 4px;
     -fx-background-color: #0C171A;
 }
 
+.builder-selected-actions-scrollpane .scroll-bar:vertical {
+    -fx-pref-width: 8px;
+    -fx-background-color: transparent;
+}
+
+.builder-selected-actions-scrollpane .scroll-bar:vertical .track {
+    -fx-background-color: #4F747C;
+    -fx-background-radius: 4px;
+}
+
+.builder-selected-actions-scrollpane .scroll-bar:vertical .thumb {
+    -fx-background-color: #92D0DD;
+    -fx-background-radius: 4px;
+    -fx-pref-width: 8px;
+}
+
+.builder-selected-actions-scrollpane .scroll-bar:vertical .increment-button,
+.builder-selected-actions-scrollpane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-shape: null;
+    -fx-opacity: 0;
+}
+
 .builder-selected-actions-vbox {
-    -fx-pref-width: 324px;
+    -fx-pref-width: 312px;
     -fx-pref-height: 272px;
     -fx-spacing: 4px;
     -fx-padding: 0px 0px 8px 8px;
