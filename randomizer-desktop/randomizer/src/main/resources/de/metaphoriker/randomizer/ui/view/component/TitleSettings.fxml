@@ -10,7 +10,7 @@
     <children>
         <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="action-settings-vbox">
             <children>
-                <Label fx:id="actionInFocusLabel" styleClass="action-in-focus-label" text="Name Changer"/>
+                <Label fx:id="actionInFocusLabel" styleClass="action-in-focus-label" text="Title"/>
                 <Separator prefWidth="140.0"/>
                 <VBox prefWidth="140.0" styleClass="action-time-frame-vbox">
                     <children>
