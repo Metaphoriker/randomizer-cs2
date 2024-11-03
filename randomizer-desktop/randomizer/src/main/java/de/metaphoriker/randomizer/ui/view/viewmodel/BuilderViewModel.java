@@ -5,19 +5,15 @@ import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.repository.ActionRepository;
 import de.metaphoriker.model.action.repository.ActionSequenceRepository;
 import de.metaphoriker.model.action.sequence.ActionSequence;
-import de.metaphoriker.model.action.value.Interval;
 import de.metaphoriker.model.config.keybind.KeyBindNameTypeMapper;
 import de.metaphoriker.model.config.keybind.KeyBindType;
 import de.metaphoriker.model.persistence.dao.ActionSequenceDao;
-import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ListProperty;
 import javafx.beans.property.ObjectProperty;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleListProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
-import javafx.beans.value.ChangeListener;
 import javafx.collections.FXCollections;
 import lombok.Getter;
 
@@ -38,9 +34,6 @@ public class BuilderViewModel {
           new SimpleObjectProperty<>();
 
   @Getter
-  private final ObjectProperty<Action> actionInFocusProperty = new SimpleObjectProperty<>();
-
-  @Getter
   private final ListProperty<Action> currentActionsProperty =
           new SimpleListProperty<>(FXCollections.observableArrayList());
 
@@ -48,18 +41,10 @@ public class BuilderViewModel {
   private final StringProperty sequenceNameProperty = new SimpleStringProperty();
   @Getter
   private final StringProperty sequenceDescriptionProperty = new SimpleStringProperty();
-  @Getter
-  private final IntegerProperty minIntervalProperty = new SimpleIntegerProperty();
-  @Getter
-  private final IntegerProperty maxIntervalProperty = new SimpleIntegerProperty();
 
   private final ActionRepository actionRepository;
   private final ActionSequenceRepository actionSequenceRepository;
   private final KeyBindNameTypeMapper keyBindNameTypeMapper;
-  private final ChangeListener<Number> minIntervalListener =
-          (_, _, newValue) -> updateIntervalProperty(newValue.intValue(), true);
-  private final ChangeListener<Number> maxIntervalListener =
-          (_, _, newValue) -> updateIntervalProperty(newValue.intValue(), false);
 
   @Inject
   public BuilderViewModel(
@@ -74,15 +59,12 @@ public class BuilderViewModel {
 
   private void setupListeners() {
     setupActionSequenceListener();
-    setupMinAndMaxIntervalListeners();
-    setupActionInFocusListener();
   }
 
   private void setupActionSequenceListener() {
     currentActionSequenceProperty.addListener(
             (_, _, newSequence) -> {
               currentActionsProperty.clear();
-              actionInFocusProperty.set(null);
               if (newSequence != null) {
                 setActions(newSequence.getActions());
                 sequenceNameProperty.set(newSequence.getName());
@@ -92,39 +74,6 @@ public class BuilderViewModel {
                 sequenceDescriptionProperty.set("");
               }
             });
-  }
-
-  private void setupActionInFocusListener() {
-    actionInFocusProperty.addListener(
-            (_, _, newAction) -> {
-              if (newAction != null) {
-                minIntervalProperty.removeListener(minIntervalListener);
-                maxIntervalProperty.removeListener(maxIntervalListener);
-
-                minIntervalProperty.set(newAction.getInterval().getMin());
-                maxIntervalProperty.set(newAction.getInterval().getMax());
-
-                minIntervalProperty.addListener(minIntervalListener);
-                maxIntervalProperty.addListener(maxIntervalListener);
-              }
-            });
-  }
-
-  private void setupMinAndMaxIntervalListeners() {
-    minIntervalProperty.addListener(minIntervalListener);
-    maxIntervalProperty.addListener(maxIntervalListener);
-  }
-
-  private void updateIntervalProperty(int newValue, boolean isMin) {
-    Action currentAction = actionInFocusProperty.get();
-    if (currentAction != null) {
-      Interval interval = currentAction.getInterval();
-      if (isMin) {
-        interval.setMin(newValue);
-      } else {
-        interval.setMax(newValue);
-      }
-    }
   }
 
   public void openSequenceFolder() throws IOException {
