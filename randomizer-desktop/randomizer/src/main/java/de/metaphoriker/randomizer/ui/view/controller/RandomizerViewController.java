@@ -44,16 +44,19 @@ public class RandomizerViewController {
                 .getCurrentActionSequenceProperty()
                 .addListener(
                         (_, _, sequence) -> {
-                            sequenceNameLabel.setText(sequence.getName());
-                            actionsVBox.getChildren().clear();
-                            sequence
-                                    .getActions()
-                                    .forEach(
-                                            action -> {
-                                                Label actionLabel = new Label(action.getName());
-                                                actionLabel.getStyleClass().add("logbook-sequence-actions-name");
-                                                actionsVBox.getChildren().add(actionLabel);
-                                            });
+                            if (sequence == null) return;
+                            Platform.runLater(() -> {
+                                sequenceNameLabel.setText(sequence.getName());
+                                actionsVBox.getChildren().clear();
+                                sequence
+                                        .getActions()
+                                        .forEach(
+                                                action -> {
+                                                    Label actionLabel = new Label(action.getName());
+                                                    actionLabel.getStyleClass().add("logbook-sequence-actions-name");
+                                                    actionsVBox.getChildren().add(actionLabel);
+                                                });
+                            });
                         });
 
         randomizerViewModel
@@ -68,8 +71,10 @@ public class RandomizerViewController {
                 .addListener(
                         (_, _, isWaiting) -> {
                             if (isWaiting) {
-                                sequenceNameLabel.setText("");
-                                actionsVBox.getChildren().clear();
+                                Platform.runLater(() -> {
+                                    sequenceNameLabel.setText("");
+                                    actionsVBox.getChildren().clear();
+                                });
                             }
                         });
     }
