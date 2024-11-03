@@ -2,7 +2,7 @@
 .navigation-bar {
     -fx-max-width: 64px;
     -fx-max-height: 32px;
-    -fx-spacing: 12px;
+    -fx-spacing: 8px;
     -fx-padding: 6px;
     -fx-alignment: center;
     -fx-background-radius: 8px;
@@ -11,6 +11,8 @@
 }
 
 .navigation-bar-builder, .navigation-bar-randomizer {
+    -fx-min-width: 20px;
+    -fx-min-height: 20px;
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -37,20 +39,6 @@
     -fx-min-width: 688px;
     -fx-min-height: 488px;
     -fx-padding: 8px;
-}
-
-.randomizer-settings-button-hbox {
-    -fx-pref-width: 688;
-    -fx-pref-height: 20;
-    -fx-alignment: center-right;
-}
-
-.randomizer-settings-button {
-    -fx-background-color: transparent;
-    -fx-background-image: url("../images/settingsIcon.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 20px 20px;
 }
 
 .randomizer-logbook {
@@ -428,7 +416,7 @@
     -fx-background-color: #213539;
 }
 
-.builder-selected-actions:focused, .selected-actions-vbox:focused, .builder-sequences-scrollpane:focused, .builder-actions-scrollpane:focused {
+.builder-actions-scrollpane:focused, .builder-sequences-scrollpane:focused, .builder-selected-actions-scrollpane:focused {
     -fx-background-insets: 0px, 1px;
     -fx-focus-traversable: false;
     -fx-focus-color: transparent;
