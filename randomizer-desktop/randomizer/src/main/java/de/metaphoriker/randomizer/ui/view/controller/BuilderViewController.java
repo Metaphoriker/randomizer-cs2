@@ -8,6 +8,7 @@ import de.metaphoriker.model.persistence.JsonUtil;
 import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.ViewProvider;
 import de.metaphoriker.randomizer.ui.view.component.ActionSettingsController;
+import de.metaphoriker.randomizer.ui.view.component.DescriptionSettingsController;
 import de.metaphoriker.randomizer.ui.view.component.TitleSettingsController;
 import de.metaphoriker.randomizer.ui.view.viewmodel.BuilderViewModel;
 import javafx.application.Platform;
@@ -64,7 +65,6 @@ public class BuilderViewController {
     private VBox settingsHolder;
 
     private ActionSettingsController actionSettingsController;
-    private TitleSettingsController titleSettingsController;
 
     @Inject
     public BuilderViewController(ViewProvider viewProvider, BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
@@ -77,7 +77,10 @@ public class BuilderViewController {
     private void setupBindings() {
         builderViewModel
                 .getCurrentActionSequenceProperty()
-                .addListener((_, _, newSequence) -> fillBuilderWithActionsOfSequence(newSequence));
+                .addListener((_, _, newSequence) -> {
+                    fillBuilderWithActionsOfSequence(newSequence);
+                    settingsHolder.getChildren().clear();
+                });
 
         builderViewModel
                 .getCurrentActionsProperty()
@@ -157,7 +160,8 @@ public class BuilderViewController {
 
     private void initialize() {
         initActionSettings();
-        initTextSettings();
+        initTitleSettings();
+        initDescriptionSettings();
         setupBindings();
         fillActions();
         fillActionSequences();
@@ -183,8 +187,9 @@ public class BuilderViewController {
                 .anyMatch(actionSequence -> actionSequence.getName().equalsIgnoreCase(builderViewModel.getSequenceNameProperty().get()));
     }
 
-    private void initTextSettings() {
-        titleSettingsController = viewProvider.requestView(TitleSettingsController.class).controller();
+    private void initTitleSettings() {
+        sequenceNameLabel.setCursor(Cursor.HAND);
+        TitleSettingsController titleSettingsController = viewProvider.requestView(TitleSettingsController.class).controller();
         titleSettingsController.onInput(input -> {
             builderViewModel.getSequenceNameProperty().set(input);
             settingsHolder.getChildren().clear();
@@ -192,6 +197,19 @@ public class BuilderViewController {
         sequenceNameLabel.setOnMouseClicked(_ -> {
             actionSettingsController.setAction(null);
             settingsHolder.getChildren().setAll(viewProvider.requestView(TitleSettingsController.class).parent());
+        });
+    }
+
+    private void initDescriptionSettings() {
+        sequenceDescriptionLabel.setCursor(Cursor.HAND);
+        DescriptionSettingsController descriptionSettingsController = viewProvider.requestView(DescriptionSettingsController.class).controller();
+        descriptionSettingsController.setOnInput(input -> {
+            builderViewModel.getSequenceDescriptionProperty().set(input);
+            settingsHolder.getChildren().clear();
+        });
+        sequenceDescriptionLabel.setOnMouseClicked(_ -> {
+            actionSettingsController.setAction(null);
+            settingsHolder.getChildren().setAll(viewProvider.requestView(DescriptionSettingsController.class).parent());
         });
     }
 
