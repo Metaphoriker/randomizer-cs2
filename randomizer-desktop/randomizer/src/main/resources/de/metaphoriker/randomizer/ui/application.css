@@ -71,18 +71,18 @@
 }
 
 .logbook-sequence-name {
-    -fx-font-family: Roboto;
-    -fx-font-size: 12px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 14px;
     -fx-font-style: normal;
-    -fx-font-weight: 500;
+    -fx-font-weight: bold;
     -fx-text-fill: #C444C3;
 }
 
 .logbook-sequence-actions-name {
-    -fx-font-family: Roboto;
-    -fx-font-size: 12px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 14px;
     -fx-font-style: normal;
-    -fx-font-weight: 500;
+    -fx-font-weight: bold;
     -fx-text-fill: #DAF0F3;
     -fx-padding: 0px 3px;
     -fx-background-radius: 4px;
@@ -167,10 +167,10 @@
 }
 
 .builder-actions-label {
-    -fx-font-family: Roboto;
-    -fx-font-size: 12px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 14px;
     -fx-font-style: normal;
-    -fx-font-weight: 500;
+    -fx-font-weight: 600;
     -fx-text-alignment: center;
     -fx-text-fill: #DAF0F3;
     -fx-padding: 0px 4px;
@@ -186,8 +186,8 @@
 .builder-actions-searchfield {
     -fx-pref-width: 82px;
     -fx-pref-height: 16px;
-    -fx-font-family: Roboto;
-    -fx-font-size: 10px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
     -fx-text-alignment: left;
@@ -214,7 +214,7 @@
 
 .builder-actions-category {
     -fx-text-fill: #DAF0F3;
-    -fx-font-family: Roboto;
+    -fx-font-family: SansSerif;
     -fx-font-size: 12px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
@@ -235,10 +235,10 @@
 }
 
 .builder-actions-title {
-    -fx-font-family: Roboto;
+    -fx-font-family: SansSerif;
     -fx-font-size: 12px;
     -fx-font-style: normal;
-    -fx-font-weight: 500;
+    -fx-font-weight: 600;
     -fx-text-fill: #DAF0F3;
     -fx-padding: 0px 3px;
     -fx-background-radius: 4px;
@@ -269,10 +269,10 @@
 }
 
 .builder-sequences-label {
-    -fx-font-family: Roboto;
-    -fx-font-size: 12px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 14px;
     -fx-font-style: normal;
-    -fx-font-weight: 500;
+    -fx-font-weight: 600;
     -fx-text-alignment: center;
     -fx-text-fill: #DAF0F3;
     -fx-padding: 0px 4px;
@@ -329,10 +329,10 @@
 }
 
 .builder-sequences-title {
-    -fx-font-family: Roboto;
+    -fx-font-family: SansSerif;
     -fx-font-size: 12px;
     -fx-font-style: normal;
-    -fx-font-weight: 500;
+    -fx-font-weight: 600;
     -fx-text-fill: #DAF0F3;
 }
 
@@ -362,16 +362,15 @@
 }
 
 .sequence-name-label {
-    -fx-font-family: Roboto;
+    -fx-font-family: SansSerif;
     -fx-font-size: 12px;
-    -fx-font-style: normal;
-    -fx-font-weight: 500;
+    -fx-font-weight: bold;
     -fx-text-fill: #DAF0F3;
 }
 
 .sequence-description-label {
-    -fx-font-family: Roboto;
-    -fx-font-size: 10px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
     -fx-text-fill: #738487;
@@ -455,7 +454,7 @@
 }
 
 .selected-actions-label {
-    -fx-font-family: Roboto;
+    -fx-font-family: SansSerif;
     -fx-font-size: 12px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
@@ -494,10 +493,10 @@
 }
 
 .action-in-focus-label, .sequence-in-focus-label {
-    -fx-font-family: Roboto;
-    -fx-font-size: 12px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 14px;
     -fx-font-style: normal;
-    -fx-font-weight: 500;
+    -fx-font-weight: 600;
     -fx-text-alignment: center;
     -fx-text-fill: #DAF0F3;
     -fx-padding: 0px 8px;
@@ -505,15 +504,15 @@
 
 .time-frame-label {
     -fx-text-fill: #DAF0F3;
-    -fx-font-family: Roboto;
-    -fx-font-size: 10px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12px;
     -fx-font-style: normal;
-    -fx-font-weight: 500;
+    -fx-font-weight: 600;
 }
 
 .setting-description {
-    -fx-font-family: Roboto;
-    -fx-font-size: 10px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
     -fx-text-fill: #738487;
@@ -528,7 +527,7 @@
 }
 
 .minimum-value-label, .minimum-slider-label, .maximum-value-label, .maximum-slider-label {
-    -fx-font-family: Roboto;
+    -fx-font-family: SansSerif;
     -fx-font-size: 10px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
@@ -538,8 +537,8 @@
 .title-settings-textfield {
     -fx-max-width: 124px;
     -fx-pref-height: 16px;
-    -fx-font-family: Roboto;
-    -fx-font-size: 10px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
     -fx-text-alignment: left;
