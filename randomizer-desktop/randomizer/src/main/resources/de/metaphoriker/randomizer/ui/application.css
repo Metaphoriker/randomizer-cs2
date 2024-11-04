@@ -543,6 +543,7 @@
     -fx-font-weight: 500;
     -fx-text-alignment: left;
     -fx-text-fill: #DAF0F3;
+    -fx-prompt-text-fill: #DAF0F3;
     -fx-background-color: #213539;
 }
 
