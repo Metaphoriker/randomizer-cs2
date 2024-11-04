@@ -364,7 +364,7 @@
 .sequence-name-label {
     -fx-font-family: SansSerif;
     -fx-font-size: 12px;
-    -fx-font-weight: bold;
+    -fx-font-weight: 600;
     -fx-text-fill: #DAF0F3;
 }
 
@@ -470,8 +470,8 @@
     -fx-focus-color: transparent;
 }
 
-/* Action - Title - Settings */
-.action-settings {
+/* Action - Title - Description - Settings */
+.builder-settings {
     -fx-min-width: 140px;
     -fx-pref-height: 488px;
     -fx-alignment: top-left;
@@ -479,7 +479,7 @@
     -fx-background-color: #0C171A;
 }
 
-.action-settings-vbox {
+.builder-settings-vbox {
     -fx-pref-width: 140px;
     -fx-pref-height: 488px;
     -fx-padding: 8px 0px;
@@ -488,11 +488,11 @@
 
 .action-time-frame-vbox, .sequence-title-vbox{
     -fx-pref-width: 140px;
-    -fx-spacing: 4px;
+    -fx-spacing: 8px;
     -fx-padding: 4px 8px;
 }
 
-.action-in-focus-label, .sequence-in-focus-label {
+.action-in-focus-label, .sequence-in-focus-label, .description-in-focus-label {
     -fx-font-family: SansSerif;
     -fx-font-size: 14px;
     -fx-font-style: normal;
@@ -510,7 +510,7 @@
     -fx-font-weight: 600;
 }
 
-.setting-description {
+.settings-description {
     -fx-font-family: SansSerif;
     -fx-font-size: 12px;
     -fx-font-style: normal;
@@ -534,7 +534,7 @@
     -fx-text-fill: #DAF0F3;
 }
 
-.title-settings-textfield {
+.title-settings-textfield, .settings-description-textarea {
     -fx-max-width: 124px;
     -fx-pref-height: 16px;
     -fx-font-family: SansSerif;
@@ -546,6 +546,32 @@
     -fx-background-color: #213539;
 }
 
+.settings-description-textarea {
+    -fx-max-width: 124px;
+    -fx-pref-height: 124px;
+}
+
+.settings-description-textarea .content{
+    -fx-background-color: #213539;
+    -fx-background-radius: 0px;
+}
+
+.settings-description-apply-vbox {
+    -fx-pref-width: 124px;
+    -fx-pref-height: 24px;
+    -fx-alignment: center-right;
+}
+
+.settings-description-apply-button {
+    -fx-pref-width: 72px;
+    -fx-pref-height: 24px;
+    -fx-text-fill: #DAF0F3;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+    -fx-background-color: #52287E;
+}
 
 /* Separator and Lines */
 .separator, .line {

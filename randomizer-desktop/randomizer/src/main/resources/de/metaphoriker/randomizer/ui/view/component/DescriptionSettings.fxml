@@ -1,32 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.TextArea?>
-<?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="140.0" styleClass="action-settings"
-      xmlns="http://javafx.com/javafx/22"
-      fx:controller="de.metaphoriker.randomizer.ui.view.component.DescriptionSettingsController">
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="488.0" prefWidth="140.0" styleClass="builder-settings" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.randomizer.ui.view.component.DescriptionSettingsController">
     <children>
-        <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="action-settings-vbox">
+        <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="builder-settings-vbox">
             <children>
-                <Label fx:id="actionInFocusLabel" styleClass="action-in-focus-label" text="Description"/>
-                <Separator prefWidth="140.0"/>
+                <Label fx:id="actionInFocusLabel" styleClass="description-in-focus-label" text="Description" />
+                <Separator prefWidth="140.0" />
                 <VBox prefWidth="140.0" styleClass="action-time-frame-vbox">
                     <children>
-                        <Label styleClass="time-frame-description" text="Set the description of the ActionSequence"
-                               wrapText="true"/>
-                        <TextArea fx:id="textArea" prefHeight="200.0" prefWidth="200.0" promptText="Set the description"
-                                  wrapText="true"/>
-                        <VBox alignment="BOTTOM_RIGHT" prefHeight="45.0" prefWidth="140.0">
+                        <Label styleClass="settings-description" text="Set the description of the ActionSequence" wrapText="true" />
+                        <TextArea fx:id="textArea" prefHeight="124.0" prefWidth="124.0" promptText="Set the description" styleClass="settings-description-textarea" wrapText="true" />
+                        <VBox alignment="BOTTOM_RIGHT" prefHeight="24.0" prefWidth="124.0" styleClass="settings-description-apply-vbox">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onApply" text="Apply"/>
+                                <Button mnemonicParsing="false" onAction="#onApply" styleClass="settings-description-apply-button" text="Apply" />
                             </children>
                         </VBox>
                     </children>
                 </VBox>
-                <Separator prefWidth="140.0"/>
+                <Separator prefWidth="140.0" />
             </children>
         </VBox>
     </children>
