@@ -26,6 +26,9 @@ public class TitleSettingsController {
     }
 
     public void onInput(Consumer<String> consumer) {
-        textField.setOnAction(_ -> consumer.accept(textField.getText()));
+        textField.setOnAction(_ -> {
+            consumer.accept(textField.getText());
+            textField.setText("");
+        });
     }
 }

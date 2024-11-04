@@ -32,6 +32,7 @@ public class DescriptionSettingsController {
     void onApply(ActionEvent event) {
         if (input != null) {
             input.accept(textArea.getText());
+            textArea.setText("");
         }
     }
 
