@@ -198,6 +198,8 @@ public class BuilderViewController {
             if (builderViewModel.getCurrentActionSequenceProperty().get() == null)
                 return;
             actionSettingsController.setAction(null);
+            titleSettingsController.setText(builderViewModel.getSequenceNameProperty().get() == null ?
+                    "" : builderViewModel.getSequenceNameProperty().get());
             settingsHolder.getChildren().setAll(viewProvider.requestView(TitleSettingsController.class).parent());
         });
     }
@@ -213,6 +215,8 @@ public class BuilderViewController {
             if (builderViewModel.getCurrentActionSequenceProperty().get() == null)
                 return;
             actionSettingsController.setAction(null);
+            descriptionSettingsController.setText(builderViewModel.getSequenceDescriptionProperty().get() == null ?
+                    "" : builderViewModel.getSequenceDescriptionProperty().get());
             settingsHolder.getChildren().setAll(viewProvider.requestView(DescriptionSettingsController.class).parent());
         });
     }

@@ -36,6 +36,9 @@ public class TitleSettingsController {
         });
     }
 
+    public void setText(String text) {
+        textField.setText(text);
+    }
 
     public void setOnInput(Consumer<String> consumer) {
         input = consumer;

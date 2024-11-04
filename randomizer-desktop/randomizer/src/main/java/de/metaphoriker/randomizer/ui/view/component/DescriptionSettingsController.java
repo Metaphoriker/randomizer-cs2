@@ -36,6 +36,10 @@ public class DescriptionSettingsController {
         }
     }
 
+    public void setText(String text) {
+        textArea.setText(text);
+    }
+
     public void setOnInput(Consumer<String> input) {
         this.input = input;
     }
