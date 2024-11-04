@@ -2,6 +2,7 @@ package de.metaphoriker.randomizer.ui.view.component;
 
 import de.metaphoriker.randomizer.ui.view.View;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 
@@ -13,8 +14,18 @@ public class TitleSettingsController {
     @FXML
     private TextField textField;
 
+    private Consumer<String> input;
+
     public TitleSettingsController() {
         Platform.runLater(this::initialize);
+    }
+
+    @FXML
+    void onApply(ActionEvent event) {
+        if (input != null) {
+            input.accept(textField.getText());
+            textField.setText("");
+        }
     }
 
     private void initialize() {
@@ -25,10 +36,8 @@ public class TitleSettingsController {
         });
     }
 
-    public void onInput(Consumer<String> consumer) {
-        textField.setOnAction(_ -> {
-            consumer.accept(textField.getText());
-            textField.setText("");
-        });
+
+    public void setOnInput(Consumer<String> consumer) {
+        input = consumer;
     }
 }

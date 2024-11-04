@@ -190,7 +190,7 @@ public class BuilderViewController {
     private void initTitleSettings() {
         sequenceNameLabel.setCursor(Cursor.HAND);
         TitleSettingsController titleSettingsController = viewProvider.requestView(TitleSettingsController.class).controller();
-        titleSettingsController.onInput(input -> {
+        titleSettingsController.setOnInput(input -> {
             builderViewModel.getSequenceNameProperty().set(input);
             settingsHolder.getChildren().clear();
         });
