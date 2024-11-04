@@ -471,7 +471,7 @@
     -fx-focus-color: transparent;
 }
 
-/* Action Settings */
+/* Action - Title - Settings */
 .action-settings {
     -fx-min-width: 140px;
     -fx-pref-height: 488px;
@@ -487,45 +487,43 @@
     -fx-spacing: 4px;
 }
 
-.action-time-frame-vbox{
+.action-time-frame-vbox, .sequence-title-vbox{
     -fx-pref-width: 140px;
     -fx-spacing: 4px;
-    -fx-padding: 4px 0px;
+    -fx-padding: 4px 8px;
 }
 
-.action-in-focus-label {
+.action-in-focus-label, .sequence-in-focus-label {
     -fx-font-family: Roboto;
     -fx-font-size: 12px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
     -fx-text-alignment: center;
     -fx-text-fill: #DAF0F3;
-    -fx-padding: 0px 4px;
+    -fx-padding: 0px 8px;
 }
 
 .time-frame-label {
     -fx-text-fill: #DAF0F3;
-    -fx-padding: 0px 8px 0px 8px;
     -fx-font-family: Roboto;
     -fx-font-size: 10px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
 }
 
-.time-frame-description {
+.setting-description {
     -fx-font-family: Roboto;
     -fx-font-size: 10px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
     -fx-text-fill: #738487;
-    -fx-padding: 0px 8px 0px 8px;
 }
 
 .minimum-label-hbox, .maximum-label-hbox {
     -fx-pref-width: 124px;
     -fx-pref-height: 12px;
     -fx-spacing: 4px;
-    -fx-padding: 8px 8px 0px 8px;
+    -fx-padding: 8px 0px 0px 0px;
     -fx-alignment: center-left;
 }
 
@@ -537,17 +535,30 @@
     -fx-text-fill: #DAF0F3;
 }
 
+.title-settings-textfield {
+    -fx-max-width: 124px;
+    -fx-pref-height: 16px;
+    -fx-font-family: Roboto;
+    -fx-font-size: 10px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+    -fx-text-alignment: left;
+    -fx-text-fill: #DAF0F3;
+    -fx-background-color: #213539;
+}
+
+
 /* Separator and Lines */
 .separator, .line {
     -fx-pref-width: 140px;
+    -fx-pref-height: 2px;
     -fx-background-color: #52287E;
-    -fx-border-color: #52287E;
+    -fx-border-color: null;
 }
 
 /* Sliders */
 .slider {
     -fx-pref-width: 124px;
-    -fx-padding: 4px 8px;
 }
 
 .slider .track {

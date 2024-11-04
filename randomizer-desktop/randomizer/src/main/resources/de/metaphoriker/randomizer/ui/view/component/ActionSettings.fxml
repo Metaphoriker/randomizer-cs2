@@ -17,7 +17,7 @@
                     <children>
                         <Label text="Time Frame" styleClass="time-frame-label"/>
                         <Label text="Sets the time frame how long the Action should last" wrapText="true"
-                               styleClass="time-frame-description"/>
+                               styleClass="setting-description"/>
                         <HBox prefWidth="124.0" prefHeight="12.0" styleClass="minimum-label-hbox">
                             <children>
                                 <Label text="Minimum Value:" styleClass="minimum-value-label"/>
