@@ -597,17 +597,6 @@
     -fx-background-color: #52287E;
 }
 
-.settings-title-apply-button {
-    -fx-pref-width: 72px;
-    -fx-pref-height: 24px;
-    -fx-text-fill: #DAF0F3;
-    -fx-font-family: SansSerif;
-    -fx-font-size: 12px;
-    -fx-font-style: normal;
-    -fx-font-weight: 500;
-    -fx-background-color: #52287E;
-}
-
 /* Separator and Lines */
 .separator, .line {
     -fx-pref-width: 140px;
