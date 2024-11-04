@@ -543,7 +543,6 @@
     -fx-font-weight: 500;
     -fx-text-alignment: left;
     -fx-text-fill: #DAF0F3;
-    -fx-prompt-text-fill: #DAF0F3;
     -fx-background-color: #213539;
 }
 
@@ -555,6 +554,7 @@
 .settings-description-textarea .content{
     -fx-background-color: #213539;
     -fx-background-radius: 0px;
+    -fx-padding: 3px 6px;
 }
 
 .settings-description-apply-vbox {
