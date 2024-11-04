@@ -557,6 +557,29 @@
     -fx-padding: 3px 6px;
 }
 
+.settings-description-textarea .scroll-bar:vertical {
+    -fx-pref-width: 8px;
+    -fx-background-color: transparent;
+}
+
+.settings-description-textarea .scroll-bar:vertical .track {
+    -fx-background-color: #4F747C;
+    -fx-background-radius: 4px;
+}
+
+.settings-description-textarea .scroll-bar:vertical .thumb {
+    -fx-background-color: #92D0DD;
+    -fx-background-radius: 4px;
+    -fx-pref-width: 8px;
+}
+
+.settings-description-textarea .scroll-bar:vertical .increment-button,
+.settings-description-textarea .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-shape: null;
+    -fx-opacity: 0;
+}
+
 .settings-description-apply-vbox {
     -fx-pref-width: 124px;
     -fx-pref-height: 24px;
