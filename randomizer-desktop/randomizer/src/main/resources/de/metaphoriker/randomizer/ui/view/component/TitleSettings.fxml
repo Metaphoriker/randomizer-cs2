@@ -17,10 +17,10 @@
                         <Label styleClass="settings-description" text="Set the title/name of the ActionSequence" wrapText="true" />
                         <TextField fx:id="textField" promptText="Set a name" styleClass="title-settings-textfield" />
                         <VBox alignment="BOTTOM_RIGHT" prefHeight="24.0" prefWidth="124.0"
-                              styleClass="settings-description-apply-vbox">
+                              styleClass="settings-apply-vbox">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onApply"
-                                        styleClass="settings-title-apply-button" text="Apply"/>
+                                        styleClass="settings-apply-button" text="Apply"/>
                             </children>
                         </VBox>
                     </children>

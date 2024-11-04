@@ -580,13 +580,13 @@
     -fx-opacity: 0;
 }
 
-.settings-description-apply-vbox {
+.settings-apply-vbox {
     -fx-pref-width: 124px;
     -fx-pref-height: 24px;
     -fx-alignment: center-right;
 }
 
-.settings-description-apply-button {
+.settings-apply-button {
     -fx-pref-width: 72px;
     -fx-pref-height: 24px;
     -fx-text-fill: #DAF0F3;

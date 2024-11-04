@@ -13,9 +13,9 @@
                     <children>
                         <Label styleClass="settings-description" text="Set the description of the ActionSequence" wrapText="true" />
                         <TextArea fx:id="textArea" prefHeight="124.0" prefWidth="124.0" promptText="Set the description" styleClass="settings-description-textarea" wrapText="true" />
-                        <VBox alignment="BOTTOM_RIGHT" prefHeight="24.0" prefWidth="124.0" styleClass="settings-description-apply-vbox">
+                        <VBox alignment="BOTTOM_RIGHT" prefHeight="24.0" prefWidth="124.0" styleClass="settings-apply-vbox">
                             <children>
-                                <Button mnemonicParsing="false" onAction="#onApply" styleClass="settings-description-apply-button" text="Apply" />
+                                <Button mnemonicParsing="false" onAction="#onApply" styleClass="settings-apply-button" text="Apply" />
                             </children>
                         </VBox>
                     </children>
