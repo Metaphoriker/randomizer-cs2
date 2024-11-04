@@ -195,6 +195,8 @@ public class BuilderViewController {
             settingsHolder.getChildren().clear();
         });
         sequenceNameLabel.setOnMouseClicked(_ -> {
+            if (builderViewModel.getCurrentActionSequenceProperty().get() == null)
+                return;
             actionSettingsController.setAction(null);
             settingsHolder.getChildren().setAll(viewProvider.requestView(TitleSettingsController.class).parent());
         });
@@ -208,6 +210,8 @@ public class BuilderViewController {
             settingsHolder.getChildren().clear();
         });
         sequenceDescriptionLabel.setOnMouseClicked(_ -> {
+            if (builderViewModel.getCurrentActionSequenceProperty().get() == null)
+                return;
             actionSettingsController.setAction(null);
             settingsHolder.getChildren().setAll(viewProvider.requestView(DescriptionSettingsController.class).parent());
         });
