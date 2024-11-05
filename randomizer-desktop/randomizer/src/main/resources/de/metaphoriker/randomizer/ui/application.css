@@ -244,7 +244,7 @@
     -fx-padding: 0px 3px;
     -fx-background-radius: 4px;
     -fx-background-color: #213539;
-    -fx-effect: dropshadow(three-pass-box, #0C171A, 1, 2.0, -2, 2);
+    -fx-effect: dropshadow(three-pass-box, #0C171A, 1, 0.01, 0, -2);
 }
 
 .builder-actions-category > *.content {
