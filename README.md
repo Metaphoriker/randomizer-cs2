@@ -31,9 +31,7 @@
 ---
 
 ## 📸 Preview
-
-<img src="YOUR_IMAGE_LINK_1" width="45%" height="auto" /> <img src="YOUR_IMAGE_LINK_2" width="45%" height="auto" />  
-<img src="YOUR_IMAGE_LINK_3" width="45%" height="auto" /> <img src="YOUR_IMAGE_LINK_4" width="45%" height="auto" />
+<img src="https://github.com/user-attachments/assets/6d473076-792c-424e-9b4a-77d346a4b5b3" width="45%" height="auto" /> <img src="https://github.com/user-attachments/assets/1fb1171c-50cf-4835-9718-12a9955a51e4" width="45%" height="auto" />  
 
 ---
 
