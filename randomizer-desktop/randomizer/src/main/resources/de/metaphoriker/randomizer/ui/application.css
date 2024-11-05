@@ -85,6 +85,7 @@
     -fx-font-weight: bold;
     -fx-text-fill: #DAF0F3;
     -fx-padding: 0px 3px;
+    -fx-spacing: 6px;
     -fx-background-radius: 4px;
     -fx-background-color: #213539;
 }
@@ -229,9 +230,9 @@
 }
 
 .builder-actions-title-vbox {
-    -fx-spacing: 4px;
+    -fx-spacing: 6px;
     -fx-background-color: #142224;
-    -fx-padding: 3px 8px;
+    -fx-padding: 3px 8px 6px 8px;
 }
 
 .builder-actions-title {
@@ -243,6 +244,7 @@
     -fx-padding: 0px 3px;
     -fx-background-radius: 4px;
     -fx-background-color: #213539;
+    -fx-effect: dropshadow(three-pass-box, #0C171A, 1, 2.0, -2, 2);
 }
 
 .builder-actions-category > *.content {
@@ -448,7 +450,7 @@
 .builder-selected-actions-vbox {
     -fx-pref-width: 312px;
     -fx-pref-height: 272px;
-    -fx-spacing: 4px;
+    -fx-spacing: 6px;
     -fx-padding: 0px 0px 8px 8px;
     -fx-background-color: #0C171A;
 }
@@ -462,6 +464,7 @@
     -fx-padding: 0px 3px;
     -fx-background-radius: 4px;
     -fx-background-color: #213539;
+    -fx-effect: dropshadow(three-pass-box, #050E10, 1, 2.0, -2, 2);
 }
 
 .builder-actions-scrollpane:focused, .builder-sequences-scrollpane:focused, .builder-selected-actions-scrollpane:focused {
