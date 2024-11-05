@@ -344,6 +344,7 @@ public class BuilderViewController {
                                                 filteredActions.forEach(
                                                         action -> {
                                                             Label actionLabel = new Label(action.getName());
+                                                            actionLabel.getStyleClass().add("builder-actions-title");
                                                             setupDrag(actionLabel, action);
                                                             actionsVBox.getChildren().add(actionLabel);
                                                         });
