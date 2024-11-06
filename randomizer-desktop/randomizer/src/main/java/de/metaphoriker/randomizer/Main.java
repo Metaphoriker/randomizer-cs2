@@ -10,6 +10,8 @@ import javafx.application.Application;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.concurrent.CompletableFuture;
+
 @Slf4j
 public class Main {
 
@@ -22,7 +24,7 @@ public class Main {
 
     public static void main(String[] args) {
         verifyTestMode(args);
-        initializeApplication();
+        CompletableFuture.runAsync(Main::initializeApplication);
         launchApplication(args);
     }
 
