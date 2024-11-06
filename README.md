@@ -9,9 +9,13 @@
 
 ## 🎮 About
 
-**Randomizer-CS2** adds randomized action sequences to your CS2 experience.
+<span style="color:gray">
 
-*Disclaimer:* This is **NOT** a cheat, just a fun tool to keep things unpredictable and challenging!
+> The origin of Randomizer-CS2 stemmed from our desire to playfully troll each other while spectating matches. Imagine forcing someone to jump at the worst moment, making them fire unexpectedly, or even dropping their weapon mid-fight! Lacking the resources for a dedicated server, we opted for a software solution that everyone could use to trigger these random actions. This marked the birth of Randomizer-CSGO, now known as Randomizer-CS2.
+
+</span>
+
+*Disclaimer:* This is **NOT** a cheat, neither a macro program, just a fun tool to keep things unpredictable and challenging!
 
 ---
 
