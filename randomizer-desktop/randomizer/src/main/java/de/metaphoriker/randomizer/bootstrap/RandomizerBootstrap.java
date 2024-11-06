@@ -75,6 +75,7 @@ public class RandomizerBootstrap {
 
     private void loadConfiguration() {
         log.info("Lade Konfiguration...");
+        randomizerConfig.setDirectory(ApplicationContext.getAppdataFolder());
         randomizerConfig.initialize();
 
         ActionSequenceExecutorRunnable.setMinWaitTime(randomizerConfig.getMinInterval());
