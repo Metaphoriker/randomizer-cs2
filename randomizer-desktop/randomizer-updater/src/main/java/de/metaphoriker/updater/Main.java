@@ -16,11 +16,15 @@ public class Main {
         Thread.currentThread()
                 .setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
 
-        JFrame mainFrame = createMainFrame();
-        JLabel statusLabel = createStatusLabel();
-        JProgressBar progressBar = createProgressBar();
-        JLabel versionComparisonLabel = createVersionComparisonLabel();
-        setupUI(mainFrame, statusLabel, progressBar, versionComparisonLabel);
+        Color backgroundColor = new Color(5, 14, 16); // #050E10
+        Color foregroundColor = new Color(218, 240, 243); // #DAF0F3
+        Color accentColor = new Color(82, 40, 126); // #52287E
+
+        JFrame mainFrame = createMainFrame(backgroundColor);
+        JLabel statusLabel = createStatusLabel(foregroundColor);
+        JProgressBar progressBar = createProgressBar(accentColor, backgroundColor);
+        JLabel versionComparisonLabel = createVersionComparisonLabel(foregroundColor);
+        setupUI(mainFrame, statusLabel, progressBar, versionComparisonLabel, backgroundColor);
 
         if (args.length != 0) {
             for (String arg : args) {
@@ -35,57 +39,61 @@ public class Main {
         }
     }
 
-    private static JFrame createMainFrame() {
+    private static JFrame createMainFrame(Color backgroundColor) {
         JFrame frame = new JFrame();
         frame.setSize(450, 200);
         frame.setTitle("Randomizer Updater");
         frame.setLocationRelativeTo(null);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.getContentPane().setBackground(new Color(34, 45, 50));
+        frame.getContentPane().setBackground(backgroundColor);
         return frame;
     }
 
-    private static JLabel createStatusLabel() {
+    private static JLabel createStatusLabel(Color foregroundColor) {
         JLabel label = new JLabel("Checking for updates...", SwingConstants.CENTER);
-        label.setFont(new Font("Arial", Font.PLAIN, 14));
-        label.setForeground(Color.WHITE);
+        label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        label.setForeground(foregroundColor);
         return label;
     }
 
-    private static JProgressBar createProgressBar() {
+    private static JProgressBar createProgressBar(Color accentColor, Color backgroundColor) {
         JProgressBar progressBar = new JProgressBar(0, 100);
         progressBar.setStringPainted(true);
-        progressBar.setForeground(new Color(77, 182, 172));
-        progressBar.setBackground(new Color(44, 62, 80));
+        progressBar.setForeground(accentColor);
+        progressBar.setBackground(backgroundColor);
         progressBar.setBorder(BorderFactory.createEmptyBorder(5, 5, 5, 5));
         return progressBar;
     }
 
-    private static JLabel createVersionComparisonLabel() {
+    private static JLabel createVersionComparisonLabel(Color foregroundColor) {
         JLabel label = new JLabel("", SwingConstants.CENTER);
-        label.setFont(new Font("Arial", Font.PLAIN, 14));
-        label.setForeground(Color.WHITE);
+        label.setFont(new Font("SansSerif", Font.PLAIN, 14));
+        label.setForeground(foregroundColor);
         return label;
     }
 
     private static JLabel createUpdatingLabel() {
         JLabel label = new JLabel("", SwingConstants.RIGHT);
-        label.setFont(new Font("Arial", Font.PLAIN, 12));
+        label.setFont(new Font("SansSerif", Font.PLAIN, 12));
         label.setForeground(Color.LIGHT_GRAY);
         return label;
     }
 
     private static void setupUI(
-            JFrame frame, JLabel statusLabel, JProgressBar progressBar, JLabel versionComparisonLabel) {
+            JFrame frame,
+            JLabel statusLabel,
+            JProgressBar progressBar,
+            JLabel versionComparisonLabel,
+            Color backgroundColor) {
         JPanel panel = new JPanel(new BorderLayout());
-        panel.setBackground(new Color(34, 45, 50));
+        panel.setBackground(backgroundColor);
 
         JPanel versionPanel = new JPanel(new BorderLayout());
-        versionPanel.setBackground(new Color(34, 45, 50));
+        versionPanel.setBackground(backgroundColor);
         versionPanel.add(versionComparisonLabel, BorderLayout.CENTER);
 
         JPanel progressPanel = new JPanel(new BorderLayout());
-        progressPanel.setBackground(new Color(34, 45, 50));
+        progressPanel.setBackground(backgroundColor);
         progressPanel.add(progressBar, BorderLayout.CENTER);
 
         panel.add(versionPanel, BorderLayout.NORTH);
