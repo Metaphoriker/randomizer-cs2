@@ -1,4 +1,5 @@
 # <img src="https://github.com/user-attachments/assets/ab28eba7-4b88-47b4-be10-ac4487d66e23" alt="randomizer" width="24" height="24" style="vertical-align: middle;" />andomizer-CS2 (WiP)
+<center><p style="display: inline-block; vertical-align: middle;"><a href="https://discord.gg/yjKRgMyENR"><img src="https://github.com/user-attachments/assets/db9fa4e3-94a3-42dc-90c3-5379127120aa" width="75"></a></p>
 
 [![Build Status](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml/badge.svg?branch=stage)](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml)
 [![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)
@@ -8,9 +9,13 @@
 
 ## 🎮 About
 
-**Randomizer-CS2** adds randomized action sequences to your CS2 experience.
+<span style="color:gray">
 
-*Disclaimer:* This is **NOT** a cheat, just a fun tool to keep things unpredictable and challenging!
+> The origin of Randomizer-CS2 stemmed from our desire to playfully troll each other while spectating matches. Imagine forcing someone to jump at the worst moment, making them fire unexpectedly, or even dropping their weapon mid-fight! Lacking the resources for a dedicated server, we opted for a software solution that everyone could use to trigger these random actions. This marked the birth of Randomizer-CSGO, now known as Randomizer-CS2.
+
+</span>
+
+*Disclaimer:* This is **NOT** a cheat, neither a macro program, just a fun tool to keep things unpredictable and challenging!
 
 ---
 
@@ -31,9 +36,7 @@
 ---
 
 ## 📸 Preview
-
-<img src="YOUR_IMAGE_LINK_1" width="45%" height="auto" /> <img src="YOUR_IMAGE_LINK_2" width="45%" height="auto" />  
-<img src="YOUR_IMAGE_LINK_3" width="45%" height="auto" /> <img src="YOUR_IMAGE_LINK_4" width="45%" height="auto" />
+<img src="https://github.com/user-attachments/assets/6d473076-792c-424e-9b4a-77d346a4b5b3" width="45%" height="auto" /> <img src="https://github.com/user-attachments/assets/1fb1171c-50cf-4835-9718-12a9955a51e4" width="45%" height="auto" />  
 
 ---
 
