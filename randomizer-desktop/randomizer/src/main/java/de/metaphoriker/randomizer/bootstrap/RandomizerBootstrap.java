@@ -74,6 +74,7 @@ public class RandomizerBootstrap {
     }
 
     private void loadConfiguration() {
+        log.info("Lade Konfiguration...");
         randomizerConfig.initialize();
 
         ActionSequenceExecutorRunnable.setMinWaitTime(randomizerConfig.getMinInterval());
