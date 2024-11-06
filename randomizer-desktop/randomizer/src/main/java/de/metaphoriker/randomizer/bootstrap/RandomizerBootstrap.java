@@ -19,6 +19,7 @@ import de.metaphoriker.model.messages.Messages;
 import de.metaphoriker.model.updater.Updater;
 import de.metaphoriker.model.watcher.FileSystemWatcher;
 import de.metaphoriker.randomizer.Main;
+import de.metaphoriker.randomizer.config.RandomizerConfig;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -40,6 +41,7 @@ public class RandomizerBootstrap {
     private final KeyBindRepository keyBindRepository;
     private final ActionSequenceExecutorRunnable actionSequenceExecutorRunnable;
     private final FileSystemWatcher fileSystemWatcher;
+    private final RandomizerConfig randomizerConfig;
 
     @Inject
     public RandomizerBootstrap(
@@ -47,17 +49,20 @@ public class RandomizerBootstrap {
             ActionRepository actionRepository,
             KeyBindRepository keyBindRepository,
             ActionSequenceExecutorRunnable actionSequenceExecutorRunnable,
-            FileSystemWatcher fileSystemWatcher) {
+            FileSystemWatcher fileSystemWatcher,
+            RandomizerConfig randomizerConfig) {
         this.actionSequenceRepository = actionSequenceRepository;
         this.actionRepository = actionRepository;
         this.keyBindRepository = keyBindRepository;
         this.actionSequenceExecutorRunnable = actionSequenceExecutorRunnable;
         this.fileSystemWatcher = fileSystemWatcher;
+        this.randomizerConfig = randomizerConfig;
     }
 
     public void initializeApplication() {
         log.info("Initialisiere Applikation...");
-        if (!Main.isTestMode()) installAndRunUpdaterIfNeeded();
+        loadConfiguration();
+        if (!Main.isTestMode() && randomizerConfig.isAutoupdateEnabled()) installAndRunUpdaterIfNeeded();
         loadKeyBinds();
         registerActions();
         cacheActions();
@@ -66,6 +71,13 @@ public class RandomizerBootstrap {
         Messages.cache();
         setupGlobalExceptionHandler();
         registerNativeKeyHook();
+    }
+
+    private void loadConfiguration() {
+        randomizerConfig.initialize();
+
+        ActionSequenceExecutorRunnable.setMinWaitTime(randomizerConfig.getMinInterval());
+        ActionSequenceExecutorRunnable.setMaxWaitTime(randomizerConfig.getMaxInterval());
     }
 
     private void loadKeyBinds() {
