@@ -53,6 +53,7 @@ public class RandomizerApplication extends Application {
         public void uncaughtException(Thread t, Throwable e) {
             log.error("Unexpected error", e);
             Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("alert-style.css").toExternalForm());
             alert.setTitle("An unexpected error occured");
             alert.setHeaderText("Please open an Issue on GitHub with the following text:");
             alert.setContentText(e.toString());
