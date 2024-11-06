@@ -1,4 +1,5 @@
 # <img src="https://github.com/user-attachments/assets/ab28eba7-4b88-47b4-be10-ac4487d66e23" alt="randomizer" width="24" height="24" style="vertical-align: middle;" />andomizer-CS2 (WiP)
+<center><p style="display: inline-block; vertical-align: middle;"><a href="https://discord.gg/yjKRgMyENR"><img src="https://github.com/user-attachments/assets/db9fa4e3-94a3-42dc-90c3-5379127120aa" width="75"></a></p>
 
 [![Build Status](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml/badge.svg?branch=stage)](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml)
 [![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)
