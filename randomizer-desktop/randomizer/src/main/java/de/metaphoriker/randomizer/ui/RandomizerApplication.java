@@ -34,6 +34,11 @@ public class RandomizerApplication extends Application {
         log.debug("Lade Hauptfenster...");
         Parent root = viewProvider.requestView(RandomizerWindowController.class).parent();
         Scene scene = new Scene(root);
+        setupStage(stage, scene);
+        stage.show();
+    }
+
+    private void setupStage(Stage stage, Scene scene) {
         stage.setTitle("Randomizer-CS2");
         stage.getIcons().add(new Image("de/metaphoriker/randomizer/images/randomizer.png"));
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
@@ -41,7 +46,6 @@ public class RandomizerApplication extends Application {
         stage.setMinHeight(MIN_HEIGHT);
         stage.setOnCloseRequest(_ -> System.exit(0));
         stage.setScene(scene);
-        stage.show();
     }
 
     public static class UIUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
