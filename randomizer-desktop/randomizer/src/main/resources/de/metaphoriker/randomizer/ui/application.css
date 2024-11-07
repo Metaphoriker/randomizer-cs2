@@ -78,22 +78,27 @@
     -fx-text-fill: #C444C3;
 }
 
+.logbook-active-actions {
+    -fx-pref-width: 398px;
+    -fx-pref-height: 322px;
+    -fx-spacing: 6px;
+    -fx-padding: 0px 0px 8px 8px;
+}
+
 .logbook-sequence-actions-name {
     -fx-font-family: SansSerif;
     -fx-font-size: 14px;
     -fx-font-style: normal;
     -fx-font-weight: bold;
     -fx-text-fill: #DAF0F3;
-    -fx-padding: 0px 3px;
+    -fx-padding: 0px 3px 0px 15px;
     -fx-background-radius: 4px;
     -fx-background-color: #213539;
-}
 
-.logbook-active-actions {
-    -fx-pref-width: 398px;
-    -fx-pref-height: 322px;
-    -fx-spacing: 6px;
-    -fx-padding: 0px 0px 8px 8px;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center-left;
+    -fx-background-size: 16px;
+    -fx-background-image: url("../images/startActionIcon.png");
 }
 
 .logbook-button-vbox {
@@ -113,7 +118,7 @@
     -fx-effect: innershadow(three-pass-box, #C444C3, 10, 0.0, 0, 0);
 }
 
-.logbook-run-button, .logbook-stop-button {
+.logbook-run-button, .logbook-stop-button, .logbook-stop-button-pressed, .logbook-run-button-pressed {
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
@@ -124,7 +129,11 @@
     -fx-background-image: url("../images/playIcon.png");
 }
 
-.logbook-run-button:hover, .logbook-run-button:pressed {
+.logbook-run-button:hover {
+    -fx-background-image: url("../images/playHoverIcon.png");
+}
+
+.logbook-run-button-pressed {
     -fx-background-image: url("../images/playHoverIcon.png");
 }
 
@@ -132,7 +141,11 @@
     -fx-background-image: url("../images/stopIcon.png");
 }
 
-.logbook-stop-button:hover, .logbook-stop-button:pressed {
+.logbook-stop-button:hover {
+    -fx-background-image: url("../images/stopHoverIcon.png");
+}
+
+.logbook-stop-button-pressed {
     -fx-background-image: url("../images/stopHoverIcon.png");
 }
 
