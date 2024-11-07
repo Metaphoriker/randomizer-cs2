@@ -24,7 +24,7 @@
 }
 
 .navigation-bar-randomizer {
-    -fx-background-image: url("../images/homeIcon.png");
+    -fx-background-image: url("../images/logbookIcon.png");
 }
 
 .navigation-bar-builder:hover, .navigation-bar-randomizer:hover {
@@ -124,10 +124,17 @@
     -fx-background-image: url("../images/playIcon.png");
 }
 
+.logbook-run-button:hover, .logbook-run-button:pressed {
+    -fx-background-image: url("../images/playHoverIcon.png");
+}
+
 .logbook-stop-button {
     -fx-background-image: url("../images/stopIcon.png");
 }
 
+.logbook-stop-button:hover, .logbook-stop-button:pressed {
+    -fx-background-image: url("../images/stopHoverIcon.png");
+}
 
 /* Builder View*/
 .builder-view, .builder {
@@ -300,9 +307,17 @@
     -fx-background-size: 20px 20px;
 }
 
+.builder-sequences-folder-button:hover {
+    -fx-background-image: url("../images/folderHoverIcon.png");
+}
+
 .builder-sequences-add-sequence-button {
     -fx-background-image: url("../images/addSequenceIcon.png");
     -fx-background-size: 18px 18px;
+}
+
+.builder-sequences-add-sequence-button:hover {
+    -fx-background-image: url("../images/addSequenceHoverIcon.png");
 }
 
 .builder-sequences-scrollpane {
@@ -344,6 +359,10 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 20px 20px;
+}
+
+.builder-sequences-delete-button:hover {
+    -fx-background-image: url("../images/deleteHoverIcon.png");
 }
 
 /* Sequence Builder */
@@ -408,12 +427,24 @@
     -fx-background-image: url("../images/shuffleIcon.png");
 }
 
+.builder-randomize-button:hover {
+    -fx-background-image: url("../images/shuffleHoverIcon.png");
+}
+
 .builder-actions-clear-button {
     -fx-background-image: url("../images/deleteIcon.png");
 }
 
+.builder-actions-clear-button:hover {
+    -fx-background-image: url("../images/deleteHoverIcon.png");
+}
+
 .builder-save-sequence-button {
     -fx-background-image: url("../images/saveIcon.png");
+}
+
+.builder-save-sequence-button:hover {
+    -fx-background-image: url("../images/saveHoverIcon.png");
 }
 
 .builder-selected-actions-scrollpane {
