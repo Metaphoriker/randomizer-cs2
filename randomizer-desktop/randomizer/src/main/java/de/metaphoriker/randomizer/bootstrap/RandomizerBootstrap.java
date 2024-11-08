@@ -139,6 +139,11 @@ public class RandomizerBootstrap {
         return updaterJar;
     }
 
+    private static void startProcess(ProcessBuilder processBuilder) throws IOException, InterruptedException {
+        Process process = processBuilder.start();
+        process.waitFor();
+    }
+
     private void startUpdaterIfNecessary(String path) {
         log.info("Starte Updater falls notwendig...");
         try {
@@ -146,16 +151,12 @@ public class RandomizerBootstrap {
                     new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
             if (Updater.isUpdateAvailable(Updater.getCurrentVersion(), Updater.RANDOMIZER_VERSION_URL)) {
                 log.info("Updater gestartet");
-
                 ProcessBuilder processBuilder =
                         new ProcessBuilder(
                                 "java", "-jar", path, "-randomizerLocation=" + jarPath.getAbsolutePath());
-
                 processBuilder.inheritIO();
-                Process process = processBuilder.start();
-                process.waitFor();
-
-                System.exit(0);
+                startProcess(processBuilder);
+                System.exit(0); // we want to close the randomizer in order to update it
             }
         } catch (URISyntaxException | IOException | InterruptedException e) {
             throw new RuntimeException(e);
@@ -167,6 +168,12 @@ public class RandomizerBootstrap {
         actionRepository.register(new PauseAction());
         actionRepository.register(new MouseMoveAction());
         actionRepository.register(new BaseAction("Escape", ActionKey.of("ESCAPE")));
+        registerKeyBindActions();
+        actionRepository.saveAll();
+        actionRepository.loadStatesIfExist();
+    }
+
+    private void registerKeyBindActions() {
         keyBindRepository
                 .getKeyBinds()
                 .forEach(
@@ -174,8 +181,6 @@ public class RandomizerBootstrap {
                             Action action = new BaseAction(keyBind.getAction(), ActionKey.of(keyBind.getKey()));
                             actionRepository.register(action);
                         });
-        actionRepository.saveAll();
-        actionRepository.loadStatesIfExist();
     }
 
     private void registerNativeKeyHook() {
