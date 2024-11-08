@@ -63,7 +63,7 @@ public class RandomizerViewController {
                 .getCurrentActionProperty()
                 .addListener(
                         (_, _, action) -> {
-                            // TODO: set current action as running
+                            // TODO: set current action as running - visually
                         });
 
         randomizerViewModel
