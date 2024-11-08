@@ -8,7 +8,7 @@ import lombok.Setter;
 
 @Setter
 @Getter
-@Configuration(fileName = "config.properties")
+@Configuration(fileName = "config.yml") // currently we have to use yml cause of the delimiter of gutil
 public class RandomizerConfig extends BaseConfiguration {
 
     @ConfigValue(name = "min.interval")
