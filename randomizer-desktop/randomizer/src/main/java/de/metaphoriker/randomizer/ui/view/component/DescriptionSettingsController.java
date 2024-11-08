@@ -21,7 +21,7 @@ public class DescriptionSettingsController {
     }
 
     private void initialize() {
-        textArea.textProperty().addListener((observable, oldValue, newValue) -> {
+        textArea.textProperty().addListener((_, oldValue, newValue) -> {
             if (newValue.length() > 200) {
                 textArea.setText(oldValue);
             }

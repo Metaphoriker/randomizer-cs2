@@ -37,8 +37,6 @@ public class RandomizerViewModel {
     }
 
     private void initialize() {
-        applicationContext.registerApplicationStateChangeListener(
-                state -> log.info("ApplicationState changed to {}", state));
         setupInternalHandler();
         setupInternalListener();
     }

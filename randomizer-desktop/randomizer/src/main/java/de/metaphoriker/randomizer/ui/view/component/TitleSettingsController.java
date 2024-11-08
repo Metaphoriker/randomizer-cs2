@@ -29,7 +29,7 @@ public class TitleSettingsController {
     }
 
     private void initialize() {
-        textField.textProperty().addListener((observable, oldValue, newValue) -> {
+        textField.textProperty().addListener((_, oldValue, newValue) -> {
             if (newValue.length() > 50) {
                 textField.setText(oldValue);
             }

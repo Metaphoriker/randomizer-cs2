@@ -18,7 +18,6 @@ public final class Messages {
     private static final Map<String, String> MESSAGES_MAP = new HashMap<>();
 
     public static void cache() {
-
         try (InputStream inputStream =
                      Messages.class.getClassLoader().getResourceAsStream("messages.properties")) {
 

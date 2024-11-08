@@ -41,12 +41,26 @@ public class ActionSettingsController {
     }
 
     private void setupBindings() {
-        minSlider.setValue(actionSettingsViewModel.getMinIntervalProperty().get());
-        maxSlider.setValue(actionSettingsViewModel.getMaxIntervalProperty().get());
+        initializeSliders();
+        bindSlidersToModel();
+        addSliderTextSyncListener();
 
-        minSlider.valueProperty().bindBidirectional(actionSettingsViewModel.getMinIntervalProperty());
-        maxSlider.valueProperty().bindBidirectional(actionSettingsViewModel.getMaxIntervalProperty());
+        // this is important, since if there is no action to adjust,
+        // we don't need this view
+        actionSettingsVBox
+                .visibleProperty()
+                .bind(actionSettingsViewModel.getActionInFocusProperty().isNotNull());
 
+        actionSettingsViewModel
+                .getActionInFocusProperty()
+                .addListener(
+                        (_, _, newValue) -> {
+                            if (newValue == null) return;
+                            actionInFocusLabel.setText(newValue.getName());
+                        });
+    }
+
+    private void addSliderTextSyncListener() {
         minSlider
                 .valueProperty()
                 .addListener(
@@ -74,18 +88,16 @@ public class ActionSettingsController {
 
                             maxSliderLabel.setText(maxValue + " ms");
                         });
+    }
 
-        actionSettingsVBox
-                .visibleProperty()
-                .bind(actionSettingsViewModel.getActionInFocusProperty().isNotNull());
+    private void bindSlidersToModel() {
+        minSlider.valueProperty().bindBidirectional(actionSettingsViewModel.getMinIntervalProperty());
+        maxSlider.valueProperty().bindBidirectional(actionSettingsViewModel.getMaxIntervalProperty());
+    }
 
-        actionSettingsViewModel
-                .getActionInFocusProperty()
-                .addListener(
-                        (_, _, newValue) -> {
-                            if (newValue == null) return;
-                            actionInFocusLabel.setText(newValue.getName());
-                        });
+    private void initializeSliders() {
+        minSlider.setValue(actionSettingsViewModel.getMinIntervalProperty().get());
+        maxSlider.setValue(actionSettingsViewModel.getMaxIntervalProperty().get());
     }
 
     public void bindOnVisibleProperty(Consumer<Boolean> consumer) {
