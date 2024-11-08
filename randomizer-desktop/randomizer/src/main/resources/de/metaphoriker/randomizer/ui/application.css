@@ -36,14 +36,14 @@
     -fx-background-image: url("../images/logbookIcon.png");
 }
 
-.navigation-bar-builder:hover, .navigation-bar-randomizer:hover {
+.navigation-bar-home:hover, .navigation-bar-builder:hover, .navigation-bar-randomizer:hover {
     -fx-background-color: #C444C3;
     -fx-background-radius: 4px;
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
 }
 
-.navigation-bar-builder:selected, .navigation-bar-randomizer:selected {
+.navigation-bar-home:selected, .navigation-bar-builder:selected, .navigation-bar-randomizer:selected {
     -fx-background-color: #C444C3;
     -fx-background-radius: 4px;
     -fx-scale-x: 1.1;
