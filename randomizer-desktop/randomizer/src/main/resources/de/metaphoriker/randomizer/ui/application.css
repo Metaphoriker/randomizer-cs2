@@ -10,13 +10,22 @@
     -fx-effect: dropshadow(three-pass-box, #C444C3, 10, 0.0, 0, 5);
 }
 
-.navigation-bar-builder, .navigation-bar-randomizer {
+.navigation-bar-home, .navigation-bar-builder, .navigation-bar-randomizer {
     -fx-min-width: 20px;
     -fx-min-height: 20px;
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 20px;
+}
+
+.navigation-bar-separator {
+    -fx-background-color: #52287E;
+    -fx-border-color: null;
+}
+
+.navigation-bar-home {
+    -fx-background-image: url("../images/homeIcon.png");
 }
 
 .navigation-bar-builder {
@@ -644,8 +653,8 @@
     -fx-background-color: #52287E;
 }
 
-/* Separator and Lines */
-.separator, .line {
+/* Separator and Lines for BuilderView */
+.builder-separator {
     -fx-pref-width: 140px;
     -fx-pref-height: 2px;
     -fx-background-color: #52287E;

@@ -15,6 +15,8 @@ public class NavigationBarController {
     private final ViewProvider viewProvider;
 
     @FXML
+    private ToggleButton homeButton;
+    @FXML
     private ToggleButton randomizerButton;
     @FXML
     private ToggleButton builderButton;
@@ -49,8 +51,9 @@ public class NavigationBarController {
     }
 
     private void setupToggleButtonLogic() {
-        addToggleButtonListener(randomizerButton, RandomizerViewController.class, builderButton);
-        addToggleButtonListener(builderButton, BuilderViewController.class, randomizerButton);
+        addToggleButtonListener(homeButton, null, randomizerButton, builderButton);
+        addToggleButtonListener(randomizerButton, RandomizerViewController.class, homeButton, builderButton);
+        addToggleButtonListener(builderButton, BuilderViewController.class, homeButton, randomizerButton);
     }
 
     private void addToggleButtonListener(

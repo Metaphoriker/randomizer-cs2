@@ -162,10 +162,15 @@ public class BuilderViewController {
         initActionSettings();
         initTitleSettings();
         initDescriptionSettings();
+        initDropIndicator();
         setupBindings();
         fillActions();
         fillActionSequences();
         setupDrop(builderVBox);
+    }
+
+    private void initDropIndicator() {
+        dropIndicator.getStyleClass().add("builder-separator");
     }
 
     private void initActionSettings() {
