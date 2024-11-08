@@ -50,6 +50,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
     this.applicationContext = applicationContext;
     this.actionSequenceDispatcher = actionSequenceDispatcher;
     registerNativeHookListenerForEachKeyBind();
+    registerApplicationStateChangeListener();
   }
 
   /**
@@ -70,6 +71,18 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   public static void setMaxWaitTime(int maxWaitTime) {
     ActionSequenceExecutorRunnable.maxWaitTime = maxWaitTime;
     waitTimeUpdated = true;
+  }
+
+  private void registerApplicationStateChangeListener() {
+    applicationContext.registerApplicationStateChangeListener(state -> {
+      if (state != ApplicationState.RUNNING) {
+        Action currentAction = getCurrentExecutingAction();
+        if (currentAction != null) {
+          currentAction.interrupt();
+          log.info("Interrupted action due to ApplicationState change");
+        }
+      }
+    });
   }
 
   private void registerNativeHookListenerForEachKeyBind() {
