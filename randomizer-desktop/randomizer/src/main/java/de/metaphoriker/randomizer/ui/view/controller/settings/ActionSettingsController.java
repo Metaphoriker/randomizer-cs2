@@ -59,6 +59,13 @@ public class ActionSettingsController {
                         (_, _, newValue) -> {
                             if (newValue == null) return;
                             actionInFocusLabel.setText(newValue.getName());
+
+                            Platform.runLater(() -> {
+                                minMaxSlider.setMinMaxValue(
+                                        actionSettingsViewModel.getMinIntervalProperty().get(),
+                                        actionSettingsViewModel.getMaxIntervalProperty().get()
+                                );
+                            });
                         });
     }
 
