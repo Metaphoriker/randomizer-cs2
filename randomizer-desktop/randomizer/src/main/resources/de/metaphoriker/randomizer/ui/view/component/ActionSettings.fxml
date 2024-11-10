@@ -2,8 +2,6 @@
 
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
-<?import javafx.scene.control.Slider?>
-<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="140.0" styleClass="builder-settings"
       xmlns="http://javafx.com/javafx/22"
@@ -13,25 +11,11 @@
             <children>
                 <Label fx:id="actionInFocusLabel" text="Action Name" styleClass="action-in-focus-label"/>
                 <Separator prefWidth="140.0"/>
-                <VBox prefWidth="140.0" styleClass="action-time-frame-vbox">
+                <VBox fx:id="timeFrameVBox" prefWidth="140.0" styleClass="action-time-frame-vbox">
                     <children>
                         <Label text="Time Frame" styleClass="time-frame-label"/>
                         <Label text="Sets the time frame how long the Action should last" wrapText="true"
                                styleClass="settings-description"/>
-                        <HBox prefWidth="124.0" prefHeight="12.0" styleClass="minimum-label-hbox">
-                            <children>
-                                <Label text="Minimum Value:" styleClass="minimum-value-label"/>
-                                <Label fx:id="minSliderLabel" text="0 ms" styleClass="minimum-slider-label"/>
-                            </children>
-                        </HBox>
-                        <Slider fx:id="minSlider" max="10000.0"/>
-                        <HBox prefHeight="12.0" prefWidth="124.0" styleClass="maximum-label-hbox">
-                            <children>
-                                <Label text="Maximum Value:" styleClass="maximum-value-label"/>
-                                <Label fx:id="maxSliderLabel" text="0 ms" styleClass="maximum-slider-label"/>
-                            </children>
-                        </HBox>
-                        <Slider fx:id="maxSlider" max="10000.0"/>
                     </children>
                 </VBox>
                 <Separator prefWidth="140.0"/>

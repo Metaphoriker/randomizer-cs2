@@ -7,7 +7,6 @@ import de.metaphoriker.randomizer.ui.view.viewmodel.ActionSettingsViewModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
-import javafx.scene.control.Slider;
 import javafx.scene.layout.VBox;
 
 import java.util.function.Consumer;
@@ -20,15 +19,9 @@ public class ActionSettingsController {
     @FXML
     private VBox actionSettingsVBox;
     @FXML
+    private VBox timeFrameVBox;
+    @FXML
     private Label actionInFocusLabel;
-    @FXML
-    private Slider maxSlider;
-    @FXML
-    private Label maxSliderLabel;
-    @FXML
-    private Slider minSlider;
-    @FXML
-    private Label minSliderLabel;
 
     @Inject
     public ActionSettingsController(ActionSettingsViewModel actionSettingsViewModel) {
@@ -37,14 +30,18 @@ public class ActionSettingsController {
     }
 
     private void initialize() {
+        initializeMinMaxSlider();
         setupBindings();
     }
 
-    private void setupBindings() {
-        initializeSliders();
-        bindSlidersToModel();
-        addSliderTextSyncListener();
+    private void initializeMinMaxSlider() {
+        MinMaxSlider minMaxSlider = new MinMaxSlider();
+        minMaxSlider.getMinProperty().bindBidirectional(actionSettingsViewModel.getMinIntervalProperty());
+        minMaxSlider.getMaxProperty().bindBidirectional(actionSettingsViewModel.getMaxIntervalProperty());
+        timeFrameVBox.getChildren().add(minMaxSlider);
+    }
 
+    private void setupBindings() {
         // this is important, since if there is no action to adjust,
         // we don't need this view
         actionSettingsVBox
@@ -58,46 +55,6 @@ public class ActionSettingsController {
                             if (newValue == null) return;
                             actionInFocusLabel.setText(newValue.getName());
                         });
-    }
-
-    private void addSliderTextSyncListener() {
-        minSlider
-                .valueProperty()
-                .addListener(
-                        (_, _, newValue) -> {
-                            int minValue = newValue.intValue();
-                            int maxValue = actionSettingsViewModel.getMaxIntervalProperty().get();
-
-                            if (minValue > maxValue) {
-                                actionSettingsViewModel.getMaxIntervalProperty().set(Math.max(minValue + 1, maxValue));
-                            }
-
-                            minSliderLabel.setText(minValue + " ms");
-                        });
-
-        maxSlider
-                .valueProperty()
-                .addListener(
-                        (_, _, newValue) -> {
-                            int maxValue = newValue.intValue();
-                            int minValue = actionSettingsViewModel.getMinIntervalProperty().get();
-
-                            if (maxValue < minValue) {
-                                actionSettingsViewModel.getMinIntervalProperty().set(Math.min(maxValue - 1, minValue));
-                            }
-
-                            maxSliderLabel.setText(maxValue + " ms");
-                        });
-    }
-
-    private void bindSlidersToModel() {
-        minSlider.valueProperty().bindBidirectional(actionSettingsViewModel.getMinIntervalProperty());
-        maxSlider.valueProperty().bindBidirectional(actionSettingsViewModel.getMaxIntervalProperty());
-    }
-
-    private void initializeSliders() {
-        minSlider.setValue(actionSettingsViewModel.getMinIntervalProperty().get());
-        maxSlider.setValue(actionSettingsViewModel.getMaxIntervalProperty().get());
     }
 
     public void bindOnVisibleProperty(Consumer<Boolean> consumer) {
