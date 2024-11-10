@@ -1,8 +1,9 @@
-package de.metaphoriker.randomizer.ui.view.component;
+package de.metaphoriker.randomizer.ui.view.controller.settings;
 
 import com.google.inject.Inject;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.randomizer.ui.view.View;
+import de.metaphoriker.randomizer.ui.view.component.MinMaxSlider;
 import de.metaphoriker.randomizer.ui.view.viewmodel.ActionSettingsViewModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;

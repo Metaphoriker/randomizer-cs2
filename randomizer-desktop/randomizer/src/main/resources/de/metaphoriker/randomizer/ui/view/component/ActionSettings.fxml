@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.VBox?>
 <VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="140.0" styleClass="builder-settings"
       xmlns="http://javafx.com/javafx/22"
-      fx:controller="de.metaphoriker.randomizer.ui.view.component.ActionSettingsController">
+      fx:controller="de.metaphoriker.randomizer.ui.view.controller.settings.ActionSettingsController">
     <children>
         <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="builder-settings-vbox">
             <children>

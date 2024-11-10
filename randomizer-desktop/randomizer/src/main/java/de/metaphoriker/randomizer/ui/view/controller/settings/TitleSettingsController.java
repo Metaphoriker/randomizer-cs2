@@ -1,4 +1,4 @@
-package de.metaphoriker.randomizer.ui.view.component;
+package de.metaphoriker.randomizer.ui.view.controller.settings;
 
 import de.metaphoriker.randomizer.ui.view.View;
 import javafx.application.Platform;

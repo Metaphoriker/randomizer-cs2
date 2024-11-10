@@ -6,7 +6,9 @@
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.layout.VBox?>
-<VBox prefHeight="488.0" prefWidth="140.0" styleClass="builder-settings" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="de.metaphoriker.randomizer.ui.view.component.TitleSettingsController">
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="140.0" styleClass="builder-settings"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="de.metaphoriker.randomizer.ui.view.controller.settings.TitleSettingsController">
     <children>
         <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="builder-settings-vbox">
             <children>
