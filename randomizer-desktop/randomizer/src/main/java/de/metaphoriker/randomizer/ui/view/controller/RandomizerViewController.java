@@ -2,6 +2,7 @@ package de.metaphoriker.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
 import de.metaphoriker.randomizer.ui.view.View;
+import de.metaphoriker.randomizer.ui.view.component.MinMaxSlider;
 import de.metaphoriker.randomizer.ui.view.viewmodel.RandomizerViewModel;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
@@ -18,6 +19,8 @@ public class RandomizerViewController {
     private Label sequenceNameLabel;
     @FXML
     private VBox actionsVBox;
+    @FXML
+    private MinMaxSlider minMaxSlider;
 
     @Inject
     public RandomizerViewController(RandomizerViewModel randomizerViewModel) {
@@ -35,8 +38,25 @@ public class RandomizerViewController {
         randomizerViewModel.setApplicationStateToStopped();
     }
 
+    @FXML
+    void onIntervalApply(ActionEvent event) {
+        randomizerViewModel.saveInterval();
+    }
+
     private void initialize() {
+        randomizerViewModel.initConfig();
         setupListener();
+        setupIntervalSlider();
+    }
+
+    private void setupIntervalSlider() {
+        Platform.runLater(() -> minMaxSlider.setMinMaxValue(
+                randomizerViewModel.getMinIntervalProperty().get(),
+                randomizerViewModel.getMaxIntervalProperty().get()
+        ));
+
+        minMaxSlider.getMinProperty().bindBidirectional(randomizerViewModel.getMinIntervalProperty());
+        minMaxSlider.getMaxProperty().bindBidirectional(randomizerViewModel.getMaxIntervalProperty());
     }
 
     private void setupListener() {

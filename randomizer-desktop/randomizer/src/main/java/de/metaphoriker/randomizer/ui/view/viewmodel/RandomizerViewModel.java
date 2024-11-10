@@ -6,9 +6,13 @@ import de.metaphoriker.model.ApplicationState;
 import de.metaphoriker.model.action.Action;
 import de.metaphoriker.model.action.sequence.ActionSequence;
 import de.metaphoriker.model.action.sequence.ActionSequenceDispatcher;
+import de.metaphoriker.model.action.sequence.ActionSequenceExecutorRunnable;
+import de.metaphoriker.randomizer.config.RandomizerConfig;
 import javafx.beans.property.BooleanProperty;
+import javafx.beans.property.IntegerProperty;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleBooleanProperty;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
@@ -18,6 +22,7 @@ public class RandomizerViewModel {
 
     private final ActionSequenceDispatcher actionSequenceDispatcher;
     private final ApplicationContext applicationContext;
+    private final RandomizerConfig randomizerConfig;
 
     @Getter
     private final ObjectProperty<ActionSequence> currentActionSequenceProperty =
@@ -27,18 +32,39 @@ public class RandomizerViewModel {
     private final ObjectProperty<Action> currentActionProperty = new SimpleObjectProperty<>();
     @Getter
     private final BooleanProperty waitingProperty = new SimpleBooleanProperty(false);
+    @Getter
+    private final IntegerProperty minIntervalProperty = new SimpleIntegerProperty();
+    @Getter
+    private final IntegerProperty maxIntervalProperty = new SimpleIntegerProperty();
 
     @Inject
     public RandomizerViewModel(
-            ActionSequenceDispatcher actionSequenceDispatcher, ApplicationContext applicationContext) {
+            ActionSequenceDispatcher actionSequenceDispatcher, ApplicationContext applicationContext, RandomizerConfig randomizerConfig) {
         this.actionSequenceDispatcher = actionSequenceDispatcher;
         this.applicationContext = applicationContext;
-        initialize();
-    }
-
-    private void initialize() {
+        this.randomizerConfig = randomizerConfig;
         setupInternalHandler();
         setupInternalListener();
+    }
+
+    public void saveInterval() {
+        randomizerConfig.setMinInterval(minIntervalProperty.get());
+        randomizerConfig.setMaxInterval(maxIntervalProperty.get());
+        randomizerConfig.saveConfiguration();
+
+        log.info("Save interval {}:{} to configuration.", minIntervalProperty.get(), maxIntervalProperty.get());
+
+        ActionSequenceExecutorRunnable.setMinWaitTime(minIntervalProperty.get());
+        ActionSequenceExecutorRunnable.setMaxWaitTime(maxIntervalProperty.get());
+    }
+
+    public void initConfig() {
+        loadIntervalFromConfig();
+    }
+
+    private void loadIntervalFromConfig() {
+        minIntervalProperty.set(randomizerConfig.getMinInterval());
+        maxIntervalProperty.set(randomizerConfig.getMaxInterval());
     }
 
     public void setApplicationStateToRunning() {
