@@ -28,15 +28,9 @@ public class ActionSettingsViewModel {
         }
     }
 
-    private void reset() {
-        minIntervalProperty.set(0);
-        maxIntervalProperty.set(0);
-    }
-
     private void setupActionInFocusListener() {
         actionInFocusProperty.addListener(
                 (_, _, newAction) -> {
-                    reset();
                     if (newAction != null) {
                         minIntervalProperty.set(newAction.getInterval().getMin());
                         maxIntervalProperty.set(newAction.getInterval().getMax());
