@@ -13,7 +13,7 @@
         <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="builder-settings-vbox">
             <children>
                 <Label fx:id="actionInFocusLabel" text="Action Name" styleClass="action-in-focus-label"/>
-                <Separator prefWidth="140.0"/>
+                <Separator styleClass="builder-separator"/>
                 <VBox prefWidth="140.0" styleClass="action-time-frame-vbox">
                     <children>
                         <Label text="Time Frame" styleClass="time-frame-label"/>
@@ -25,7 +25,7 @@
                         </HBox>
                     </children>
                 </VBox>
-                <Separator prefWidth="140.0"/>
+                <Separator styleClass="builder-separator"/>
             </children>
         </VBox>
     </children>

@@ -12,7 +12,7 @@
         <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="builder-settings-vbox">
             <children>
                 <Label fx:id="actionInFocusLabel" styleClass="description-in-focus-label" text="Description" />
-                <Separator prefWidth="140.0" />
+                <Separator styleClass="builder-separator"/>
                 <VBox prefWidth="140.0" styleClass="action-time-frame-vbox">
                     <children>
                         <Label styleClass="settings-description" text="Set the description of the ActionSequence" wrapText="true" />
@@ -24,7 +24,7 @@
                         </VBox>
                     </children>
                 </VBox>
-                <Separator prefWidth="140.0" />
+                <Separator styleClass="builder-separator"/>
             </children>
         </VBox>
     </children>

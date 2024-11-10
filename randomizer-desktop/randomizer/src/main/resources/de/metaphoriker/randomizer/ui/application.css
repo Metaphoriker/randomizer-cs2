@@ -1,6 +1,6 @@
 /* Navigation Bar */
 .navigation-bar {
-    -fx-max-width: 64px;
+    -fx-max-width: 100px;
     -fx-max-height: 32px;
     -fx-spacing: 8px;
     -fx-padding: 6px;
@@ -19,8 +19,10 @@
     -fx-background-size: 20px;
 }
 
-.navigation-bar-separator {
-    -fx-background-color: #52287E;
+.navigation-bar-separator, .navigation-bar-separator .line {
+    -fx-background-color: #4F747C;
+    -fx-pref-height: 36px;
+    -fx-pref-width: 2px;
     -fx-border-color: null;
 }
 
@@ -654,7 +656,7 @@
 }
 
 /* Separator and Lines for BuilderView */
-.builder-separator {
+.builder-separator, .builder-separator .line {
     -fx-pref-width: 140px;
     -fx-pref-height: 2px;
     -fx-background-color: #52287E;

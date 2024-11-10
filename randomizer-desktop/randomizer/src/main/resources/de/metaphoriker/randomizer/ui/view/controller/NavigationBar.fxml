@@ -8,7 +8,7 @@
       fx:controller="de.metaphoriker.randomizer.ui.view.controller.NavigationBarController">
     <children>
         <ToggleButton fx:id="homeButton" mnemonicParsing="false" styleClass="navigation-bar-home"/>
-        <Separator orientation="VERTICAL" prefHeight="200.0" styleClass="navigation-bar-separator"/>
+        <Separator orientation="VERTICAL" styleClass="navigation-bar-separator"/>
         <ToggleButton fx:id="randomizerButton" mnemonicParsing="false" styleClass="navigation-bar-randomizer"/>
         <ToggleButton fx:id="builderButton" mnemonicParsing="false" styleClass="navigation-bar-builder"/>
     </children>
