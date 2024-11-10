@@ -60,6 +60,10 @@ public class ActionSettingsController {
                             if (newValue == null) return;
                             actionInFocusLabel.setText(newValue.getName());
 
+                            /*
+                             * even if it seems nonsensly to set this manually, since we already bound it bidirectional
+                             * to each other, this is still needed, because otherwise the values are not correctly set whyever.
+                             */
                             Platform.runLater(() -> {
                                 minMaxSlider.setMinMaxValue(
                                         actionSettingsViewModel.getMinIntervalProperty().get(),
