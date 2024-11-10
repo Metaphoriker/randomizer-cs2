@@ -21,7 +21,7 @@
                                styleClass="settings-description"/>
                         <MinMaxSlider fx:id="minMaxSlider"/>
                         <HBox alignment="CENTER_RIGHT">
-                            <Button onAction="#onApply"/>
+                            <Button onAction="#onApply" styleClass="settings-apply-button" text="Apply"/>
                         </HBox>
                     </children>
                 </VBox>
