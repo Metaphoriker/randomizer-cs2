@@ -49,26 +49,26 @@
                         </VBox>
                     </center>
                     <VBox.margin>
-                        <Insets bottom="69.0" left="134.0" right="134.0" top="49.0"/>
+                        <Insets bottom="69.0" left="34.0" right="34.0" top="49.0"/>
                     </VBox.margin>
                     <right>
-                        <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+                        <VBox prefHeight="300.0" prefWidth="194.0" BorderPane.alignment="CENTER" styleClass="logbook-info">
                             <children>
-                                <VBox prefHeight="100.0" prefWidth="100.0">
+                                <VBox styleClass="logbook-sequence-interval">
                                     <children>
-                                        <Label text="Sequence Interval"/>
-                                        <Label text="Set the Interval between each Sequence" wrapText="true"/>
+                                        <Label text="Sequence Interval" styleClass="logbook-sequence-interval-label"/>
+                                        <Label text="Set the Interval between each Sequence" wrapText="true" styleClass="logbook-descriptions"/>
                                         <Slider/>
                                         <Slider/>
                                     </children>
                                 </VBox>
-                                <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS">
+                                <VBox VBox.vgrow="ALWAYS" styleClass="logbook-sequence-history">
                                     <children>
-                                        <Label text="History"/>
-                                        <Label text="Shows the last sequences that were running." wrapText="true"/>
-                                        <ScrollPane hbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                                        <Label text="History" styleClass="logbook-history-label"/>
+                                        <Label text="Shows the last sequences that were running." wrapText="true" styleClass="logbook-descriptions"/>
+                                        <ScrollPane hbarPolicy="NEVER" styleClass="logbook-history-scrollpane" VBox.vgrow="ALWAYS" fitToHeight="true" fitToWidth="true">
                                             <content>
-                                                <VBox prefHeight="198.0" prefWidth="100.0"/>
+                                                <VBox prefWidth="134.0" styleClass="logbook-history-content"/>
                                             </content>
                                         </ScrollPane>
                                     </children>

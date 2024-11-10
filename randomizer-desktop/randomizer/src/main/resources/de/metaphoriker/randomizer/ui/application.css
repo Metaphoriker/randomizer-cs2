@@ -160,6 +160,79 @@
     -fx-background-image: url("../images/stopHoverIcon.png");
 }
 
+.logbook-info {
+    -fx-pref-width: 194px;
+    -fx-padding: 0px 0px 0px 16px;
+    -fx-spacing: 12px;
+    -fx-alignment: center;
+}
+
+.logbook-sequence-interval {
+    -fx-max-height: 105px;
+    -fx-background-radius: 4px;
+    -fx-background-color: #0C171A;
+    -fx-spacing: 6px;
+    -fx-padding: 8px;
+}
+
+.logbook-sequence-interval-label, .logbook-history-label {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12px;
+    -fx-font-weight: 600;
+    -fx-text-fill: #DAF0F3;
+}
+
+.logbook-descriptions {
+    -fx-min-height: 24px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+    -fx-text-fill: #738487;
+}
+
+.logbook-sequence-history {
+    -fx-background-radius: 4px;
+    -fx-background-color: #0C171A;
+    -fx-spacing: 6px;
+    -fx-padding: 8px;
+}
+
+.logbook-history-scrollpane {
+    -fx-alignment: center;
+    -fx-background-color: #0C171A;
+}
+
+.logbook-history-content {
+    -fx-pref-width: 134px;
+    -fx-spacing: 4px;
+    -fx-alignment: top-center;
+    -fx-background-color: #0C171A;
+}
+
+.logbook-history-scrollpane .scroll-bar:vertical {
+    -fx-pref-width: 8px;
+    -fx-background-color: transparent;
+}
+
+.logbook-history-scrollpane .scroll-bar:vertical .track {
+    -fx-background-color: #4F747C;
+    -fx-background-radius: 4px;
+}
+
+.logbook-history-scrollpane .scroll-bar:vertical .thumb {
+    -fx-background-color: #92D0DD;
+    -fx-background-radius: 4px;
+    -fx-pref-width: 8px;
+}
+
+.logbook-history-scrollpane .scroll-bar:vertical .increment-button,
+.logbook-history-scrollpane .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-shape: null;
+    -fx-opacity: 0;
+}
+
 /* Builder View*/
 .builder-view, .builder {
     -fx-min-width: 688px;
@@ -681,6 +754,11 @@
     -fx-font-style: normal;
     -fx-font-weight: 500;
     -fx-background-color: #52287E;
+}
+
+.settings-apply-button:hover {
+    -fx-background-color: #6942A3;
+    -fx-effect: innershadow(gaussian, rgba(0, 0, 0, 0.4), 10, 0.5, 0, 1);
 }
 
 /* Separator and Lines for BuilderView */
