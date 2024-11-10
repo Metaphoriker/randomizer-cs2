@@ -25,6 +25,8 @@ import java.util.ResourceBundle;
 @View
 public class RandomizerWindowController implements Initializable {
 
+    private static final String GIF_RESOURCE_PATH = "de/metaphoriker/randomizer/gif/its-time.gif";
+
     private final ViewProvider viewProvider;
 
     @FXML
@@ -53,9 +55,8 @@ public class RandomizerWindowController implements Initializable {
 
     private void addPreloadingGif() {
         try {
-            String gifResourcePath = "de/metaphoriker/randomizer/gif/its-time.gif";
-            GifDecoder gifDecoder = new GifDecoder(gifResourcePath);
-            ImageView e = new ImageView(new Image(gifResourcePath));
+            GifDecoder gifDecoder = new GifDecoder(GIF_RESOURCE_PATH);
+            ImageView e = new ImageView(new Image(GIF_RESOURCE_PATH));
 
             e.fitHeightProperty().bind(root.heightProperty());
             e.fitWidthProperty().bind(root.widthProperty());
