@@ -6,6 +6,7 @@ import de.metaphoriker.randomizer.ui.view.View;
 import de.metaphoriker.randomizer.ui.view.component.MinMaxSlider;
 import de.metaphoriker.randomizer.ui.view.viewmodel.ActionSettingsViewModel;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.VBox;
@@ -20,14 +21,19 @@ public class ActionSettingsController {
     @FXML
     private VBox actionSettingsVBox;
     @FXML
-    private VBox timeFrameVBox;
-    @FXML
     private Label actionInFocusLabel;
+    @FXML
+    private MinMaxSlider minMaxSlider;
 
     @Inject
     public ActionSettingsController(ActionSettingsViewModel actionSettingsViewModel) {
         this.actionSettingsViewModel = actionSettingsViewModel;
         Platform.runLater(this::initialize);
+    }
+
+    @FXML
+    void onApply(ActionEvent event) {
+        actionSettingsViewModel.applyInterval();
     }
 
     private void initialize() {
@@ -36,10 +42,8 @@ public class ActionSettingsController {
     }
 
     private void initializeMinMaxSlider() {
-        MinMaxSlider minMaxSlider = new MinMaxSlider();
         minMaxSlider.getMinProperty().bindBidirectional(actionSettingsViewModel.getMinIntervalProperty());
         minMaxSlider.getMaxProperty().bindBidirectional(actionSettingsViewModel.getMaxIntervalProperty());
-        timeFrameVBox.getChildren().add(minMaxSlider);
     }
 
     private void setupBindings() {
