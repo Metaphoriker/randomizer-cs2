@@ -39,6 +39,14 @@ import java.util.List;
 @View
 public class BuilderViewController {
 
+    private static final String ACTION_NAME_STYLING = "logbook-sequence-actions-name";
+    private static final String START_ACTION_NAME_STYLING = "logbook-sequence-actions-name-start";
+    private static final String MIDDLE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-middle";
+    private static final String END_ACTION_NAME_STYLING = "logbook-sequence-actions-name-end";
+    private static final String START_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-start-active";
+    private static final String MIDDLE_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-middle-active";
+    private static final String END_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-end-active";
+
     private final Separator dropIndicator = new Separator();
 
     private final ViewProvider viewProvider;
@@ -235,12 +243,34 @@ public class BuilderViewController {
                 .forEach(
                         action -> {
                             Label actionLabel = new Label(action.getName());
-                            actionLabel.getStyleClass().add("selected-actions-label");
                             actionLabel.setOnMouseClicked(
                                     _ -> actionSettingsController.setAction(action));
                             setupDragAlreadyDropped(actionLabel, action); // setup special drag within listview
                             builderVBox.getChildren().add(actionLabel);
                         });
+        builderVBox.getChildren().stream().map(Label.class::cast).forEach(node -> setPositionalStyling(node, false));
+    }
+
+    private void setPositionalStyling(Label label, boolean active) {
+        int index = builderVBox.getChildren().indexOf(label);
+
+        if (index == 0) {
+            label.getStyleClass().clear();
+            label.getStyleClass().add(ACTION_NAME_STYLING);
+            label.getStyleClass().add(active ? START_ACTIVE_ACTION_NAME_STYLING : START_ACTION_NAME_STYLING);
+            return;
+        }
+
+        if (index == builderVBox.getChildren().size() - 1) {
+            label.getStyleClass().clear();
+            label.getStyleClass().add(ACTION_NAME_STYLING);
+            label.getStyleClass().add(active ? END_ACTIVE_ACTION_NAME_STYLING : END_ACTION_NAME_STYLING);
+            return;
+        }
+
+        label.getStyleClass().clear();
+        label.getStyleClass().add(ACTION_NAME_STYLING);
+        label.getStyleClass().add(active ? MIDDLE_ACTIVE_ACTION_NAME_STYLING : MIDDLE_ACTION_NAME_STYLING);
     }
 
     private void setupDrag(Label label, Action action) {
