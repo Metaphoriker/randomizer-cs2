@@ -11,6 +11,7 @@ import com.revortix.randomizer.ui.view.controller.settings.ActionSettingsControl
 import com.revortix.randomizer.ui.view.controller.settings.DescriptionSettingsController;
 import com.revortix.randomizer.ui.view.controller.settings.TitleSettingsController;
 import com.revortix.randomizer.ui.view.viewmodel.BuilderViewModel;
+import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
@@ -29,6 +30,7 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
+import javafx.util.Duration;
 
 import java.io.IOException;
 import java.util.Comparator;
@@ -38,6 +40,7 @@ import java.util.List;
 public class BuilderViewController {
 
     private final Separator dropIndicator = new Separator();
+    private boolean isDragging = false;
 
     private final ViewProvider viewProvider;
     private final BuilderViewModel builderViewModel;
@@ -269,7 +272,38 @@ public class BuilderViewController {
                     builderViewModel.removeAction(action);
                     content.putString(serializedAction);
 
+                    isDragging = true;
                     dragboard.setContent(content);
+                    dragEvent.consume();
+                });
+
+        label.setOnDragOver(
+                dragEvent -> {
+                    if (dragEvent.getGestureSource() != label && dragEvent.getDragboard().hasString()) {
+                        dragEvent.acceptTransferModes(TransferMode.MOVE);
+
+                        // Ermitteln des korrekten Index für den dropIndicator
+                        int labelIndex = builderVBox.getChildren().indexOf(label);
+                        double mouseY = dragEvent.getY();
+                        double labelHeight = label.getHeight();
+
+                        // Hysterese hinzufügen, um das Springen zu verhindern
+                        if (mouseY < labelHeight / 4) {
+                            labelIndex = Math.max(0, labelIndex - 1); // Einfügen vor dem Label
+                        } else if (mouseY > labelHeight * 3 / 4) {
+                            labelIndex++; // Einfügen nach dem Label
+                        }
+
+                        // Sicherstellen, dass der dropIndicator nicht am Ende eingefügt wird
+                        labelIndex = Math.min(labelIndex, builderVBox.getChildren().size() - 1);
+
+                        // dropIndicator aktualisieren
+                        int dropIndicatorIndex = builderVBox.getChildren().indexOf(dropIndicator);
+                        if (dropIndicatorIndex != labelIndex) {
+                            builderVBox.getChildren().remove(dropIndicator);
+                            builderVBox.getChildren().add(labelIndex, dropIndicator);
+                        }
+                    }
                     dragEvent.consume();
                 });
 
@@ -281,20 +315,41 @@ public class BuilderViewController {
                     if (dragboard.hasString()) {
                         String serializedAction = dragboard.getString();
                         Action droppedAction = jsonUtil.deserializeAction(serializedAction);
-                        int index = builderVBox.getChildren().indexOf(label);
-                        builderViewModel.addActionAt(droppedAction, Math.max(0, index - 1));
+
+                        int dropIndicatorIndex = builderVBox.getChildren().indexOf(dropIndicator);
+                        int actionIndex = 0;
+
+                        // actionIndex basierend auf der Position des dropIndicator berechnen
+                        for (int i = 0; i < dropIndicatorIndex; i++) {
+                            if (builderVBox.getChildren().get(i) instanceof Label) {
+                                actionIndex++;
+                            }
+                        }
+
+                        builderViewModel.addActionAt(droppedAction, actionIndex);
                         success = true;
                     }
 
+                    isDragging = false;
                     dragEvent.setDropCompleted(success);
+                    builderVBox.getChildren().remove(dropIndicator);
                     dragEvent.consume();
                 });
 
         label.setOnDragEntered(
-                _ ->
-                        builderVBox.getChildren().add(builderVBox.getChildren().indexOf(label), dropIndicator));
-
-        label.setOnDragExited(_ -> builderVBox.getChildren().remove(dropIndicator));
+                dragEvent -> {
+                    if (dragEvent.getGestureSource() != label && dragEvent.getDragboard().hasString()) {
+                        // Verzögertes Hinzufügen des dropIndicator
+                        PauseTransition delay = new PauseTransition(Duration.millis(100));
+                        delay.setOnFinished(event -> {
+                            if (!builderVBox.getChildren().contains(dropIndicator)) {
+                                builderVBox.getChildren().add(0, dropIndicator);
+                            }
+                        });
+                        delay.play();
+                    }
+                    dragEvent.consume();
+                });
     }
 
     private void setupDrop(VBox target) {
@@ -315,11 +370,23 @@ public class BuilderViewController {
                         String serializedAction = dragboard.getString();
                         Action droppedAction = jsonUtil.deserializeAction(serializedAction);
 
-                        builderViewModel.addAction(droppedAction);
+                        if (builderVBox.getChildren().contains(dropIndicator)) {
+                            int index = builderVBox.getChildren().indexOf(dropIndicator);
+                            builderVBox.getChildren().remove(dropIndicator);
+                            builderViewModel.addActionAt(droppedAction, index);
+                        } else {
+                            builderViewModel.addAction(droppedAction);
+                        }
                         success = true;
                     }
 
                     dragEvent.setDropCompleted(success);
+                    dragEvent.consume();
+                });
+
+        target.setOnDragExited(
+                dragEvent -> {
+                    builderVBox.getChildren().remove(dropIndicator);
                     dragEvent.consume();
                 });
     }
