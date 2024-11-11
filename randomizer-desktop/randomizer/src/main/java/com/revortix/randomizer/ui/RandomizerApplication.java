@@ -40,7 +40,7 @@ public class RandomizerApplication extends Application {
 
     private void setupStage(Stage stage, Scene scene) {
         stage.setTitle("Randomizer-CS2");
-        stage.getIcons().add(new Image("de/metaphoriker/randomizer/images/randomizer.png"));
+        stage.getIcons().add(new Image("com/revortix/randomizer/images/randomizer.png"));
         scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
         stage.setMinWidth(MIN_WIDTH);
         stage.setMinHeight(MIN_HEIGHT);

@@ -25,7 +25,7 @@ import java.util.ResourceBundle;
 @View
 public class RandomizerWindowController implements Initializable {
 
-    private static final String GIF_RESOURCE_PATH = "de/metaphoriker/randomizer/gif/its-time.gif";
+    private static final String GIF_RESOURCE_PATH = "com/revortix/randomizer/gif/its-time.gif";
 
     private final ViewProvider viewProvider;
 
