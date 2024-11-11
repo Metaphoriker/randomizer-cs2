@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<HBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="32.0" prefWidth="64.0" styleClass="navigation-bar"
+      xmlns="http://javafx.com/javafx/22"
+      fx:controller="com.revortix.randomizer.ui.view.controller.NavigationBarController">
+    <children>
+        <ToggleButton fx:id="homeButton" mnemonicParsing="false" styleClass="navigation-bar-home"/>
+        <Separator orientation="VERTICAL" styleClass="navigation-bar-separator"/>
+        <ToggleButton fx:id="randomizerButton" mnemonicParsing="false" styleClass="navigation-bar-randomizer"/>
+        <ToggleButton fx:id="builderButton" mnemonicParsing="false" styleClass="navigation-bar-builder"/>
+    </children>
+</HBox>

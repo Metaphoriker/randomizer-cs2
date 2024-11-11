@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>randomizer-cs2</artifactId>
-        <groupId>de.metaphoriker</groupId>
+        <groupId>com.revortix</groupId>
         <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
@@ -48,7 +48,7 @@
                 <version>${javafx.version}</version>
             </dependency>
             <dependency>
-                <groupId>de.metaphoriker</groupId>
+                <groupId>com.revortix</groupId>
                 <artifactId>randomizer-model</artifactId>
                 <version>1.0</version>
             </dependency>

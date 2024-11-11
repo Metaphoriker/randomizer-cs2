@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="140.0" styleClass="builder-settings"
+      xmlns="http://javafx.com/javafx/17.0.12"
+      fx:controller="com.revortix.randomizer.ui.view.controller.settings.TitleSettingsController">
+    <children>
+        <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="builder-settings-vbox">
+            <children>
+                <Label fx:id="actionInFocusLabel" styleClass="sequence-in-focus-label" text="Title" />
+                <Separator styleClass="builder-separator"/>
+                <VBox prefWidth="140.0" styleClass="sequence-title-vbox">
+                    <children>
+                        <Label styleClass="settings-description" text="Set the title/name of the ActionSequence" wrapText="true" />
+                        <TextField fx:id="textField" promptText="Set a name" styleClass="title-settings-textfield" />
+                        <VBox alignment="BOTTOM_RIGHT" prefHeight="24.0" prefWidth="124.0"
+                              styleClass="settings-apply-vbox">
+                            <children>
+                                <Button mnemonicParsing="false" onAction="#onApply"
+                                        styleClass="settings-apply-button" text="Apply"/>
+                            </children>
+                        </VBox>
+                    </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+
+                </VBox>
+                <Separator styleClass="builder-separator"/>
+            </children>
+        </VBox>
+    </children>
+</VBox>

@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.StackPane?>
+<?import javafx.scene.layout.VBox?>
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" xmlns="http://javafx.com/javafx/22"
+      fx:controller="com.revortix.randomizer.ui.view.controller.RandomizerWindowController">
+    <children>
+        <StackPane fx:id="stackPane" prefHeight="536.0" prefWidth="704.0" VBox.vgrow="ALWAYS"
+                   styleClass="randomizer-window">
+            <children>
+                <GridPane fx:id="contentPane" GridPane.vgrow="ALWAYS" GridPane.hgrow="ALWAYS">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="ALWAYS" minWidth="10.0" prefWidth="100.0"/>
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints vgrow="ALWAYS" minHeight="10.0" prefHeight="30.0"/>
+                    </rowConstraints>
+                </GridPane>
+                <VBox fx:id="navigationBarHolder" alignment="BOTTOM_CENTER" pickOnBounds="false" prefHeight="200.0"
+                      prefWidth="100.0">
+                    <padding>
+                        <Insets bottom="20.0" left="20.0" right="20.0" top="20.0"/>
+                    </padding>
+                </VBox>
+            </children>
+        </StackPane>
+    </children>
+</VBox>
