@@ -155,6 +155,7 @@ public class BuilderViewController {
         if (doesAnotherActionSequenceWithThisNameExist()) {
             Alert alert = new Alert(Alert.AlertType.ERROR);
             alert.setTitle("Error");
+            alert.getDialogPane().getStylesheets().add(getClass().getResource("alert-style.css").toExternalForm());
             alert.setContentText("A sequence with this name already exist.");
             alert.show();
             return;
