@@ -31,7 +31,6 @@ public class ActionSequence {
      * modified directly, ensuring the integrity of the action sequence. Actions should be set or modified using the
      * relevant methods provided in the {@link ActionSequence} class.
      */
-    @EqualsAndHashCode.Include
     private final List<Action> actions = new ArrayList<>();
     /**
      * Indicates whether the ActionSequence is currently active.
