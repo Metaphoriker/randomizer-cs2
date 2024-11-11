@@ -168,7 +168,7 @@
 }
 
 .logbook-sequence-interval {
-    -fx-max-height: 105px;
+    -fx-min-height: 132px;
     -fx-background-radius: 4px;
     -fx-background-color: #0C171A;
     -fx-spacing: 6px;
@@ -183,12 +183,40 @@
 }
 
 .logbook-descriptions {
-    -fx-min-height: 24px;
+    -fx-min-height: 32px;
     -fx-font-family: SansSerif;
     -fx-font-size: 12px;
     -fx-font-style: normal;
     -fx-font-weight: 500;
     -fx-text-fill: #738487;
+}
+
+.range-slider-sequence-interval {
+    -fx-pref-width: 178px;
+    -fx-pref-height: 24px;
+    -fx-padding: 8px 0px;
+}
+
+.range-slider-sequence-interval .track {
+    -fx-background-color: #4F747C;
+    -fx-pref-height: 4px;
+}
+
+.range-slider-sequence-interval .range-bar {
+    -fx-background-color: #92D0DD;
+    -fx-pref-height: 4px;
+}
+
+.range-slider-sequence-interval .high-thumb, .range-slider-sequence-interval .low-thumb {
+    -fx-background-color: #92D0DD;
+    -fx-background-radius: 4px;
+    -fx-pref-width: 8px;
+    -fx-pref-height: 8px;
+}
+
+.range-slider-sequence-interval .high-thumb:hover, .range-slider-sequence-interval .low-thumb:hover {
+    -fx-scale-x: 1.2;
+    -fx-scale-y: 1.2;
 }
 
 .logbook-sequence-history {
@@ -641,30 +669,30 @@
     -fx-font-weight: 600;
 }
 
-.range-slider {
+.range-slider-action-interval {
     -fx-pref-width: 124px;
     -fx-pref-height: 24px;
     -fx-padding: 8px 0px;
 }
 
-.range-slider .track {
+.range-slider-action-interval .track {
     -fx-background-color: #4F747C;
     -fx-pref-height: 4px;
 }
 
-.range-slider .range-bar {
+.range-slider-action-interval .range-bar {
     -fx-background-color: #92D0DD;
     -fx-pref-height: 4px;
 }
 
-.range-slider .high-thumb, .range-slider .low-thumb {
+.range-slider-action-interval .high-thumb, .range-slider-action-interval .low-thumb {
     -fx-background-color: #92D0DD;
     -fx-background-radius: 4px;
     -fx-pref-width: 8px;
     -fx-pref-height: 8px;
 }
 
-.range-slider .high-thumb:hover, .range-slider .low-thumb:hover {
+.range-slider-action-interval .high-thumb:hover, .range-slider-action-interval .low-thumb:hover {
     -fx-scale-x: 1.2;
     -fx-scale-y: 1.2;
 }
