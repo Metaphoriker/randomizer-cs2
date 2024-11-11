@@ -2,5 +2,6 @@
 
 
 <?import javafx.scene.layout.AnchorPane?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity"
-            prefHeight="488.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/22"/>
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="488.0" prefWidth="688.0"
+            xmlns="http://javafx.com/javafx/22"
+            fx:controller="com.revortix.randomizer.ui.view.controller.HomeViewController"/>
