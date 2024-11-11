@@ -73,7 +73,7 @@ public class RandomizerViewController {
                                         .forEach(
                                                 action -> {
                                                     Label actionLabel = new Label(action.getName());
-                                                    actionLabel.getStyleClass().add("logbook-sequence-actions-name");
+                                                    actionLabel.getStyleClass().add("logbook-sequence-actions-name-start");
                                                     actionsVBox.getChildren().add(actionLabel);
                                                 });
                             });
