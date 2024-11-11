@@ -61,7 +61,7 @@
                                         <Label text="Set the Interval between each Sequence" wrapText="true" styleClass="logbook-descriptions"/>
                                         <MinMaxSlider fx:id="minMaxSlider"/>
                                         <HBox alignment="CENTER_RIGHT">
-                                            <Button onAction="#onIntervalApply"/>
+                                            <Button onAction="#onIntervalApply" styleClass="settings-apply-button" text="Apply"/>
                                         </HBox>
                                     </children>
                                 </VBox>
