@@ -5,6 +5,7 @@ import com.revortix.model.action.Action;
 import com.revortix.model.action.sequence.ActionSequence;
 import com.revortix.model.config.keybind.KeyBindType;
 import com.revortix.model.persistence.JsonUtil;
+import com.revortix.randomizer.ui.RandomizerApplication;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.settings.ActionSettingsController;
@@ -22,6 +23,7 @@ import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
@@ -153,11 +155,14 @@ public class BuilderViewController {
     @FXML
     void onSaveSequence(ActionEvent event) {
         if (doesAnotherActionSequenceWithThisNameExist()) {
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Error");
-            alert.getDialogPane().getStylesheets().add(getClass().getResource("alert-style.css").toExternalForm());
-            alert.setContentText("A sequence with this name already exist.");
-            alert.show();
+            Alert alert = new Alert(Alert.AlertType.CONFIRMATION);
+            alert.setTitle("NOTICE");
+            alert.getDialogPane().getStylesheets().add(RandomizerApplication.class.getResource("alert-style.css").toExternalForm());
+            alert.setContentText("A sequence with this name already exist. Do you want to overwrite?");
+            alert.showAndWait().filter(response -> response == ButtonType.OK).ifPresent(response -> {
+                builderViewModel.saveActionSequence();
+                fillActionSequences();
+            });
             return;
         }
         builderViewModel.saveActionSequence();
