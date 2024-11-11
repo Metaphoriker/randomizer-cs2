@@ -78,7 +78,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
       if (state != ApplicationState.RUNNING) {
         Action currentAction = getCurrentExecutingAction();
         if (currentAction != null) {
-          currentAction.interrupt();
+          currentAction.interrupt(); // TODO: this reactivates the action
           log.info("Interrupted action due to ApplicationState change");
         }
       }
@@ -123,6 +123,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   }
 
   private Action getCurrentExecutingAction() {
+    if (currentActionSequence == null) return null;
     return currentActionSequence.getActions().stream()
             .filter(Action::isExecuting)
             .findFirst()

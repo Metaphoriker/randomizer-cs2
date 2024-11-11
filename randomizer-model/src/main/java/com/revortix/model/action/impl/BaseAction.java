@@ -28,7 +28,7 @@ public class BaseAction extends Action {
     protected void performActionEnd(int keyCode) {
         switch (getActionType()) {
             case MOUSE -> KNUFFI.mouseRelease(keyCode);
-            default -> KNUFFI.keyRelease(keyCode);
+            case KEYBOARD -> KNUFFI.keyRelease(keyCode);
         }
     }
 }
