@@ -40,7 +40,6 @@ import java.util.List;
 public class BuilderViewController {
 
     private final Separator dropIndicator = new Separator();
-    private boolean isDragging = false;
 
     private final ViewProvider viewProvider;
     private final BuilderViewModel builderViewModel;
@@ -272,7 +271,6 @@ public class BuilderViewController {
                     builderViewModel.removeAction(action);
                     content.putString(serializedAction);
 
-                    isDragging = true;
                     dragboard.setContent(content);
                     dragEvent.consume();
                 });
@@ -330,7 +328,6 @@ public class BuilderViewController {
                         success = true;
                     }
 
-                    isDragging = false;
                     dragEvent.setDropCompleted(success);
                     builderVBox.getChildren().remove(dropIndicator);
                     dragEvent.consume();
