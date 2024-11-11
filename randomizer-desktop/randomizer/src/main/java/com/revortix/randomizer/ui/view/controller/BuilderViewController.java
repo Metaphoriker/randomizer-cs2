@@ -13,6 +13,8 @@ import com.revortix.randomizer.ui.view.controller.settings.TitleSettingsControll
 import com.revortix.randomizer.ui.view.viewmodel.BuilderViewModel;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
+import javafx.beans.property.ObjectProperty;
+import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -47,6 +49,7 @@ public class BuilderViewController {
     private static final String MIDDLE_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-middle-active";
     private static final String END_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-end-active";
 
+    private final ObjectProperty<Label> labelInFocusProperty = new SimpleObjectProperty<>();
     private final Separator dropIndicator = new Separator();
 
     private final ViewProvider viewProvider;
@@ -127,6 +130,13 @@ public class BuilderViewController {
                             sequenceDescriptionLabel.setText(description);
                         });
 
+        labelInFocusProperty.addListener((_, oldLabel, newLabel) -> {
+            if (oldLabel != null)
+                setPositionalStyling(oldLabel, false);
+            if (newLabel != null)
+                setPositionalStyling(newLabel, true);
+        });
+
         setupSearchFieldListener();
     }
 
@@ -191,7 +201,7 @@ public class BuilderViewController {
             else
                 settingsHolder.getChildren().clear();
         });
-        builderViewModel.getCurrentActionSequenceProperty().addListener((_, _, _) -> actionSettingsController.setAction(null));
+
     }
 
     private boolean doesAnotherActionSequenceWithThisNameExist() {
@@ -213,6 +223,7 @@ public class BuilderViewController {
             if (builderViewModel.getCurrentActionSequenceProperty().get() == null)
                 return;
             actionSettingsController.setAction(null);
+            labelInFocusProperty.set(null);
             titleSettingsController.setText(builderViewModel.getSequenceNameProperty().get() == null ?
                     "" : builderViewModel.getSequenceNameProperty().get());
             settingsHolder.getChildren().setAll(viewProvider.requestView(TitleSettingsController.class).parent());
@@ -230,6 +241,7 @@ public class BuilderViewController {
             if (builderViewModel.getCurrentActionSequenceProperty().get() == null)
                 return;
             actionSettingsController.setAction(null);
+            labelInFocusProperty.set(null);
             descriptionSettingsController.setText(builderViewModel.getSequenceDescriptionProperty().get() == null ?
                     "" : builderViewModel.getSequenceDescriptionProperty().get());
             settingsHolder.getChildren().setAll(viewProvider.requestView(DescriptionSettingsController.class).parent());
@@ -237,6 +249,8 @@ public class BuilderViewController {
     }
 
     private void updateBuilderVBox() {
+        labelInFocusProperty.set(null);
+        actionSettingsController.setAction(null);
         builderVBox.getChildren().clear();
         builderViewModel
                 .getCurrentActionsProperty()
@@ -244,11 +258,17 @@ public class BuilderViewController {
                         action -> {
                             Label actionLabel = new Label(action.getName());
                             actionLabel.setOnMouseClicked(
-                                    _ -> actionSettingsController.setAction(action));
+                                    _ -> {
+                                        actionSettingsController.setAction(action);
+                                        labelInFocusProperty.set(actionLabel);
+                                    });
                             setupDragAlreadyDropped(actionLabel, action); // setup special drag within listview
                             builderVBox.getChildren().add(actionLabel);
                         });
-        builderVBox.getChildren().stream().map(Label.class::cast).forEach(node -> setPositionalStyling(node, false));
+
+        builderVBox.getChildren().stream()
+                .map(Label.class::cast)
+                .forEach(node -> setPositionalStyling(node, false));
     }
 
     private void setPositionalStyling(Label label, boolean active) {
