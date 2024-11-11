@@ -108,18 +108,16 @@
     -fx-padding: 0px 0px 8px 8px;
 }
 
-.logbook-sequence-actions-name-start, .logbook-sequence-actions-name-middle, .logbook-sequence-actions-name-end,
-.logbook-sequence-actions-name-start-active, .logbook-sequence-actions-name-middle-active, .logbook-sequence-actions-name-end-active {
+.logbook-sequence-actions-name {
     -fx-font-family: SansSerif;
     -fx-font-size: 14px;
     -fx-font-style: normal;
-    -fx-font-weight: bold;
+    -fx-font-weight: 600;
     -fx-text-fill: #DAF0F3;
     -fx-padding: 0px 3px 0px 15px;
     -fx-background-radius: 4px;
     -fx-background-color: #213539;
     -fx-background-repeat: no-repeat;
-    -fx-background-position: center-left;
     -fx-background-size: 16px;
 }
 
@@ -648,22 +646,6 @@
     -fx-spacing: 6px;
     -fx-padding: 2px 0px 8px 8px;
     -fx-background-color: #0C171A;
-}
-
-.selected-actions-label {
-    -fx-font-family: SansSerif;
-    -fx-font-size: 12px;
-    -fx-font-style: normal;
-    -fx-font-weight: 500;
-    -fx-text-fill: #DAF0F3;
-    -fx-padding: 0px 3px;
-    -fx-background-radius: 4px;
-    -fx-background-color: #213539;
-    -fx-effect: dropshadow(three-pass-box, #050E10, 1, 0.01, 0, -2);
-}
-
-.selected-actions-label:hover {
-    -fx-text-fill: #C444C3;
 }
 
 .builder-actions-scrollpane:focused, .builder-sequences-scrollpane:focused, .builder-selected-actions-scrollpane:focused {
