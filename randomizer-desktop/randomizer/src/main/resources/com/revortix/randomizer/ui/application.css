@@ -30,23 +30,35 @@
     -fx-background-image: url("../images/homeIcon.png");
 }
 
+.navigation-bar-home:hover, .navigation-bar-home:selected {
+    -fx-background-image: url("../images/homeHoverIcon.png");
+}
+
 .navigation-bar-builder {
     -fx-background-image: url("../images/builderIcon.png");
+}
+
+.navigation-bar-builder:hover, .navigation-bar-builder:selected {
+    -fx-background-image: url("../images/builderHoverIcon.png");
 }
 
 .navigation-bar-randomizer {
     -fx-background-image: url("../images/logbookIcon.png");
 }
 
+.navigation-bar-randomizer:hover, .navigation-bar-randomizer:selected {
+    -fx-background-image: url("../images/logbookHoverIcon.png");
+}
+
 .navigation-bar-home:hover, .navigation-bar-builder:hover, .navigation-bar-randomizer:hover {
-    -fx-background-color: #C444C3;
+    -fx-background-color: #38545A;
     -fx-background-radius: 4px;
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
 }
 
 .navigation-bar-home:selected, .navigation-bar-builder:selected, .navigation-bar-randomizer:selected {
-    -fx-background-color: #C444C3;
+    -fx-background-color: #38545A;
     -fx-background-radius: 4px;
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
