@@ -13,6 +13,14 @@ import javafx.scene.layout.VBox;
 @View
 public class RandomizerViewController {
 
+    private static final String ACTION_NAME_STYLING = "logbook-sequence-actions-name";
+    private static final String START_ACTION_NAME_STYLING = "logbook-sequence-actions-name-start";
+    private static final String MIDDLE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-middle";
+    private static final String END_ACTION_NAME_STYLING = "logbook-sequence-actions-name-end";
+    private static final String START_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-start-active";
+    private static final String MIDDLE_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-middle-active";
+    private static final String END_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-end-active";
+
     private final RandomizerViewModel randomizerViewModel;
 
     @FXML
@@ -76,6 +84,7 @@ public class RandomizerViewController {
                                                     actionLabel.getStyleClass().add("logbook-sequence-actions-name");
                                                     actionsVBox.getChildren().add(actionLabel);
                                                 });
+                                actionsVBox.getChildren().forEach(label -> setPositionalStyling((Label) label, false));
                             });
                         });
 
@@ -83,7 +92,13 @@ public class RandomizerViewController {
                 .getCurrentActionProperty()
                 .addListener(
                         (_, _, action) -> {
-                            // TODO: set current action as running - visually
+                            actionsVBox.getChildren().stream()
+                                    .filter(Label.class::isInstance)
+                                    .map(Label.class::cast)
+                                    .filter(label -> label.getText().equals(action.getName()))
+                                    .filter(label -> !isActive(label))
+                                    .findFirst()
+                                    .ifPresent(label -> setPositionalStyling(label, true));
                         });
 
         randomizerViewModel
@@ -97,5 +112,31 @@ public class RandomizerViewController {
                                 });
                             }
                         });
+    }
+
+    private boolean isActive(Label label) {
+        return label.getStyleClass().stream().anyMatch(style -> style.endsWith("-active"));
+    }
+
+    private void setPositionalStyling(Label label, boolean active) {
+        int index = actionsVBox.getChildren().indexOf(label);
+
+        if (index == 0) {
+            label.getStyleClass().clear();
+            label.getStyleClass().add(ACTION_NAME_STYLING);
+            label.getStyleClass().add(active ? START_ACTIVE_ACTION_NAME_STYLING : START_ACTION_NAME_STYLING);
+            return;
+        }
+
+        if (index == actionsVBox.getChildren().size() - 1) {
+            label.getStyleClass().clear();
+            label.getStyleClass().add(ACTION_NAME_STYLING);
+            label.getStyleClass().add(active ? END_ACTIVE_ACTION_NAME_STYLING : END_ACTION_NAME_STYLING);
+            return;
+        }
+
+        label.getStyleClass().clear();
+        label.getStyleClass().add(ACTION_NAME_STYLING);
+        label.getStyleClass().add(active ? MIDDLE_ACTIVE_ACTION_NAME_STYLING : MIDDLE_ACTION_NAME_STYLING);
     }
 }
