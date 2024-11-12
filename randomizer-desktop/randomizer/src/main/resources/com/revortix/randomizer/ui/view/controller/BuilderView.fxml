@@ -71,8 +71,10 @@
                                             <top>
                                                 <VBox prefHeight="46.0" styleClass="sequence-naming" BorderPane.alignment="CENTER">
                                                     <children>
-                                                        <Label fx:id="sequenceNameLabel" styleClass="sequence-name-label" text="Sequence" />
-                                                        <Label fx:id="sequenceDescriptionLabel" styleClass="sequence-description-label" text="description" />
+                                                        <Label fx:id="sequenceNameLabel"
+                                                               styleClass="sequence-name-label"/>
+                                                        <Label fx:id="sequenceDescriptionLabel"
+                                                               styleClass="sequence-description-label"/>
                                                     </children>
                                                     <padding>
                                                         <Insets left="5.0" top="5.0" />
