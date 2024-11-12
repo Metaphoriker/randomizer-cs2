@@ -117,20 +117,8 @@ public class BuilderViewController {
                 .disableProperty()
                 .bind(builderViewModel.getCurrentActionSequenceProperty().isNull());
 
-        builderViewModel
-                .getSequenceNameProperty()
-                .addListener((_, _, newValue) -> sequenceNameLabel.setText(newValue));
-
-        builderViewModel
-                .getSequenceDescriptionProperty()
-                .addListener(
-                        (_, _, newValue) -> {
-                            String description = newValue;
-                            if (description.isEmpty()
-                                    && builderViewModel.getCurrentActionSequenceProperty().get() != null)
-                                description = "No description provided";
-                            sequenceDescriptionLabel.setText(description);
-                        });
+        sequenceDescriptionLabel.textProperty().bind(builderViewModel.getSequenceDescriptionProperty());
+        sequenceNameLabel.textProperty().bind(builderViewModel.getSequenceNameProperty());
 
         labelInFocusProperty.addListener((_, oldLabel, newLabel) -> {
             if (oldLabel != null)
@@ -166,6 +154,7 @@ public class BuilderViewController {
             return;
         }
         builderViewModel.saveActionSequence();
+        builderViewModel.getCurrentActionSequenceProperty().set(null);
         fillActionSequences();
     }
 
@@ -553,14 +542,14 @@ public class BuilderViewController {
         deleteSequenceButton.getStyleClass().add("builder-sequences-delete-button");
         deleteSequenceButton.setOnAction(
                 event -> {
-                    builderViewModel.deleteActionSequence(actionSequence);
                     if (builderViewModel.getCurrentActionSequenceProperty().get() != null
                             && builderViewModel
                             .getCurrentActionSequenceProperty()
                             .get()
-                            .getName()
-                            .equalsIgnoreCase(actionSequence.getName()))
+                            .equals(actionSequence)) {
                         builderViewModel.getCurrentActionSequenceProperty().set(null);
+                    }
+                    builderViewModel.deleteActionSequence(actionSequence);
                     fillActionSequences();
                     event.consume();
                 });
