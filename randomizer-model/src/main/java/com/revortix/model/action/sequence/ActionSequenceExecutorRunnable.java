@@ -56,20 +56,20 @@ public class ActionSequenceExecutorRunnable implements Runnable {
   /**
    * Sets the minimum wait time for the ActionSequenceExecutorRunnable.
    *
-   * @param minWaitTime the minimum wait time to be set, in milliseconds
+   * @param minWaitTime the minimum wait time to be set, in seconds
    */
   public static void setMinWaitTime(int minWaitTime) {
-    ActionSequenceExecutorRunnable.minWaitTime = minWaitTime;
+    ActionSequenceExecutorRunnable.minWaitTime = minWaitTime * 1000;
     waitTimeUpdated = true;
   }
 
   /**
    * Sets the maximum wait time for the action sequence executor.
    *
-   * @param maxWaitTime the maximum wait time in milliseconds
+   * @param maxWaitTime the maximum wait time in seconds
    */
   public static void setMaxWaitTime(int maxWaitTime) {
-    ActionSequenceExecutorRunnable.maxWaitTime = maxWaitTime;
+    ActionSequenceExecutorRunnable.maxWaitTime = maxWaitTime * 1000;
     waitTimeUpdated = true;
   }
 
