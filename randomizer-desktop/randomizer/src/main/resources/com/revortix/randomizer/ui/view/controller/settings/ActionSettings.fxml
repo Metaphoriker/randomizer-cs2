@@ -12,7 +12,12 @@
     <children>
         <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="builder-settings-vbox">
             <children>
-                <Label fx:id="actionInFocusLabel" text="Action Name" styleClass="action-in-focus-label"/>
+                <HBox alignment="CENTER_LEFT">
+                    <Label fx:id="actionInFocusLabel" text="Action Name" styleClass="action-in-focus-label"/>
+                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                        <Button onAction="#onPanelClose"/>
+                    </HBox>
+                </HBox>
                 <Separator styleClass="builder-separator"/>
                 <VBox prefWidth="140.0" styleClass="action-time-frame-vbox">
                     <children>

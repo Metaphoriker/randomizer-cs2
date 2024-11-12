@@ -18,6 +18,10 @@ public class MinMaxSlider extends HBox {
         Platform.runLater(this::initialize);
     }
 
+    public boolean isEven() {
+        return rangeSlider.getLowValue() == rangeSlider.getHighValue();
+    }
+
     public DoubleProperty getMinProperty() {
         return rangeSlider.lowValueProperty();
     }

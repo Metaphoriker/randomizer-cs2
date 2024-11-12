@@ -210,6 +210,7 @@ public class BuilderViewController {
     private void initTitleSettings() {
         sequenceNameLabel.setCursor(Cursor.HAND);
         TitleSettingsController titleSettingsController = viewProvider.requestView(TitleSettingsController.class).controller();
+        titleSettingsController.setOnPanelClose(() -> settingsHolder.getChildren().clear());
         titleSettingsController.setOnInput(input -> {
             builderViewModel.getSequenceNameProperty().set(input);
             settingsHolder.getChildren().clear();
@@ -228,6 +229,7 @@ public class BuilderViewController {
     private void initDescriptionSettings() {
         sequenceDescriptionLabel.setCursor(Cursor.HAND);
         DescriptionSettingsController descriptionSettingsController = viewProvider.requestView(DescriptionSettingsController.class).controller();
+        descriptionSettingsController.setOnPanelClose(() -> settingsHolder.getChildren().clear());
         descriptionSettingsController.setOnInput(input -> {
             if (input.isEmpty() || input.isBlank()) {
                 return;

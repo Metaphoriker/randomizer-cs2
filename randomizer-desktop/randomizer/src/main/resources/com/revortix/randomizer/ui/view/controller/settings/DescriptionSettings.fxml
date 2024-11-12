@@ -4,14 +4,21 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.TextArea?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<VBox xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="140.0" styleClass="builder-settings"
+<VBox xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="488.0" prefWidth="140.0"
+      styleClass="builder-settings"
       xmlns="http://javafx.com/javafx/17.0.12"
       fx:controller="com.revortix.randomizer.ui.view.controller.settings.DescriptionSettingsController">
     <children>
         <VBox fx:id="actionSettingsVBox" minHeight="488.0" minWidth="140.0" styleClass="builder-settings-vbox">
             <children>
-                <Label fx:id="actionInFocusLabel" styleClass="description-in-focus-label" text="Description" />
+                <HBox alignment="CENTER_LEFT">
+                    <Label fx:id="actionInFocusLabel" styleClass="description-in-focus-label" text="Description"/>
+                    <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
+                        <Button onAction="#onPanelClose"/>
+                    </HBox>
+                </HBox>
                 <Separator styleClass="builder-separator"/>
                 <VBox prefWidth="140.0" styleClass="action-time-frame-vbox">
                     <children>

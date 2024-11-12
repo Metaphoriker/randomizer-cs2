@@ -33,7 +33,16 @@ public class ActionSettingsController {
 
     @FXML
     void onApply(ActionEvent event) {
+        if (minMaxSlider.isEven())
+            return; // this should not be possible
+
         actionSettingsViewModel.applyInterval();
+        actionSettingsViewModel.getActionInFocusProperty().set(null);
+    }
+
+    @FXML
+    void onPanelClose(ActionEvent event) {
+        actionSettingsViewModel.getActionInFocusProperty().set(null);
     }
 
     private void initialize() {
