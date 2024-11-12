@@ -43,7 +43,7 @@ public class ActionSequence {
      * Provides a textual description of the ActionSequence. This is intended to offer additional context or details
      * about the sequence of actions.
      */
-    private String description = "";
+    private String description = "No description provided";
 
     public ActionSequence(String name) {
         this.name = name;

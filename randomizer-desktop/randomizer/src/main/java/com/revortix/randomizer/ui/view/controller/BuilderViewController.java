@@ -229,6 +229,9 @@ public class BuilderViewController {
         sequenceDescriptionLabel.setCursor(Cursor.HAND);
         DescriptionSettingsController descriptionSettingsController = viewProvider.requestView(DescriptionSettingsController.class).controller();
         descriptionSettingsController.setOnInput(input -> {
+            if (input.isEmpty() || input.isBlank()) {
+                return;
+            }
             builderViewModel.getSequenceDescriptionProperty().set(input);
             settingsHolder.getChildren().clear();
         });
