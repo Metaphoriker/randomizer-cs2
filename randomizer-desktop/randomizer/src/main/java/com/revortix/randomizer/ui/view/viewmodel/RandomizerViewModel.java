@@ -77,7 +77,10 @@ public class RandomizerViewModel {
 
     private void setupInternalHandler() {
         actionSequenceDispatcher.registerSequenceHandler(currentActionSequenceProperty::set);
-        actionSequenceDispatcher.registerSequenceFinishHandler(_ -> waitingProperty.set(true));
+        actionSequenceDispatcher.registerSequenceFinishHandler(_ -> {
+            currentActionSequenceProperty.set(null);
+            waitingProperty.set(true);
+        });
         actionSequenceDispatcher.registerActionHandler(currentActionProperty::set);
     }
 
