@@ -42,7 +42,7 @@ public class ActionSettingsController {
 
     @FXML
     void onPanelClose(ActionEvent event) {
-        actionSettingsViewModel.getActionInFocusProperty().set(null);
+        setAction(null);
     }
 
     private void initialize() {

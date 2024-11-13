@@ -193,8 +193,10 @@ public class BuilderViewController {
         actionSettingsController.bindOnVisibleProperty(visible -> {
             if (visible)
                 settingsHolder.getChildren().setAll(viewProvider.requestView(ActionSettingsController.class).parent());
-            else
+            else {
+                labelInFocusProperty.set(null);
                 settingsHolder.getChildren().clear();
+            }
         });
 
     }
