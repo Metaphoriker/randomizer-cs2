@@ -23,8 +23,8 @@ public class ActionSettingsViewModel {
         Action currentAction = actionInFocusProperty.get();
         if (currentAction != null) {
             Interval interval = currentAction.getInterval();
-            interval.setMin(minIntervalProperty.get());
-            interval.setMax(maxIntervalProperty.get());
+            interval.setMin(minIntervalProperty.get() * 1000);
+            interval.setMax(maxIntervalProperty.get() * 1000);
         }
     }
 

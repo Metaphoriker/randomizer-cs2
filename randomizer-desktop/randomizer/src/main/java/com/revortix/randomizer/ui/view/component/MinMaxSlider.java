@@ -38,6 +38,14 @@ public class MinMaxSlider extends HBox {
         maxValueChangeConsumer = consumer;
     }
 
+    public void setMaxHigherValue(int value) {
+        rangeSlider.setMax(value);
+    }
+
+    public void setMinLowerValue(int value) {
+        rangeSlider.setMin(value);
+    }
+
     public void setMinMaxValue(double min, double max) {
         rangeSlider.setLowValue(min);
         rangeSlider.setHighValue(max);
