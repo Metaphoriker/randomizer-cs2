@@ -80,7 +80,9 @@ public abstract class Action implements Cloneable {
             executeWithDelay(0);
         } else {
             long delay =
-                    ThreadLocalRandom.current().nextInt(getInterval().getMin(), getInterval().getMax());
+                    ThreadLocalRandom.current().nextInt(
+                            getInterval().getMin() * 1000,
+                            getInterval().getMax() * 1000);
             executeWithDelay(delay);
         }
     }
