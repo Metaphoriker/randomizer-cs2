@@ -40,7 +40,6 @@ public class RandomizerBootstrap {
     private final ActionRepository actionRepository;
     private final KeyBindRepository keyBindRepository;
     private final ActionSequenceExecutorRunnable actionSequenceExecutorRunnable;
-    private final FileSystemWatcher fileSystemWatcher;
     private final RandomizerConfig randomizerConfig;
 
     @Inject
@@ -49,13 +48,11 @@ public class RandomizerBootstrap {
             ActionRepository actionRepository,
             KeyBindRepository keyBindRepository,
             ActionSequenceExecutorRunnable actionSequenceExecutorRunnable,
-            FileSystemWatcher fileSystemWatcher,
             RandomizerConfig randomizerConfig) {
         this.actionSequenceRepository = actionSequenceRepository;
         this.actionRepository = actionRepository;
         this.keyBindRepository = keyBindRepository;
         this.actionSequenceExecutorRunnable = actionSequenceExecutorRunnable;
-        this.fileSystemWatcher = fileSystemWatcher;
         this.randomizerConfig = randomizerConfig;
     }
 
@@ -66,8 +63,8 @@ public class RandomizerBootstrap {
         loadKeyBinds();
         registerActions();
         cacheActions();
-        startExecutors();
-        setupListeners();
+        setupFileWatcher();
+        startExecutor();
         Messages.cache();
         setupGlobalExceptionHandler();
         registerNativeKeyHook();
@@ -87,9 +84,11 @@ public class RandomizerBootstrap {
         ConfigLoader.loadKeyBinds(keyBindRepository);
     }
 
-    private void setupListeners() {
-        log.info("Richte Listener ein...");
+    private void setupFileWatcher() {
+        log.info("Starte FileWatcher");
+        FileSystemWatcher fileSystemWatcher = new FileSystemWatcher();
         fileSystemWatcher.addFileChangeListener(_ -> cacheActions());
+        startThread(new Thread(fileSystemWatcher));
     }
 
     private void setupGlobalExceptionHandler() {
@@ -103,10 +102,9 @@ public class RandomizerBootstrap {
         actionSequenceRepository.updateActionSequencesCache();
     }
 
-    private void startExecutors() {
+    private void startExecutor() {
         log.info("Starte Executor...");
         startThread(new Thread(actionSequenceExecutorRunnable));
-        startThread(new Thread(new FileSystemWatcher()));
     }
 
     private void startThread(Thread thread) {

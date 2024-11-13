@@ -39,8 +39,8 @@ public class ActionSequenceRepository {
         }
 
         actionSequencesMap.put(actionSequence.getName(), actionSequence);
+        isCacheUpdated = false;
         actionSequenceDao.saveActionSequence(actionSequence);
-        isCacheUpdated = true;
         log.info("ActionSequence '{}' gespeichert.", actionSequence.getName());
     }
 
@@ -63,8 +63,8 @@ public class ActionSequenceRepository {
         }
 
         removeActionSequence(actionSequence.getName());
+        isCacheUpdated = false;
         actionSequenceDao.deleteActionSequence(actionSequence);
-        isCacheUpdated = true;
         log.info("ActionSequence '{}' gelöscht.", actionSequence.getName());
     }
 

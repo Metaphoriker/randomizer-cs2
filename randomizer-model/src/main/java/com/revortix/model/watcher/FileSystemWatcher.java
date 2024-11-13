@@ -10,25 +10,18 @@ import java.nio.file.StandardWatchEventKinds;
 import java.nio.file.WatchEvent;
 import java.nio.file.WatchKey;
 import java.nio.file.WatchService;
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 import java.util.concurrent.ConcurrentHashMap;
+import java.util.concurrent.CopyOnWriteArrayList;
 import java.util.function.Consumer;
 
-/**
- * The {@code FileSystemWatcher} class monitors changes to a specified directory and notifies registered listeners about
- * file creation and deletion events.
- *
- * <p>This watcher specifically monitors files with the ".sequence" extension, invoking the
- * registered {@code Consumer} instances whenever such a file is created, deleted or modified.
- */
 @Slf4j
 public class FileSystemWatcher implements Runnable {
 
     private static final long DEBOUNCE_TIME_MS = 50;
 
-    private final List<Consumer<Path>> fileChangeListeners = new ArrayList<>();
+    private final List<Consumer<Path>> fileChangeListeners = new CopyOnWriteArrayList<>();
     private final Map<Path, Long> lastModifiedTimes = new ConcurrentHashMap<>();
 
     public void addFileChangeListener(Consumer<Path> fileChangeListener) {
@@ -53,19 +46,16 @@ public class FileSystemWatcher implements Runnable {
                 for (WatchEvent<?> event : key.pollEvents()) {
 
                     WatchEvent.Kind<?> kind = event.kind();
-                    if (kind == StandardWatchEventKinds.OVERFLOW) continue;
+                    if (kind == StandardWatchEventKinds.OVERFLOW) {
+                        log.warn("Event overflow occurred. Some file system events might have been missed.");
+                        continue;
+                    }
 
                     WatchEvent<Path> ev = (WatchEvent<Path>) event;
                     Path filename = ev.context();
 
                     if (filename.toString().endsWith(".sequence")) {
-                        Long lastModifiedTime = lastModifiedTimes.getOrDefault(filename, 0L);
-                        long currentTime = System.currentTimeMillis();
-                        if (currentTime - lastModifiedTime > DEBOUNCE_TIME_MS) { // entprellzeit
-                            lastModifiedTimes.put(filename, currentTime);
-                            fileChangeListeners.forEach(consumer -> consumer.accept(filename));
-                            log.debug("Detected {} on file: {}", kind.name(), filename);
-                        }
+                        processEvent(filename, kind);
                     }
                 }
 
@@ -78,10 +68,28 @@ public class FileSystemWatcher implements Runnable {
 
         } catch (IOException e) {
             log.error("IOException occurred while watching directory: ", e);
-            Thread.currentThread().interrupt();
         } catch (InterruptedException e) {
             log.warn("FileSystemWatcher was interrupted: ", e);
+        } finally {
             Thread.currentThread().interrupt();
+        }
+    }
+
+    private void processEvent(Path filename, WatchEvent.Kind<?> kind) {
+        synchronized (lastModifiedTimes) {
+            Long lastModifiedTime = lastModifiedTimes.getOrDefault(filename, 0L);
+            long currentTime = System.currentTimeMillis();
+            if (currentTime - lastModifiedTime > DEBOUNCE_TIME_MS) {
+                lastModifiedTimes.put(filename, currentTime);
+                log.debug("Detected {} on file: {}", kind.name(), filename);
+                for (Consumer<Path> listener : fileChangeListeners) {
+                    try {
+                        listener.accept(filename);
+                    } catch (Exception e) {
+                        log.error("Error executing file change listener: ", e);
+                    }
+                }
+            }
         }
     }
 }

@@ -13,7 +13,6 @@ import com.revortix.model.persistence.JsonUtil;
 import com.revortix.model.persistence.dao.ActionSequenceDao;
 import com.revortix.model.persistence.de_serializer.ActionJsonDeSerializer;
 import com.revortix.model.persistence.de_serializer.ActionSequenceJsonDeSerializer;
-import com.revortix.model.watcher.FileSystemWatcher;
 
 public class ModelModule extends AbstractModule {
 
@@ -25,7 +24,6 @@ public class ModelModule extends AbstractModule {
         bind(KeyBindRepository.class).asEagerSingleton();
         bind(KeyBindNameTypeMapper.class).asEagerSingleton();
         bind(ActionSequenceDispatcher.class).asEagerSingleton();
-        bind(FileSystemWatcher.class).asEagerSingleton();
         bind(JsonUtil.class).asEagerSingleton();
         bind(ActionSequenceDao.class).asEagerSingleton();
 
