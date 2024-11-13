@@ -121,6 +121,10 @@
     -fx-background-size: 16px;
 }
 
+.logbook-sequence-actions-name:hover {
+    -fx-text-fill: #C444C3;
+}
+
 .logbook-sequence-actions-name-start {
     -fx-background-image: url("../images/startActionIcon.png");
 }
@@ -513,6 +517,14 @@
     -fx-font-style: normal;
     -fx-font-weight: 600;
     -fx-text-fill: #DAF0F3;
+}
+
+.builder-sequences-hbox:hover {
+    -fx-background-color: #38545A;
+}
+
+.builder-sequences-hbox:hover Label{
+    -fx-text-fill: #C444C3;
 }
 
 .builder-sequences-delete-button {
