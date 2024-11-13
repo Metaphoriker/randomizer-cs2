@@ -32,6 +32,7 @@ public class NavigationBarController {
     private void initialize() {
         setupBindings();
         setupToggleButtonLogic();
+        toggle(homeButton);
     }
 
     private void setupBindings() {
@@ -48,6 +49,10 @@ public class NavigationBarController {
         if (newView != null) {
             viewProvider.triggerViewChange(newView);
         }
+    }
+
+    private void toggle(ToggleButton button) {
+        button.setSelected(!button.isSelected());
     }
 
     private void setupToggleButtonLogic() {
