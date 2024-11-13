@@ -72,7 +72,11 @@ public class RandomizerViewController {
                 .getCurrentActionSequenceProperty()
                 .addListener(
                         (_, _, sequence) -> {
-                            if (sequence == null) return;
+                            if (sequence == null) {
+                                actionsVBox.getChildren().clear();
+                                return;
+                            }
+
                             Platform.runLater(() -> {
                                 sequenceNameLabel.setText(sequence.getName());
                                 actionsVBox.getChildren().clear();
