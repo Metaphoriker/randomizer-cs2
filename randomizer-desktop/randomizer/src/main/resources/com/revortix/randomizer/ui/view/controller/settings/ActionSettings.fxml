@@ -15,7 +15,7 @@
                 <HBox alignment="CENTER_LEFT">
                     <Label fx:id="actionInFocusLabel" text="Action Name" styleClass="action-in-focus-label"/>
                     <HBox alignment="CENTER_RIGHT" HBox.hgrow="ALWAYS">
-                        <Button onAction="#onPanelClose"/>
+                        <Button onAction="#onPanelClose" styleClass="settings-close-button"/>
                     </HBox>
                 </HBox>
                 <Separator styleClass="builder-separator"/>

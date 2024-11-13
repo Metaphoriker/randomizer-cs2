@@ -688,6 +688,18 @@
     -fx-padding: 4px 8px;
 }
 
+.settings-close-button {
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/closeSettingsIcon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 20px 20px;
+}
+
+.settings-close-button:hover {
+    -fx-background-image: url("../images/closeSettingsHoverIcon.png");
+}
+
 .action-in-focus-label, .sequence-in-focus-label, .description-in-focus-label {
     -fx-font-family: SansSerif;
     -fx-font-size: 14px;
