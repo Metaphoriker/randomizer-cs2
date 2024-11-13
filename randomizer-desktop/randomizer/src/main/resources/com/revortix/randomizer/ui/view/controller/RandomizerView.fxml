@@ -22,8 +22,7 @@
                             <children>
                                 <HBox prefHeight="20.0" prefWidth="420.0" styleClass="logbook-active-sequence">
                                     <children>
-                                        <Label fx:id="sequenceNameLabel" styleClass="logbook-sequence-name"
-                                               text="Sequence Name"/>
+                                        <Label fx:id="sequenceNameLabel" styleClass="logbook-sequence-name"/>
                                     </children>
                                 </HBox>
                                 <HBox prefHeight="398.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
