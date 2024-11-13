@@ -71,7 +71,8 @@
                                         <Label text="Shows the last sequences that were running." wrapText="true" styleClass="logbook-descriptions"/>
                                         <ScrollPane hbarPolicy="NEVER" styleClass="logbook-history-scrollpane" VBox.vgrow="ALWAYS" fitToHeight="true" fitToWidth="true">
                                             <content>
-                                                <VBox prefWidth="134.0" styleClass="logbook-history-content"/>
+                                                <VBox fx:id="historyVBox" prefWidth="134.0"
+                                                      styleClass="logbook-history-content"/>
                                             </content>
                                         </ScrollPane>
                                     </children>

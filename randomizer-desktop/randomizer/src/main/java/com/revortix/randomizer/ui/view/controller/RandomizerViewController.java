@@ -1,6 +1,7 @@
 package com.revortix.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
+import com.revortix.model.action.sequence.ActionSequence;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.component.MinMaxSlider;
 import com.revortix.randomizer.ui.view.viewmodel.RandomizerViewModel;
@@ -8,7 +9,11 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @View
 public class RandomizerViewController {
@@ -29,6 +34,8 @@ public class RandomizerViewController {
     private VBox actionsVBox;
     @FXML
     private MinMaxSlider minMaxSlider;
+    @FXML
+    private VBox historyVBox;
 
     @Inject
     public RandomizerViewController(RandomizerViewModel randomizerViewModel) {
@@ -67,11 +74,28 @@ public class RandomizerViewController {
         minMaxSlider.getMaxProperty().bindBidirectional(randomizerViewModel.getMaxIntervalProperty());
     }
 
+    /**
+     * Creates the history container for the ActionSequence
+     */
+    private void createActionSequenceContainer(ActionSequence actionSequence) {
+        HBox container = new HBox();
+        Label actionSequenceNameLabel = new Label(actionSequence.getName());
+        Label actionSequenceActionCount = new Label(String.valueOf(actionSequence.getActions().size()));
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
+        Label actionSequenceActionExecutedAt = new Label(LocalTime.now().format(formatter));
+        container.getChildren().addAll(actionSequenceNameLabel, actionSequenceActionCount, actionSequenceActionExecutedAt);
+        historyVBox.getChildren().addFirst(container);
+    }
+
     private void setupListener() {
         randomizerViewModel
                 .getCurrentActionSequenceProperty()
                 .addListener(
-                        (_, _, sequence) -> {
+                        (_, oldSequence, sequence) -> {
+                            if (oldSequence != null) {
+                                Platform.runLater(() -> createActionSequenceContainer(oldSequence));
+                            }
+
                             if (sequence == null) {
                                 Platform.runLater(() -> actionsVBox.getChildren().clear());
                                 return;
