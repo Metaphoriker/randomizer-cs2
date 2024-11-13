@@ -82,6 +82,10 @@ public class RandomizerViewModel {
     }
 
     private void setupInternalListener() {
-        currentActionSequenceProperty.addListener((_, _, _) -> waitingProperty.set(false));
+        currentActionSequenceProperty.addListener((_, _, newSequence) -> {
+            if (newSequence != null) {
+                waitingProperty.set(false);
+            }
+        });
     }
 }
