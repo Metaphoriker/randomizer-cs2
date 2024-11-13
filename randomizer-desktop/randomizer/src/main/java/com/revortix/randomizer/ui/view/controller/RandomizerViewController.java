@@ -73,7 +73,7 @@ public class RandomizerViewController {
                 .addListener(
                         (_, _, sequence) -> {
                             if (sequence == null) {
-                                actionsVBox.getChildren().clear();
+                                Platform.runLater(() -> actionsVBox.getChildren().clear());
                                 return;
                             }
 
