@@ -79,7 +79,7 @@ public class RandomizerViewController {
      */
     private void createActionSequenceContainer(ActionSequence actionSequence) {
         HBox container = new HBox();
-        container.getStylesheets().add("logbook-history-entry-container");
+        container.getStyleClass().add("logbook-history-entry-container");
         Label actionSequenceNameLabel = new Label(actionSequence.getName());
         actionSequenceNameLabel.getStyleClass().add("logbook-history-entry-name");
         Label actionSequenceActionCount = new Label(String.valueOf(actionSequence.getActions().size()));
