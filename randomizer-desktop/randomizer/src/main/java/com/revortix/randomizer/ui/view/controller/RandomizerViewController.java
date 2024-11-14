@@ -68,8 +68,15 @@ public class RandomizerViewController {
     private void initialize() {
         randomizerViewModel.initConfig();
         setupListener();
+        setupStateIndicator();
         setupStateChangeListener();
         setupIntervalSlider();
+    }
+
+    private void setupStateIndicator() {
+        stateIndicator.getStyleClass().add(STATE_INDICATOR);
+        stateIndicator.getStyleClass().add(STATE_INDICATOR_STOPPED);
+        stateIndicator.setTooltip(createTooltip("Stopped"));
     }
 
     private void setupIntervalSlider() {
