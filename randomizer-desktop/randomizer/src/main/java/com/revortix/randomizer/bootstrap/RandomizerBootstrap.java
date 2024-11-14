@@ -13,8 +13,6 @@ import com.revortix.model.action.repository.ActionRepository;
 import com.revortix.model.action.repository.ActionSequenceRepository;
 import com.revortix.model.action.sequence.ActionSequenceExecutorRunnable;
 import com.revortix.model.config.ConfigLoader;
-import com.revortix.model.config.keybind.KeyBind;
-import com.revortix.model.config.keybind.KeyBindNameTypeMapper;
 import com.revortix.model.config.keybind.KeyBindRepository;
 import com.revortix.model.exception.UncaughtExceptionLogger;
 import com.revortix.model.messages.Messages;
@@ -28,7 +26,6 @@ import lombok.extern.slf4j.Slf4j;
 import java.io.File;
 import java.io.IOException;
 import java.net.URISyntaxException;
-import java.util.Map;
 
 /**
  * The RandomizerBootstrap class is responsible for initializing and configuring the application. It sets up
@@ -42,7 +39,6 @@ public class RandomizerBootstrap {
     @Getter
     private final ActionRepository actionRepository;
     private final KeyBindRepository keyBindRepository;
-    private final KeyBindNameTypeMapper keyBindNameTypeMapper;
     private final ActionSequenceExecutorRunnable actionSequenceExecutorRunnable;
     private final RandomizerConfig randomizerConfig;
 
@@ -51,13 +47,11 @@ public class RandomizerBootstrap {
             ActionSequenceRepository actionSequenceRepository,
             ActionRepository actionRepository,
             KeyBindRepository keyBindRepository,
-            KeyBindNameTypeMapper keyBindNameTypeMapper,
             ActionSequenceExecutorRunnable actionSequenceExecutorRunnable,
             RandomizerConfig randomizerConfig) {
         this.actionSequenceRepository = actionSequenceRepository;
         this.actionRepository = actionRepository;
         this.keyBindRepository = keyBindRepository;
-        this.keyBindNameTypeMapper = keyBindNameTypeMapper;
         this.actionSequenceExecutorRunnable = actionSequenceExecutorRunnable;
         this.randomizerConfig = randomizerConfig;
     }
@@ -173,7 +167,7 @@ public class RandomizerBootstrap {
         actionRepository.register(new MouseMoveAction());
         actionRepository.register(new BaseAction("Escape", ActionKey.of("ESCAPE")));
         registerKeyBindActions();
-        registerUnboundActions();
+        log.info("{} Aktionen registriert", actionRepository.getActions().size());
     }
 
     private void registerKeyBindActions() {
@@ -184,31 +178,6 @@ public class RandomizerBootstrap {
                             Action action = new BaseAction(keyBind.getAction(), ActionKey.of(keyBind.getKey()));
                             actionRepository.register(action);
                         });
-    }
-
-    /**
-     * Registers actions, which are not bound by the user. They are empty and just registered for visual reasons. They
-     * are disabled right away.
-     */
-    private void registerUnboundActions() {
-        log.info("Register Unbound Actions...");
-        Map<String, KeyBindNameTypeMapper.NameType> descriptors = keyBindNameTypeMapper.getDescriptorToNameMap();
-        tailorToUnboundActionNames(descriptors);
-        registerUnboundActions(descriptors);
-    }
-
-    private void tailorToUnboundActionNames(Map<String, KeyBindNameTypeMapper.NameType> descriptors) {
-        actionRepository.getActions().keySet().stream().map(Action::getName).forEach(descriptors::remove);
-    }
-
-    private void registerUnboundActions(Map<String, KeyBindNameTypeMapper.NameType> descriptors) {
-        descriptors.forEach(
-                (name, _) -> {
-                    Action action = new BaseAction(name, ActionKey.of(KeyBind.EMPTY_KEY_BIND.getKey()));
-                    actionRepository.register(action);
-                    actionRepository.disable(action);
-                });
-        log.info("Registered Unbound Actions: {}", descriptors.keySet());
     }
 
     private void registerNativeKeyHook() {
