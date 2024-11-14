@@ -5,7 +5,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" fx:id="root" prefHeight="488.0" prefWidth="688.0"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="688.0"
             xmlns="http://javafx.com/javafx/22"
             fx:controller="com.revortix.randomizer.ui.view.controller.HomeViewController">
     <children>
@@ -15,8 +15,8 @@
                 <Label text="Randomizer CS2" styleClass="home-view-title"/>
                 <HBox  alignment="CENTER" prefHeight="39.0" prefWidth="688.0" styleClass="home-view-socials-container">
                     <children>
-                        <Label text="Discord" styleClass="home-view-discord"/>
-                        <Label text="GitHub" styleClass="home-view-github"/>
+                        <Label onMouseClicked="#onDiscordOpen" text="Discord" styleClass="home-view-discord"/>
+                        <Label onMouseClicked="#onGitHubOpen" text="GitHub" styleClass="home-view-github"/>
                     </children>
                 </HBox>
             </children>
