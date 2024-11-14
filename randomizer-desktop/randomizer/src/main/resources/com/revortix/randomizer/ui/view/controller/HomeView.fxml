@@ -1,28 +1,29 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="688.0"
-            xmlns="http://javafx.com/javafx/22"
+<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.revortix.randomizer.ui.view.controller.HomeViewController">
     <children>
-        <HBox styleClass="home-view-update-container" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-            <Label fx:id="updateIndicator" styleClass="home-view-update-indicator" visible="false"/>
-        </HBox>
-        <VBox alignment="CENTER" prefHeight="456.0" prefWidth="688.0" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="home-view">
+        <VBox>
             <children>
-                <Label text="Randomizer CS2" styleClass="home-view-title"/>
-                <HBox  alignment="CENTER" prefHeight="39.0" prefWidth="688.0" styleClass="home-view-socials-container">
-                    <children>
-                        <Label onMouseClicked="#onDiscordOpen" text="Discord" styleClass="home-view-discord"/>
-                        <Label onMouseClicked="#onGitHubOpen" text="GitHub" styleClass="home-view-github"/>
-                    </children>
+                <HBox styleClass="home-view-update-container">
+                    <Label fx:id="updateIndicator" styleClass="home-view-update-indicator" visible="false"/>
                 </HBox>
+                <VBox alignment="CENTER" prefHeight="456.0" prefWidth="688.0" styleClass="home-view">
+                    <children>
+                        <Label styleClass="home-view-title" text="Randomizer CS2"/>
+                        <HBox alignment="CENTER" prefHeight="39.0" prefWidth="688.0"
+                              styleClass="home-view-socials-container">
+                            <children>
+                                <Label onMouseClicked="#onDiscordOpen" styleClass="home-view-discord" text="Discord"/>
+                                <Label onMouseClicked="#onGitHubOpen" styleClass="home-view-github" text="GitHub"/>
+                            </children>
+                        </HBox>
+                    </children>
+                </VBox>
             </children>
         </VBox>
     </children>
