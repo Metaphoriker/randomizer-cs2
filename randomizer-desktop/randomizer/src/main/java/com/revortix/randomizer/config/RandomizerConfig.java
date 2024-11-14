@@ -18,5 +18,5 @@ public class RandomizerConfig extends BaseConfiguration {
     private int maxInterval = 120;
 
     @ConfigValue(name = "autoupdate.enabled")
-    private boolean autoupdateEnabled = true;
+    private boolean autoupdateEnabled = false;
 }
