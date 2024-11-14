@@ -188,7 +188,7 @@
     -fx-alignment: center-right;
 }
 
-.logbook-state-indicator, .logbook-state-indicator-running, .logbook-state-indicator-stopped, .logbook-state-indicator-awaiting {
+.logbook-state-indicator {
     -fx-pref-width: 20px;
     -fx-pref-height: 20px;
     -fx-background-size: 20px;

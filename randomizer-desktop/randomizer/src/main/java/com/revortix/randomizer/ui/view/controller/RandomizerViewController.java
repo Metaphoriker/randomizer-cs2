@@ -26,6 +26,7 @@ public class RandomizerViewController {
     private static final String START_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-start-active";
     private static final String MIDDLE_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-middle-active";
     private static final String END_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-end-active";
+    private static final String STATE_INDICATOR = "logbook-state-indicator";
     private static final String STATE_INDICATOR_RUNNING = "logbook-state-indicator-running";
     private static final String STATE_INDICATOR_STOPPED = "logbook-state-indicator-stopped";
     private static final String STATE_INDICATOR_AWAITING = "logbook-state-indicator-awaiting";
@@ -86,16 +87,19 @@ public class RandomizerViewController {
             switch (state) {
                 case RUNNING -> {
                     stateIndicator.getStyleClass().clear();
+                    stateIndicator.getStyleClass().add(STATE_INDICATOR);
                     stateIndicator.getStyleClass().add(STATE_INDICATOR_RUNNING);
                     stateIndicator.setTooltip(createTooltip("Running"));
                 }
                 case IDLING -> {
                     stateIndicator.getStyleClass().clear();
+                    stateIndicator.getStyleClass().add(STATE_INDICATOR);
                     stateIndicator.getStyleClass().add(STATE_INDICATOR_STOPPED);
                     stateIndicator.setTooltip(createTooltip("Stopped"));
                 }
                 case AWAITING -> {
                     stateIndicator.getStyleClass().clear();
+                    stateIndicator.getStyleClass().add(STATE_INDICATOR);
                     stateIndicator.getStyleClass().add(STATE_INDICATOR_AWAITING);
                     stateIndicator.setTooltip(createTooltip("Awaiting for CS2 to be focused"));
                 }
