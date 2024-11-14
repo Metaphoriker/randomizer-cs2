@@ -62,7 +62,7 @@ public class MinMaxSlider extends HBox {
         setAlignment(Pos.CENTER);
         getChildren().addAll(minLabel, rangeSlider, maxLabel);
 
-        rangeSlider.setBlockIncrement(5);
+        rangeSlider.setBlockIncrement(1);
         setListener();
     }
 
