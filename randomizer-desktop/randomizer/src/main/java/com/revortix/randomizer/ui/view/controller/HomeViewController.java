@@ -6,7 +6,6 @@ import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.viewmodel.HomeViewModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -50,7 +49,6 @@ public class HomeViewController {
     }
 
     private void initUpdateIndicator() {
-        updateIndicator.setCursor(Cursor.HAND);
         if (homeViewModel.isUpdateAvailable()) {
             updateIndicator.setVisible(true);
         }

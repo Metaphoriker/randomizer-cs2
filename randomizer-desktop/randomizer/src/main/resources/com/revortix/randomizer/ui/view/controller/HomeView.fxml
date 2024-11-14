@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.Cursor?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
@@ -12,7 +13,11 @@
             <children>
                 <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="688.0"
                       styleClass="home-view-update-container">
-                    <Label fx:id="updateIndicator" styleClass="home-view-update-indicator" visible="false"/>
+                    <Label fx:id="updateIndicator" styleClass="home-view-update-indicator" visible="false">
+                        <cursor>
+                            <Cursor fx:constant="HAND"/>
+                        </cursor>
+                    </Label>
                 </HBox>
                 <VBox alignment="CENTER" prefHeight="456.0" prefWidth="688.0" styleClass="home-view"
                       VBox.vgrow="ALWAYS">
@@ -21,8 +26,16 @@
                         <HBox alignment="CENTER" prefHeight="39.0" prefWidth="688.0"
                               styleClass="home-view-socials-container">
                             <children>
-                                <Label onMouseClicked="#onDiscordOpen" styleClass="home-view-discord" text="Discord"/>
-                                <Label onMouseClicked="#onGitHubOpen" styleClass="home-view-github" text="GitHub"/>
+                                <Label onMouseClicked="#onDiscordOpen" styleClass="home-view-discord" text="Discord">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </Label>
+                                <Label onMouseClicked="#onGitHubOpen" styleClass="home-view-github" text="GitHub">
+                                    <cursor>
+                                        <Cursor fx:constant="HAND"/>
+                                    </cursor>
+                                </Label>
                             </children>
                         </HBox>
                     </children>
