@@ -47,3 +47,6 @@
 ## ⭐ Like what you see?
 
 If **randomizer-cs2** brings a smile to your gameplay, consider leaving a star 🌟!
+
+UX: [@bustolio](https://www.github.com/CuzIamBusted)
+Programming: [@Metaphoriker](https://www.github.com/Metaphoriker)
