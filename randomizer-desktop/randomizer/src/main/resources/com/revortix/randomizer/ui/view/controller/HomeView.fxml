@@ -14,7 +14,7 @@
                       styleClass="home-view-update-container">
                     <Label fx:id="updateIndicator" styleClass="home-view-update-indicator" visible="false"/>
                 </HBox>
-                <VBox alignment="CENTER" prefHeight="470.0" prefWidth="688.0" styleClass="home-view"
+                <VBox alignment="CENTER" prefHeight="456.0" prefWidth="688.0" styleClass="home-view"
                       VBox.vgrow="ALWAYS">
                     <children>
                         <Label styleClass="home-view-title" text="Randomizer CS2"/>

@@ -85,8 +85,8 @@
 }
 
 .home-view-update-indicator {
-    -fx-pref-width: 24px;
-    -fx-pref-height: 24px;
+    -fx-min-width: 28px;
+    -fx-min-height: 28px;
     -fx-background-color: transparent;
     -fx-background-image: url("../images/updateAvailableIcon.png");
     -fx-background-repeat: no-repeat;
