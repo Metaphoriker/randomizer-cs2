@@ -75,6 +75,15 @@ public class KeyBindNameTypeMapper {
     return KeyBindType.MISCELLANEOUS;
   }
 
+  /**
+   * Retrieves an immutable copy of the descriptor-to-name map.
+   *
+   * @return an unmodifiable map where keys are descriptors and values are name types.
+   */
+  public Map<String, NameType> getDescriptorToNameMap() {
+    return Map.copyOf(descriptorToNameMap);
+  }
+
   private void initializeDescriptorMappings() {
     descriptorToNameMap.put("+jump", new NameType("Jump", KeyBindType.MOVEMENT));
     descriptorToNameMap.put("+left", new NameType("Move Left", KeyBindType.MOVEMENT));
