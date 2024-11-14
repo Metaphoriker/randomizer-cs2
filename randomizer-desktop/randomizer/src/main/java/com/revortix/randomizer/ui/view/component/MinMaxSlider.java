@@ -2,6 +2,7 @@ package com.revortix.randomizer.ui.view.component;
 
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
+import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import org.controlsfx.control.RangeSlider;
 
@@ -10,6 +11,8 @@ import java.util.function.Consumer;
 public class MinMaxSlider extends HBox {
 
     private final RangeSlider rangeSlider = new RangeSlider(0, 300, 30, 100); // max 5 minutes
+    private final Label minLabel = new Label("s");
+    private final Label maxLabel = new Label("s");
 
     private Consumer<Double> minValueChangeConsumer;
     private Consumer<Double> maxValueChangeConsumer;
@@ -39,10 +42,12 @@ public class MinMaxSlider extends HBox {
     }
 
     public void setMaxHigherValue(int value) {
+        maxLabel.setText(value + "s");
         rangeSlider.setMax(value);
     }
 
     public void setMinLowerValue(int value) {
+        minLabel.setText(value + "s");
         rangeSlider.setMin(value);
     }
 
@@ -52,7 +57,8 @@ public class MinMaxSlider extends HBox {
     }
 
     private void initialize() {
-        getChildren().addAll(rangeSlider);
+        initializeLabels();
+        getChildren().addAll(minLabel, rangeSlider, maxLabel);
 
         rangeSlider.setShowTickMarks(true);
         rangeSlider.setShowTickLabels(true);
@@ -60,9 +66,15 @@ public class MinMaxSlider extends HBox {
         setListener();
     }
 
+    private void initializeLabels() {
+        minLabel.getStyleClass().add("rangeslider-min-label");
+        maxLabel.getStyleClass().add("rangeslider-max-label");
+    }
+
     private void setListener() {
         rangeSlider.lowValueProperty().addListener(
                 (_, _, newValue) -> {
+                    minLabel.setText(newValue.intValue() + "s");
                     if (minValueChangeConsumer != null) {
                         minValueChangeConsumer.accept(newValue.doubleValue());
                     }
@@ -71,6 +83,7 @@ public class MinMaxSlider extends HBox {
 
         rangeSlider.highValueProperty().addListener(
                 (_, _, newValue) -> {
+                    maxLabel.setText(newValue.intValue() + "s");
                     if (maxValueChangeConsumer != null) {
                         maxValueChangeConsumer.accept(newValue.doubleValue());
                     }
