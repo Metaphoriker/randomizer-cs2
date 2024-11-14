@@ -7,12 +7,15 @@
 <AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/22"
             fx:controller="com.revortix.randomizer.ui.view.controller.HomeViewController">
     <children>
-        <VBox>
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
+              AnchorPane.topAnchor="0.0">
             <children>
-                <HBox styleClass="home-view-update-container">
+                <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="688.0"
+                      styleClass="home-view-update-container">
                     <Label fx:id="updateIndicator" styleClass="home-view-update-indicator" visible="false"/>
                 </HBox>
-                <VBox alignment="CENTER" prefHeight="456.0" prefWidth="688.0" styleClass="home-view">
+                <VBox alignment="CENTER" prefHeight="470.0" prefWidth="688.0" styleClass="home-view"
+                      VBox.vgrow="ALWAYS">
                     <children>
                         <Label styleClass="home-view-title" text="Randomizer CS2"/>
                         <HBox alignment="CENTER" prefHeight="39.0" prefWidth="688.0"
