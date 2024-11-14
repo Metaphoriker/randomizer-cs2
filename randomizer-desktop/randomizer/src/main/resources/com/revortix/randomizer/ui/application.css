@@ -288,9 +288,9 @@
 }
 
 .range-slider-sequence-interval {
-    -fx-pref-width: 194px;
+    -fx-pref-width: 92px;
     -fx-pref-height: 24px;
-    -fx-padding: 8px 0px;
+    -fx-padding: 8px 4x;
 }
 
 .range-slider-sequence-interval .track {
@@ -930,6 +930,22 @@
     -fx-scale-x: 0.9;
     -fx-scale-y: 0.9;
 }
+
+/* Rangeslider Labels */
+.rangeslider-min-label, .rangeslider-max-label {
+    -fx-min-width: 37px;
+    -fx-min-height: 14px;
+    -fx-background-radius: 4px;
+    -fx-background-color: #273D41;
+    -fx-effect: innershadow(two-pass-box, rgba(20, 34, 36, 0.75), 6, 0.6, 0, 0);
+    -fx-font-family: SansSerif;
+    -fx-font-size: 10px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+    -fx-text-fill: #DAF0F3;
+    -fx-alignment: center;
+}
+
 
 /* Separator and Lines for BuilderView */
 .builder-separator, .builder-separator .line {
