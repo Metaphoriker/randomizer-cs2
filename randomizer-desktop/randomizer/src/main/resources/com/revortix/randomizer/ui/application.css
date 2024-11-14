@@ -188,12 +188,23 @@
     -fx-alignment: center-right;
 }
 
-.logbook-state-indicator {
+.logbook-state-indicator, .logbook-state-indicator-running, .logbook-state-indicator-stopped, .logbook-state-indicator-awaiting {
     -fx-pref-width: 20px;
     -fx-pref-height: 20px;
     -fx-background-size: 20px;
     -fx-background-position: center;
     -fx-background-repeat: no-repeat;
+}
+
+.logbook-state-indicator-running {
+    -fx-background-image: url("../images/stateRunningIcon.png");
+}
+
+.logbook-state-indicator-stopped {
+    -fx-background-image: url("../images/stateStoppedIcon.png");
+}
+
+.logbook-state-indicator-awaiting {
     -fx-background-image: url("../images/stateAwaitingIcon.png");
 }
 
