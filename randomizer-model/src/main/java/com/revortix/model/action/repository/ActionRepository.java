@@ -1,7 +1,6 @@
 package com.revortix.model.action.repository;
 
 import com.revortix.model.action.Action;
-import com.revortix.model.persistence.dao.ActionDao;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.LinkedHashMap;
@@ -10,8 +9,6 @@ import java.util.Map;
 /** Haelt die Grundinstanzen der Aktionen mit den jeweils zugewiesenen Keybinds. */
 @Slf4j
 public class ActionRepository {
-
-    private static final ActionDao ACTION_REGISTRY_STORAGE = new ActionDao();
 
     private final Map<Action, Boolean> actions = new LinkedHashMap<>();
 
@@ -47,22 +44,6 @@ public class ActionRepository {
     }
 
     /**
-     * Loads the states of the actions if they exist in the persistent storage.
-     *
-     * <p>This method calls the {@code loadStates()} method of {@code ACTION_REGISTRY_STORAGE}, which
-     * loads the states from a storage file and updates the {@code actions} map with the persisted states.
-     *
-     * <p>The action states (enabled/disabled) are initially stored within the map, and upon loading,
-     * the map will be updated to reflect the persisted states where available.
-     *
-     * <p>A log entry is created indicating the successful loading of action states.
-     */
-    public void loadStatesIfExist() {
-        ACTION_REGISTRY_STORAGE.loadStates(actions);
-        log.info("Zustände der Actions erfolgreich geladen");
-    }
-
-    /**
      * Disables the specified action by setting its state to false in the internal actions map and saving the updated
      * states to persistent storage.
      *
@@ -82,19 +63,6 @@ public class ActionRepository {
      */
     public boolean isEnabled(Action action) {
         return actions.getOrDefault(action, true);
-    }
-
-    /**
-     * Persists all actions currently in memory to a storage system.
-     *
-     * <p>This method invokes the save method on the ACTION_REGISTRY_STORAGE with the current list of
-     * actions to ensure they are stored.
-     *
-     * <p>This functionality is crucial for maintaining state and ensuring that no actions are lost
-     * between sessions or instances.
-     */
-    public void saveAll() {
-        ACTION_REGISTRY_STORAGE.save(actions);
     }
 
     /**

@@ -167,8 +167,6 @@ public class RandomizerBootstrap {
         actionRepository.register(new MouseMoveAction());
         actionRepository.register(new BaseAction("Escape", ActionKey.of("ESCAPE")));
         registerKeyBindActions();
-        actionRepository.saveAll();
-        actionRepository.loadStatesIfExist();
     }
 
     private void registerKeyBindActions() {
