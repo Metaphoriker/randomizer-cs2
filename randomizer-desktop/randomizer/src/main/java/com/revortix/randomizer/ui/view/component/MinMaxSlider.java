@@ -2,6 +2,7 @@ package com.revortix.randomizer.ui.view.component;
 
 import javafx.application.Platform;
 import javafx.beans.property.DoubleProperty;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import org.controlsfx.control.RangeSlider;
@@ -58,6 +59,7 @@ public class MinMaxSlider extends HBox {
 
     private void initialize() {
         initializeLabels();
+        setAlignment(Pos.CENTER);
         getChildren().addAll(minLabel, rangeSlider, maxLabel);
 
         rangeSlider.setBlockIncrement(5);
