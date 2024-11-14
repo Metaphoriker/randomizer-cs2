@@ -1,6 +1,8 @@
 package com.revortix.model.action.sequence;
 
+import com.google.inject.Inject;
 import com.revortix.model.action.Action;
+import com.revortix.model.action.repository.ActionRepository;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
@@ -19,7 +21,11 @@ public class ActionSequenceDispatcher {
     private final List<Consumer<ActionSequence>> actionSequenceFinishHandlers =
             new CopyOnWriteArrayList<>();
 
-    public ActionSequenceDispatcher() {
+    private final ActionRepository actionRepository;
+
+    @Inject
+    public ActionSequenceDispatcher(ActionRepository actionRepository) {
+        this.actionRepository = actionRepository;
     }
 
     /**
@@ -28,6 +34,7 @@ public class ActionSequenceDispatcher {
      * @param action the Action to be dispatched
      */
     private void dispatch(Action action) {
+        if (!actionRepository.isEnabled(action)) return;
         dispatchToHandlers(action, actionHandlers);
         action.execute();
         finishActionProcessing(action);
