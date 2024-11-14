@@ -6,7 +6,9 @@ import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.viewmodel.HomeViewModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
+import javafx.scene.Cursor;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import lombok.extern.slf4j.Slf4j;
 
@@ -18,9 +20,13 @@ public class HomeViewController {
 
     private final HomeViewModel homeViewModel;
 
+    @FXML
+    private Label updateIndicator;
+
     @Inject
     public HomeViewController(HomeViewModel homeViewModel) {
         this.homeViewModel = homeViewModel;
+        Platform.runLater(this::initUpdateIndicator);
     }
 
     @FXML
@@ -41,6 +47,18 @@ public class HomeViewController {
             log.error("Error opening github", e);
             showAlertInternetConnection();
         }
+    }
+
+    private void initUpdateIndicator() {
+        updateIndicator.setCursor(Cursor.HAND);
+        if (homeViewModel.isUpdateAvailable()) {
+            updateIndicator.setVisible(true);
+        }
+        setupUpdateIndicatorClickAction();
+    }
+
+    private void setupUpdateIndicatorClickAction() {
+        updateIndicator.setOnMouseClicked(_ -> homeViewModel.updateRandomizer());
     }
 
     private void showAlertInternetConnection() {

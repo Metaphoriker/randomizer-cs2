@@ -20,5 +20,6 @@ public class RandomizerModule extends AbstractModule {
         bind(HomeViewModel.class).asEagerSingleton();
         bind(ViewProvider.class).asEagerSingleton();
         bind(RandomizerConfig.class).asEagerSingleton();
+        bind(RandomizerUpdater.class).asEagerSingleton();
     }
 }

@@ -16,16 +16,11 @@ import com.revortix.model.config.ConfigLoader;
 import com.revortix.model.config.keybind.KeyBindRepository;
 import com.revortix.model.exception.UncaughtExceptionLogger;
 import com.revortix.model.messages.Messages;
-import com.revortix.model.updater.Updater;
 import com.revortix.model.watcher.FileSystemWatcher;
 import com.revortix.randomizer.Main;
 import com.revortix.randomizer.config.RandomizerConfig;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URISyntaxException;
 
 /**
  * The RandomizerBootstrap class is responsible for initializing and configuring the application. It sets up
@@ -41,6 +36,7 @@ public class RandomizerBootstrap {
     private final KeyBindRepository keyBindRepository;
     private final ActionSequenceExecutorRunnable actionSequenceExecutorRunnable;
     private final RandomizerConfig randomizerConfig;
+    private final RandomizerUpdater randomizerUpdater;
 
     @Inject
     public RandomizerBootstrap(
@@ -48,18 +44,21 @@ public class RandomizerBootstrap {
             ActionRepository actionRepository,
             KeyBindRepository keyBindRepository,
             ActionSequenceExecutorRunnable actionSequenceExecutorRunnable,
-            RandomizerConfig randomizerConfig) {
+            RandomizerConfig randomizerConfig,
+            RandomizerUpdater randomizerUpdater) {
         this.actionSequenceRepository = actionSequenceRepository;
         this.actionRepository = actionRepository;
         this.keyBindRepository = keyBindRepository;
         this.actionSequenceExecutorRunnable = actionSequenceExecutorRunnable;
         this.randomizerConfig = randomizerConfig;
+        this.randomizerUpdater = randomizerUpdater;
     }
 
     public void initializeApplication() {
         log.info("Initialisiere Applikation...");
         loadConfiguration();
-        if (!Main.isTestMode() && randomizerConfig.isAutoupdateEnabled()) installAndRunUpdaterIfNeeded();
+        randomizerUpdater.installUpdater();
+        if (!Main.isTestMode() && randomizerConfig.isAutoupdateEnabled()) randomizerUpdater.runUpdaterIfNeeded();
         loadKeyBinds();
         registerActions();
         cacheActionSequences();
@@ -112,53 +111,6 @@ public class RandomizerBootstrap {
         thread.setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
         thread.setDaemon(true);
         thread.start();
-    }
-
-    private void installAndRunUpdaterIfNeeded() {
-        log.info("Richte Appdata Verzeichnis ein...");
-        File updater = installUpdater();
-        startUpdaterIfNecessary(updater.getAbsolutePath());
-    }
-
-    private File installUpdater() {
-        log.info("Installiere Updater...");
-        File updaterJar = new File(ApplicationContext.getAppdataFolder(), "randomizer-updater.jar");
-        try {
-            updaterJar.createNewFile();
-        } catch (IOException e) {
-            log.error("Fehler beim Erstellen der Updater Datei", e);
-            throw new RuntimeException(e);
-        }
-
-        if (Updater.isUpdateAvailable(updaterJar, Updater.UPDATER_VERSION_URL)) {
-            Updater.update(updaterJar, Updater.UPDATER_DOWNLOAD_URL);
-        }
-
-        return updaterJar;
-    }
-
-    private static void startProcess(ProcessBuilder processBuilder) throws IOException, InterruptedException {
-        Process process = processBuilder.start();
-        process.waitFor();
-    }
-
-    private void startUpdaterIfNecessary(String path) {
-        log.info("Starte Updater falls notwendig...");
-        try {
-            File jarPath =
-                    new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-            if (Updater.isUpdateAvailable(Updater.getCurrentVersion(), Updater.RANDOMIZER_VERSION_URL)) {
-                log.info("Updater gestartet");
-                ProcessBuilder processBuilder =
-                        new ProcessBuilder(
-                                "java", "-jar", path, "-randomizerLocation=" + jarPath.getAbsolutePath());
-                processBuilder.inheritIO();
-                startProcess(processBuilder);
-                System.exit(0); // we want to close the randomizer in order to update it
-            }
-        } catch (URISyntaxException | IOException | InterruptedException e) {
-            throw new RuntimeException(e);
-        }
     }
 
     private void registerActions() {
