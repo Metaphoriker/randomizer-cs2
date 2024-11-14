@@ -27,7 +27,7 @@
                                         </HBox>
                                     </children>
                                     <HBox styleClass="logbook-state-container" HBox.hgrow="ALWAYS">
-                                        <Label styleClass="logbook-state-indicator"/>
+                                        <Label fx:id="stateIndicator" styleClass="logbook-state-indicator"/>
                                     </HBox>
                                 </HBox>
                                 <HBox prefHeight="398.0" prefWidth="350.0" VBox.vgrow="ALWAYS">

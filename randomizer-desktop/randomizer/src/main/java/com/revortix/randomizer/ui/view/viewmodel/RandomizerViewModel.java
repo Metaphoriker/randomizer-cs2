@@ -17,6 +17,8 @@ import javafx.beans.property.SimpleObjectProperty;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.util.function.Consumer;
+
 @Slf4j
 public class RandomizerViewModel {
 
@@ -73,6 +75,10 @@ public class RandomizerViewModel {
 
     public void setApplicationStateToStopped() {
         applicationContext.setApplicationState(ApplicationState.IDLING);
+    }
+
+    public void onStateChange(Consumer<ApplicationState> consumer) {
+        applicationContext.registerApplicationStateChangeListener(consumer);
     }
 
     private void setupInternalHandler() {

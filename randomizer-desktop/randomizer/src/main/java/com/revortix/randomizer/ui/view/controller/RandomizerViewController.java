@@ -5,14 +5,16 @@ import com.revortix.model.action.sequence.ActionSequence;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.component.MinMaxSlider;
 import com.revortix.randomizer.ui.view.viewmodel.RandomizerViewModel;
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
+
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 
 @View
 public class RandomizerViewController {
@@ -24,6 +26,9 @@ public class RandomizerViewController {
     private static final String START_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-start-active";
     private static final String MIDDLE_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-middle-active";
     private static final String END_ACTIVE_ACTION_NAME_STYLING = "logbook-sequence-actions-name-end-active";
+    private static final String STATE_INDICATOR_RUNNING = "logbook-state-indicator-running";
+    private static final String STATE_INDICATOR_STOPPED = "logbook-state-indicator-stopped";
+    private static final String STATE_INDICATOR_AWAITING = "logbook-state-indicator-awaiting";
 
     private final RandomizerViewModel randomizerViewModel;
 
@@ -35,6 +40,8 @@ public class RandomizerViewController {
     private MinMaxSlider minMaxSlider;
     @FXML
     private VBox historyVBox;
+    @FXML
+    private Label stateIndicator;
 
     @Inject
     public RandomizerViewController(RandomizerViewModel randomizerViewModel) {
@@ -60,6 +67,7 @@ public class RandomizerViewController {
     private void initialize() {
         randomizerViewModel.initConfig();
         setupListener();
+        setupStateChangeListener();
         setupIntervalSlider();
     }
 
@@ -71,6 +79,34 @@ public class RandomizerViewController {
 
         minMaxSlider.getMinProperty().bindBidirectional(randomizerViewModel.getMinIntervalProperty());
         minMaxSlider.getMaxProperty().bindBidirectional(randomizerViewModel.getMaxIntervalProperty());
+    }
+
+    private void setupStateChangeListener() {
+        randomizerViewModel.onStateChange(state -> {
+            switch (state) {
+                case RUNNING -> {
+                    stateIndicator.getStyleClass().clear();
+                    stateIndicator.getStyleClass().add(STATE_INDICATOR_RUNNING);
+                    stateIndicator.setTooltip(createTooltip("Running"));
+                }
+                case IDLING -> {
+                    stateIndicator.getStyleClass().clear();
+                    stateIndicator.getStyleClass().add(STATE_INDICATOR_STOPPED);
+                    stateIndicator.setTooltip(createTooltip("Stopped"));
+                }
+                case AWAITING -> {
+                    stateIndicator.getStyleClass().clear();
+                    stateIndicator.getStyleClass().add(STATE_INDICATOR_AWAITING);
+                    stateIndicator.setTooltip(createTooltip("Awaiting for CS2 to be focused"));
+                }
+            }
+        });
+    }
+
+    private Tooltip createTooltip(String text) {
+        Tooltip tooltip = new Tooltip(text);
+        tooltip.getStyleClass().add("logbook-tooltip");
+        return tooltip;
     }
 
     /**
