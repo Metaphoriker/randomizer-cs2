@@ -60,8 +60,6 @@ public class MinMaxSlider extends HBox {
         initializeLabels();
         getChildren().addAll(minLabel, rangeSlider, maxLabel);
 
-        rangeSlider.setShowTickMarks(true);
-        rangeSlider.setShowTickLabels(true);
         rangeSlider.setBlockIncrement(5);
         setListener();
     }
