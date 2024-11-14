@@ -100,7 +100,15 @@ public class ActionSequenceDao {
 
         for (File file : actionSequenceFiles) {
             if (isSequenceFile(file)) {
-                actionSequences.add(loadActionSequenceFromFile(file));
+                ActionSequence actionSequence = null;
+                try {
+                    actionSequence = loadActionSequenceFromFile(file);
+                } catch (IOException ignore) {
+                }
+
+                if (actionSequence != null) {
+                    actionSequences.add(actionSequence);
+                }
             }
         }
 
@@ -116,13 +124,13 @@ public class ActionSequenceDao {
         return file.getName().endsWith(".sequence");
     }
 
-    private ActionSequence loadActionSequenceFromFile(File file) {
+    private ActionSequence loadActionSequenceFromFile(File file) throws IOException {
         try {
             String content = new String(Files.readAllBytes(file.toPath()));
             return jsonUtil.deserializeActionSequence(content);
         } catch (IOException e) {
             log.error("Fehler beim Laden der ActionSequence aus Datei: {}", file.getAbsolutePath(), e);
-            return null;
+            throw e;
         }
     }
 }
