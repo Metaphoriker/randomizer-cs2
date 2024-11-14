@@ -149,8 +149,12 @@
 .logbook-active-sequence {
     -fx-pref-width: 420px;
     -fx-pref-height: 20px;
-    -fx-alignment: center-left;
     -fx-padding: 8px;
+}
+
+.logbook-sequence-name-container {
+    -fx-pref-width: 380px;
+    -fx-alignment: center-left;
 }
 
 .logbook-sequence-name {
@@ -159,6 +163,21 @@
     -fx-font-style: normal;
     -fx-font-weight: bold;
     -fx-text-fill: #C444C3;
+}
+
+.logbook-state-container {
+    -fx-pref-width: 40px;
+    -fx-spacing: 8px;
+    -fx-alignment: center-right;
+}
+
+.logbook-state-indicator {
+    -fx-pref-width: 20px;
+    -fx-pref-height: 20px;
+    -fx-background-size: 20px;
+    -fx-background-position: center;
+    -fx-background-repeat: no-repeat;
+    -fx-background-image: url("../images/stateAwaitingIcon.png");
 }
 
 .logbook-active-actions {
@@ -226,7 +245,7 @@
     -fx-effect: innershadow(three-pass-box, #C444C3, 10, 0.0, 0, 0);
 }
 
-.logbook-run-button, .logbook-stop-button, .logbook-awaiting-button {
+.logbook-run-button, .logbook-stop-button {
     -fx-min-width: 24px;
     -fx-min-height: 24px;
     -fx-background-color: transparent;
@@ -239,19 +258,15 @@
     -fx-background-image: url("../images/playIcon.png");
 }
 
-.logbook-awaiting-button {
-    -fx-background-image: url("../images/awaitingIcon.png");
-}
-
 .logbook-stop-button {
     -fx-background-image: url("../images/stopIcon.png");
 }
 
-.logbook-run-button:hover, .logbook-stop-button:hover, .logbook-awaiting-button:hover {
+.logbook-run-button:hover, .logbook-stop-button:hover {
     -fx-background-color: #213539;
 }
 
-.logbook-run-button:pressed, .logbook-stop-button:pressed, .logbook-awaiting-button:pressed {
+.logbook-run-button:pressed, .logbook-stop-button:pressed {
     -fx-scale-y: 0.85;
     -fx-scale-x: 0.85;
 }

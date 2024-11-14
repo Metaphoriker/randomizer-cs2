@@ -22,8 +22,13 @@
                             <children>
                                 <HBox prefHeight="20.0" prefWidth="420.0" styleClass="logbook-active-sequence">
                                     <children>
-                                        <Label fx:id="sequenceNameLabel" styleClass="logbook-sequence-name"/>
+                                        <HBox styleClass="logbook-sequence-name-container">
+                                            <Label fx:id="sequenceNameLabel" styleClass="logbook-sequence-name"/>
+                                        </HBox>
                                     </children>
+                                    <HBox styleClass="logbook-state-container">
+                                        <Label styleClass="logbook-state-indicator"/>
+                                    </HBox>
                                 </HBox>
                                 <HBox prefHeight="398.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
                                     <children>
