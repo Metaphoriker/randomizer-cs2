@@ -65,9 +65,22 @@ public class KeyBindRepository {
         String line = scanner.nextLine().trim();
         processLine(line);
       }
+      removeDoubleEntries();
+      log.info("Erfolgreich {} KeyBinds geladen", keyBinds.size());
     } catch (FileNotFoundException e) {
       log.error("Konfigurationsdatei nicht gefunden: {}", filePath, e);
     }
+  }
+
+  private void removeDoubleEntries() {
+    List<KeyBind> newKeyBinds = new ArrayList<>();
+    for (KeyBind keyBind : keyBinds) {
+      if (newKeyBinds.stream().noneMatch(bind -> bind.getKey().equals(keyBind.getKey()))) {
+        newKeyBinds.add(keyBind);
+      }
+    }
+    keyBinds.clear();
+    keyBinds.addAll(newKeyBinds);
   }
 
   private void processLine(String line) {
@@ -87,10 +100,6 @@ public class KeyBindRepository {
       keyBinds.removeIf(bind -> bind.getKey().equals(key));
     } else if (keyBindNameTypeMapper.hasKey(descriptor)) {
       String keyName = keyBindNameTypeMapper.getKeyName(descriptor);
-      if (keyBinds.stream().anyMatch(bind -> bind.getAction().equals(keyName))) {
-        log.info("Ein KeyBind mit Deskriptor {} existiert bereits - ignoring...", descriptor);
-        return;
-      }
       addOrUpdateKeyBind(key, keyName);
     } else {
       log.warn("Keinen Deskriptor für {} gefunden, ignoriere...", descriptor);
