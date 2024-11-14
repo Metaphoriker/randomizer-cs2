@@ -39,9 +39,9 @@
                                                 <VBox alignment="CENTER" prefHeight="56.0" prefWidth="28.0"
                                                       styleClass="logbook-buttons" VBox.vgrow="ALWAYS">
                                                     <children>
-                                                        <Button fx:id="runButton" mnemonicParsing="false"
+                                                        <Button mnemonicParsing="false"
                                                                 onAction="#onRun" styleClass="logbook-run-button"/>
-                                                        <Button fx:id="stopButton" mnemonicParsing="false"
+                                                        <Button mnemonicParsing="false"
                                                                 onAction="#onStop" styleClass="logbook-stop-button"/>
                                                     </children>
                                                 </VBox>
