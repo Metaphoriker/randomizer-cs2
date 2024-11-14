@@ -68,7 +68,7 @@ public class RandomizerBootstrap {
         if (!Main.isTestMode() && randomizerConfig.isAutoupdateEnabled()) installAndRunUpdaterIfNeeded();
         loadKeyBinds();
         registerActions();
-        cacheActions();
+        cacheActionSequences();
         setupFileWatcher();
         startExecutor();
         Messages.cache();
@@ -93,7 +93,7 @@ public class RandomizerBootstrap {
     private void setupFileWatcher() {
         log.info("Starte FileWatcher");
         FileSystemWatcher fileSystemWatcher = new FileSystemWatcher();
-        fileSystemWatcher.addFileChangeListener(_ -> cacheActions());
+        fileSystemWatcher.addFileChangeListener(_ -> cacheActionSequences());
         startThread(new Thread(fileSystemWatcher));
     }
 
@@ -103,8 +103,8 @@ public class RandomizerBootstrap {
                 .setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
     }
 
-    private void cacheActions() {
-        log.info("Cache Actions...");
+    private void cacheActionSequences() {
+        log.info("Cache ActionSequences...");
         actionSequenceRepository.updateActionSequencesCache();
     }
 
