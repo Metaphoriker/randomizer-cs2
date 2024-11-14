@@ -43,16 +43,16 @@ public class MinMaxSlider extends HBox {
     }
 
     public void setMaxHigherValue(int value) {
-        maxLabel.setText(value + "s");
         rangeSlider.setMax(value);
     }
 
     public void setMinLowerValue(int value) {
-        minLabel.setText(value + "s");
         rangeSlider.setMin(value);
     }
 
     public void setMinMaxValue(double min, double max) {
+        minLabel.setText(min + "s");
+        maxLabel.setText(max + "s");
         rangeSlider.setLowValue(min);
         rangeSlider.setHighValue(max);
     }
