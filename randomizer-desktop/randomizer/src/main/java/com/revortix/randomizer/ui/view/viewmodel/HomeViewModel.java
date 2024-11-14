@@ -2,6 +2,7 @@ package com.revortix.randomizer.ui.view.viewmodel;
 
 import com.google.inject.Inject;
 import com.revortix.randomizer.bootstrap.RandomizerUpdater;
+import com.revortix.randomizer.config.RandomizerConfig;
 
 import java.awt.*;
 import java.io.IOException;
@@ -13,10 +14,12 @@ public class HomeViewModel {
     private static final String DISCORD_LINK = "https://discord.gg/782s5ExhFy";
 
     private final RandomizerUpdater randomizerUpdater;
+    private final RandomizerConfig randomizerConfig;
 
     @Inject
-    public HomeViewModel(RandomizerUpdater randomizerUpdater) {
+    public HomeViewModel(RandomizerUpdater randomizerUpdater, RandomizerConfig randomizerConfig) {
         this.randomizerUpdater = randomizerUpdater;
+        this.randomizerConfig = randomizerConfig;
     }
 
     public void openGitHub() throws IOException {
@@ -25,6 +28,11 @@ public class HomeViewModel {
 
     public void openDiscord() throws IOException {
         Desktop.getDesktop().browse(URI.create(DISCORD_LINK));
+    }
+
+    public void setAutoUpdate(boolean autoUpdate) {
+        randomizerConfig.setAutoupdateEnabled(autoUpdate);
+        randomizerConfig.saveConfiguration();
     }
 
     public void updateRandomizer() {
