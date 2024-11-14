@@ -5,15 +5,14 @@ import com.revortix.model.action.sequence.ActionSequence;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.component.MinMaxSlider;
 import com.revortix.randomizer.ui.view.viewmodel.RandomizerViewModel;
+import java.time.LocalTime;
+import java.time.format.DateTimeFormatter;
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-
-import java.time.LocalTime;
-import java.time.format.DateTimeFormatter;
 
 @View
 public class RandomizerViewController {
@@ -82,12 +81,15 @@ public class RandomizerViewController {
         container.getStyleClass().add("logbook-history-entry-container");
         Label actionSequenceNameLabel = new Label(actionSequence.getName());
         actionSequenceNameLabel.getStyleClass().add("logbook-history-entry-name");
+        VBox rightbox = new VBox();
+        rightbox.getStyleClass().add("logbook-history-entry-rightbox");
         Label actionSequenceActionCount = new Label(String.valueOf(actionSequence.getActions().size()));
         actionSequenceActionCount.getStyleClass().add("logbook-history-entry-action-count");
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm");
         Label actionSequenceActionExecutedAt = new Label(LocalTime.now().format(formatter));
         actionSequenceActionExecutedAt.getStyleClass().add("logbook-history-entry-executed-at");
-        container.getChildren().addAll(actionSequenceNameLabel, actionSequenceActionCount, actionSequenceActionExecutedAt);
+        rightbox.getChildren().addAll(actionSequenceActionCount, actionSequenceActionExecutedAt);
+        container.getChildren().addAll(actionSequenceNameLabel, rightbox);
         historyVBox.getChildren().addFirst(container);
     }
 

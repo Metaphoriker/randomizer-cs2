@@ -263,14 +263,12 @@
 }
 
 .logbook-history-scrollpane {
-    -fx-alignment: center;
     -fx-background-color: #0C171A;
 }
 
 .logbook-history-content {
     -fx-pref-width: 134px;
-    -fx-spacing: 4px;
-    -fx-alignment: top-center;
+    -fx-spacing: 6px;
     -fx-background-color: #0C171A;
 }
 
@@ -295,6 +293,37 @@
     -fx-background-color: transparent;
     -fx-shape: null;
     -fx-opacity: 0;
+}
+
+.logbook-history-entry-container {
+    -fx-pref-width: 178px;
+    -fx-max-height: 22px;
+    -fx-padding: 4px;
+    -fx-background-color: #142224;
+}
+
+.logbook-history-entry-name {
+    -fx-pref-width: 138px;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+    -fx-text-fill: #DAF0F3;
+    -fx-padding: 4px;
+}
+
+.logbook-history-entry-rightbox {
+    -fx-pref-width: 40px;
+    -fx-spacing: 4px;
+    -fx-alignment: center-right;
+}
+
+.logbook-history-entry-action-count, .logbook-history-entry-executed-at {
+    -fx-alignment: bottom-right;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 8px;
+    -fx-font-weight: 500;
+    -fx-text-fill: #738487;
 }
 
 /* Builder View*/
