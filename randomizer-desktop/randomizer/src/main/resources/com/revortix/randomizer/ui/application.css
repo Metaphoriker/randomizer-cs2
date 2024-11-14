@@ -330,12 +330,6 @@
     -fx-text-fill: #738487;
 }
 
-.range-slider-sequence-interval {
-    -fx-pref-width: 92px;
-    -fx-pref-height: 24px;
-    -fx-padding: 8px 4x;
-}
-
 .range-slider-sequence-interval .track {
     -fx-background-color: #4F747C;
     -fx-pref-height: 4px;
@@ -849,10 +843,10 @@
     -fx-font-weight: 600;
 }
 
-.range-slider-action-interval {
+.range-slider {
     -fx-pref-width: 124px;
     -fx-pref-height: 24px;
-    -fx-padding: 8px 0px;
+    -fx-padding: 8px 6px;
 }
 
 .range-slider-action-interval .track {
