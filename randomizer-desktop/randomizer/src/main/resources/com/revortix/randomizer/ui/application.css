@@ -70,6 +70,66 @@
     -fx-pref-height: 536px;
     -fx-background-color: #050E10;
 }
+/* Home View */
+.home-view {
+    -fx-min-width: 688px;
+    -fx-min-height: 488px;
+    -fx-alignment: center;
+}
+
+.home-view-title {
+    -fx-alignment: center;
+    -fx-font-size: 56px;
+    -fx-font-family: SansSerif;
+    -fx-text-fill: transparent;
+    -fx-font-weight: 600;
+}
+
+.home-view-title .text {
+    -fx-stroke: #273D41;
+    -fx-stroke-width: 2px;
+}
+
+.home-view-socials-container {
+    -fx-padding: 24px;
+    -fx-spacing: 24px;
+    -fx-alignment: center;
+}
+
+.home-view-github, .home-view-discord {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 16px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+    -fx-text-fill: #738487;
+    -fx-padding: -2px 3px 0px 21px;
+    -fx-background-repeat: no-repeat;
+}
+
+.home-view-github {
+    -fx-background-image: url("../images/githubIcon.png");
+    -fx-background-size: 16px;
+}
+
+.home-view-discord {
+    -fx-background-image: url("../images/discordIcon.png");
+    -fx-background-size: 18px;
+}
+
+.home-view-github:hover {
+    -fx-text-fill: #C444C3;
+    -fx-background-image: url("../images/githubHoverIcon.png");
+}
+
+.home-view-discord:hover {
+    -fx-text-fill: #C444C3;
+    -fx-background-image: url("../images/discordHoverIcon.png");
+}
+
+.home-view-github:pressed, .home-view-discord:pressed {
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+}
 
 /* Randomizer View */
 .randomizer-view {

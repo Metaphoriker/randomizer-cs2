@@ -10,13 +10,13 @@
             fx:controller="com.revortix.randomizer.ui.view.controller.HomeViewController">
     <children>
         <VBox alignment="CENTER" prefHeight="488.0" prefWidth="688.0" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="home-view">
             <children>
-                <Label text="Randomizer CS2"/>
-                <HBox alignment="CENTER" prefHeight="39.0" prefWidth="688.0">
+                <Label text="Randomizer CS2" styleClass="home-view-title"/>
+                <HBox  alignment="CENTER" prefHeight="39.0" prefWidth="688.0" styleClass="home-view-socials-container">
                     <children>
-                        <Label text="Discord"/>
-                        <Label text="GitHub"/>
+                        <Label text="Discord" styleClass="home-view-discord"/>
+                        <Label text="GitHub" styleClass="home-view-github"/>
                     </children>
                 </HBox>
             </children>
