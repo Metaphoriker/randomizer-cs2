@@ -9,7 +9,12 @@
             xmlns="http://javafx.com/javafx/22"
             fx:controller="com.revortix.randomizer.ui.view.controller.HomeViewController">
     <children>
-        <VBox alignment="CENTER" prefHeight="488.0" prefWidth="688.0" AnchorPane.bottomAnchor="0.0"
+        <HBox fx:id="updateIndicator" styleClass="home-view-update-container" AnchorPane.bottomAnchor="0.0"
+              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <Label styleClass="home-view-update-indicator" AnchorPane.bottomAnchor="0.0"
+                   AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0"/>
+        </HBox>
+        <VBox alignment="CENTER" prefHeight="456.0" prefWidth="688.0" AnchorPane.bottomAnchor="0.0"
               AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" styleClass="home-view">
             <children>
                 <Label text="Randomizer CS2" styleClass="home-view-title"/>

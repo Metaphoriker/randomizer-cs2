@@ -73,8 +73,25 @@
 /* Home View */
 .home-view {
     -fx-min-width: 688px;
-    -fx-min-height: 488px;
+    -fx-min-height: 456px;
     -fx-alignment: center;
+}
+
+.home-view-update-container {
+    -fx-pref-width: 688px;
+    -fx-pref-height: 32px;
+    -fx-padding: 8px;
+    -fx-alignment: top-right;
+}
+
+.home-view-update-indicator {
+    -fx-pref-width: 24px;
+    -fx-pref-height: 24px;
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/updateAvailableIcon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 24px 24px;
 }
 
 .home-view-title {
