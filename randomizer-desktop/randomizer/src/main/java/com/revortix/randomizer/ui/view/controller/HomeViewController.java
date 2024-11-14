@@ -8,6 +8,7 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Label;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import lombok.extern.slf4j.Slf4j;
 
@@ -49,6 +50,7 @@ public class HomeViewController {
     }
 
     private void initUpdateIndicator() {
+        updateIndicator.setTooltip(new Tooltip("Update"));
         if (homeViewModel.isUpdateAvailable()) {
             updateIndicator.setVisible(true);
         }
