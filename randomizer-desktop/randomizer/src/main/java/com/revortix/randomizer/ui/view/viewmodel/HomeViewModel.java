@@ -39,6 +39,10 @@ public class HomeViewModel {
         randomizerUpdater.runUpdaterIfNeeded();
     }
 
+    public boolean isAutoUpdateEnabled() {
+        return randomizerConfig.isAutoupdateEnabled();
+    }
+
     public boolean isUpdateAvailable() {
         return randomizerUpdater.isRandomizerUpdateAvailable();
     }

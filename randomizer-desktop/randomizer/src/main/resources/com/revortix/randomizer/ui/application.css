@@ -148,6 +148,34 @@
     -fx-scale-y: 0.9;
 }
 
+.home-view-auto-update-checkbox {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12px;
+    -fx-font-style: normal;
+    -fx-font-weight: 500;
+    -fx-text-fill: #738487;
+    -fx-padding: 4px 0px 0px 4px;
+}
+
+.home-view-auto-update-checkbox .box {
+    -fx-background-color: #213539;
+    -fx-background-radius: 4px;
+    -fx-border-color: #4F747C;
+    -fx-border-width: 1px;
+}
+
+.home-view-auto-update-checkbox .box .mark {
+    -fx-background-color: transparent;
+}
+
+.home-view-auto-update-checkbox:selected .box .mark {
+    -fx-background-color: #C444C3;
+}
+
+.home-view-auto-update-checkbox:hover .box {
+    -fx-background-color: #38545A;
+}
+
 /* Randomizer View */
 .randomizer-view {
     -fx-min-width: 688px;

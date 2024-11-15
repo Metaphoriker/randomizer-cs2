@@ -7,6 +7,7 @@ import com.revortix.randomizer.ui.view.viewmodel.HomeViewModel;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.CheckBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
@@ -22,11 +23,13 @@ public class HomeViewController {
 
     @FXML
     private Label updateIndicator;
+    @FXML
+    private CheckBox autoupdateCheckbox;
 
     @Inject
     public HomeViewController(HomeViewModel homeViewModel) {
         this.homeViewModel = homeViewModel;
-        Platform.runLater(this::initUpdateIndicator);
+        Platform.runLater(this::initialize);
     }
 
     @FXML
@@ -47,6 +50,16 @@ public class HomeViewController {
             log.error("Error opening github", e);
             showAlertInternetConnection();
         }
+    }
+
+    private void initialize() {
+        initUpdateIndicator();
+        initAutoUpdateCheckbox();
+    }
+
+    private void initAutoUpdateCheckbox() {
+        autoupdateCheckbox.setSelected(homeViewModel.isAutoUpdateEnabled());
+        autoupdateCheckbox.selectedProperty().addListener((_, _, newValue) -> homeViewModel.setAutoUpdate(newValue));
     }
 
     private void initUpdateIndicator() {
