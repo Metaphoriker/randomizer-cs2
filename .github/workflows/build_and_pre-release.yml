@@ -56,13 +56,13 @@ jobs:
         uses: actions/upload-artifact@v4
         with:
           name: randomizer
-          path: D:\a\randomizer-cs2\randomizer-desktop\randomizer\target\randomizer.jar
+          path: D:\a\randomizer-cs2\randomizer-cs2\randomizer-desktop\randomizer\target\randomizer.jar
 
       - name: Upload Updater
         uses: actions/upload-artifact@v4
         with:
           name: updater
-          path: D:\a\randomizer-cs2\randomizer-desktop\randomizer-updater\target\randomizer-updater.jar
+          path: D:\a\randomizer-cs2\randomizer-cs2\randomizer-desktop\randomizer-updater\target\randomizer-updater.jar
 
   pre-release:
     name: Pre Release
