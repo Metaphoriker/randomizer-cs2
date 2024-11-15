@@ -47,13 +47,13 @@ jobs:
 
       - name: Build Randomizer
         run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-desktop/randomizer-randomizer -amd -DskipTests
+          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-desktop/randomizer -amd -DskipTests
 
       - name: Upload Randomizer
         uses: actions/upload-artifact@v3
         with:
           name: randomizer
-          path: D:\a\randomizer-cs2\randomizer-cs2\randomizer-desktop\randomizer-randomizer\target\randomizer.jar
+          path: D:\a\randomizer-cs2\randomizer-cs2\randomizer-desktop\randomizer\target\randomizer.jar
 
       - name: Upload Updater
         uses: actions/upload-artifact@v3
