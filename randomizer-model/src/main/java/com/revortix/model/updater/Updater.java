@@ -19,13 +19,13 @@ import java.util.zip.ZipFile;
 public class Updater {
 
     public static final String UPDATER_VERSION_URL =
-            "https://raw.githubusercontent.com/Metaphoriker/randomizer-cs2/stage/randomizer-desktop/randomizer-updater/src/main/resources/version.txt";
+            "https://raw.githubusercontent.com/revortix/randomizer-cs2/stage/randomizer-desktop/randomizer-updater/src/main/resources/version.txt";
     public static final String UPDATER_DOWNLOAD_URL =
-            "https://github.com/Metaphoriker/randomizer-cs2/releases/download/latest/randomizer-updater.jar";
+            "https://github.com/revortix/randomizer-cs2/releases/download/latest/randomizer-updater.jar";
     public static final String RANDOMIZER_VERSION_URL =
-            "https://raw.githubusercontent.com/Metaphoriker/randomizer-cs2/stage/randomizer-model/src/main/resources/version.txt";
+            "https://raw.githubusercontent.com/revortix/randomizer-cs2/stage/randomizer-model/src/main/resources/version.txt";
     public static final String RANDOMIZER_DOWNLOAD_URL =
-            "https://github.com/Metaphoriker/randomizer-cs2/releases/download/latest/randomizer.jar";
+            "https://github.com/revortix/randomizer-cs2/releases/download/latest/randomizer.jar";
 
     /**
      * Updates the specified target file using the provided download URL.
