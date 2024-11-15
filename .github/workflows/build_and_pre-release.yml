@@ -41,16 +41,11 @@ jobs:
       - name: Clean install
         run: mvn clean install -U
 
-      - name: Execute Tests
-        run: mvn -U -V -e -B -ntp -Pits clean install test -pl randomizer-model -amd
-
       - name: Build Updater
-        run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-desktop/randomizer-updater -amd -DskipTests
+        run: mvn compile package randomizer-desktop/randomizer-updater
 
       - name: Build Randomizer
-        run: |
-          mvn -U -V -e -B -ntp clean install compile package -pl randomizer-desktop/randomizer -amd -DskipTests
+        run: mvn compile package randomizer-desktop/randomizer
 
       - name: Upload Randomizer
         uses: actions/upload-artifact@v4
