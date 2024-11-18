@@ -91,6 +91,7 @@ public class KeyBindNameTypeMapper {
     descriptorToNameMap.put("+back", new NameType("Move Backward", KeyBindType.MOVEMENT));
     descriptorToNameMap.put("+forward", new NameType("Move Forward", KeyBindType.MOVEMENT));
     descriptorToNameMap.put("+duck", new NameType("Crouch", KeyBindType.MOVEMENT));
+    descriptorToNameMap.put("+sprint", new NameType("Sprint", KeyBindType.MOVEMENT));
 
     descriptorToNameMap.put("slot1", new NameType("Select Slot 1", KeyBindType.INVENTORY));
     descriptorToNameMap.put("slot2", new NameType("Select Slot 2", KeyBindType.INVENTORY));
@@ -100,6 +101,8 @@ public class KeyBindNameTypeMapper {
     descriptorToNameMap.put(
             "invprev", new NameType("Previous Inventory Item", KeyBindType.INVENTORY));
     descriptorToNameMap.put("lastinv", new NameType("Last Inventory Item", KeyBindType.INVENTORY));
+    descriptorToNameMap.put(
+            "sellbackall", new NameType("Sell Back All Items", KeyBindType.INVENTORY));
 
     descriptorToNameMap.put("drop", new NameType("Drop Item", KeyBindType.WEAPON));
     descriptorToNameMap.put("+reload", new NameType("Reload", KeyBindType.WEAPON));
@@ -111,6 +114,7 @@ public class KeyBindNameTypeMapper {
             "+use", new NameType("Use Object / Interact", KeyBindType.MISCELLANEOUS));
     descriptorToNameMap.put("messagemode", new NameType("Open Chat", KeyBindType.MISCELLANEOUS));
     descriptorToNameMap.put("player_ping", new NameType("Player Ping", KeyBindType.MISCELLANEOUS));
+    descriptorToNameMap.put("jpeg", new NameType("Take Screenshot", KeyBindType.MISCELLANEOUS));
     descriptorToNameMap.put("switchhands", new NameType("Switch Hands", KeyBindType.MISCELLANEOUS));
 
     log.info("{} Deskriptoren initialisiert.", descriptorToNameMap.size());
