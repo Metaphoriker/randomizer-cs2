@@ -101,8 +101,7 @@ public class ActionRepository {
                 actions.keySet().stream()
                         .filter(action -> action.getName().equals(actionName))
                         .findFirst()
-                        .orElseThrow(
-                                () -> new IllegalArgumentException("Action nicht gefunden: " + actionName));
+                        .orElse(null);
 
         try {
             return originalAction.clone();
