@@ -2,6 +2,7 @@ package com.revortix.randomizer.ui.view.controller.settings;
 
 import com.google.inject.Inject;
 import com.revortix.model.action.Action;
+import com.revortix.model.action.value.Interval;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.component.MinMaxSlider;
 import com.revortix.randomizer.ui.view.viewmodel.ActionSettingsViewModel;
@@ -43,6 +44,12 @@ public class ActionSettingsController {
     @FXML
     void onPanelClose(ActionEvent event) {
         setAction(null);
+    }
+
+    @FXML
+    void onClear(ActionEvent event) {
+        minMaxSlider.setMinLowerValue(0);
+        minMaxSlider.setMaxHigherValue(0);
     }
 
     private void initialize() {
