@@ -48,8 +48,7 @@ public class ActionSettingsController {
 
     @FXML
     void onClear(ActionEvent event) {
-        minMaxSlider.setMinLowerValue(0);
-        minMaxSlider.setMaxHigherValue(0);
+        minMaxSlider.setMinMaxValue(0, 0);
     }
 
     private void initialize() {
