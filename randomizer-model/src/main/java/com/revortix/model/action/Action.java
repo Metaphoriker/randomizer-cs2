@@ -79,6 +79,9 @@ public abstract class Action implements Cloneable {
         if (getInterval().isEmpty()) {
             executeWithDelay(0);
         } else {
+            if (getInterval().getMin() >= getInterval().getMax()) {
+                getInterval().setMax(getInterval().getMin() + 1); // TODO: could be 11
+            }
             long delay =
                     ThreadLocalRandom.current().nextInt(
                             getInterval().getMin() * 1000,
