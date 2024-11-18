@@ -88,10 +88,6 @@ public class KeyBindRepository {
       keyBinds.removeIf(bind -> bind.getKey().equals(key));
     } else if (keyBindNameTypeMapper.hasKey(descriptor)) {
       String keyName = keyBindNameTypeMapper.getKeyName(descriptor);
-      if (keyBinds.stream().anyMatch(bind -> bind.getAction().equals(keyName))) {
-        log.info("Ein KeyBind mit Deskriptor {} existiert bereits - ignoring...", descriptor);
-        return;
-      }
       addOrUpdateKeyBind(key, keyName);
     } else {
       log.warn("Keinen Deskriptor für {} gefunden, ignoriere...", descriptor);
@@ -100,12 +96,7 @@ public class KeyBindRepository {
 
   private void addOrUpdateKeyBind(String key, String actionName) {
     KeyBind newKeyBind = new KeyBind(key, actionName);
-    for (int i = 0; i < keyBinds.size(); i++) {
-      if (keyBinds.get(i).getKey().equals(key)) {
-        keyBinds.set(i, newKeyBind);
-        return;
-      }
-    }
+    keyBinds.removeIf(keyBind -> keyBind.getKey().equals(key));
     keyBinds.add(newKeyBind);
   }
 

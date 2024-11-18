@@ -24,7 +24,7 @@ public class Main {
 
     public static void main(String[] args) {
         verifyTestMode(args);
-        CompletableFuture.runAsync(Main::initializeApplication);
+        initializeApplication();
         launchApplication(args);
     }
 
