@@ -46,7 +46,7 @@ public abstract class Action implements Cloneable {
      * <p>Default values are 0
      */
     @Setter
-    private Interval interval = Interval.of(0, 0);
+    private Interval interval = Interval.of(0, 1);
 
     @Setter(AccessLevel.PROTECTED)
     @ToString.Exclude
