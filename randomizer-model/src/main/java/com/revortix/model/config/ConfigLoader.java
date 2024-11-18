@@ -54,7 +54,7 @@ public class ConfigLoader {
       log.info("Lade Benutzer-Key-Bindings von: {}", userConfigPath);
       keyBindRepository.initModifiedKeyBinds(userConfigPath);
     } else {
-      throw new FileNotFoundException("Benutzerkonfigurationsdatei nicht gefunden.");
+      log.info("Keine Benutzer-Key-Bindings gefunden.");
     }
   }
 
