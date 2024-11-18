@@ -20,7 +20,7 @@ public class BaseAction extends Action {
         switch (getActionType()) {
             case MOUSE -> KNUFFI.mousePress(keyCode);
             case MOUSE_WHEEL -> KNUFFI.mouseWheel(keyCode);
-            default -> KNUFFI.keyPress(keyCode);
+            case KEYBOARD -> KNUFFI.keyPress(keyCode);
         }
     }
 
