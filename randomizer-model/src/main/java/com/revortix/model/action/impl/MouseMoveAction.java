@@ -38,9 +38,9 @@ public class MouseMoveAction extends Action {
       Supplier<Integer> randomInt =
           () -> {
             if (moveHorizontally) {
-              return ThreadLocalRandom.current().nextInt(currentX - 1, currentX + 510);
+              return ThreadLocalRandom.current().nextInt(currentX - 1000, currentX + 1000);
             } else {
-              return ThreadLocalRandom.current().nextInt(currentY - 1, currentY + 510);
+              return ThreadLocalRandom.current().nextInt(currentY - 1000, currentY + 1000);
             }
           };
 
