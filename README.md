@@ -1,7 +1,9 @@
-<img src="https://github.com/user-attachments/assets/f8e04de5-28fa-4015-91b4-c7e888982666" alt="Transparent" width="100" height="100" align="right" />
-<br><br>
-
-# <img src="https://github.com/user-attachments/assets/ab28eba7-4b88-47b4-be10-ac4487d66e23" alt="randomizer" width="24" height="24" style="vertical-align: middle;" />andomizer-CS2
+<div style="display: flex; align-items: center; justify-content: space-between;">
+  <h1>
+    <img src="https://github.com/user-attachments/assets/ab28eba7-4b88-47b4-be10-ac4487d66e23" alt="randomizer" width="36" height="36" style="vertical-align: middle;" />andomizer-CS2
+  </h1>
+  <img src="https://github.com/user-attachments/assets/f8e04de5-28fa-4015-91b4-c7e888982666" alt="Transparent" width="100" height="100" align="right" />
+</div>
 
 <center><p style="display: inline-block; vertical-align: middle;"><a href="https://discord.gg/yjKRgMyENR"><img src="https://github.com/user-attachments/assets/db9fa4e3-94a3-42dc-90c3-5379127120aa" width="75"></a></p>
 
