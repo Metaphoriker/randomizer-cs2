@@ -61,12 +61,12 @@ public class RandomizerBootstrap {
         if (!Main.isTestMode() && randomizerConfig.isAutoupdateEnabled()) randomizerUpdater.runUpdaterIfNeeded();
         loadKeyBinds();
         registerActions();
-        cacheActionSequences();
         setupFileWatcher();
-        startExecutor();
         Messages.cache();
         setupGlobalExceptionHandler();
         registerNativeKeyHook();
+        cacheActionSequences();
+        startExecutor();
     }
 
     private void loadConfiguration() {
