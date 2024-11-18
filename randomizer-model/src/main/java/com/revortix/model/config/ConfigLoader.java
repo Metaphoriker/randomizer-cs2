@@ -12,8 +12,10 @@ public class ConfigLoader {
     private static final String[] STEAM_PATHS = {
             "C:/Program Files (x86)/Steam",
             "C:/Program Files/Steam",
+            "C:/Steam",
             "D:/SteamLibrary",
-            "D:/Program Files (x86)/Steam"
+            "D:/Program Files (x86)/Steam",
+            "D:/Steam"
     };
 
     /**
