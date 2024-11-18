@@ -25,6 +25,7 @@
                         <Label text="Sets the time frame how long the Action should last" wrapText="true"
                                styleClass="settings-description"/>
                         <MinMaxSlider fx:id="minMaxSlider" styleClass="range-slider-action-interval"/>
+                        <Button styleClass="settings-reset-button"/>
                         <HBox alignment="CENTER_RIGHT">
                             <Button onAction="#onApply" styleClass="settings-apply-button" text="Apply"/>
                         </HBox>
