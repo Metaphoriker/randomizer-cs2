@@ -28,6 +28,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -482,14 +483,15 @@ public class BuilderViewController {
         titledPane.setText(type.name());
 
         VBox vBox = new VBox();
-        actions.forEach(
-                action -> {
-                    Label actionLabel = new Label(action.getName());
-                    actionLabel.getStyleClass().add("builder-actions-title");
-                    setupDrag(actionLabel, action);
-                    vBox.getStyleClass().add("builder-actions-title-vbox");
-                    vBox.getChildren().add(actionLabel);
-                });
+    actions.forEach(
+        action -> {
+          Label actionLabel = new Label(action.getName());
+          actionLabel.setTooltip(new Tooltip(action.getActionKey().getKey()));
+          actionLabel.getStyleClass().add("builder-actions-title");
+          setupDrag(actionLabel, action);
+          vBox.getStyleClass().add("builder-actions-title-vbox");
+          vBox.getChildren().add(actionLabel);
+        });
         applyExpandListener(titledPane);
         titledPane.setContent(vBox);
 
