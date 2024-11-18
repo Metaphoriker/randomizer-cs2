@@ -123,7 +123,7 @@ public class Main {
                         isUpdateAvailable -> {
                             CompletableFuture.runAsync(
                                     () -> {
-                                        String currentVersion = Updater.getCurrentVersion();
+                                        String currentVersion = Updater.getCurrentVersion(); // TODO: randomizer url
                                         String latestVersion = Updater.getLatestVersion(Updater.RANDOMIZER_VERSION_URL);
 
                                         SwingUtilities.invokeLater(
