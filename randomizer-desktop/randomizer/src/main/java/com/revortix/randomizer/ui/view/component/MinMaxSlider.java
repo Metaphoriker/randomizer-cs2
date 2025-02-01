@@ -5,6 +5,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.layout.HBox;
+import lombok.Setter;
 import org.controlsfx.control.RangeSlider;
 
 import java.util.function.Consumer;
@@ -12,8 +13,11 @@ import java.util.function.Consumer;
 public class MinMaxSlider extends HBox {
 
     private final RangeSlider rangeSlider = new RangeSlider(0, 300, 30, 100); // max 5 minutes
-    private final Label minLabel = new Label("s");
-    private final Label maxLabel = new Label("s");
+    private final Label minLabel = new Label();
+    private final Label maxLabel = new Label();
+
+    @Setter
+    private TimeUnit timeUnit = TimeUnit.SECONDS;
 
     private Consumer<Double> minValueChangeConsumer;
     private Consumer<Double> maxValueChangeConsumer;
@@ -51,8 +55,8 @@ public class MinMaxSlider extends HBox {
     }
 
     public void setMinMaxValue(int min, int max) {
-        minLabel.setText(min + "s");
-        maxLabel.setText(max + "s");
+        minLabel.setText(min + timeUnit.getLabel());
+        maxLabel.setText(max + timeUnit.getLabel());
         rangeSlider.setLowValue(min);
         rangeSlider.setHighValue(max);
     }
@@ -74,7 +78,7 @@ public class MinMaxSlider extends HBox {
     private void setListener() {
         rangeSlider.lowValueProperty().addListener(
                 (_, _, newValue) -> {
-                    minLabel.setText(newValue.intValue() + "s");
+                    minLabel.setText(newValue.intValue() + timeUnit.getLabel());
                     if (minValueChangeConsumer != null) {
                         minValueChangeConsumer.accept(newValue.doubleValue());
                     }
@@ -83,11 +87,26 @@ public class MinMaxSlider extends HBox {
 
         rangeSlider.highValueProperty().addListener(
                 (_, _, newValue) -> {
-                    maxLabel.setText(newValue.intValue() + "s");
+                    maxLabel.setText(newValue.intValue() + timeUnit.getLabel());
                     if (maxValueChangeConsumer != null) {
                         maxValueChangeConsumer.accept(newValue.doubleValue());
                     }
                 }
         );
+    }
+
+    public enum TimeUnit {
+        MILLISECONDS("ms"),
+        SECONDS("s");
+
+        private final String label;
+
+        TimeUnit(String label) {
+            this.label = label;
+        }
+
+        public String getLabel() {
+            return label;
+        }
     }
 }
