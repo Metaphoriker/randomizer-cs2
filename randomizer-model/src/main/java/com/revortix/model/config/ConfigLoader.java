@@ -18,47 +18,27 @@ public class ConfigLoader {
     "D:/Games/Steam"
   };
 
-  /**
-   * Loads key bindings from default and user configuration files into the provided
-   * KeyBindRepository.
-   *
-   * @param keyBindRepository the repository where key bindings will be loaded
-   * @throws RuntimeException if the key bindings could not be loaded due to a FileNotFoundException
-   */
-  public static void loadKeyBinds(KeyBindRepository keyBindRepository) {
-    try {
-      loadDefaultKeyBinds(keyBindRepository);
-      loadUserKeyBindings(keyBindRepository);
-      log.info("Erfolgreich {} Key-Bindings geladen", keyBindRepository.getKeyBinds().size());
-    } catch (FileNotFoundException e) {
-      log.error("Fehler beim Laden der Key-Bindings", e);
-      throw new RuntimeException(e);
-    }
-  }
-
-  private static void loadDefaultKeyBinds(KeyBindRepository keyBindRepository)
+  public static void loadDefaultKeyBinds(String configPath, KeyBindRepository keyBindRepository)
       throws FileNotFoundException {
-    String defaultConfigPath = findDefaultConfigFile();
-    if (defaultConfigPath != null) {
-      log.info("Lade Standard-Key-Bindings von: {}", defaultConfigPath);
-      keyBindRepository.initDefaults(defaultConfigPath);
+    if (configPath != null) {
+      log.info("Lade Standard-Key-Bindings von: {}", configPath);
+      keyBindRepository.initDefaults(configPath);
     } else {
       throw new FileNotFoundException("Standardkonfigurationsdatei nicht gefunden.");
     }
   }
 
-  private static void loadUserKeyBindings(KeyBindRepository keyBindRepository)
+  public static void loadUserKeyBindings(String configPath, KeyBindRepository keyBindRepository)
       throws FileNotFoundException {
-    String userConfigPath = findUserConfigFile();
-    if (userConfigPath != null) {
-      log.info("Lade Benutzer-Key-Bindings von: {}", userConfigPath);
-      keyBindRepository.initModifiedKeyBinds(userConfigPath);
+    if (configPath != null) {
+      log.info("Lade Benutzer-Key-Bindings von: {}", configPath);
+      keyBindRepository.initModifiedKeyBinds(configPath);
     } else {
       log.info("Keine Benutzer-Key-Bindings gefunden.");
     }
   }
 
-  private static String findDefaultConfigFile() {
+  public static String findDefaultConfigFile() {
     for (String steamPath : STEAM_PATHS) {
       File defaultConfig =
           new File(
@@ -71,7 +51,7 @@ public class ConfigLoader {
     return null;
   }
 
-  private static String findUserConfigFile() {
+  public static String findUserConfigFile() {
     for (String steamPath : STEAM_PATHS) {
       File userdataFolder = new File(steamPath + "/userdata");
       if (userdataFolder.exists()) {

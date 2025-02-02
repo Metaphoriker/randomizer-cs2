@@ -19,8 +19,12 @@ import com.revortix.model.messages.Messages;
 import com.revortix.model.watcher.FileSystemWatcher;
 import com.revortix.randomizer.Main;
 import com.revortix.randomizer.config.RandomizerConfig;
+import javafx.application.Platform;
+import javafx.scene.control.TextInputDialog;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
+
+import java.util.function.Consumer;
 
 /**
  * The RandomizerBootstrap class is responsible for initializing and configuring the application. It sets up
@@ -60,6 +64,7 @@ public class RandomizerBootstrap {
         randomizerUpdater.installUpdater();
         if (!Main.isTestMode() && randomizerConfig.isAutoupdateEnabled()) randomizerUpdater.runUpdaterIfNeeded();
         loadKeyBinds();
+        ladeUserKeyBinds();
         registerActions();
         setupFileWatcher();
         Messages.cache();
@@ -80,7 +85,66 @@ public class RandomizerBootstrap {
 
     private void loadKeyBinds() {
         log.info("Lade KeyBinds...");
-        ConfigLoader.loadKeyBinds(keyBindRepository);
+        try {
+            String configPath = ConfigLoader.findDefaultConfigFile();
+            if(configPath != null) {
+                ConfigLoader.loadDefaultKeyBinds(configPath, keyBindRepository);
+                log.info("Default KeyBinds erfolgreich geladen!");
+                return;
+            }
+        } catch (Exception e) {
+        }
+
+        log.info("KeyBinds nicht gefunden - erwarte User Input!");
+        sendDialog(input -> {
+            try {
+                ConfigLoader.loadDefaultKeyBinds(input, keyBindRepository);
+                log.info("Default KeyBinds erfolgreich geladen!");
+            } catch(Exception e) {
+                loadKeyBinds();
+            }
+        });
+    }
+
+  private void sendDialog(Consumer<String> inputConsumer) {
+    log.info("Zeige Dialog, um Pfad einzugeben...");
+    Platform.runLater(
+        () -> {
+          TextInputDialog dialog = new TextInputDialog();
+          dialog.setTitle("Eingabe erforderlich");
+          dialog.setHeaderText("Pfad eingeben");
+          dialog.setContentText("Bitte geben Sie den Pfad ein:");
+
+          dialog
+              .showAndWait()
+              .ifPresent(
+                  input -> {
+                    log.info("Pfad eingegeben: {}", input);
+                    inputConsumer.accept(input);
+                  });
+        });
+  }
+
+    private void ladeUserKeyBinds() {
+        log.info("Lade User KeyBinds...");
+        try {
+            String configPath = ConfigLoader.findUserConfigFile();
+            if (configPath != null) {
+                ConfigLoader.loadUserKeyBindings(configPath, keyBindRepository);
+                log.info("User KeyBinds erfolgreich geladen!");
+                return;
+            }
+        } catch (Exception e) {}
+
+        log.info("User KeyBinds nicht gefunden - erwarte User Input!");
+        sendDialog(input -> {
+            try {
+                ConfigLoader.loadUserKeyBindings(input, keyBindRepository);
+                log.info("User KeyBinds erfolgreich geladen!");
+            } catch(Exception e) {
+                ladeUserKeyBinds();
+            }
+        });
     }
 
     private void setupFileWatcher() {
