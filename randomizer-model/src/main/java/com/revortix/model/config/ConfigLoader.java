@@ -20,6 +20,10 @@ public class ConfigLoader {
 
   public static void loadDefaultKeyBinds(String configPath, KeyBindRepository keyBindRepository)
       throws FileNotFoundException {
+    File defaultConfigFile = new File(configPath);
+    if (!defaultConfigFile.exists()) {
+      throw new FileNotFoundException("Standardkonfigurationsdatei nicht gefunden.");
+    }
     if (configPath != null) {
       log.info("Lade Standard-Key-Bindings von: {}", configPath);
       keyBindRepository.initDefaults(configPath);
@@ -28,8 +32,12 @@ public class ConfigLoader {
     }
   }
 
-  public static void loadUserKeyBindings(String configPath, KeyBindRepository keyBindRepository)
-      throws FileNotFoundException {
+  public static void loadUserKeyBindings(String configPath, KeyBindRepository keyBindRepository) {
+    File userConfigFile = new File(configPath);
+    if (!userConfigFile.exists()) {
+      log.info("Keine Benutzer-Key-Bindings gefunden.");
+      return;
+    }
     if (configPath != null) {
       log.info("Lade Benutzer-Key-Bindings von: {}", configPath);
       keyBindRepository.initModifiedKeyBinds(configPath);

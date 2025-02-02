@@ -98,12 +98,17 @@ public class RandomizerBootstrap {
 
         log.info("KeyBinds nicht gefunden - erwarte User Input!");
         sendDialog(input -> {
+            if(input == null) {
+                loadKeyBinds();
+                return;
+            }
             try {
                 ConfigLoader.loadDefaultKeyBinds(input, keyBindRepository);
                 log.info("Default KeyBinds erfolgreich geladen!");
+                return;
             } catch(Exception e) {
-                loadKeyBinds();
             }
+            loadKeyBinds();
         });
     }
 
@@ -121,6 +126,8 @@ public class RandomizerBootstrap {
           if (input != null && !input.isEmpty()) {
             log.info("Pfad eingegeben: {}", input);
             inputConsumer.accept(input);
+          } else {
+              inputConsumer.accept(null);
           }
           frame.dispose();
         });
@@ -142,9 +149,10 @@ public class RandomizerBootstrap {
             try {
                 ConfigLoader.loadUserKeyBindings(input, keyBindRepository);
                 log.info("User KeyBinds erfolgreich geladen!");
+                return;
             } catch(Exception e) {
-                ladeUserKeyBinds();
             }
+            ladeUserKeyBinds();
         });
     }
 
