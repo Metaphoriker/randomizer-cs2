@@ -24,6 +24,7 @@ import javafx.scene.control.TextInputDialog;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import javax.swing.*;
 import java.util.function.Consumer;
 
 /**
@@ -108,20 +109,20 @@ public class RandomizerBootstrap {
 
   private void sendDialog(Consumer<String> inputConsumer) {
     log.info("Zeige Dialog, um Pfad einzugeben...");
-    Platform.runLater(
+    SwingUtilities.invokeLater(
         () -> {
-          TextInputDialog dialog = new TextInputDialog();
-          dialog.setTitle("Eingabe erforderlich");
-          dialog.setHeaderText("Pfad eingeben");
-          dialog.setContentText("Bitte geben Sie den Pfad ein:");
-
-          dialog
-              .showAndWait()
-              .ifPresent(
-                  input -> {
-                    log.info("Pfad eingegeben: {}", input);
-                    inputConsumer.accept(input);
-                  });
+          JFrame frame = new JFrame("Eingabe erforderlich");
+          String input =
+              JOptionPane.showInputDialog(
+                  frame,
+                  "Bitte geben Sie den Pfad ein:",
+                  "Pfad eingeben",
+                  JOptionPane.PLAIN_MESSAGE);
+          if (input != null && !input.isEmpty()) {
+            log.info("Pfad eingegeben: {}", input);
+            inputConsumer.accept(input);
+          }
+          frame.dispose();
         });
   }
 
