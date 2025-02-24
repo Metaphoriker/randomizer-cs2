@@ -10,7 +10,7 @@ import java.net.URI;
 
 public class HomeViewModel {
 
-    private static final String GITHUB_LINK = "https://github.com/revortix/randomizer-cs2";
+    private static final String GITHUB_LINK = "https://github.com/metaphoriker/randomizer-cs2";
     private static final String DISCORD_LINK = "https://discord.gg/782s5ExhFy";
 
     private final RandomizerUpdater randomizerUpdater;
