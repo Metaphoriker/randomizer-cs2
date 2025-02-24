@@ -1,5 +1,7 @@
 package com.revortix.randomizer.ui;
 
+import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.NativeHookException;
 import com.revortix.model.updater.Updater;
 import com.revortix.randomizer.Main;
 import com.revortix.randomizer.ui.view.ViewProvider;
@@ -36,6 +38,14 @@ public class RandomizerApplication extends Application {
     Parent root = viewProvider.requestView(RandomizerWindowController.class).parent();
     Scene scene = new Scene(root);
     setupStage(stage, scene);
+    stage.setOnCloseRequest(
+        _ -> {
+          try {
+            GlobalScreen.unregisterNativeHook();
+          } catch (NativeHookException e) {
+            throw new RuntimeException(e);
+          }
+        });
     stage.show();
   }
 

@@ -85,7 +85,6 @@ public class RandomizerBootstrap {
       if (configPath != null) {
         ConfigLoader.loadDefaultKeyBinds(configPath, keyBindRepository);
         log.info("Default KeyBinds erfolgreich geladen!");
-        return;
       }
     } catch (Exception e) {
     }
@@ -98,7 +97,6 @@ public class RandomizerBootstrap {
       if (configPath != null) {
         ConfigLoader.loadUserKeyBindings(configPath, keyBindRepository);
         log.info("User KeyBinds erfolgreich geladen!");
-        return;
       }
     } catch (Exception e) {
     }
