@@ -12,6 +12,9 @@ import com.revortix.randomizer.ui.view.controller.settings.ActionSettingsControl
 import com.revortix.randomizer.ui.view.controller.settings.DescriptionSettingsController;
 import com.revortix.randomizer.ui.view.controller.settings.TitleSettingsController;
 import com.revortix.randomizer.ui.view.viewmodel.BuilderViewModel;
+import java.io.IOException;
+import java.util.Comparator;
+import java.util.List;
 import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
@@ -29,6 +32,7 @@ import javafx.scene.control.Separator;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -36,10 +40,6 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 import javafx.util.Duration;
-
-import java.io.IOException;
-import java.util.Comparator;
-import java.util.List;
 
 @View
 public class BuilderViewController {
@@ -71,6 +71,7 @@ public class BuilderViewController {
   @FXML private VBox builderVBox;
   @FXML private TextField searchField;
   @FXML private Label sequenceDescriptionLabel;
+  @FXML private ImageView sequenceNameImageView;
   @FXML private Label sequenceNameLabel;
   @FXML private Button randomizeButton;
   @FXML private Button actionsClearButton;
@@ -119,6 +120,7 @@ public class BuilderViewController {
 
     sequenceDescriptionLabel.textProperty().bind(builderViewModel.getSequenceDescriptionProperty());
     sequenceNameLabel.textProperty().bind(builderViewModel.getSequenceNameProperty());
+    sequenceNameImageView.visibleProperty().bind(sequenceNameLabel.textProperty().isNotEmpty());
 
     labelInFocusProperty.addListener(
         (_, oldLabel, newLabel) -> {

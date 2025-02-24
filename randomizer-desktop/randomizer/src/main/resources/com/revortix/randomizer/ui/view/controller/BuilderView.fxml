@@ -65,9 +65,10 @@
                                                 <VBox prefHeight="46.0" styleClass="sequence-naming" BorderPane.alignment="CENTER">
                                                     <children>
                                                         <Label fx:id="sequenceNameLabel" styleClass="sequence-name-label">
-                                             <graphic>
-                                                <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" styleClass="sequence-name-label-image"/>
-                                             </graphic></Label>
+                                                            <graphic>
+                                                                <ImageView fx:id="sequenceNameImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" smooth="false" styleClass="sequence-name-label-image" />
+                                                            </graphic>
+                                                        </Label>
                                                         <Label fx:id="sequenceDescriptionLabel" styleClass="sequence-description-label" />
                                                     </children>
                                                     <padding>
