@@ -713,8 +713,10 @@
     -fx-font-family: SansSerif;
     -fx-font-size: 12px;
     -fx-font-weight: 600;
-    -fx-graphic: url("../images/sequenceIcon.png");
     -fx-text-fill: #DAF0F3;
+}
+.sequence-name-label-image {
+    -fx-image: url("../images/sequenceIcon.png");
 }
 
 .sequence-description-label {
