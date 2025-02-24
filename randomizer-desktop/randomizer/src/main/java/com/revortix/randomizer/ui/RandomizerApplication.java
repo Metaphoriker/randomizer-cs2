@@ -6,6 +6,8 @@ import com.revortix.model.updater.Updater;
 import com.revortix.randomizer.Main;
 import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.RandomizerWindowController;
+import java.io.File;
+import java.net.URISyntaxException;
 import javafx.application.Application;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
@@ -50,7 +52,13 @@ public class RandomizerApplication extends Application {
   }
 
   private void setupStage(Stage stage, Scene scene) {
-    stage.setTitle("Randomizer-CS2 - " + Updater.getCurrentVersion());
+    File jarPath = null;
+    try {
+      jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+    } catch (URISyntaxException e) {
+      throw new RuntimeException(e);
+    }
+    stage.setTitle("Randomizer-CS2 - " + Updater.getVersion(jarPath));
     stage.getIcons().add(new Image("com/revortix/randomizer/images/randomizer.png"));
     scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     stage.setMinWidth(MIN_WIDTH);
