@@ -10,9 +10,8 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public class MouseMoveAction extends Action {
 
-  private static final int SMOOTH_STEPS = 20; // Anzahl der Schritte für die Bewegung
-  // Entferne SMOOTH_DELAY, da wir jetzt KNUFFI verwenden
-  private static final int MAX_MOVE_DISTANCE = 100; //  Maximale Distanz in Pixeln
+  private static final int SMOOTH_STEPS = 50;
+  private static final int MAX_MOVE_DISTANCE = 5000;
 
   public MouseMoveAction() {
     super("Mouse move", ActionKey.of(KeyBind.EMPTY_KEY_BIND.getKey()));
@@ -25,14 +24,12 @@ public class MouseMoveAction extends Action {
       int startX = startPosition.x;
       int startY = startPosition.y;
 
-      // Zufällige Zielkoordinaten innerhalb des MAX_MOVE_DISTANCE Radius
       int deltaX = ThreadLocalRandom.current().nextInt(-MAX_MOVE_DISTANCE, MAX_MOVE_DISTANCE + 1);
       int deltaY = ThreadLocalRandom.current().nextInt(-MAX_MOVE_DISTANCE, MAX_MOVE_DISTANCE + 1);
 
       int endX = startX + deltaX;
       int endY = startY + deltaY;
 
-      // Stelle sicher, dass die neuen Koordinaten im Bildschirmbereich liegen
       Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
       endX = Math.max(0, Math.min(endX, screenSize.width - 1));
       endY = Math.max(0, Math.min(endY, screenSize.height - 1));
@@ -40,7 +37,7 @@ public class MouseMoveAction extends Action {
       log.debug("Moving mouse smoothly from ({}, {}) to ({}, {})", startX, startY, endX, endY);
       smoothMove(startX, startY, endX, endY);
 
-    } catch (Exception e) { // Fange *alle* Exceptions, da KNUFFI unbekannte Exceptions werfen könnte.
+    } catch (Exception e) {
       log.error("Error during smooth mouse move", e);
     }
   }
@@ -57,9 +54,9 @@ public class MouseMoveAction extends Action {
     for (int step = 1; step <= SMOOTH_STEPS; step++) {
       int x = (int) Math.round(startX + dx * step);
       int y = (int) Math.round(startY + dy * step);
-      KNUFFI.mouseMove(x, y); // Verwende KNUFFI für die Mausbewegung
-      // Kein Thread.sleep() mehr!
+      KNUFFI.mouseMove(x, y);
+      KNUFFI.delay(10);
     }
-    KNUFFI.mouseMove(endX, endY); // Gehe zur Sicherheit nochmal zur endgültigen Position.
+    KNUFFI.mouseMove(endX, endY);
   }
 }

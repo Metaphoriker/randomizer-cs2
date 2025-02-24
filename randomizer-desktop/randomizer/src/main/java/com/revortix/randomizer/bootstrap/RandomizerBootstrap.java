@@ -7,6 +7,7 @@ import com.revortix.model.ApplicationContext;
 import com.revortix.model.action.Action;
 import com.revortix.model.action.ActionKey;
 import com.revortix.model.action.impl.BaseAction;
+import com.revortix.model.action.impl.MouseMoveAction;
 import com.revortix.model.action.impl.PauseAction;
 import com.revortix.model.action.repository.ActionRepository;
 import com.revortix.model.action.repository.ActionSequenceRepository;
@@ -139,7 +140,7 @@ public class RandomizerBootstrap {
   private void registerActions() {
     log.info("Registriere Aktionen...");
     actionRepository.register(new PauseAction());
-    // actionRepository.register(new MouseMoveAction());
+    actionRepository.register(new MouseMoveAction());
     // actionRepository.register(new BaseAction("Escape", ActionKey.of("ESCAPE")));
     registerKeyBindActions();
     log.info("{} Aktionen registriert", actionRepository.getActions().size());
