@@ -91,6 +91,7 @@ public class KeyBindNameTypeMapper {
     descriptorToNameMap.put("+back", new NameType("Move Backward", KeyBindType.MOVEMENT));
     descriptorToNameMap.put("+forward", new NameType("Move Forward", KeyBindType.MOVEMENT));
     descriptorToNameMap.put("+duck", new NameType("Crouch", KeyBindType.MOVEMENT));
+    descriptorToNameMap.put("+sprint", new NameType("Sprint", KeyBindType.MOVEMENT));
 
     descriptorToNameMap.put("slot1", new NameType("Select Slot 1", KeyBindType.INVENTORY));
     descriptorToNameMap.put("slot2", new NameType("Select Slot 2", KeyBindType.INVENTORY));
