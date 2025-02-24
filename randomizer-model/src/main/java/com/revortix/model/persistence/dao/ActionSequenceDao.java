@@ -130,7 +130,7 @@ public class ActionSequenceDao {
             return jsonUtil.deserializeActionSequence(content);
         } catch (IOException e) {
             log.error("Fehler beim Laden der ActionSequence aus Datei: {}", file.getAbsolutePath(), e);
-            throw e;
+            return null;
         }
     }
 }
