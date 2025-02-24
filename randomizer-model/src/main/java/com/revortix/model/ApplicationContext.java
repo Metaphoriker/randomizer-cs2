@@ -17,12 +17,18 @@ public class ApplicationContext {
     private static final File APPDATA_FOLDER =
             new File(System.getenv("APPDATA") + File.separator + "randomizer");
 
+    private static final File APPDATA_LIBS_FOLDER = new File(APPDATA_FOLDER, "libs");
+
     private final List<Consumer<ApplicationState>> changeListener = new ArrayList<>();
 
     private volatile ApplicationState applicationState = ApplicationState.IDLING;
 
     public static File getAppdataFolder() {
         return APPDATA_FOLDER;
+    }
+
+    public static File getAppdataLibsFolder() {
+        return APPDATA_LIBS_FOLDER;
     }
 
     /**
