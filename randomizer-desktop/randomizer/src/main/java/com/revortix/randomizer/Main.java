@@ -2,6 +2,7 @@ package com.revortix.randomizer;
 
 import com.google.inject.Guice;
 import com.google.inject.Injector;
+import com.revortix.model.ApplicationContext;
 import com.revortix.model.ModelModule;
 import com.revortix.randomizer.bootstrap.RandomizerBootstrap;
 import com.revortix.randomizer.bootstrap.RandomizerModule;
@@ -10,6 +11,7 @@ import javafx.application.Application;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
+import java.io.File;
 import java.util.concurrent.CompletableFuture;
 
 @Slf4j

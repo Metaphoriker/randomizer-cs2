@@ -36,37 +36,6 @@ public class KeyBindLoader {
     } catch (Exception e) {
       // Ignoriere Exception und fahre mit der Benutzereingabe fort
     }
-
-    log.info("{} nicht gefunden - erwarte User Input!", logMessagePrefix);
-    sendDialog(
-        input -> {
-          try {
-            ConfigLoader.class
-                .getDeclaredMethod(configLoaderMethodName, String.class, KeyBindRepository.class)
-                .invoke(null, input, keyBindRepository);
-            log.info("{} erfolgreich geladen!", logMessagePrefix);
-          } catch (Exception e) {
-            loadKeyBinds(configType);
-          }
-        });
-  }
-
-  private void sendDialog(Consumer<String> inputConsumer) {
-    log.info("Zeige Dialog, um Pfad einzugeben...");
-    Platform.runLater(
-        () -> {
-          TextInputDialog dialog = new TextInputDialog();
-          dialog.setTitle("Eingabe erforderlich");
-          dialog.setHeaderText("Pfad eingeben");
-          dialog.setContentText("Bitte geben Sie den Pfad ein:");
-          dialog
-              .showAndWait()
-              .ifPresent(
-                  input -> {
-                    log.info("Pfad eingegeben: {}", input);
-                    inputConsumer.accept(input);
-                  });
-        });
   }
 
   public void loadDefaultKeyBinds() {

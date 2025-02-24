@@ -18,8 +18,6 @@ import com.revortix.model.messages.Messages;
 import com.revortix.model.watcher.FileSystemWatcher;
 import com.revortix.randomizer.Main;
 import com.revortix.randomizer.config.RandomizerConfig;
-import java.util.function.Consumer;
-import javax.swing.*;
 import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
@@ -91,43 +89,6 @@ public class RandomizerBootstrap {
       }
     } catch (Exception e) {
     }
-
-    log.info("KeyBinds nicht gefunden - erwarte User Input!");
-    sendDialog(
-        input -> {
-          if (input == null) {
-            loadKeyBinds();
-            return;
-          }
-          try {
-            ConfigLoader.loadDefaultKeyBinds(input, keyBindRepository);
-            log.info("Default KeyBinds erfolgreich geladen!");
-            return;
-          } catch (Exception e) {
-          }
-          loadKeyBinds();
-        });
-  }
-
-  private void sendDialog(Consumer<String> inputConsumer) {
-    log.info("Zeige Dialog, um Pfad einzugeben...");
-    SwingUtilities.invokeLater(
-        () -> {
-          JFrame frame = new JFrame("Eingabe erforderlich");
-          String input =
-              JOptionPane.showInputDialog(
-                  frame,
-                  "Bitte geben Sie den Pfad ein:",
-                  "Pfad eingeben",
-                  JOptionPane.PLAIN_MESSAGE);
-          if (input != null && !input.isEmpty()) {
-            log.info("Pfad eingegeben: {}", input);
-            inputConsumer.accept(input);
-          } else {
-            inputConsumer.accept(null);
-          }
-          frame.dispose();
-        });
   }
 
   private void ladeUserKeyBinds() {
@@ -141,18 +102,6 @@ public class RandomizerBootstrap {
       }
     } catch (Exception e) {
     }
-
-    log.info("User KeyBinds nicht gefunden - erwarte User Input!");
-    sendDialog(
-        input -> {
-          try {
-            ConfigLoader.loadUserKeyBindings(input, keyBindRepository);
-            log.info("User KeyBinds erfolgreich geladen!");
-            return;
-          } catch (Exception e) {
-          }
-          ladeUserKeyBinds();
-        });
   }
 
   private void setupFileWatcher() {
