@@ -20,7 +20,6 @@ public class ActionRepository {
    */
   public void register(Action action) {
     actions.put(action, true);
-    log.info("Action erfolgreich registriert: {}", action);
   }
 
   public boolean hasActionWithName(String name) {
@@ -35,7 +34,6 @@ public class ActionRepository {
    */
   public void unregister(Action action) {
     actions.remove(action);
-    log.info("Action erfolgreich abgemeldet: {}", action);
   }
 
   /**
@@ -45,7 +43,6 @@ public class ActionRepository {
    */
   public void enable(Action action) {
     actions.put(action, true);
-    log.info("Action erfolgreich aktiviert: {}", action);
   }
 
   /**
@@ -56,7 +53,6 @@ public class ActionRepository {
    */
   public void disable(Action action) {
     actions.put(action, false);
-    log.info("Action erfolgreich deaktiviert: {}", action);
   }
 
   /**
