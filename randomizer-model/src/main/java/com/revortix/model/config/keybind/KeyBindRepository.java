@@ -89,8 +89,6 @@ public class KeyBindRepository {
     } else if (keyBindNameTypeMapper.hasKey(descriptor)) {
       String keyName = keyBindNameTypeMapper.getKeyName(descriptor);
       addOrUpdateKeyBind(key, keyName);
-    } else {
-      log.warn("Keinen Deskriptor für {} gefunden, ignoriere...", descriptor);
     }
   }
 
