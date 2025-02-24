@@ -45,6 +45,8 @@ public class RandomizerApplication extends Application {
     scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     stage.setMinWidth(MIN_WIDTH);
     stage.setMinHeight(MIN_HEIGHT);
+    stage.setWidth(MIN_WIDTH);
+    stage.setHeight(MIN_HEIGHT);
     stage.setOnCloseRequest(_ -> System.exit(0));
     stage.setScene(scene);
   }
