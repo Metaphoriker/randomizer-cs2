@@ -19,4 +19,10 @@ public class RandomizerConfig extends BaseConfiguration {
 
     @ConfigValue(name = "autoupdate.enabled")
     private boolean autoupdateEnabled = false;
+
+    @ConfigValue(name = "advanced.mode")
+    private boolean advancedMode = false;
+
+    @ConfigValue(name = "show.intro")
+    private boolean showIntro = true;
 }

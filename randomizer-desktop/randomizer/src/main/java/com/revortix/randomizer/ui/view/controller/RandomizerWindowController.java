@@ -1,6 +1,7 @@
 package com.revortix.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
+import com.revortix.randomizer.config.RandomizerConfig;
 import com.revortix.randomizer.ui.util.GifDecoder;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.ViewProvider;
@@ -28,6 +29,7 @@ public class RandomizerWindowController implements Initializable {
     private static final String GIF_RESOURCE_PATH = "com/revortix/randomizer/gif/its-time.gif";
 
     private final ViewProvider viewProvider;
+    private final RandomizerConfig randomizerConfig;
 
     @FXML
     private VBox root;
@@ -39,8 +41,9 @@ public class RandomizerWindowController implements Initializable {
     private VBox navigationBarHolder;
 
     @Inject
-    public RandomizerWindowController(ViewProvider viewProvider) {
+    public RandomizerWindowController(ViewProvider viewProvider, RandomizerConfig randomizerConfig) {
         this.viewProvider = viewProvider;
+        this.randomizerConfig = randomizerConfig;
     }
 
     @Override
@@ -50,7 +53,9 @@ public class RandomizerWindowController implements Initializable {
         registerViewListener();
         setupControlBarClickTransparency();
 
-        addPreloadingGif();
+        if(randomizerConfig.isShowIntro())
+            addPreloadingGif();
+
         loadHomeView();
     }
 
