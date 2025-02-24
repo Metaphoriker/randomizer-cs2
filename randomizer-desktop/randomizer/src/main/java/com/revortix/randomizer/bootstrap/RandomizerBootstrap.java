@@ -189,8 +189,8 @@ public class RandomizerBootstrap {
     private void registerActions() {
         log.info("Registriere Aktionen...");
         actionRepository.register(new PauseAction());
-        actionRepository.register(new MouseMoveAction());
-        actionRepository.register(new BaseAction("Escape", ActionKey.of("ESCAPE")));
+        // actionRepository.register(new MouseMoveAction());
+        // actionRepository.register(new BaseAction("Escape", ActionKey.of("ESCAPE")));
         registerKeyBindActions();
         log.info("{} Aktionen registriert", actionRepository.getActions().size());
     }

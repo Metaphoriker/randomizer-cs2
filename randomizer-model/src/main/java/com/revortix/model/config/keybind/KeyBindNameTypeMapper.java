@@ -91,31 +91,18 @@ public class KeyBindNameTypeMapper {
     descriptorToNameMap.put("+back", new NameType("Move Backward", KeyBindType.MOVEMENT));
     descriptorToNameMap.put("+forward", new NameType("Move Forward", KeyBindType.MOVEMENT));
     descriptorToNameMap.put("+duck", new NameType("Crouch", KeyBindType.MOVEMENT));
-    descriptorToNameMap.put("+sprint", new NameType("Sprint", KeyBindType.MOVEMENT));
 
     descriptorToNameMap.put("slot1", new NameType("Select Slot 1", KeyBindType.INVENTORY));
     descriptorToNameMap.put("slot2", new NameType("Select Slot 2", KeyBindType.INVENTORY));
     descriptorToNameMap.put("slot3", new NameType("Select Slot 3", KeyBindType.INVENTORY));
     descriptorToNameMap.put("slot4", new NameType("Select Slot 4", KeyBindType.INVENTORY));
-    descriptorToNameMap.put("invnext", new NameType("Next Inventory Item", KeyBindType.INVENTORY));
-    descriptorToNameMap.put(
-            "invprev", new NameType("Previous Inventory Item", KeyBindType.INVENTORY));
-    descriptorToNameMap.put("lastinv", new NameType("Last Inventory Item", KeyBindType.INVENTORY));
-    descriptorToNameMap.put(
-            "sellbackall", new NameType("Sell Back All Items", KeyBindType.INVENTORY));
 
     descriptorToNameMap.put("drop", new NameType("Drop Item", KeyBindType.WEAPON));
     descriptorToNameMap.put("+reload", new NameType("Reload", KeyBindType.WEAPON));
     descriptorToNameMap.put("+attack", new NameType("Primary Attack", KeyBindType.WEAPON));
     descriptorToNameMap.put("+attack2", new NameType("Secondary Attack", KeyBindType.WEAPON));
-    descriptorToNameMap.put("+lookatweapon", new NameType("Inspect Weapon", KeyBindType.WEAPON));
 
-    descriptorToNameMap.put(
-            "+use", new NameType("Use Object / Interact", KeyBindType.MISCELLANEOUS));
-    descriptorToNameMap.put("messagemode", new NameType("Open Chat", KeyBindType.MISCELLANEOUS));
     descriptorToNameMap.put("player_ping", new NameType("Player Ping", KeyBindType.MISCELLANEOUS));
-    descriptorToNameMap.put("jpeg", new NameType("Take Screenshot", KeyBindType.MISCELLANEOUS));
-    descriptorToNameMap.put("switchhands", new NameType("Switch Hands", KeyBindType.MISCELLANEOUS));
 
     log.info("{} Deskriptoren initialisiert.", descriptorToNameMap.size());
   }
