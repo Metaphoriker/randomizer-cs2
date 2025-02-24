@@ -59,7 +59,6 @@ public class RandomizerBootstrap {
     if (!Main.isTestMode() && randomizerConfig.isAutoupdateEnabled())
       randomizerUpdater.runUpdaterIfNeeded();
     loadKeyBinds();
-    ladeUserKeyBinds();
     registerActions();
     setupFileWatcher();
     Messages.cache();
@@ -67,6 +66,11 @@ public class RandomizerBootstrap {
     registerNativeKeyHook();
     cacheActionSequences();
     startExecutor();
+  }
+
+  private void loadKeyBinds() {
+    loadDefaultKeyBinds();
+    ladeUserKeyBinds();
   }
 
   private void loadConfiguration() {
@@ -78,7 +82,7 @@ public class RandomizerBootstrap {
     ActionSequenceExecutorRunnable.setMaxWaitTime(randomizerConfig.getMaxInterval());
   }
 
-  private void loadKeyBinds() {
+  private void loadDefaultKeyBinds() {
     log.info("Lade KeyBinds...");
     try {
       String configPath = ConfigLoader.findDefaultConfigFile();
