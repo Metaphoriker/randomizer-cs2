@@ -3,6 +3,7 @@ package com.revortix.randomizer.ui;
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import com.revortix.model.updater.Updater;
+import com.revortix.model.util.JarFileUtil;
 import com.revortix.randomizer.Main;
 import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.RandomizerWindowController;
@@ -52,13 +53,7 @@ public class RandomizerApplication extends Application {
   }
 
   private void setupStage(Stage stage, Scene scene) {
-    File jarPath = null;
-    try {
-      jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-    } catch (URISyntaxException e) {
-      throw new RuntimeException(e);
-    }
-    stage.setTitle("Randomizer-CS2 - " + Updater.getVersion(jarPath));
+    stage.setTitle("Randomizer-CS2 - " + Updater.getVersion(JarFileUtil.getJarFile()));
     stage.getIcons().add(new Image("com/revortix/randomizer/images/randomizer.png"));
     scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     stage.setMinWidth(MIN_WIDTH);

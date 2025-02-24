@@ -2,12 +2,10 @@ package com.revortix.randomizer.bootstrap;
 
 import com.revortix.model.ApplicationContext;
 import com.revortix.model.updater.Updater;
-import com.revortix.randomizer.Main;
-import lombok.extern.slf4j.Slf4j;
-
+import com.revortix.model.util.JarFileUtil;
 import java.io.File;
 import java.io.IOException;
-import java.net.URISyntaxException;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RandomizerUpdater {
@@ -25,13 +23,8 @@ public class RandomizerUpdater {
   }
 
   public boolean isRandomizerUpdateAvailable() {
-    File jarPath;
-    try {
-      jarPath = new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
-    } catch (URISyntaxException e) {
-      throw new RuntimeException(e);
-    }
-    return Updater.isUpdateAvailable(Updater.getVersion(jarPath), Updater.RANDOMIZER_VERSION_URL);
+    return Updater.isUpdateAvailable(
+        Updater.getVersion(JarFileUtil.getJarFile()), Updater.RANDOMIZER_VERSION_URL);
   }
 
   public File getUpdater() {
@@ -62,8 +55,7 @@ public class RandomizerUpdater {
   private void startUpdaterIfNecessary(String path) {
     log.info("Starte Updater falls notwendig...");
     try {
-      File jarPath =
-          new File(Main.class.getProtectionDomain().getCodeSource().getLocation().toURI());
+      File jarPath = JarFileUtil.getJarFile();
       if (Updater.isUpdateAvailable(Updater.getVersion(jarPath), Updater.RANDOMIZER_VERSION_URL)) {
         log.info("Updater gestartet");
         ProcessBuilder processBuilder =
@@ -73,7 +65,7 @@ public class RandomizerUpdater {
         startProcess(processBuilder);
         System.exit(0); // we want to close the randomizer in order to update it
       }
-    } catch (URISyntaxException | IOException | InterruptedException e) {
+    } catch (IOException | InterruptedException e) {
       throw new RuntimeException(e);
     }
   }
