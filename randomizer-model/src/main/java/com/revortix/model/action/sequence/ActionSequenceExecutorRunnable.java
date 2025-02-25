@@ -1,6 +1,7 @@
 package com.revortix.model.action.sequence;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
+import com.github.kwhat.jnativehook.NativeInputEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import com.github.kwhat.jnativehook.mouse.NativeMouseEvent;
@@ -100,8 +101,22 @@ public class ActionSequenceExecutorRunnable implements Runnable {
         new NativeKeyListener() {
           @Override
           public void nativeKeyReleased(NativeKeyEvent nativeEvent) {
-            processNativeEvent(
-                NativeKeyEvent.getKeyText(nativeEvent.getKeyCode()), null, nativeEvent);
+            String keyText = NativeKeyEvent.getKeyText(nativeEvent.getKeyCode());
+            /*
+             * We have to do this here, since getKeyText is localized
+             * and will always return the respective Key in the language
+             * the machine is localized in.
+             *
+             * For example in GER Strg is returned instead of CTRL
+             */
+            if (nativeEvent.getKeyCode() == NativeKeyEvent.VC_CONTROL) {
+              keyText = "CTRL";
+            } else if (nativeEvent.getKeyCode() == NativeKeyEvent.VC_ALT) {
+              keyText = "ALT";
+            } else if (nativeEvent.getKeyCode() == NativeKeyEvent.VC_SHIFT) {
+              keyText = "SHIFT";
+            }
+            processNativeEvent(keyText, null, nativeEvent);
           }
         });
   }
@@ -135,7 +150,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
     String actionKey = currentAction.getActionKey().getKey();
     boolean isKeyBindMatched =
         actionKey.equalsIgnoreCase(keyText)
-            || (mouseButton != null && actionKey.equals(String.valueOf(mouseButton)));
+            || (mouseButton != null && actionKey.equals("MOUSE" + mouseButton));
 
     if (isKeyBindMatched) {
       hasReleasedAnyKey = true;
