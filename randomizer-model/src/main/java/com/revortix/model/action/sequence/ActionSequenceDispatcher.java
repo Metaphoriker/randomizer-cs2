@@ -3,11 +3,14 @@ package com.revortix.model.action.sequence;
 import com.google.inject.Inject;
 import com.revortix.model.action.Action;
 import com.revortix.model.action.repository.ActionRepository;
+import com.revortix.model.util.FocusManager;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
+import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
+import java.util.function.Supplier;
 
 @Slf4j
 public class ActionSequenceDispatcher {
@@ -48,7 +51,13 @@ public class ActionSequenceDispatcher {
      */
     public void dispatchSequence(ActionSequence actionSequence) {
         dispatchToHandlers(actionSequence, sequenceHandlers);
-        actionSequence.getActions().forEach(this::dispatch);
+        for(Action action : actionSequence.getActions()) {
+            if (!FocusManager.isCs2WindowInFocus()) { // TODO: hacky
+                log.info("Interrupted sequence processing");
+                return;
+            }
+            dispatch(action);
+        }
         finishSequenceProcessing(actionSequence);
         log.info(SEQUENCE_DISPATCHED, actionSequence);
     }

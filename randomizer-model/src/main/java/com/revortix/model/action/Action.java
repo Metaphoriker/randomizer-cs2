@@ -3,6 +3,7 @@ package com.revortix.model.action;
 import com.revortix.model.action.mapper.KeyMapper;
 import com.revortix.model.action.value.Interval;
 import com.revortix.model.config.keybind.KeyBind;
+import com.revortix.model.util.FocusManager;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
@@ -145,6 +146,11 @@ public abstract class Action implements Cloneable {
     while (waitedTime < delayInMillis) {
       if (interrupted) {
         log.info("Delay unterbrochen!");
+        return;
+      }
+
+      if(!FocusManager.isCs2WindowInFocus()) { // TODO: we don't want to have this here
+        interrupt();
         return;
       }
 
