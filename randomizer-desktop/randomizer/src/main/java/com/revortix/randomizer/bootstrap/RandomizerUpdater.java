@@ -23,8 +23,12 @@ public class RandomizerUpdater {
   }
 
   public boolean isRandomizerUpdateAvailable() {
-    return Updater.isUpdateAvailable(
-        Updater.getVersion(JarFileUtil.getJarFile()), Updater.RANDOMIZER_VERSION_URL);
+    try {
+      return Updater.isUpdateAvailable(
+          Updater.getVersion(JarFileUtil.getJarFile()), Updater.RANDOMIZER_VERSION_URL);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
   }
 
   public File getUpdater() {
