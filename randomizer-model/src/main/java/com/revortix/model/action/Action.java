@@ -150,6 +150,7 @@ public abstract class Action implements Cloneable {
       }
 
       if(!FocusManager.isCs2WindowInFocus()) { // TODO: we don't want to have this here
+        log.info("Focus lost, interrupting action: {}", getName());
         interrupt();
         return;
       }
