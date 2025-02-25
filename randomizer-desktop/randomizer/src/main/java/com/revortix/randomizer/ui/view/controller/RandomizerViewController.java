@@ -171,7 +171,19 @@ public class RandomizerViewController {
     randomizerViewModel
         .getCurrentActionProperty()
         .addListener(
-            (_, _, action) -> {
+            (_, previousAction, action) -> {
+              if(action == null) {
+                if(previousAction != null) {
+                  actionsVBox.getChildren().stream()
+                          .filter(Label.class::isInstance)
+                          .map(Label.class::cast)
+                          .filter(label -> label.getText().equals(previousAction.getName()))
+                          .filter(label -> !isActive(label))
+                          .findFirst()
+                          .ifPresent(label -> setPositionalStyling(label, true));
+                }
+                return;
+              }
               actionsVBox.getChildren().stream()
                   .filter(Label.class::isInstance)
                   .map(Label.class::cast)
