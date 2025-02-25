@@ -15,7 +15,6 @@ import com.revortix.randomizer.ui.view.viewmodel.BuilderViewModel;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
-import javafx.animation.PauseTransition;
 import javafx.application.Platform;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
@@ -39,7 +38,6 @@ import javafx.scene.input.TransferMode;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
-import javafx.util.Duration;
 
 @View
 public class BuilderViewController {
@@ -351,7 +349,8 @@ public class BuilderViewController {
 
           ClipboardContent content = new ClipboardContent();
           String serializedAction = jsonUtil.serialize(action);
-          builderViewModel.removeAction(action);
+          builderViewModel.removeAction(
+              action); // Entferne die Action *vor* dem Hinzufügen zum Dragboard
           content.putString(serializedAction);
 
           dragboard.setContent(content);
@@ -363,24 +362,23 @@ public class BuilderViewController {
           if (dragEvent.getGestureSource() != label && dragEvent.getDragboard().hasString()) {
             dragEvent.acceptTransferModes(TransferMode.MOVE);
 
-            // Ermitteln des korrekten Index für den dropIndicator
             int labelIndex = builderVBox.getChildren().indexOf(label);
             double mouseY = dragEvent.getY();
             double labelHeight = label.getHeight();
 
-            // Hysterese hinzufügen, um das Springen zu verhindern
-            if (mouseY < labelHeight / 4) {
+            // Vereinfachte Hysterese: Nur prüfen, ob Maus im oberen oder unteren Drittel des Labels
+            // ist.
+            if (mouseY < labelHeight / 3.0) {
               labelIndex = Math.max(0, labelIndex - 1); // Einfügen vor dem Label
-            } else if (mouseY > labelHeight * 3 / 4) {
+            } else if (mouseY > labelHeight * 2.0 / 3.0) {
               labelIndex++; // Einfügen nach dem Label
             }
-
-            // Sicherstellen, dass der dropIndicator nicht am Ende eingefügt wird
-            labelIndex = Math.min(labelIndex, builderVBox.getChildren().size() - 1);
-
-            // dropIndicator aktualisieren
-            int dropIndicatorIndex = builderVBox.getChildren().indexOf(dropIndicator);
-            if (dropIndicatorIndex != labelIndex) {
+            // DropIndicator hinzufügen, falls nicht vorhanden.
+            if (!builderVBox.getChildren().contains(dropIndicator)) {
+              builderVBox.getChildren().add(labelIndex, dropIndicator);
+            }
+            // DropIndicator Position aktualisieren, wenn nötig.
+            else if (builderVBox.getChildren().indexOf(dropIndicator) != labelIndex) {
               builderVBox.getChildren().remove(dropIndicator);
               builderVBox.getChildren().add(labelIndex, dropIndicator);
             }
@@ -398,39 +396,19 @@ public class BuilderViewController {
             Action droppedAction = jsonUtil.deserializeAction(serializedAction);
 
             int dropIndicatorIndex = builderVBox.getChildren().indexOf(dropIndicator);
-            int actionIndex = 0;
 
-            // actionIndex basierend auf der Position des dropIndicator berechnen
-            for (int i = 0; i < dropIndicatorIndex; i++) {
-              if (builderVBox.getChildren().get(i) instanceof Label) {
-                actionIndex++;
-              }
+            if (dropIndicatorIndex != -1) {
+              builderViewModel.addActionAt(droppedAction, dropIndicatorIndex);
+              success = true;
             }
-
-            builderViewModel.addActionAt(droppedAction, actionIndex);
-            success = true;
           }
 
           dragEvent.setDropCompleted(success);
-          builderVBox.getChildren().remove(dropIndicator);
+          builderVBox.getChildren().remove(dropIndicator); // Immer entfernen
           dragEvent.consume();
         });
 
-    label.setOnDragEntered(
-        dragEvent -> {
-          if (dragEvent.getGestureSource() != label && dragEvent.getDragboard().hasString()) {
-            // Verzögertes Hinzufügen des dropIndicator
-            PauseTransition delay = new PauseTransition(Duration.millis(100));
-            delay.setOnFinished(
-                event -> {
-                  if (!builderVBox.getChildren().contains(dropIndicator)) {
-                    builderVBox.getChildren().add(0, dropIndicator);
-                  }
-                });
-            delay.play();
-          }
-          dragEvent.consume();
-        });
+    // Kein DragEntered mehr nötig
   }
 
   private void setupDrop(VBox target) {
@@ -438,6 +416,11 @@ public class BuilderViewController {
         dragEvent -> {
           if (dragEvent.getGestureSource() != target && dragEvent.getDragboard().hasString()) {
             dragEvent.acceptTransferModes(TransferMode.MOVE);
+            // Hier muss der dropIndicator am Ende hinzugefügt werden, falls über die VBox gedragged
+            // wird, und nicht über die labels
+            if (!builderVBox.getChildren().contains(dropIndicator)) {
+              builderVBox.getChildren().add(dropIndicator);
+            }
           }
           dragEvent.consume();
         });
@@ -451,11 +434,14 @@ public class BuilderViewController {
             String serializedAction = dragboard.getString();
             Action droppedAction = jsonUtil.deserializeAction(serializedAction);
 
+            // Stelle sicher, dass hier keine Exception geworfen wird, falls aus irgend einem Grund
+            // kein Indikator gesetzt wurde
             if (builderVBox.getChildren().contains(dropIndicator)) {
               int index = builderVBox.getChildren().indexOf(dropIndicator);
               builderVBox.getChildren().remove(dropIndicator);
               builderViewModel.addActionAt(droppedAction, index);
             } else {
+              // Wenn kein Indikator gesetzt wurde, am Ende einfügen
               builderViewModel.addAction(droppedAction);
             }
             success = true;
@@ -467,7 +453,10 @@ public class BuilderViewController {
 
     target.setOnDragExited(
         dragEvent -> {
-          builderVBox.getChildren().remove(dropIndicator);
+          // Nur entfernen, wenn vorhanden
+          if (builderVBox.getChildren().contains(dropIndicator)) {
+            builderVBox.getChildren().remove(dropIndicator);
+          }
           dragEvent.consume();
         });
   }
