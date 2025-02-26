@@ -7,15 +7,15 @@
 
 <AnchorPane prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.HomeViewController">
     <children>
-        <VBox prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox styleClass="home-view" alignment="CENTER" prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox alignment="CENTER" prefHeight="456.0" prefWidth="656.0" styleClass="home-view" VBox.vgrow="ALWAYS">
+                <VBox alignment="CENTER" prefHeight="291.0" prefWidth="256.0" VBox.vgrow="ALWAYS">
                     <children>
-                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                  <ImageView styleClass="home-view-image" fitHeight="256.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../../../images/randomizer.png" />
+                        <Image url="@../../../images/homeView/randomizerLogo.png" />
                      </image></ImageView>
-                        <HBox alignment="CENTER" prefHeight="39.0" prefWidth="656.0" styleClass="home-view-socials-container">
+                        <HBox alignment="CENTER" prefHeight="20.0" prefWidth="162.0" styleClass="home-view-socials-container">
                             <children>
                                 <Label onMouseClicked="#onDiscordOpen" styleClass="home-view-discord" text="Discord">
                                     <cursor>
