@@ -3,36 +3,27 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<?import com.revortix.randomizer.ui.view.component.MinMaxSlider?>
+<!--<?import com.revortix.randomizer.ui.view.component.MinMaxSlider?>-->
+
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.RandomizerViewController">
     <children>
         <VBox prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <VBox prefHeight="65.0" prefWidth="656.0" />
-                <HBox alignment="CENTER" prefHeight="320.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                <HBox alignment="CENTER" prefHeight="320.0" prefWidth="608.0" VBox.vgrow="ALWAYS">
                     <children>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                            <VBox prefHeight="420.0" prefWidth="350.0" styleClass="randomizer-logbook" BorderPane.alignment="CENTER">
+                        <VBox prefHeight="320.0" prefWidth="320.0" spacing="12">
+                            <VBox prefHeight="320.0" prefWidth="276.0" styleClass="logbook" BorderPane.alignment="CENTER">
                                 <children>
-                                    <HBox prefHeight="20.0" prefWidth="420.0" styleClass="logbook-active-sequence">
-                                        <children>
-                                            <HBox styleClass="logbook-sequence-name-container">
-                                                <Label fx:id="sequenceNameLabel" styleClass="logbook-sequence-name" />
-                                            </HBox>
-                                        </children>
+                                    <HBox prefHeight="16.0" prefWidth="296.0" styleClass="logbook-active-sequence">
+                                        <Label fx:id="sequenceNameLabel" styleClass="logbook-sequence-name" />
                                     </HBox>
-                                    <VBox fx:id="actionsVBox" prefHeight="398.0" prefWidth="322.0" styleClass="logbook-active-actions" />
+                                    <VBox fx:id="actionsVBox" prefHeight="244.0" prefWidth="296.0" styleClass="logbook-active-actions" />
                                 </children>
                             </VBox>
-                            <VBox prefHeight="200.0" prefWidth="100.0">
-                                <children>
-                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
-                                        <children>
-                                            <ToggleButton fx:id="randomizerToggleButton" mnemonicParsing="false" onAction="#onToggle" />
-                                            <ProgressBar fx:id="sequenceProgressIndicator" prefWidth="200.0" progress="0.0" />
-                                        </children>
-                                    </VBox>
-                                </children>
+                            <VBox styleClass="logbook-state" alignment="center" prefHeight="32.0" prefWidth="320.0">
+                                <ToggleButton fx:id="randomizerToggleButton" mnemonicParsing="false" onAction="#onToggle" prefHeight="16" prefWidth="16" styleClass="logbook-toggle-button" />
+                                <ProgressBar fx:id="sequenceProgressIndicator" prefHeight="2" prefWidth="180.0" progress="0.5" styleClass="logbook-progress-indicator" />
                             </VBox>
                         </VBox>
                         <VBox prefHeight="200.0" prefWidth="100.0">
@@ -42,8 +33,8 @@
                                         <children>
                                             <Label styleClass="logbook-sequence-interval-label" text="Sequence Interval" wrapText="true" />
                                             <Label styleClass="logbook-descriptions" text="Set the Interval between each Sequence" wrapText="true" />
-                                            <MinMaxSlider fx:id="minMaxSlider"
-                                                          styleClass="range-slider-sequence-interval"/>
+<!--                                            <MinMaxSlider fx:id="minMaxSlider"-->
+<!--                                                          styleClass="range-slider-sequence-interval"/>-->
                                             <HBox alignment="CENTER_RIGHT">
                                                 <Button onAction="#onIntervalApply" styleClass="settings-apply-button" text="Apply" />
                                             </HBox>

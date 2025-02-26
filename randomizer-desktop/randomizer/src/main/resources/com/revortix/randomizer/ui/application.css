@@ -120,58 +120,69 @@
     -fx-padding: 8px;
 }
 
-.randomizer-logbook {
-    -fx-min-width: 420px;
-    -fx-min-height: 350px;
-    -fx-background-radius: 8px;
-    -fx-background-color: #0C171A;
-    -fx-effect: dropshadow(three-pass-box, #C444C3, 15, 0.0, 0, 0);
+.logbook {
+    -fx-min-width: 276;
+    -fx-min-height: 320;
+    -fx-padding: 8 12;
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+    -fx-background-color: #E6E5FF;
 }
 
 .logbook-active-sequence {
-    -fx-pref-width: 420px;
-    -fx-pref-height: 20px;
-    -fx-padding: 8px;
-}
-
-.logbook-sequence-name-container {
-    -fx-pref-width: 380px;
+    -fx-pref-width: 296;
+    -fx-pref-height: 16;
     -fx-alignment: center-left;
 }
 
+
 .logbook-sequence-name {
     -fx-font-family: SansSerif;
-    -fx-font-size: 14px;
-    -fx-font-style: normal;
-    -fx-font-weight: bold;
-    -fx-text-fill: #C444C3;
+    -fx-font-size: 12px;
+    -fx-font-weight: normal;
+    -fx-text-fill: #281FE0;
+    -fx-graphic: url("../images/randomizerView/sequenceIcon.png");
 }
 
-.logbook-state-container {
-    -fx-pref-width: 40px;
-    -fx-spacing: 8px;
-    -fx-alignment: center-right;
+.logbook-state {
+    -fx-pref-width: 320;
+    -fx-pref-height: 32;
+    -fx-alignment: center;
+    -fx-spacing: 4;
+    -fx-background-radius: 8;
+    -fx-background-color: #E6E5FF;
 }
 
-.logbook-state-indicator {
-    -fx-pref-width: 20px;
-    -fx-pref-height: 20px;
-    -fx-background-size: 20px;
-    -fx-background-position: center;
+.logbook-toggle-button {
+    -fx-pref-width: 16;
+    -fx-pref-height: 16;
+    -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-image: url("../images/randomizerView/playIcon.png");
 }
 
-.logbook-state-indicator-running {
-    -fx-background-image: url("../images/stateRunningIcon.png");
+.logbook-toggle-button:hover {
+    -fx-scale-x: 1.1;
+    -fx-scale-y: 1.1;
 }
 
-.logbook-state-indicator-stopped {
-    -fx-background-image: url("../images/stateStoppedIcon.png");
+.logbook-toggle-button:pressed {
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
 }
 
-.logbook-state-indicator-awaiting {
-    -fx-background-image: url("../images/stateAwaitingIcon.png");
+.logbook-progress-indicator .track{
+    -fx-pref-width: 180;
+    -fx-pref-height: 2;
+    -fx-background-color: #847EE7;
 }
+
+.logbook-progress-indicator .bar{
+    -fx-accent: #2F27CE;
+}
+
+
 
 .logbook-active-actions {
     -fx-pref-width: 398px;
@@ -219,49 +230,6 @@
 
 .logbook-sequence-actions-name-end-active {
     -fx-background-image: url("../images/endActionActiveIcon.png");
-}
-
-.logbook-button-vbox {
-    -fx-pref-width: 28px;
-    -fx-pref-height: 398px;
-    -fx-alignment: center;
-}
-
-.logbook-buttons {
-    -fx-max-width: 28px;
-    -fx-max-height: 56px;
-    -fx-background-radius: 4px 0px 0px 4px;
-    -fx-padding: 6px;
-    -fx-spacing: 8px;
-    -fx-alignment: center;
-    -fx-background-color: #0C171A;
-    -fx-effect: innershadow(three-pass-box, #C444C3, 10, 0.0, 0, 0);
-}
-
-.logbook-run-button, .logbook-stop-button {
-    -fx-min-width: 24px;
-    -fx-min-height: 24px;
-    -fx-background-color: transparent;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 32px 32px;
-}
-
-.logbook-run-button {
-    -fx-background-image: url("../images/playIcon.png");
-}
-
-.logbook-stop-button {
-    -fx-background-image: url("../images/stopIcon.png");
-}
-
-.logbook-run-button:hover, .logbook-stop-button:hover {
-    -fx-background-color: #213539;
-}
-
-.logbook-run-button:pressed, .logbook-stop-button:pressed {
-    -fx-scale-y: 0.85;
-    -fx-scale-x: 0.85;
 }
 
 .logbook-info {
