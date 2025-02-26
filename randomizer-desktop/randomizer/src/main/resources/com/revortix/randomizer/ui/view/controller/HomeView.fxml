@@ -9,14 +9,6 @@
     <children>
         <VBox prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="656.0" styleClass="home-view-update-container">
-                    <Label fx:id="updateIndicator" styleClass="home-view-update-indicator" visible="false">
-                        <cursor>
-                            <Cursor fx:constant="HAND" />
-                        </cursor>
-                    </Label>
-                    <CheckBox fx:id="autoupdateCheckbox" mnemonicParsing="false" styleClass="home-view-auto-update-checkbox" text="Auto-Update" />
-                </HBox>
                 <VBox alignment="CENTER" prefHeight="456.0" prefWidth="656.0" styleClass="home-view" VBox.vgrow="ALWAYS">
                     <children>
                   <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">

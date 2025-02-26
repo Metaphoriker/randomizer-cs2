@@ -20,13 +20,9 @@ public class HomeViewController {
 
   private final HomeViewModel homeViewModel;
 
-  @FXML private Label updateIndicator;
-  @FXML private CheckBox autoupdateCheckbox;
-
   @Inject
   public HomeViewController(HomeViewModel homeViewModel) {
     this.homeViewModel = homeViewModel;
-    Platform.runLater(this::initialize);
   }
 
   @FXML
@@ -47,30 +43,6 @@ public class HomeViewController {
       log.error("Error opening github", e);
       showAlertInternetConnection();
     }
-  }
-
-  private void initialize() {
-    initUpdateIndicator();
-    initAutoUpdateCheckbox();
-  }
-
-  private void initAutoUpdateCheckbox() {
-    autoupdateCheckbox.setSelected(homeViewModel.isAutoUpdateEnabled());
-    autoupdateCheckbox
-        .selectedProperty()
-        .addListener((_, _, newValue) -> homeViewModel.setAutoUpdate(newValue));
-  }
-
-  private void initUpdateIndicator() {
-    updateIndicator.setTooltip(new Tooltip("Update"));
-    if (homeViewModel.isUpdateAvailable()) {
-      updateIndicator.setVisible(true);
-    }
-    setupUpdateIndicatorClickAction();
-  }
-
-  private void setupUpdateIndicatorClickAction() {
-    updateIndicator.setOnMouseClicked(_ -> homeViewModel.updateRandomizer());
   }
 
   private void showAlertInternetConnection() {
