@@ -1,67 +1,58 @@
 /* Navigation Bar */
 .navigation-bar {
-    -fx-max-width: 100px;
-    -fx-max-height: 32px;
-    -fx-spacing: 8px;
-    -fx-padding: 6px;
-    -fx-alignment: center;
-    -fx-background-radius: 8px;
-    -fx-background-color: #213539;
-    -fx-effect: dropshadow(three-pass-box, #C444C3, 10, 0.0, 0, 5);
+    -fx-min-width: 48;
+    -fx-pref-height: 504;
+    -fx-padding: 12 0;
+    -fx-spacing: 10;
+    -fx-background-color: #FBFBFE;
 }
 
-.navigation-bar-home, .navigation-bar-builder, .navigation-bar-randomizer {
-    -fx-min-width: 20px;
-    -fx-min-height: 20px;
+.navigation-bar-home, .navigation-bar-builder, .navigation-bar-randomizer, .navigation-bar-settings {
+    -fx-pref-width: 38;
+    -fx-pref-height: 28;
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 20px;
+    -fx-background-position: right;
 }
 
 .navigation-bar-separator, .navigation-bar-separator .line {
-    -fx-background-color: #4F747C;
-    -fx-pref-height: 36px;
-    -fx-pref-width: 2px;
+    -fx-max-width: 27;
+    -fx-pref-height: 2;
+    -fx-translate-x: 7;
     -fx-border-color: null;
+    -fx-background-color: #443DFF;
 }
 
 .navigation-bar-home {
-    -fx-background-image: url("../images/homeIcon.png");
+    -fx-background-image: url("../images/navigationbar/homeIcon.png");
 }
 
 .navigation-bar-home:hover, .navigation-bar-home:selected {
-    -fx-background-image: url("../images/homeHoverIcon.png");
+    -fx-background-image: url("../images/navigationbar/homeIconSelected.png");
 }
 
 .navigation-bar-builder {
-    -fx-background-image: url("../images/builderIcon.png");
+    -fx-background-image: url("../images/navigationbar/builderIcon.png");
 }
 
 .navigation-bar-builder:hover, .navigation-bar-builder:selected {
-    -fx-background-image: url("../images/builderHoverIcon.png");
+    -fx-background-image: url("../images/navigationbar/builderIconSelected.png");
 }
 
 .navigation-bar-randomizer {
-    -fx-background-image: url("../images/logbookIcon.png");
+    -fx-background-image: url("../images/navigationbar/logbookIcon.png");
 }
 
 .navigation-bar-randomizer:hover, .navigation-bar-randomizer:selected {
-    -fx-background-image: url("../images/logbookHoverIcon.png");
+    -fx-background-image: url("../images/navigationbar/logbookIconSelected.png");
 }
 
-.navigation-bar-home:hover, .navigation-bar-builder:hover, .navigation-bar-randomizer:hover {
-    -fx-background-color: #38545A;
-    -fx-background-radius: 4px;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+.navigation-bar-settings {
+    -fx-background-image: url("../images/navigationbar/settingsIcon.png");
 }
 
-.navigation-bar-home:selected, .navigation-bar-builder:selected, .navigation-bar-randomizer:selected {
-    -fx-background-color: #38545A;
-    -fx-background-radius: 4px;
-    -fx-scale-x: 1.1;
-    -fx-scale-y: 1.1;
+.navigation-bar-settings:hover, .navigation-bar-settings:selected {
+    -fx-background-image: url("../images/navigationbar/settingsIconSelected.png");
 }
 
 /* Randomizer Window */

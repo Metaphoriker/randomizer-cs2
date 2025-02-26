@@ -3,14 +3,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="504.0" prefWidth="48.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.NavigationBarController">
+
+<VBox styleClass="navigation-bar" prefHeight="504.0" prefWidth="48.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.NavigationBarController">
    <children>
-        <ToggleButton fx:id="homeButton" mnemonicParsing="false" styleClass="navigation-bar-home" />
-      <Separator prefWidth="200.0" />
-        <ToggleButton fx:id="randomizerButton" mnemonicParsing="false" styleClass="navigation-bar-randomizer" />
-        <ToggleButton fx:id="builderButton" mnemonicParsing="false" styleClass="navigation-bar-builder" />
-      <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
-      <Separator prefWidth="200.0" />
-      <ToggleButton fx:id="settingsButton" mnemonicParsing="false" />
+        <ToggleButton prefWidth="38" prefHeight="28" fx:id="homeButton" mnemonicParsing="false" styleClass="navigation-bar-home" />
+      <Separator styleClass="navigation-bar-separator" maxWidth="32.0" />
+        <ToggleButton prefWidth="38" prefHeight="28" fx:id="randomizerButton" mnemonicParsing="false" styleClass="navigation-bar-randomizer" />
+        <ToggleButton prefWidth="38" prefHeight="28" fx:id="builderButton" mnemonicParsing="false" styleClass="navigation-bar-builder" />
+      <VBox prefHeight="200.0" prefWidth="48.0" VBox.vgrow="ALWAYS" />
+      <ToggleButton prefWidth="38" prefHeight="28" fx:id="settingsButton" mnemonicParsing="false" styleClass="navigation-bar-settings"/>
    </children>
 </VBox>
