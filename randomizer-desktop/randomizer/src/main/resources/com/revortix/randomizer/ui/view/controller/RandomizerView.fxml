@@ -1,90 +1,76 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
 <?import com.revortix.randomizer.ui.view.component.MinMaxSlider?>
-<?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.control.ScrollPane?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.BorderPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/22"
-            fx:controller="com.revortix.randomizer.ui.view.controller.RandomizerViewController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.RandomizerViewController">
     <children>
-        <VBox prefHeight="488.0" prefWidth="688.0" styleClass="randomizer-view" AnchorPane.bottomAnchor="0.0"
-              AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <VBox prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <BorderPane prefHeight="420.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
-                    <center>
-                        <VBox prefHeight="420.0" prefWidth="350.0" styleClass="randomizer-logbook"
-                              BorderPane.alignment="CENTER">
-                            <children>
-                                <HBox prefHeight="20.0" prefWidth="420.0" styleClass="logbook-active-sequence">
-                                    <children>
-                                        <HBox styleClass="logbook-sequence-name-container">
-                                            <Label fx:id="sequenceNameLabel" styleClass="logbook-sequence-name"/>
+                <VBox prefHeight="65.0" prefWidth="656.0" />
+                <HBox alignment="CENTER" prefHeight="320.0" prefWidth="200.0" VBox.vgrow="ALWAYS">
+                    <children>
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                            <VBox prefHeight="420.0" prefWidth="350.0" styleClass="randomizer-logbook" BorderPane.alignment="CENTER">
+                                <children>
+                                    <HBox prefHeight="20.0" prefWidth="420.0" styleClass="logbook-active-sequence">
+                                        <children>
+                                            <HBox styleClass="logbook-sequence-name-container">
+                                                <Label fx:id="sequenceNameLabel" styleClass="logbook-sequence-name" />
+                                            </HBox>
+                                        </children>
+                                        <HBox styleClass="logbook-state-container" HBox.hgrow="ALWAYS">
+                                            <Label fx:id="stateIndicator" styleClass="logbook-state-indicator" />
                                         </HBox>
-                                    </children>
-                                    <HBox styleClass="logbook-state-container" HBox.hgrow="ALWAYS">
-                                        <Label fx:id="stateIndicator" styleClass="logbook-state-indicator"/>
                                     </HBox>
-                                </HBox>
-                                <HBox prefHeight="398.0" prefWidth="350.0" VBox.vgrow="ALWAYS">
-                                    <children>
-                                        <VBox fx:id="actionsVBox" prefHeight="398.0" prefWidth="322.0"
-                                              styleClass="logbook-active-actions" HBox.hgrow="ALWAYS"/>
-                                        <VBox prefHeight="398.0" prefWidth="28.0" styleClass="logbook-button-vbox">
-                                            <children>
-                                                <VBox alignment="CENTER" prefHeight="56.0" prefWidth="28.0"
-                                                      styleClass="logbook-buttons" VBox.vgrow="ALWAYS">
-                                                    <children>
-                                                        <Button mnemonicParsing="false"
-                                                                onAction="#onRun" styleClass="logbook-run-button"/>
-                                                        <Button mnemonicParsing="false"
-                                                                onAction="#onStop" styleClass="logbook-stop-button"/>
-                                                    </children>
-                                                </VBox>
-                                            </children>
-                                        </VBox>
-                                    </children>
-                                </HBox>
-                            </children>
+                                    <VBox fx:id="actionsVBox" prefHeight="398.0" prefWidth="322.0" styleClass="logbook-active-actions" />
+                                </children>
+                            </VBox>
+                            <VBox prefHeight="200.0" prefWidth="100.0">
+                                <children>
+                                    <VBox alignment="CENTER" prefHeight="200.0" prefWidth="100.0">
+                                        <children>
+                                            <ToggleButton fx:id="randomizerToggleButton" mnemonicParsing="false" onAction="#onToggle" />
+                                            <ProgressBar fx:id="sequenceProgressIndicator" prefWidth="200.0" progress="0.0" />
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </VBox>
                         </VBox>
-                    </center>
-                    <VBox.margin>
-                        <Insets bottom="69.0" left="34.0" right="34.0" top="49.0"/>
-                    </VBox.margin>
-                    <right>
-                        <VBox prefHeight="300.0" prefWidth="194.0" BorderPane.alignment="CENTER" styleClass="logbook-info">
-                            <children>
-                                <VBox styleClass="logbook-sequence-interval">
+                        <VBox prefHeight="200.0" prefWidth="100.0">
+                            <VBox prefHeight="300.0" prefWidth="194.0" styleClass="logbook-info" BorderPane.alignment="CENTER">
+                                <children>
+                                    <VBox styleClass="logbook-sequence-interval">
+                                        <children>
+                                            <Label styleClass="logbook-sequence-interval-label" text="Sequence Interval" wrapText="true" />
+                                            <Label styleClass="logbook-descriptions" text="Set the Interval between each Sequence" wrapText="true" />
+                                            <MinMaxSlider fx:id="minMaxSlider"
+                                                          styleClass="range-slider-sequence-interval"/>
+                                            <HBox alignment="CENTER_RIGHT">
+                                                <Button onAction="#onIntervalApply" styleClass="settings-apply-button" text="Apply" />
+                                            </HBox>
+                                        </children>
+                                    </VBox>
+                                </children>
+                            </VBox>
+                            <VBox prefHeight="200.0" prefWidth="100.0">
+                                <VBox styleClass="logbook-sequence-history" VBox.vgrow="ALWAYS">
                                     <children>
-                                        <Label text="Sequence Interval" wrapText="true"
-                                               styleClass="logbook-sequence-interval-label"/>
-                                        <Label text="Set the Interval between each Sequence" wrapText="true" styleClass="logbook-descriptions"/>
-                                        <MinMaxSlider fx:id="minMaxSlider" styleClass="range-slider-sequence-interval"/>
-                                        <HBox alignment="CENTER_RIGHT">
-                                            <Button onAction="#onIntervalApply" styleClass="settings-apply-button" text="Apply"/>
-                                        </HBox>
-                                    </children>
-                                </VBox>
-                                <VBox VBox.vgrow="ALWAYS" styleClass="logbook-sequence-history">
-                                    <children>
-                                        <Label text="History" wrapText="true" styleClass="logbook-history-label"/>
-                                        <Label text="Shows the last sequences that were running." wrapText="true" styleClass="logbook-descriptions"/>
-                                        <ScrollPane hbarPolicy="NEVER" styleClass="logbook-history-scrollpane" VBox.vgrow="ALWAYS" fitToHeight="true" fitToWidth="true">
+                                        <Label styleClass="logbook-history-label" text="History" wrapText="true" />
+                                        <Label styleClass="logbook-descriptions" text="Shows the last sequences that were running." wrapText="true" />
+                                        <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="logbook-history-scrollpane" VBox.vgrow="ALWAYS">
                                             <content>
-                                                <VBox fx:id="historyVBox" prefWidth="134.0"
-                                                      styleClass="logbook-history-content"/>
+                                                <VBox fx:id="historyVBox" prefWidth="134.0" styleClass="logbook-history-content" />
                                             </content>
                                         </ScrollPane>
                                     </children>
                                 </VBox>
-                            </children>
+                            </VBox>
                         </VBox>
-                    </right>
-                </BorderPane>
+                    </children>
+                </HBox>
+                <VBox prefHeight="28.0" prefWidth="656.0" />
             </children>
         </VBox>
     </children>

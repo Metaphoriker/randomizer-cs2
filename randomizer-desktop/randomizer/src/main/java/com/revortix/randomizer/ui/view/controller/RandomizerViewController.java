@@ -11,6 +11,8 @@ import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
@@ -40,6 +42,8 @@ public class RandomizerViewController {
   @FXML private MinMaxSlider minMaxSlider;
   @FXML private VBox historyVBox;
   @FXML private Label stateIndicator;
+  @FXML private ProgressBar sequenceProgressIndicator;
+  @FXML private ToggleButton randomizerToggleButton;
 
   @Inject
   public RandomizerViewController(RandomizerViewModel randomizerViewModel) {
@@ -48,13 +52,12 @@ public class RandomizerViewController {
   }
 
   @FXML
-  void onRun(ActionEvent event) {
-    randomizerViewModel.setApplicationStateToRunning();
-  }
-
-  @FXML
-  void onStop(ActionEvent event) {
-    randomizerViewModel.setApplicationStateToStopped();
+  void onToggle(ActionEvent event) {
+    if(!randomizerToggleButton.isSelected()) {
+      randomizerViewModel.setApplicationStateToStopped();
+    } else {
+      randomizerViewModel.setApplicationStateToRunning();
+    }
   }
 
   @FXML
@@ -65,9 +68,19 @@ public class RandomizerViewController {
   private void initialize() {
     randomizerViewModel.initConfig();
     setupListener();
+    setupProgressIndicator();
     setupStateIndicator();
     setupStateChangeListener();
     setupIntervalSlider();
+  }
+
+  private void setupProgressIndicator() {
+    randomizerViewModel.getCurrentActionSequenceProgressProperty().addListener((_, _, t1) -> {
+      int actionSize = randomizerViewModel.getCurrentActionSequenceProperty().get().getActions().size();
+      double progress = actionSize == 0 ? 0 : (double) t1 / actionSize;
+      progress = Math.min(1, progress);
+      sequenceProgressIndicator.setProgress(progress);
+    });
   }
 
   private void setupStateIndicator() {
