@@ -1,42 +1,38 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.CheckBox?>
-<?import javafx.scene.control.Label?>
-<?import javafx.scene.Cursor?>
-<?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.VBox?>
-<AnchorPane xmlns:fx="http://javafx.com/fxml/1" prefHeight="488.0" prefWidth="688.0" xmlns="http://javafx.com/javafx/22"
-            fx:controller="com.revortix.randomizer.ui.view.controller.HomeViewController">
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.HomeViewController">
     <children>
-        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0"
-              AnchorPane.topAnchor="0.0">
+        <VBox prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="688.0"
-                      styleClass="home-view-update-container">
+                <HBox alignment="CENTER_RIGHT" prefHeight="32.0" prefWidth="656.0" styleClass="home-view-update-container">
                     <Label fx:id="updateIndicator" styleClass="home-view-update-indicator" visible="false">
                         <cursor>
-                            <Cursor fx:constant="HAND"/>
+                            <Cursor fx:constant="HAND" />
                         </cursor>
                     </Label>
-                    <CheckBox fx:id="autoupdateCheckbox" mnemonicParsing="false" text="Auto-Update"
-                              styleClass="home-view-auto-update-checkbox"/>
+                    <CheckBox fx:id="autoupdateCheckbox" mnemonicParsing="false" styleClass="home-view-auto-update-checkbox" text="Auto-Update" />
                 </HBox>
-                <VBox alignment="CENTER" prefHeight="456.0" prefWidth="688.0" styleClass="home-view"
-                      VBox.vgrow="ALWAYS">
+                <VBox alignment="CENTER" prefHeight="456.0" prefWidth="656.0" styleClass="home-view" VBox.vgrow="ALWAYS">
                     <children>
-                        <Label styleClass="home-view-title" text="Randomizer CS2"/>
-                        <HBox alignment="CENTER" prefHeight="39.0" prefWidth="688.0"
-                              styleClass="home-view-socials-container">
+                  <ImageView fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@../../../images/randomizer.png" />
+                     </image></ImageView>
+                        <HBox alignment="CENTER" prefHeight="39.0" prefWidth="656.0" styleClass="home-view-socials-container">
                             <children>
                                 <Label onMouseClicked="#onDiscordOpen" styleClass="home-view-discord" text="Discord">
                                     <cursor>
-                                        <Cursor fx:constant="HAND"/>
+                                        <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Label>
                                 <Label onMouseClicked="#onGitHubOpen" styleClass="home-view-github" text="GitHub">
                                     <cursor>
-                                        <Cursor fx:constant="HAND"/>
+                                        <Cursor fx:constant="HAND" />
                                     </cursor>
                                 </Label>
                             </children>
