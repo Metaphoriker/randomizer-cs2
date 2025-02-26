@@ -31,16 +31,26 @@ public class ViewProvider {
   @SuppressWarnings("unchecked")
   public <T> ViewWrapper<T> requestView(Class<T> viewClass) {
     checkForViewAnnotation(viewClass);
-    return (ViewWrapper<T>)
-        viewMap.computeIfAbsent(
-            viewClass,
-            vc -> {
-              try {
-                return viewLoader.loadView(vc);
-              } catch (Exception e) {
-                throw new IllegalStateException("Could not instantiate view: " + vc.getName(), e);
-              }
-            });
+    // Versuche zunächst, die View aus der Map zu holen
+    ViewWrapper<T> viewWrapper = (ViewWrapper<T>) viewMap.get(viewClass);
+    if (viewWrapper == null) {
+      // Lade die View in einer separaten Methode, ohne seitliche Effekte in computeIfAbsent
+      viewWrapper = loadViewSafely(viewClass);
+      // Füge sie nur ein, wenn noch nicht vorhanden
+      ViewWrapper<T> previousValue = (ViewWrapper<T>) viewMap.putIfAbsent(viewClass, viewWrapper);
+      if (previousValue != null) {
+        viewWrapper = previousValue;
+      }
+    }
+    return viewWrapper;
+  }
+
+  private <T> ViewWrapper<T> loadViewSafely(Class<T> viewClass) {
+    try {
+      return viewLoader.loadView(viewClass);
+    } catch (Exception e) {
+      throw new IllegalStateException("Could not instantiate view: " + viewClass.getName(), e);
+    }
   }
 
   /**
