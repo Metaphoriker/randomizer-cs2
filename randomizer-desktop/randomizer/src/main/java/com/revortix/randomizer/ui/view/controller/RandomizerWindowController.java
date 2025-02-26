@@ -95,6 +95,12 @@ public class RandomizerWindowController implements Initializable {
         viewProvider.registerViewChangeListener(HomeViewController.class, _ -> loadHomeView());
         viewProvider.registerViewChangeListener(BuilderViewController.class, _ -> loadBuilderView());
         viewProvider.registerViewChangeListener(RandomizerViewController.class, _ -> loadRandomizerView());
+        viewProvider.registerViewChangeListener(SettingsViewController.class, _ -> loadSettingsView());
+    }
+
+    private void loadSettingsView() {
+        Parent settingsViewParent = viewProvider.requestView(SettingsViewController.class).parent();
+        setContent(settingsViewParent);
     }
 
     private void loadNavigationBar() {

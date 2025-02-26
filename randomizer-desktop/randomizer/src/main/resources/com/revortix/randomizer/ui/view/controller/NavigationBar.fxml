@@ -3,7 +3,6 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <VBox prefHeight="504.0" prefWidth="48.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.NavigationBarController">
    <children>
         <ToggleButton fx:id="homeButton" mnemonicParsing="false" styleClass="navigation-bar-home" />
@@ -12,6 +11,6 @@
         <ToggleButton fx:id="builderButton" mnemonicParsing="false" styleClass="navigation-bar-builder" />
       <VBox prefHeight="200.0" prefWidth="100.0" VBox.vgrow="ALWAYS" />
       <Separator prefWidth="200.0" />
-      <ToggleButton mnemonicParsing="false" />
+      <ToggleButton fx:id="settingsButton" mnemonicParsing="false" />
    </children>
 </VBox>
