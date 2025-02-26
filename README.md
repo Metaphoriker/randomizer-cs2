@@ -19,15 +19,6 @@
 
 </span>
 
-*Disclaimer:* This is **NOT** a cheat, neither a macro program, just a fun tool to keep things unpredictable and challenging!
-
----
-
-## ⚙️ How it Works
-
-- **Randomizer**: Intervals (adjustable) randomly trigger sequences like weapon swaps, movement, etc.
-- **Builder**: Create and save custom action sequences. Drag & drop your actions, save, and share.
-
 ---
 
 ## 🛠️ Quick Start
@@ -44,10 +35,6 @@
 <img src="https://github.com/user-attachments/assets/bfd535a1-0cd4-4947-a3b3-ea101512c5ca" width="45%" height="auto" />  
 
 ---
-
-## ⭐ Like what you see?
-
-If **randomizer-cs2** brings a smile to your gameplay, consider leaving a star 🌟!
 
 UX: [@bustolio](https://www.github.com/CuzIamBusted)
 Programming: [@Metaphoriker](https://www.github.com/Metaphoriker)
