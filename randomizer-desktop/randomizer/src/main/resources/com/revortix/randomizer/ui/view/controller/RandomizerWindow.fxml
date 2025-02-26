@@ -2,7 +2,7 @@
 
 <?import javafx.scene.layout.*?>
 
-<BorderPane prefHeight="504.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.RandomizerWindowController">
+<BorderPane fx:id="root" prefHeight="504.0" prefWidth="704.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.RandomizerWindowController">
    <left>
       <VBox fx:id="navigationBarHolder" prefHeight="504.0" prefWidth="48.0" BorderPane.alignment="CENTER" />
    </left>
