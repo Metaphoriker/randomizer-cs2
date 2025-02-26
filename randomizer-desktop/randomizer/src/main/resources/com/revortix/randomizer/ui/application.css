@@ -1,3 +1,10 @@
+/* Randomizer Window */
+.randomizer-window {
+    -fx-pref-width: 704px;
+    -fx-pref-height: 504px;
+    -fx-background-color: #D6D6F5;
+}
+
 /* Navigation Bar */
 .navigation-bar {
     -fx-min-width: 48;
@@ -55,12 +62,6 @@
     -fx-background-image: url("../images/navigationbar/settingsIconSelected.png");
 }
 
-/* Randomizer Window */
-.randomizer-window {
-    -fx-pref-width: 704px;
-    -fx-pref-height: 536px;
-    -fx-background-color: #050E10;
-}
 /* Home View */
 .home-view {
     -fx-min-width: 688px;
