@@ -61,9 +61,16 @@ public class RandomizerViewController {
 
   private void initialize() {
     randomizerViewModel.initConfig();
+    setupBindings();
     setupListener();
     setupProgressIndicator();
     setupIntervalSlider();
+  }
+
+  private void setupBindings() {
+    sequenceNameLabel
+        .visibleProperty()
+        .bind(sequenceNameLabel.textProperty().isNotEmpty());
   }
 
   private void setupProgressIndicator() {
