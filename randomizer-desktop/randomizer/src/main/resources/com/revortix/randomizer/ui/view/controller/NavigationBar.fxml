@@ -4,7 +4,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<VBox styleClass="navigation-bar" prefHeight="504.0" prefWidth="48.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.NavigationBarController">
+<VBox VBox.vgrow="ALWAYS" styleClass="navigation-bar" prefHeight="504.0" prefWidth="48.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.NavigationBarController">
    <children>
         <ToggleButton prefWidth="38" prefHeight="28" fx:id="homeButton" mnemonicParsing="false" styleClass="navigation-bar-home" />
       <Separator styleClass="navigation-bar-separator" maxWidth="32.0" />
