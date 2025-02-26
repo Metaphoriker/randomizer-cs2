@@ -53,7 +53,11 @@ public class RandomizerApplication extends Application {
 
   private void setupStage(Stage stage, Scene scene) {
     try {
-      stage.setTitle("Randomizer-CS2 - " + Updater.getVersion(JarFileUtil.getJarFile()));
+      if(Main.isTestMode()) {
+        stage.setTitle("Randomizer-CS2 - DEVELOPMENT");
+      } else {
+        stage.setTitle("Randomizer-CS2 - " + Updater.getVersion(JarFileUtil.getJarFile()));
+      }
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
