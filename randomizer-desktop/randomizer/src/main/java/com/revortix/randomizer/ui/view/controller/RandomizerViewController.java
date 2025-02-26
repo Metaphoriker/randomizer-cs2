@@ -13,7 +13,6 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.ToggleButton;
-import javafx.scene.control.Tooltip;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
@@ -30,10 +29,6 @@ public class RandomizerViewController {
       "logbook-sequence-actions-name-middle-active";
   private static final String END_ACTIVE_ACTION_NAME_STYLING =
       "logbook-sequence-actions-name-end-active";
-  private static final String STATE_INDICATOR = "logbook-state-indicator";
-  private static final String STATE_INDICATOR_RUNNING = "logbook-state-indicator-running";
-  private static final String STATE_INDICATOR_STOPPED = "logbook-state-indicator-stopped";
-  private static final String STATE_INDICATOR_AWAITING = "logbook-state-indicator-awaiting";
 
   private final RandomizerViewModel randomizerViewModel;
 
@@ -41,7 +36,6 @@ public class RandomizerViewController {
   @FXML private VBox actionsVBox;
   @FXML private MinMaxSlider minMaxSlider;
   @FXML private VBox historyVBox;
-  @FXML private Label stateIndicator;
   @FXML private ProgressBar sequenceProgressIndicator;
   @FXML private ToggleButton randomizerToggleButton;
 
@@ -53,7 +47,7 @@ public class RandomizerViewController {
 
   @FXML
   void onToggle(ActionEvent event) {
-    if(!randomizerToggleButton.isSelected()) {
+    if (!randomizerToggleButton.isSelected()) {
       randomizerViewModel.setApplicationStateToStopped();
     } else {
       randomizerViewModel.setApplicationStateToRunning();
@@ -69,24 +63,20 @@ public class RandomizerViewController {
     randomizerViewModel.initConfig();
     setupListener();
     setupProgressIndicator();
-    setupStateIndicator();
-    setupStateChangeListener();
     setupIntervalSlider();
   }
 
   private void setupProgressIndicator() {
-    randomizerViewModel.getCurrentActionSequenceProgressProperty().addListener((_, _, t1) -> {
-      int actionSize = randomizerViewModel.getCurrentActionSequenceProperty().get().getActions().size();
-      double progress = actionSize == 0 ? 0 : (double) t1 / actionSize;
-      progress = Math.min(1, progress);
-      sequenceProgressIndicator.setProgress(progress);
-    });
-  }
-
-  private void setupStateIndicator() {
-    stateIndicator.getStyleClass().add(STATE_INDICATOR);
-    stateIndicator.getStyleClass().add(STATE_INDICATOR_STOPPED);
-    stateIndicator.setTooltip(createTooltip("Stopped"));
+    randomizerViewModel
+        .getCurrentActionSequenceProgressProperty()
+        .addListener(
+            (_, _, t1) -> {
+              int actionSize =
+                  randomizerViewModel.getCurrentActionSequenceProperty().get().getActions().size();
+              double progress = actionSize == 0 ? 0 : (double) t1 / actionSize;
+              progress = Math.min(1, progress);
+              sequenceProgressIndicator.setProgress(progress);
+            });
   }
 
   private void setupIntervalSlider() {
@@ -98,38 +88,6 @@ public class RandomizerViewController {
 
     minMaxSlider.getMinProperty().bindBidirectional(randomizerViewModel.getMinIntervalProperty());
     minMaxSlider.getMaxProperty().bindBidirectional(randomizerViewModel.getMaxIntervalProperty());
-  }
-
-  private void setupStateChangeListener() {
-    randomizerViewModel.onStateChange(
-        state -> {
-          switch (state) {
-            case RUNNING -> {
-              stateIndicator.getStyleClass().clear();
-              stateIndicator.getStyleClass().add(STATE_INDICATOR);
-              stateIndicator.getStyleClass().add(STATE_INDICATOR_RUNNING);
-              stateIndicator.setTooltip(createTooltip("Running"));
-            }
-            case IDLING -> {
-              stateIndicator.getStyleClass().clear();
-              stateIndicator.getStyleClass().add(STATE_INDICATOR);
-              stateIndicator.getStyleClass().add(STATE_INDICATOR_STOPPED);
-              stateIndicator.setTooltip(createTooltip("Stopped"));
-            }
-            case AWAITING -> {
-              stateIndicator.getStyleClass().clear();
-              stateIndicator.getStyleClass().add(STATE_INDICATOR);
-              stateIndicator.getStyleClass().add(STATE_INDICATOR_AWAITING);
-              stateIndicator.setTooltip(createTooltip("Awaiting for CS2 to be focused"));
-            }
-          }
-        });
-  }
-
-  private Tooltip createTooltip(String text) {
-    Tooltip tooltip = new Tooltip(text);
-    tooltip.getStyleClass().add("logbook-tooltip");
-    return tooltip;
   }
 
   /** Creates the history container for the ActionSequence */
@@ -185,15 +143,15 @@ public class RandomizerViewController {
         .getCurrentActionProperty()
         .addListener(
             (_, previousAction, action) -> {
-              if(action == null) {
-                if(previousAction != null) {
+              if (action == null) {
+                if (previousAction != null) {
                   actionsVBox.getChildren().stream()
-                          .filter(Label.class::isInstance)
-                          .map(Label.class::cast)
-                          .filter(label -> label.getText().equals(previousAction.getName()))
-                          .filter(label -> !isActive(label))
-                          .findFirst()
-                          .ifPresent(label -> setPositionalStyling(label, true));
+                      .filter(Label.class::isInstance)
+                      .map(Label.class::cast)
+                      .filter(label -> label.getText().equals(previousAction.getName()))
+                      .filter(label -> !isActive(label))
+                      .findFirst()
+                      .ifPresent(label -> setPositionalStyling(label, true));
                 }
                 return;
               }

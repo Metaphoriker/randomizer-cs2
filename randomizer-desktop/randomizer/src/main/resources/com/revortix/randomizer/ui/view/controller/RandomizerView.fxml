@@ -20,9 +20,6 @@
                                                 <Label fx:id="sequenceNameLabel" styleClass="logbook-sequence-name" />
                                             </HBox>
                                         </children>
-                                        <HBox styleClass="logbook-state-container" HBox.hgrow="ALWAYS">
-                                            <Label fx:id="stateIndicator" styleClass="logbook-state-indicator" />
-                                        </HBox>
                                     </HBox>
                                     <VBox fx:id="actionsVBox" prefHeight="398.0" prefWidth="322.0" styleClass="logbook-active-actions" />
                                 </children>
