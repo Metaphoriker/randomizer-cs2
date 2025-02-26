@@ -1,25 +1,26 @@
 package com.revortix.randomizer.config;
 
-import de.godcipher.gutil.config.BaseConfiguration;
-import de.godcipher.gutil.config.annotation.ConfigValue;
-import de.godcipher.gutil.config.annotation.Configuration;
+import de.metaphoriker.jshepherd.BaseConfiguration;
+import de.metaphoriker.jshepherd.ConfigurationType;
+import de.metaphoriker.jshepherd.annotation.Configuration;
+import de.metaphoriker.jshepherd.annotation.Key;
 import lombok.Getter;
 import lombok.Setter;
 
 @Setter
 @Getter
-@Configuration(fileName = "config.yml") // currently we have to use yml cause of the delimiter of gutil
+@Configuration(fileName = "config", type = ConfigurationType.YAML)
 public class RandomizerConfig extends BaseConfiguration {
 
-    @ConfigValue(name = "min.interval")
-    private int minInterval = 30;
+  @Key("min.interval")
+  private int minInterval = 30;
 
-    @ConfigValue(name = "max.interval")
-    private int maxInterval = 120;
+  @Key("max.interval")
+  private int maxInterval = 120;
 
-    @ConfigValue(name = "autoupdate.enabled")
-    private boolean autoupdateEnabled = false;
+  @Key("autoupdate.enabled")
+  private boolean autoupdateEnabled = false;
 
-    @ConfigValue(name = "show.intro")
-    private boolean showIntro = true;
+  @Key("show.intro")
+  private boolean showIntro = true;
 }
