@@ -61,6 +61,7 @@ public class RandomizerApplication extends Application {
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
+
     stage.getIcons().add(new Image("com/revortix/randomizer/images/randomizer.png"));
     scene.getStylesheets().add(getClass().getResource("application.css").toExternalForm());
     stage.setMinWidth(MIN_WIDTH);
