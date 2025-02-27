@@ -8,7 +8,7 @@
         <HBox prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <VBox prefHeight="504.0" prefWidth="128.0" styleClass="builder-sequences" VBox.vgrow="ALWAYS">
                 <children>
-                    <HBox prefHeight="24.0" prefWidth="140.0" styleClass="builder-sequences-top">
+                    <HBox prefHeight="24.0" prefWidth="128.0" styleClass="builder-sequences-top">
                         <children>
                             <Label styleClass="builder-sequences-label" text="Sequences" />
                             <HBox alignment="CENTER_RIGHT" prefHeight="34.0" prefWidth="14.0" styleClass="builder-sequences-buttons" HBox.hgrow="ALWAYS">
@@ -20,7 +20,7 @@
                         </children>
                     </HBox>
                     <Separator styleClass="builder-separator" />
-                    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="builder-sequences-scrollpane" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefWidth="128.0" styleClass="builder-sequences-scrollpane" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
                         <content>
                             <VBox fx:id="actionSequencesVBox" styleClass="builder-actions-sequences" />
                         </content>

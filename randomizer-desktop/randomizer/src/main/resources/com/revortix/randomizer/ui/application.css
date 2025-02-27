@@ -292,11 +292,11 @@
 }
 
 .settings-apply-button {
-    -fx-pref-width: 75px;
-    -fx-pref-height: 20px;
+    -fx-pref-width: 75;
+    -fx-pref-height: 20;
     -fx-text-fill: #EAE9FC;
     -fx-font-family: SansSerif;
-    -fx-font-size: 12px;
+    -fx-font-size: 12;
     -fx-background-color: #443DFF;
 }
 
@@ -339,8 +339,8 @@
 
 .logbook-history-scrollpane .scroll-bar:vertical .thumb {
     -fx-background-color: #2F27CE;
-    -fx-background-radius: 2px;
-    -fx-pref-width: 4px;
+    -fx-background-radius: 2;
+    -fx-pref-width: 4;
 }
 
 .logbook-history-scrollpane .scroll-bar:vertical .increment-button,
@@ -374,9 +374,120 @@
 .logbook-history-entry-action-count, .logbook-history-entry-executed-at {
     -fx-alignment: bottom-right;
     -fx-font-family: SansSerif;
-    -fx-font-size: 8px;
+    -fx-font-size: 8;
     -fx-text-fill: #A9A5F3;
 }
+
+/* Builder View*/
+.builder-sequences {
+    -fx-min-width: 128;
+    -fx-min-height: 504;
+    -fx-alignment: center;
+    -fx-background-color: #EBEBFA;
+}
+
+.builder-sequences-top {
+    -fx-pref-width: 128;
+    -fx-min-height: 24;
+    -fx-alignment: center;
+}
+
+.builder-sequences-label {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-alignment: center;
+    -fx-text-fill: #040316;
+    -fx-padding: 0 4;
+}
+
+.builder-sequences-buttons {
+    -fx-pref-width: 34;
+    -fx-alignment: center-right;
+    -fx-spacing: 6;
+    -fx-padding: 4 4 0 0;
+}
+
+.builder-sequences-add-sequence-button, .builder-sequences-folder-button {
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+}
+
+.builder-sequences-folder-button {
+    -fx-background-size: 14;
+    -fx-min-height: 14;
+    -fx-max-height: 14;
+    -fx-background-image: url("../images/builderView/folderIcon.png");
+}
+
+.builder-sequences-folder-button:hover {
+    -fx-background-image: url("../images/builderView/folderIconSelected.png");
+}
+
+.builder-sequences-add-sequence-button {
+    -fx-background-size: 12;
+    -fx-min-height: 12;
+    -fx-max-height: 12;
+    -fx-background-image: url("../images/builderView/addIcon.png");
+}
+
+.builder-sequences-add-sequence-button:hover {
+    -fx-background-image: url("../images/builderView/addIconSelected.png");
+}
+
+.builder-separator, .builder-separator .line {
+    -fx-pref-width: 128;
+    -fx-pref-height: 1;
+    -fx-background-color: #6B66FF;
+    -fx-border-color: null;
+}
+
+.builder-sequences-scrollpane {
+    -fx-pref-width: 128;
+    -fx-alignment: center;
+    -fx-spacing: 4;
+    -fx-padding: 6 0;
+    -fx-background-color: #EBEBFA;
+}
+
+.builder-actions-sequences {
+    -fx-pref-width: 128;
+    -fx-spacing: 4;
+    -fx-alignment: top-center;
+    -fx-background-color: #EBEBFA;
+}
+
+.builder-sequences-hbox {
+    -fx-spacing: 4;
+    -fx-alignment: center;
+    -fx-padding: 4;
+    -fx-background-color: #DDDBFF;
+}
+
+.builder-sequences-hbox:hover {
+    -fx-background-color: #9E99FF;
+}
+
+.builder-sequences-title {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #040316;
+}
+
+.builder-sequences-delete-button {
+    -fx-min-height: 12;
+    -fx-max-height: 12;
+    -fx-background-color: transparent;
+    -fx-background-image: url("../images/builderView/deleteIcon.png");
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 12;
+}
+
+.builder-sequences-delete-button:hover {
+    -fx-background-image: url("../images/builderView/deleteIconSelected.png");
+}
+
 
 
 
@@ -506,119 +617,6 @@
     -fx-background-color: transparent;
     -fx-background-insets: 0px, 1px;
     -fx-border-color: #142224;
-}
-
-/* Left Bar - Sequences*/
-.builder-sequences {
-    -fx-min-width: 140px;
-    -fx-min-height: 240px;
-    -fx-alignment: center;
-    -fx-spacing: 6px;
-    -fx-background-radius: 8px;
-    -fx-background-color: #0C171A;
-}
-
-.builder-sequences-top {
-    -fx-pref-width: 140px;
-    -fx-pref-height: 24px;
-    -fx-alignment: center;
-    -fx-spacing: 4px;
-}
-
-.builder-sequences-label {
-    -fx-font-family: SansSerif;
-    -fx-font-size: 14px;
-    -fx-font-style: normal;
-    -fx-font-weight: 600;
-    -fx-text-alignment: center;
-    -fx-text-fill: #DAF0F3;
-    -fx-padding: 0px 4px;
-}
-
-.builder-sequences-buttons {
-    -fx-pref-width: 14px;
-    -fx-pref-height: 34px;
-    -fx-background-radius: 8px;
-    -fx-alignment: center-right;
-    -fx-spacing: 8px;
-    -fx-padding: 4px 8px 0px 0px;
-}
-
-.builder-sequences-add-sequence-button, .builder-sequences-folder-button {
-    -fx-background-color: transparent;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-}
-
-.builder-sequences-folder-button {
-    -fx-background-image: url("../images/folderIcon.png");
-    -fx-background-size: 20px 20px;
-}
-
-.builder-sequences-folder-button:hover {
-    -fx-background-image: url("../images/folderHoverIcon.png");
-}
-
-.builder-sequences-add-sequence-button {
-    -fx-background-image: url("../images/addSequenceIcon.png");
-    -fx-background-size: 18px 18px;
-}
-
-.builder-sequences-add-sequence-button:hover {
-    -fx-background-image: url("../images/addSequenceHoverIcon.png");
-}
-
-.builder-sequences-scrollpane {
-    -fx-pref-height: 210px;
-    -fx-pref-width: 140px;
-    -fx-alignment: center;
-    -fx-background-radius: 8px;
-    -fx-spacing: 4px;
-    -fx-padding: 4px;
-    -fx-background-color: #0C171A;
-}
-
-.builder-actions-sequences {
-    -fx-pref-width: 140px;
-    -fx-spacing: 4px;
-    -fx-alignment: top-center;
-    -fx-background-color: #0C171A;
-}
-
-.builder-sequences-hbox {
-    -fx-spacing: 4px;
-    -fx-alignment: center;
-    -fx-padding: 4px;
-    -fx-background-color: #142224;
-    -fx-background-radius: 4px;
-}
-
-.builder-sequences-title {
-    -fx-font-family: SansSerif;
-    -fx-font-size: 12px;
-    -fx-font-style: normal;
-    -fx-font-weight: 600;
-    -fx-text-fill: #DAF0F3;
-}
-
-.builder-sequences-hbox:hover {
-    -fx-background-color: #38545A;
-}
-
-.builder-sequences-hbox:hover Label{
-    -fx-text-fill: #C444C3;
-}
-
-.builder-sequences-delete-button {
-    -fx-background-color: transparent;
-    -fx-background-image: url("../images/deleteIcon.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 20px 20px;
-}
-
-.builder-sequences-delete-button:hover {
-    -fx-background-image: url("../images/deleteHoverIcon.png");
 }
 
 /* Sequence Builder */
@@ -939,12 +937,4 @@
 
 .rangeslider-down-button:pressed, .rangeslider-down-button:hover {
     -fx-background-image: url("../images/randomizerView/arrowDownIconSelected.png");
-}
-
-/* Separator and Lines for BuilderView */
-.builder-separator, .builder-separator .line {
-    -fx-pref-width: 140px;
-    -fx-pref-height: 2px;
-    -fx-background-color: #52287E;
-    -fx-border-color: null;
 }
