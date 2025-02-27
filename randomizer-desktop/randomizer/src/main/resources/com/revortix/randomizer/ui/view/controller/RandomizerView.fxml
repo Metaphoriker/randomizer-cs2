@@ -10,7 +10,7 @@
     <children>
         <VBox prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
-                <VBox prefHeight="65.0" prefWidth="656.0" />
+                <VBox prefHeight="92.0" prefWidth="656.0" />
                 <HBox alignment="CENTER" prefHeight="320.0" prefWidth="608.0" spacing="12" VBox.vgrow="ALWAYS">
                     <children>
                         <VBox prefHeight="320.0" prefWidth="320.0" spacing="12">
@@ -47,11 +47,11 @@
                                     </VBox>
                                 </children>
                             </VBox>
-                            <VBox prefHeight="200.0" prefWidth="100.0">
+                            <VBox prefHeight="208.0" prefWidth="276.0">
                                 <VBox styleClass="logbook-sequence-history" VBox.vgrow="ALWAYS">
                                     <children>
                                         <Label styleClass="logbook-history-label" text="History" wrapText="true" />
-                                        <Label styleClass="logbook-descriptions" text="Shows the last sequences that were running." wrapText="true" />
+                                        <Label styleClass="logbook-descriptions" text="Shows the last sequences that were running" wrapText="true" />
                                         <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" styleClass="logbook-history-scrollpane" VBox.vgrow="ALWAYS">
                                             <content>
                                                 <VBox fx:id="historyVBox" prefWidth="134.0" styleClass="logbook-history-content" />
@@ -63,7 +63,7 @@
                         </VBox>
                     </children>
                 </HBox>
-                <VBox prefHeight="28.0" prefWidth="656.0" />
+                <VBox prefHeight="92.0" prefWidth="656.0" />
             </children>
         </VBox>
     </children>
