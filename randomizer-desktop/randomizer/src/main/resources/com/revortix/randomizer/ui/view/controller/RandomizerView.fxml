@@ -8,13 +8,13 @@
 <AnchorPane xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.RandomizerViewController">
     <children>
         <!-- Die VBox füllt den gesamten AnchorPane -->
-        <VBox AnchorPane.topAnchor="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0">
+        <VBox AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <!-- Obere Box mit fester Mindesthöhe -->
                 <VBox minHeight="92.0" VBox.vgrow="NEVER" />
 
                 <!-- Mittlerer Bereich: enthält links und rechts -->
-                <HBox spacing="12" alignment="CENTER" VBox.vgrow="ALWAYS">
+                <HBox styleClass="randomizer-view" alignment="CENTER" spacing="12" VBox.vgrow="ALWAYS">
                     <children>
                         <!-- Linke Spalte -->
                         <VBox spacing="12" HBox.hgrow="ALWAYS">
@@ -37,7 +37,7 @@
                                         <ProgressBar fx:id="sequenceProgressIndicator" progress="0.0" styleClass="logbook-progress-indicator" />
                                     </children>
                                     <VBox.margin>
-                                        <Insets/>
+                                        <Insets />
                                     </VBox.margin>
                                 </VBox>
                             </children>
@@ -79,6 +79,9 @@
                             </children>
                         </VBox>
                     </children>
+               <padding>
+                  <Insets left="12.0" right="12.0" />
+               </padding>
                 </HBox>
 
                 <!-- Untere Box mit fester Mindesthöhe -->
