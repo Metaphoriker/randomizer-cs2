@@ -3,16 +3,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox styleClass="actions-selector" fx:controller="com.revortix.randomizer.ui.view.controller.BuilderActionsViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="504.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="148.0" prefWidth="504.0" styleClass="actions-selector" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.BuilderActionsViewController">
    <children>
-      <HBox styleClass="actions-categories" prefHeight="22.0" prefWidth="504.0">
+      <HBox prefHeight="22.0" prefWidth="504.0" styleClass="actions-categories">
          <children>
-            <ToggleButton styleClass="actions-category" fx:id="movementToggleButton" mnemonicParsing="false" text="Movement" />
-            <ToggleButton styleClass="actions-category" fx:id="weaponToggleButton" mnemonicParsing="false" text="Weapons" />
-            <ToggleButton styleClass="actions-category" fx:id="inventoryToggleButton" mnemonicParsing="false" text="Inventory" />
-            <ToggleButton styleClass="actions-category" fx:id="miscToggleButton" mnemonicParsing="false" text="Miscellaneous" />
-            <TextField styleClass="actions-category-searchfield" fx:id="searchField" promptText="Search" />
+            <ToggleButton fx:id="movementToggleButton" mnemonicParsing="false" styleClass="actions-category" text="Movement" />
+            <ToggleButton fx:id="weaponToggleButton" mnemonicParsing="false" styleClass="actions-category" text="Weapons" />
+            <ToggleButton fx:id="inventoryToggleButton" mnemonicParsing="false" styleClass="actions-category" text="Inventory" />
+            <ToggleButton fx:id="miscToggleButton" mnemonicParsing="false" styleClass="actions-category" text="Miscellaneous" />
+            <TextField fx:id="searchField" promptText="Search" styleClass="actions-category-searchfield" />
          </children></HBox>
-      <FlowPane styleClass="actions-container" fx:id="actionsFlowPane" prefHeight="16" prefWidth="480.0" />
+      <FlowPane fx:id="actionsFlowPane" prefHeight="16" prefWidth="480.0" styleClass="actions-container" />
    </children>
 </VBox>

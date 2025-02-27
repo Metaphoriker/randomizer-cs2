@@ -382,7 +382,7 @@
     -fx-text-fill: #A9A5F3;
 }
 
-/* Builder View*/
+/* Builder View */
 .builder-sequences {
     -fx-min-width: 128;
     -fx-pref-height: 504;
@@ -492,7 +492,7 @@
     -fx-background-image: url("../images/builderView/deleteIconSelected.png");
 }
 
-/* Builder Actions View*/
+/* Builder Actions View */
 .actions-selector {
     -fx-pref-width: 504;
     -fx-pref-height: 148;
@@ -546,22 +546,48 @@
     -fx-padding: 12 8;
 }
 
+/* Builder Editor View */
+.builder {
+    -fx-pref-width: 528;
+    -fx-pref-height: 504;
+    -fx-padding: 12;
+    -fx-spacing: 12;
+    -fx-background-color: #D6D6F5;
+}
+
+.builder-content {
+    -fx-pref-width: 504;
+    -fx-pref-height: 320;
+    -fx-spacing: 12;
+}
+
+.sequence-builder-container {
+    -fx-pref-width: 504;
+    -fx-pref-height: 320;
+    -fx-spacing: 12;
+}
+
+
+.builder-settings {
+    -fx-pref-width: 172;
+    -fx-pref-height: 320;
+    -fx-alignment: center;
+    -fx-padding: 4;
+    -fx-background-radius: 8px;
+    -fx-background-color: #E6E5FF;
+}
 
 
 
 
 /* Builder View*/
-.builder-view, .builder {
+.builder-view {
     -fx-min-width: 688px;
     -fx-min-height: 488px;
     -fx-alignment: center;
     -fx-background-color: #050E10;
 }
 
-.builder {
-    -fx-spacing: 24px;
-    -fx-padding: 0px -10px 0px 0px;
-}
 
 
 /* Left Bar - Actions */
@@ -809,14 +835,6 @@
 }
 
 /* Action - Title - Description - Settings */
-.builder-settings {
-    -fx-min-width: 140px;
-    -fx-pref-height: 488px;
-    -fx-alignment: top-left;
-    -fx-background-radius: 8px;
-    -fx-background-color: #0C171A;
-}
-
 .builder-settings-vbox {
     -fx-pref-width: 140px;
     -fx-pref-height: 488px;
