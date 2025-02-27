@@ -24,9 +24,9 @@ public class NavigationBarController {
       NavigationBarViewModel navigationBarViewModel, ViewProvider viewProvider) {
     this.navigationBarViewModel = navigationBarViewModel;
     this.viewProvider = viewProvider;
-    Platform.runLater(this::initialize);
   }
 
+  @FXML
   private void initialize() {
     setupBindings();
     setupToggleButtonLogic();

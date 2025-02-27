@@ -73,7 +73,6 @@ public class BuilderEditorViewController {
     this.viewProvider = viewProvider;
     this.builderViewModel = builderViewModel;
     this.jsonUtil = jsonUtil;
-    Platform.runLater(this::initialize);
   }
 
   @FXML
@@ -206,6 +205,7 @@ public class BuilderEditorViewController {
                     .equalsIgnoreCase(builderViewModel.getSequenceNameProperty().get()));
   }
 
+  @FXML
   private void initialize() {
     loadActionsView();
     initActionSettings();

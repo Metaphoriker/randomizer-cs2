@@ -42,7 +42,6 @@ public class RandomizerViewController {
   @Inject
   public RandomizerViewController(RandomizerViewModel randomizerViewModel) {
     this.randomizerViewModel = randomizerViewModel;
-    Platform.runLater(this::initialize);
   }
 
   @FXML
@@ -59,6 +58,7 @@ public class RandomizerViewController {
     randomizerViewModel.saveInterval();
   }
 
+  @FXML
   private void initialize() {
     randomizerViewModel.initConfig();
     setupBindings();

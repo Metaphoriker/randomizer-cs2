@@ -38,7 +38,6 @@ public class BuilderViewController {
   public BuilderViewController(ViewProvider viewProvider, BuilderViewModel builderViewModel) {
     this.viewProvider = viewProvider;
     this.builderViewModel = builderViewModel;
-    Platform.runLater(this::initialize);
   }
 
   @FXML
@@ -56,6 +55,7 @@ public class BuilderViewController {
     }
   }
 
+  @FXML
   private void initialize() {
     fillActionSequences();
   }
