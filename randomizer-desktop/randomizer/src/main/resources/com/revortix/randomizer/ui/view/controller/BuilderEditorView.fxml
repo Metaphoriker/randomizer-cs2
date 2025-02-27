@@ -2,37 +2,38 @@
 
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="504.0" prefWidth="528.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.BuilderEditorViewController">
     <children>
-        <BorderPane prefHeight="504.0" prefWidth="528.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <BorderPane prefHeight="504.0" prefWidth="528.0" styleClass="builder-content" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <right>
-                <VBox fx:id="settingsHolder" prefHeight="488.0" prefWidth="140.0" styleClass="builder-settings" BorderPane.alignment="CENTER" />
+                <VBox fx:id="settingsHolder" prefHeight="320.0" prefWidth="172.0" styleClass="builder-settings-holder" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets bottom="6.0" left="6.0" />
+               </BorderPane.margin></VBox>
             </right>
             <bottom>
-                <VBox fx:id="builderActionsPlaceholder" prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER" />
+                <VBox fx:id="builderActionsPlaceholder" prefHeight="148.0" prefWidth="504.0" BorderPane.alignment="CENTER">
+               <BorderPane.margin>
+                  <Insets top="6.0" />
+               </BorderPane.margin></VBox>
             </bottom>
             <center>
-                <VBox BorderPane.alignment="CENTER">
+                <VBox styleClass="sequence-builder" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox>
+                        <HBox styleClass="sequence-naming-container">
                             <children>
-                                <VBox prefHeight="46.0" styleClass="sequence-naming">
+                                <VBox prefHeight="148.0" styleClass="sequence-naming">
                                     <children>
-                                        <Label fx:id="sequenceNameLabel" styleClass="sequence-name-label">
-                                            <graphic>
-                                                <ImageView fx:id="sequenceNameImageView" fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true" smooth="false" styleClass="sequence-name-label-image" />
-                                            </graphic>
-                                        </Label>
+                                        <Label fx:id="sequenceNameLabel" styleClass="sequence-name-label" />
                                         <Label fx:id="sequenceDescriptionLabel" styleClass="sequence-description-label" />
                                         </children>
                                         <padding>
                                             <Insets left="5.0" top="5.0" />
                                         </padding>
                                 </VBox>
-                                    <HBox prefHeight="46.0" prefWidth="200.0" HBox.hgrow="ALWAYS" />
+                                    <HBox prefHeight="30.0" prefWidth="80.0" HBox.hgrow="ALWAYS" />
                                     <HBox alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="200.0">
                                         <children>
                                             <Button fx:id="saveSequenceButton" mnemonicParsing="false" onAction="#onSaveSequence" styleClass="builder-save-sequence-button" />
@@ -49,6 +50,9 @@
                                 </content>
                         </ScrollPane>
                     </children>
+               <BorderPane.margin>
+                  <Insets bottom="6.0" right="6.0" />
+               </BorderPane.margin>
                 </VBox>
             </center>
         </BorderPane>

@@ -144,7 +144,6 @@ public class BuilderEditorViewController {
 
     sequenceDescriptionLabel.textProperty().bind(builderViewModel.getSequenceDescriptionProperty());
     sequenceNameLabel.textProperty().bind(builderViewModel.getSequenceNameProperty());
-    sequenceNameImageView.visibleProperty().bind(sequenceNameLabel.textProperty().isNotEmpty());
 
     labelInFocusProperty.addListener(
         (_, oldLabel, newLabel) -> {

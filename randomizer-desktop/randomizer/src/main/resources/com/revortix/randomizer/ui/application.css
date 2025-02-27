@@ -547,27 +547,13 @@
 }
 
 /* Builder Editor View */
-.builder {
-    -fx-pref-width: 528;
-    -fx-pref-height: 504;
-    -fx-padding: 12;
-    -fx-spacing: 12;
-    -fx-background-color: #D6D6F5;
-}
-
 .builder-content {
     -fx-pref-width: 504;
     -fx-pref-height: 320;
-    -fx-spacing: 12;
+    -fx-padding: 12;
 }
 
-.sequence-builder-container {
-    -fx-pref-width: 504;
-    -fx-pref-height: 320;
-    -fx-spacing: 12;
-}
-
-.builder-settings {
+.builder-settings-holder {
     -fx-pref-width: 172;
     -fx-pref-height: 320;
     -fx-alignment: center;
@@ -576,7 +562,38 @@
     -fx-background-color: #E6E5FF;
 }
 
+.sequence-builder {
+    -fx-pref-width: 320;
+    -fx-pref-height: 320;
+    -fx-alignment: center;
+    -fx-padding: 8 12;
+    -fx-background-radius: 8;
+    -fx-background-color: #E6E5FF;
+}
 
+.sequence-naming-container {
+    -fx-pref-width: 296;
+    -fx-pref-height: 30;
+}
+
+.sequence-naming {
+    -fx-pref-width: 148;
+    -fx-alignment: center-left;
+    -fx-spacing: 4;
+}
+
+.sequence-name-label {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #040316;
+    -fx-graphic: url("../images/builderEditorView/sequenceIcon.png");
+}
+
+.sequence-description-label {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 11;
+    -fx-text-fill: #A9A5F3;
+}
 
 
 /* Builder View*/
@@ -704,39 +721,6 @@
 }
 
 /* Sequence Builder */
-.sequence-builder {
-    -fx-min-width: 360px;
-    -fx-min-height: 300px;
-    -fx-padding: 94px 0px;
-    -fx-effect: dropshadow(three-pass-box, #C444C3, 15, 0.0, 0, 0);
-}
-
-.sequence-naming {
-    -fx-pref-height: 46px;
-    -fx-spacing: 4px;
-    -fx-padding: 8px;
-    -fx-background-radius: 8px 8px 0px 0px;
-    -fx-alignment: center-left;
-    -fx-background-color: #0C171A;
-}
-
-.sequence-name-label {
-    -fx-font-family: SansSerif;
-    -fx-font-size: 12px;
-    -fx-font-weight: 600;
-    -fx-text-fill: #DAF0F3;
-}
-.sequence-name-label-image {
-    -fx-image: url("../images/sequenceIcon.png");
-}
-
-.sequence-description-label {
-    -fx-font-family: SansSerif;
-    -fx-font-size: 12px;
-    -fx-font-style: normal;
-    -fx-font-weight: 500;
-    -fx-text-fill: #738487;
-}
 
 .sequence-builder-buttons-vbox {
     -fx-pref-height: 300px;
