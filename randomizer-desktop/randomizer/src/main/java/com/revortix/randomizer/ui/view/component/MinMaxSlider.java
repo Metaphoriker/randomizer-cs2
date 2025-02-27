@@ -61,42 +61,50 @@ public class MinMaxSlider extends HBox {
     rangeSlider.setHighValue(max);
   }
 
+  private enum ButtonType {
+    MIN,
+    MAX
+  }
+
   private void initialize() {
     initializeLabels();
     setAlignment(Pos.CENTER);
-    initializeButtonsLeft();
-    getChildren().addAll(minLabel, rangeSlider, maxLabel);
-    initializeButtonsRight();
+    getChildren()
+        .addAll(
+            getButtons(ButtonType.MIN),
+            minLabel,
+            rangeSlider,
+            maxLabel,
+            getButtons(ButtonType.MAX));
 
     rangeSlider.setBlockIncrement(1);
     setListener();
   }
 
-  private void initializeButtonsLeft() {
-    initializeButtons(true);
-  }
+  private VBox getButtons(ButtonType type) {
+    Button upButton = createButton("rangeslider-up-button");
+    Button downButton = createButton("rangeslider-down-button");
 
-  private void initializeButtonsRight() {
-    initializeButtons(false);
-  }
-
-  private void initializeButtons(boolean low) {
-    Button upButton = new Button();
-    upButton.getStyleClass().add("rangeslider-up-button");
-    Button downButton = new Button();
-    downButton.getStyleClass().add("rangeslider-down-button");
-
-    if (low) {
-      upButton.setOnAction(_ -> rangeSlider.setLowValue(rangeSlider.getLowValue() + 1));
-      downButton.setOnAction(_ -> rangeSlider.setLowValue(rangeSlider.getLowValue() - 1));
-    } else {
-      upButton.setOnAction(_ -> rangeSlider.setHighValue(rangeSlider.getHighValue() + 1));
-      downButton.setOnAction(_ -> rangeSlider.setHighValue(rangeSlider.getHighValue() - 1));
+    switch (type) {
+      case MIN:
+        upButton.setOnAction(_ -> rangeSlider.setLowValue(rangeSlider.getLowValue() + 1));
+        downButton.setOnAction(_ -> rangeSlider.setLowValue(rangeSlider.getLowValue() - 1));
+        break;
+      case MAX:
+        upButton.setOnAction(_ -> rangeSlider.setHighValue(rangeSlider.getHighValue() + 1));
+        downButton.setOnAction(_ -> rangeSlider.setHighValue(rangeSlider.getHighValue() - 1));
+        break;
     }
 
     VBox vBox = new VBox(upButton, downButton);
     vBox.setAlignment(Pos.CENTER);
-    getChildren().add(vBox);
+    return vBox;
+  }
+
+  private Button createButton(String styleClass) {
+    Button button = new Button();
+    button.getStyleClass().add(styleClass);
+    return button;
   }
 
   private void initializeLabels() {
