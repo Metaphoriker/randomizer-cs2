@@ -85,6 +85,7 @@
 .home-view-github, .home-view-discord {
     -fx-font-family: SansSerif;
     -fx-font-size: 16;
+    -fx-underline: true;
     -fx-text-fill: #A9A5F3;
 }
 
@@ -490,6 +491,61 @@
 .builder-sequences-delete-button:hover {
     -fx-background-image: url("../images/builderView/deleteIconSelected.png");
 }
+
+/* Builder Actions View*/
+.actions-selector {
+    -fx-pref-width: 504;
+    -fx-pref-height: 148;
+    -fx-background-radius: 8;
+    -fx-alignment: center;
+    -fx-background-color: #E6E5FF;
+}
+
+.actions-categories {
+    -fx-pref-width: 504;
+    -fx-pref-height: 22;
+    -fx-spacing: 8;
+    -fx-padding: 4 12 4 0;
+    -fx-alignment: center;
+}
+
+.actions-category {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #7E78ED;
+    -fx-background-color: transparent;
+}
+
+.actions-category:hover, .actions-category:selected {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #3129D6;
+    -fx-background-color: transparent;
+}
+
+.actions-category:selected {
+    -fx-underline: true;
+}
+
+.actions-category-searchfield {
+    -fx-pref-width: 152;
+    -fx-pref-height: 14;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 10;
+    -fx-prompt-text-fill: #A9A5F3;
+    -fx-text-fill: #3129D6;
+    -fx-background-radius: 4;
+    -fx-background-color: #D6D6F5;
+}
+
+.actions-container {
+    -fx-pref-width: 480;
+    -fx-pref-height: 126;
+    -fx-alignment: center;
+    -fx-spacing: 18;
+    -fx-padding: 12 8;
+}
+
 
 
 

@@ -3,16 +3,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:controller="com.revortix.randomizer.ui.view.controller.BuilderActionsViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="504.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox styleClass="actions-selector" fx:controller="com.revortix.randomizer.ui.view.controller.BuilderActionsViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="148.0" prefWidth="504.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="100.0" prefWidth="200.0">
+      <HBox styleClass="actions-categories" prefHeight="22.0" prefWidth="504.0">
          <children>
-            <ToggleButton fx:id="movementToggleButton" mnemonicParsing="false" text="ToggleButton" />
-            <ToggleButton fx:id="weaponToggleButton" mnemonicParsing="false" text="ToggleButton" />
-            <ToggleButton fx:id="inventoryToggleButton" mnemonicParsing="false" text="ToggleButton" />
-            <ToggleButton fx:id="miscToggleButton" mnemonicParsing="false" text="ToggleButton" />
-            <TextField fx:id="searchField" promptText="Search" />
+            <ToggleButton styleClass="actions-category" fx:id="movementToggleButton" mnemonicParsing="false" text="Movement" />
+            <ToggleButton styleClass="actions-category" fx:id="weaponToggleButton" mnemonicParsing="false" text="Weapons" />
+            <ToggleButton styleClass="actions-category" fx:id="inventoryToggleButton" mnemonicParsing="false" text="Inventory" />
+            <ToggleButton styleClass="actions-category" fx:id="miscToggleButton" mnemonicParsing="false" text="Miscellaneous" />
+            <TextField styleClass="actions-category-searchfield" fx:id="searchField" promptText="Search" />
          </children></HBox>
-      <FlowPane fx:id="actionsFlowPane" prefHeight="200.0" prefWidth="200.0" />
+      <FlowPane styleClass="actions-container" fx:id="actionsFlowPane" prefHeight="16" prefWidth="480.0" />
    </children>
 </VBox>
