@@ -1,4 +1,4 @@
-package com.revortix.randomizer.ui.view.viewmodel;
+package com.revortix.randomizer.ui.view.viewmodel.settings;
 
 import com.revortix.model.action.Action;
 import com.revortix.model.action.value.Interval;

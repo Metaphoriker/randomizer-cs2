@@ -1,4 +1,4 @@
-package com.revortix.randomizer.ui.view.viewmodel;
+package com.revortix.randomizer.ui.view.viewmodel.builder;
 
 import com.google.inject.Inject;
 import com.revortix.model.action.Action;
