@@ -43,7 +43,7 @@
                         </HBox>
                             <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefHeight="272.0" prefWidth="312.0" styleClass="builder-selected-actions-scrollpane" VBox.vgrow="ALWAYS">
                                 <content>
-                                    <VBox fx:id="builderVBox" prefHeight="272.0" prefWidth="312.0" styleClass="builder-selected-actions-vbox" VBox.vgrow="ALWAYS" />
+                                    <VBox fx:id="builderVBox" prefHeight="244.0" prefWidth="296.0" styleClass="builder-selected-actions-vbox" VBox.vgrow="ALWAYS" />
                                 </content>
                         </ScrollPane>
                     </children>
