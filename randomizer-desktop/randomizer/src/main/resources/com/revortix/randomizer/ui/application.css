@@ -384,8 +384,8 @@
 /* Builder View*/
 .builder-sequences {
     -fx-min-width: 128;
-    -fx-min-height: 504;
-    -fx-alignment: center;
+    -fx-pref-height: 504;
+    -fx-alignment: top-center;
     -fx-background-color: #EBEBFA;
 }
 
