@@ -504,7 +504,7 @@
 .actions-categories {
     -fx-pref-width: 504;
     -fx-pref-height: 22;
-    -fx-spacing: 8;
+    -fx-spacing: 6;
     -fx-padding: 4 12 4 0;
     -fx-alignment: center;
 }
