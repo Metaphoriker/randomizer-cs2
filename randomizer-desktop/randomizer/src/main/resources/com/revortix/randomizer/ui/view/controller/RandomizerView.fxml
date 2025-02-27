@@ -1,19 +1,20 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<!--<?import com.revortix.randomizer.ui.view.component.MinMaxSlider?>-->
+<?import com.revortix.randomizer.ui.view.component.MinMaxSlider?>
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.RandomizerViewController">
     <children>
         <VBox prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
                 <VBox prefHeight="65.0" prefWidth="656.0" />
-                <HBox alignment="CENTER" prefHeight="320.0" prefWidth="608.0" VBox.vgrow="ALWAYS">
+                <HBox alignment="CENTER" prefHeight="320.0" prefWidth="608.0" spacing="12" VBox.vgrow="ALWAYS">
                     <children>
                         <VBox prefHeight="320.0" prefWidth="320.0" spacing="12">
-                            <VBox prefHeight="320.0" prefWidth="276.0" styleClass="logbook" BorderPane.alignment="CENTER">
+                            <VBox prefHeight="276.0" prefWidth="320.0" styleClass="logbook" BorderPane.alignment="CENTER">
                                 <children>
                                     <HBox prefHeight="16.0" prefWidth="296.0" styleClass="logbook-active-sequence">
                                         <Label fx:id="sequenceNameLabel" styleClass="logbook-sequence-name" />
@@ -21,21 +22,25 @@
                                     <VBox fx:id="actionsVBox" prefHeight="244.0" prefWidth="296.0" styleClass="logbook-active-actions" />
                                 </children>
                             </VBox>
-                            <VBox styleClass="logbook-state" alignment="center" prefHeight="32.0" prefWidth="320.0">
+                            <VBox alignment="center" prefHeight="32.0" prefWidth="320.0" styleClass="logbook-state">
                                 <ToggleButton fx:id="randomizerToggleButton" mnemonicParsing="false" onAction="#onToggle" prefHeight="16" prefWidth="16" styleClass="logbook-toggle-button" />
-                                <ProgressBar fx:id="sequenceProgressIndicator" prefHeight="2" prefWidth="180.0" progress="0.5" styleClass="logbook-progress-indicator" />
+                                <ProgressBar fx:id="sequenceProgressIndicator" prefHeight="3" prefWidth="180.0" progress="0.0" styleClass="logbook-progress-indicator" />
+                        <VBox.margin>
+                           <Insets />
+                        </VBox.margin>
                             </VBox>
                         </VBox>
-                        <VBox prefHeight="200.0" prefWidth="100.0">
-                            <VBox prefHeight="300.0" prefWidth="194.0" styleClass="logbook-info" BorderPane.alignment="CENTER">
+                        <VBox prefHeight="320.0" prefWidth="276.0" spacing="12">
+                            <VBox styleClass="logbook-info" prefHeight="100.0" prefWidth="276.0" BorderPane.alignment="CENTER">
                                 <children>
                                     <VBox styleClass="logbook-sequence-interval">
                                         <children>
                                             <Label styleClass="logbook-sequence-interval-label" text="Sequence Interval" wrapText="true" />
                                             <Label styleClass="logbook-descriptions" text="Set the Interval between each Sequence" wrapText="true" />
-<!--                                            <MinMaxSlider fx:id="minMaxSlider"-->
-<!--                                                          styleClass="range-slider-sequence-interval"/>-->
-                                            <HBox alignment="CENTER_RIGHT">
+                                            <MinMaxSlider fx:id="minMaxSlider"
+                                                          styleClass="range-slider-sequence-interval">
+                                            </MinMaxSlider>
+                                            <HBox styleClass="settings-apply-button-container" alignment="CENTER_RIGHT">
                                                 <Button onAction="#onIntervalApply" styleClass="settings-apply-button" text="Apply" />
                                             </HBox>
                                         </children>
