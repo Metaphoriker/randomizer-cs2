@@ -81,8 +81,10 @@ public class MinMaxSlider extends HBox {
   }
 
   private void initializeButtons(boolean low) {
-    Button upButton = new Button("^");
-    Button downButton = new Button("v");
+    Button upButton = new Button();
+    upButton.getStyleClass().add("rangeslider-up-button");
+    Button downButton = new Button();
+    downButton.getStyleClass().add("rangeslider-down-button");
 
     if (low) {
       upButton.setOnAction(_ -> rangeSlider.setLowValue(rangeSlider.getLowValue() + 1));
