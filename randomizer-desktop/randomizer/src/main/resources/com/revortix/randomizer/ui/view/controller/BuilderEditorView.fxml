@@ -28,10 +28,7 @@
                                     <children>
                                         <Label fx:id="sequenceNameLabel" styleClass="sequence-name-label" />
                                         <Label fx:id="sequenceDescriptionLabel" styleClass="sequence-description-label" />
-                                        </children>
-                                        <padding>
-                                            <Insets left="5.0" top="5.0" />
-                                        </padding>
+                                    </children>
                                 </VBox>
                                     <HBox prefHeight="30.0" prefWidth="80.0" HBox.hgrow="ALWAYS" />
                                     <HBox alignment="CENTER_RIGHT" prefHeight="46.0" prefWidth="200.0">
