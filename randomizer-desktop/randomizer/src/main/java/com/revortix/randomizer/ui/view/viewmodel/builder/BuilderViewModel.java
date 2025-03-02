@@ -91,7 +91,6 @@ public class BuilderViewModel {
         String name = generateUniqueSequenceName();
         ActionSequence actionSequence = new ActionSequence(name);
         actionSequenceRepository.saveActionSequence(actionSequence);
-        currentActionSequenceProperty.set(actionSequence);
     }
 
     private String generateUniqueSequenceName() {
