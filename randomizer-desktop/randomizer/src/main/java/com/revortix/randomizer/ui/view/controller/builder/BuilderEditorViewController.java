@@ -12,7 +12,6 @@ import com.revortix.randomizer.ui.view.controller.settings.DescriptionSettingsCo
 import com.revortix.randomizer.ui.view.controller.settings.TitleSettingsController;
 import com.revortix.randomizer.ui.view.viewmodel.builder.BuilderViewModel;
 import java.util.List;
-
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
@@ -25,7 +24,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Separator;
-import javafx.scene.image.ImageView;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
@@ -55,7 +53,6 @@ public class BuilderEditorViewController {
   @FXML private VBox builderActionsPlaceholder;
   @FXML private VBox settingsHolder;
 
-  @FXML private ImageView sequenceNameImageView;
   @FXML private Label sequenceNameLabel;
   @FXML private Label sequenceDescriptionLabel;
 
@@ -214,6 +211,12 @@ public class BuilderEditorViewController {
     initDropIndicator();
     setupBindings();
     setupDrop(builderVBox);
+    initialFill();
+  }
+
+  private void initialFill() {
+    fillBuilderWithActionsOfSequence(builderViewModel.getCurrentActionSequenceProperty().get());
+    updateBuilderVBox();
   }
 
   private void setupDrop(VBox target) {
