@@ -670,13 +670,13 @@
     -fx-spacing: 6;
 }
 
-.action-in-focus-label, .builder-actions-settings-timeframe {
+.action-in-focus-label, .builder-actions-settings-duration {
     -fx-font-family: SansSerif;
     -fx-font-size: 12;
     -fx-text-fill: #040316;
 }
 
-.builder-action-settings-timeframe-vbox {
+.builder-action-settings-duration-vbox {
     -fx-pref-width: 156;
     -fx-spacing: 6;
 }
