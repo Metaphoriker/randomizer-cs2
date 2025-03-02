@@ -106,7 +106,6 @@ public class BuilderEditorViewController {
       return;
     }
     builderViewModel.saveActionSequence();
-    builderViewModel.getCurrentActionSequenceProperty().set(null);
     controller.fillActionSequences();
   }
 
