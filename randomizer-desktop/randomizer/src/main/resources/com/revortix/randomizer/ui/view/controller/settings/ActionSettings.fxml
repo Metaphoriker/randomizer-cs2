@@ -20,9 +20,7 @@
                 </VBox>
                 <VBox prefWidth="156.0" styleClass="builder-action-settings-timeframe-vbox">
                     <children>
-                        <Label styleClass="builder-actions-settings-timeframe" text="Time Frame"/>
-                        <Label styleClass="builder-actions-settings-description"
-                               text="Sets the time frame how long the Action should last" wrapText="true"/>
+                        <Label styleClass="builder-actions-settings-timeframe" text="Duration"/>
                         <MinMaxSlider fx:id="minMaxSlider" styleClass="range-slider-action-interval"/>
                         <HBox>
                             <HBox prefWidth="78" alignment="CENTER_LEFT">
