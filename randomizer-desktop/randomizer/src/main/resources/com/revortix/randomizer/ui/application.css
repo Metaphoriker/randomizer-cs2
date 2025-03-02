@@ -474,6 +474,13 @@
     -fx-background-color: #9E99FF;
 }
 
+.builder-sequences-hbox-selected {
+    -fx-spacing: 4;
+    -fx-alignment: center;
+    -fx-padding: 4;
+    -fx-background-color: #9E99FF;
+}
+
 .builder-sequences-title {
     -fx-font-family: SansSerif;
     -fx-font-size: 12;
