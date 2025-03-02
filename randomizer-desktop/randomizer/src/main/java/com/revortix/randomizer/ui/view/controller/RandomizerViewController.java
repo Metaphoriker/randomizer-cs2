@@ -65,14 +65,12 @@ public class RandomizerViewController {
     randomizerViewModel.initConfig();
     setupBindings();
     setupListener();
-    // setupProgressIndicator();
+    setupProgressIndicator();
     setupIntervalSlider();
   }
 
   private void setupBindings() {
-    sequenceNameLabel
-        .visibleProperty()
-        .bind(sequenceNameLabel.textProperty().isNotEmpty());
+    sequenceNameLabel.visibleProperty().bind(sequenceNameLabel.textProperty().isNotEmpty());
   }
 
   private void setupProgressIndicator() {
@@ -80,11 +78,22 @@ public class RandomizerViewController {
         .getCurrentActionSequenceProgressProperty()
         .addListener(
             (_, _, t1) -> {
-              int actionSize =
-                  randomizerViewModel.getCurrentActionSequenceProperty().get().getActions().size();
-              double progress = actionSize == 0 ? 0 : (double) t1 / actionSize;
-              progress = Math.min(1, progress);
-              sequenceProgressIndicator.setProgress(progress);
+              Platform.runLater(
+                  () -> {
+                    int actionSize =
+                        randomizerViewModel
+                            .getCurrentActionSequenceProperty()
+                            .get()
+                            .getActions()
+                            .size();
+                    if (randomizerViewModel.getCurrentActionSequenceProperty().get() == null) {
+                      sequenceProgressIndicator.setProgress(0.0);
+                      return;
+                    }
+                    double progress = actionSize == 0 ? 0.0 : (double) t1 / actionSize;
+                    progress = Math.min(1, progress);
+                    sequenceProgressIndicator.setProgress(progress);
+                  });
             });
   }
 
@@ -152,16 +161,16 @@ public class RandomizerViewController {
         .getCurrentActionProperty()
         .addListener(
             (_, previousAction, action) -> {
+              if (previousAction != null) {
+                actionsVBox.getChildren().stream()
+                    .filter(Label.class::isInstance)
+                    .map(Label.class::cast)
+                    .filter(label -> label.getText().equals(previousAction.getName()))
+                    .filter(label -> !isActive(label))
+                    .findFirst()
+                    .ifPresent(label -> setPositionalStyling(label, true));
+              }
               if (action == null) {
-                if (previousAction != null) {
-                  actionsVBox.getChildren().stream()
-                      .filter(Label.class::isInstance)
-                      .map(Label.class::cast)
-                      .filter(label -> label.getText().equals(previousAction.getName()))
-                      .filter(label -> !isActive(label))
-                      .findFirst()
-                      .ifPresent(label -> setPositionalStyling(label, true));
-                }
                 return;
               }
               actionsVBox.getChildren().stream()
@@ -182,7 +191,7 @@ public class RandomizerViewController {
     int index = actionsVBox.getChildren().indexOf(label);
     ObservableList<Node> children = actionsVBox.getChildren(); // Hole die Liste nur einmal
 
-    if (children.isEmpty()) {  // Überprüfe, ob die Liste leer ist
+    if (children.isEmpty()) { // Überprüfe, ob die Liste leer ist
       // Optional: Logging, um zu verstehen, wann dies passiert
       // System.err.println("actionsVBox ist leer in setPositionalStyling!");
       return; // Beende die Methode, wenn die Liste leer ist.
@@ -191,7 +200,9 @@ public class RandomizerViewController {
     if (index == 0) {
       label.getStyleClass().clear();
       label.getStyleClass().add(ACTION_NAME_STYLING);
-      label.getStyleClass().add(active ? START_ACTIVE_ACTION_NAME_STYLING : START_ACTION_NAME_STYLING);
+      label
+          .getStyleClass()
+          .add(active ? START_ACTIVE_ACTION_NAME_STYLING : START_ACTION_NAME_STYLING);
       return;
     }
 
@@ -202,13 +213,19 @@ public class RandomizerViewController {
       return;
     }
 
-    if (index > 0 && index < children.size() -1){ // Stelle sicher index ist im Rahmen.
+    if (index > 0 && index < children.size() - 1) { // Stelle sicher index ist im Rahmen.
       label.getStyleClass().clear();
       label.getStyleClass().add(ACTION_NAME_STYLING);
-      label.getStyleClass().add(active ? MIDDLE_ACTIVE_ACTION_NAME_STYLING : MIDDLE_ACTION_NAME_STYLING);
+      label
+          .getStyleClass()
+          .add(active ? MIDDLE_ACTIVE_ACTION_NAME_STYLING : MIDDLE_ACTION_NAME_STYLING);
     } else {
       // Optional: Logge den Fehler, um zu verstehen, wann dies auftritt
-      System.err.println("Ungültiger Index in setPositionalStyling: " + index + ", Listengröße: " + children.size());
+      System.err.println(
+          "Ungültiger Index in setPositionalStyling: "
+              + index
+              + ", Listengröße: "
+              + children.size());
     }
   }
 }
