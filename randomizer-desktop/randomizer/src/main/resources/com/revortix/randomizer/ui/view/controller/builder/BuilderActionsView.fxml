@@ -7,10 +7,10 @@
    <children>
       <HBox prefHeight="22.0" prefWidth="504.0" styleClass="actions-categories">
          <children>
-            <ToggleButton fx:id="movementToggleButton" mnemonicParsing="false" styleClass="actions-category" text="Movement" />
-            <ToggleButton fx:id="weaponToggleButton" mnemonicParsing="false" styleClass="actions-category" text="Weapons" />
-            <ToggleButton fx:id="inventoryToggleButton" mnemonicParsing="false" styleClass="actions-category" text="Inventory" />
-            <ToggleButton fx:id="miscToggleButton" mnemonicParsing="false" styleClass="actions-category" text="Miscellaneous" />
+            <ToggleButton fx:id="movementToggleButton" selected="true" mnemonicParsing="false" styleClass="actions-category" text="Movement" />
+            <ToggleButton fx:id="weaponToggleButton" selected="true" mnemonicParsing="false" styleClass="actions-category" text="Weapons" />
+            <ToggleButton fx:id="inventoryToggleButton" selected="true" mnemonicParsing="false" styleClass="actions-category" text="Inventory" />
+            <ToggleButton fx:id="miscToggleButton" selected="true" mnemonicParsing="false" styleClass="actions-category" text="Miscellaneous" />
             <TextField fx:id="searchField" promptText="Search" styleClass="actions-category-searchfield" />
          </children></HBox>
       <FlowPane fx:id="actionsFlowPane" prefHeight="16" prefWidth="480.0" styleClass="actions-container" />

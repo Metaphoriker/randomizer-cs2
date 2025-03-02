@@ -6,24 +6,30 @@ import com.revortix.model.config.keybind.KeyBindType;
 import com.revortix.model.persistence.JsonUtil;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.viewmodel.builder.BuilderViewModel;
+import java.util.ArrayList;
 import java.util.List;
+import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
-import javafx.scene.control.TitledPane;
+import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
-import javafx.scene.layout.VBox;
 
 @View
 public class BuilderActionsViewController {
 
   private final BuilderViewModel builderViewModel;
   private final JsonUtil jsonUtil;
+
+  @FXML private ToggleButton movementToggleButton;
+  @FXML private ToggleButton weaponToggleButton;
+  @FXML private ToggleButton inventoryToggleButton;
+  @FXML private ToggleButton miscToggleButton;
 
   @FXML private FlowPane actionsFlowPane;
   @FXML private TextField searchField;
@@ -32,6 +38,47 @@ public class BuilderActionsViewController {
   public BuilderActionsViewController(BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
     this.builderViewModel = builderViewModel;
     this.jsonUtil = jsonUtil;
+  }
+
+  private final ChangeListener<Boolean> filterChangeListener = (_, _, _) -> updateActions();
+
+  private void updateActions() {
+    actionsFlowPane.getChildren().clear();
+    getActivatedFilters()
+        .forEach(
+            filter -> {
+              builderViewModel
+                  .getActionToTypeMap()
+                  .get(filter)
+                  .forEach(
+                      action -> {
+                        Label actionLabel = new Label(action.getName());
+                        actionLabel.setTooltip(new Tooltip(action.getActionKey().getKey()));
+                        actionLabel.getStyleClass().add("builder-actions-title");
+                        setupDrag(actionLabel, action);
+                        actionsFlowPane.getChildren().add(actionLabel);
+                      });
+            });
+  }
+
+  private void setupFilters() {
+    movementToggleButton.selectedProperty().addListener(filterChangeListener);
+    weaponToggleButton.selectedProperty().addListener(filterChangeListener);
+    inventoryToggleButton.selectedProperty().addListener(filterChangeListener);
+    miscToggleButton.selectedProperty().addListener(filterChangeListener);
+  }
+
+  private List<KeyBindType> getActivatedFilters() {
+    List<KeyBindType> activatedFilters = new ArrayList<>();
+    if (movementToggleButton.isSelected()) activatedFilters.add(KeyBindType.MOVEMENT);
+
+    if (weaponToggleButton.isSelected()) activatedFilters.add(KeyBindType.WEAPON);
+
+    if (inventoryToggleButton.isSelected()) activatedFilters.add(KeyBindType.INVENTORY);
+
+    if (miscToggleButton.isSelected()) activatedFilters.add(KeyBindType.MISCELLANEOUS);
+
+    return activatedFilters;
   }
 
   private void setupDrag(Label label, Action action) {
@@ -52,7 +99,8 @@ public class BuilderActionsViewController {
 
   @FXML
   private void initialize() {
-    fillActions();
+    setupFilters();
+    updateActions();
     setupSearchFieldListener();
   }
 
@@ -63,7 +111,7 @@ public class BuilderActionsViewController {
             (_, _, newValue) -> {
               if (newValue == null || newValue.isEmpty()) {
                 actionsFlowPane.getChildren().clear();
-                fillActions();
+                updateActions();
                 return;
               }
 
@@ -87,36 +135,5 @@ public class BuilderActionsViewController {
                             });
                       });
             });
-  }
-
-  private TitledPane createTitledPane(KeyBindType type, List<Action> actions) {
-    TitledPane titledPane = new TitledPane();
-    titledPane.setCollapsible(true);
-    titledPane.setAnimated(true);
-    titledPane.setExpanded(false);
-    titledPane.getStyleClass().add("builder-actions-category");
-    titledPane.setText(type.name());
-
-    VBox vBox = new VBox();
-    actions.forEach(
-        action -> {
-          Label actionLabel = new Label(action.getName());
-          actionLabel.setTooltip(new Tooltip(action.getActionKey().getKey()));
-          actionLabel.getStyleClass().add("builder-actions-title");
-          setupDrag(actionLabel, action);
-          vBox.getStyleClass().add("builder-actions-title-vbox");
-          vBox.getChildren().add(actionLabel);
-        });
-    titledPane.setContent(vBox);
-
-    return titledPane;
-  }
-
-  private void fillActions() {
-    builderViewModel
-        .getActionToTypeMap()
-        .forEach(
-            (type, actionList) ->
-                actionsFlowPane.getChildren().add(createTitledPane(type, actionList)));
   }
 }
