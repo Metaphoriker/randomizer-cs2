@@ -13,8 +13,8 @@
                   <Insets bottom="6.0" left="6.0" />
                </BorderPane.margin>
                <children>
-                  <VBox fx:id="settingsHolder" prefHeight="184.0" prefWidth="172.0" styleClass="builder-sequence-settings" />
-                  <VBox fx:id="actionSettingsHolder" prefHeight="124.0" prefWidth="172.0" styleClass="builder-action-settings" />
+                  <VBox fx:id="settingsHolder" prefHeight="184.0" prefWidth="172.0" styleClass="builder-sequence-settings" VBox.vgrow="ALWAYS" />
+                  <VBox fx:id="actionSettingsHolder" prefHeight="124.0" prefWidth="172.0" styleClass="builder-action-settings" VBox.vgrow="ALWAYS" />
                </children></VBox>
             </right>
             <bottom>
