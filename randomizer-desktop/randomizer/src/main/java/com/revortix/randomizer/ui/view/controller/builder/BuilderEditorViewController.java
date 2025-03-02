@@ -7,9 +7,9 @@ import com.revortix.model.persistence.JsonUtil;
 import com.revortix.randomizer.ui.RandomizerApplication;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.ViewProvider;
+import com.revortix.randomizer.ui.view.ViewWrapper;
 import com.revortix.randomizer.ui.view.controller.settings.ActionSettingsController;
-import com.revortix.randomizer.ui.view.controller.settings.DescriptionSettingsController;
-import com.revortix.randomizer.ui.view.controller.settings.TitleSettingsController;
+import com.revortix.randomizer.ui.view.controller.settings.TitleDescriptionSettingsController;
 import com.revortix.randomizer.ui.view.viewmodel.builder.BuilderViewModel;
 import java.util.List;
 import javafx.beans.property.ObjectProperty;
@@ -52,6 +52,7 @@ public class BuilderEditorViewController {
 
   @FXML private VBox builderActionsPlaceholder;
   @FXML private VBox settingsHolder;
+  @FXML private VBox actionSettingsHolder;
 
   @FXML private Label sequenceNameLabel;
   @FXML private Label sequenceDescriptionLabel;
@@ -115,7 +116,7 @@ public class BuilderEditorViewController {
         .addListener(
             (_, _, newSequence) -> {
               fillBuilderWithActionsOfSequence(newSequence);
-              settingsHolder.getChildren().clear();
+                actionSettingsHolder.getChildren().clear();
             });
 
     builderViewModel
@@ -154,12 +155,12 @@ public class BuilderEditorViewController {
     actionSettingsController.bindOnVisibleProperty(
         visible -> {
           if (visible)
-            settingsHolder
+              actionSettingsHolder
                 .getChildren()
                 .setAll(viewProvider.requestView(ActionSettingsController.class).parent());
           else {
             labelInFocusProperty.set(null);
-            settingsHolder.getChildren().clear();
+              actionSettingsHolder.getChildren().clear();
           }
         });
   }
@@ -206,8 +207,7 @@ public class BuilderEditorViewController {
   private void initialize() {
     loadActionsView();
     initActionSettings();
-    initTitleSettings();
-    initDescriptionSettings();
+    initTitleAndDescriptionSettings();
     initDropIndicator();
     setupBindings();
     setupDrop(builderVBox);
@@ -273,56 +273,24 @@ public class BuilderEditorViewController {
     dropIndicator.getStyleClass().add("builder-separator");
   }
 
-  private void initTitleSettings() {
-    sequenceNameLabel.setCursor(Cursor.HAND);
-    TitleSettingsController titleSettingsController =
-        viewProvider.requestView(TitleSettingsController.class).controller();
-    titleSettingsController.setOnPanelClose(() -> settingsHolder.getChildren().clear());
-    titleSettingsController.setOnInput(
-        input -> {
-          builderViewModel.getSequenceNameProperty().set(input);
-          settingsHolder.getChildren().clear();
-        });
-    sequenceNameLabel.setOnMouseClicked(
-        _ -> {
-          if (builderViewModel.getCurrentActionSequenceProperty().get() == null) return;
-          actionSettingsController.setAction(null);
-          labelInFocusProperty.set(null);
-          titleSettingsController.setText(
-              builderViewModel.getSequenceNameProperty().get() == null
-                  ? ""
-                  : builderViewModel.getSequenceNameProperty().get());
-          settingsHolder
-              .getChildren()
-              .setAll(viewProvider.requestView(TitleSettingsController.class).parent());
-        });
-  }
+  private void initTitleAndDescriptionSettings() {
+    ViewWrapper<TitleDescriptionSettingsController> tdsViewWrapper =
+        viewProvider.requestView(TitleDescriptionSettingsController.class);
 
-  private void initDescriptionSettings() {
-    sequenceDescriptionLabel.setCursor(Cursor.HAND);
-    DescriptionSettingsController descriptionSettingsController =
-        viewProvider.requestView(DescriptionSettingsController.class).controller();
-    descriptionSettingsController.setOnPanelClose(() -> settingsHolder.getChildren().clear());
-    descriptionSettingsController.setOnInput(
-        input -> {
-          if (input.isEmpty() || input.isBlank()) {
-            return;
+    settingsHolder.getChildren().setAll(tdsViewWrapper.parent());
+
+    TitleDescriptionSettingsController controller = tdsViewWrapper.controller();
+    controller.setTitle(builderViewModel.getSequenceNameProperty().get());
+    controller.setDescription(builderViewModel.getSequenceDescriptionProperty().get());
+
+    controller.setInput(
+        (inputTitle, inputDescription) -> {
+          if (inputTitle != null && !inputTitle.isBlank()) {
+            builderViewModel.getSequenceNameProperty().set(inputTitle);
           }
-          builderViewModel.getSequenceDescriptionProperty().set(input);
-          settingsHolder.getChildren().clear();
-        });
-    sequenceDescriptionLabel.setOnMouseClicked(
-        _ -> {
-          if (builderViewModel.getCurrentActionSequenceProperty().get() == null) return;
-          actionSettingsController.setAction(null);
-          labelInFocusProperty.set(null);
-          descriptionSettingsController.setText(
-              builderViewModel.getSequenceDescriptionProperty().get() == null
-                  ? ""
-                  : builderViewModel.getSequenceDescriptionProperty().get());
-          settingsHolder
-              .getChildren()
-              .setAll(viewProvider.requestView(DescriptionSettingsController.class).parent());
+          if (inputDescription != null && !inputDescription.isBlank()) {
+            builderViewModel.getSequenceDescriptionProperty().set(inputDescription);
+          }
         });
   }
 
