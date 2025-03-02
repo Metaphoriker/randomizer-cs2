@@ -53,7 +53,7 @@ public class BuilderActionsViewController {
                   .forEach(
                       action -> {
                         Label actionLabel = new Label(action.getName());
-                        actionLabel.setTooltip(new Tooltip(action.getActionKey().getKey()));
+                        actionLabel.setTooltip(new Tooltip(action.getActionKey().getKey().toUpperCase()));
                         actionLabel.getStyleClass().add("builder-actions-title");
                         setupDrag(actionLabel, action);
                         actionsFlowPane.getChildren().add(actionLabel);
