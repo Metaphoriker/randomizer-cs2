@@ -578,6 +578,67 @@
     -fx-background-color: #E6E5FF;
 }
 
+.builder-sequence-settings-container, .builder-settings-sequence-title-vbox, .action-time-frame-vbox {
+    -fx-pref-width: 156;
+    -fx-spacing: 6;
+}
+
+.sequence-in-focus-label {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-alignment: left;
+    -fx-text-fill: #040316;
+}
+
+.builder-settings-separator, .builder-settings-separator .line {
+    -fx-pref-width: 156;
+    -fx-pref-height: 1;
+    -fx-background-color: #9C99FF;
+    -fx-border-color: null;
+}
+
+.builder-settings-sequence-title, .builder-settings-sequence-description {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 11;
+    -fx-text-fill: #040316;
+}
+
+.builder-settings-title-textfield {
+    -fx-pref-width: 156;
+    -fx-pref-height: 16;
+    -fx-padding: 0 3;
+    -fx-background-radius: 4;
+    -fx-background-color: #D6D4F7;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 11;
+    -fx-text-fill: #A9A5F3;
+}
+
+.builder-sequence-settings-separator, .builder-sequence-settings-separator .line {
+    -fx-pref-width: 156;
+    -fx-pref-height: 1;
+    -fx-background-color: #CECCFF;
+    -fx-border-color: null;
+}
+
+.builder-settings-description-textfield {
+    -fx-pref-width: 156;
+    -fx-pref-height: 64;
+    -fx-background-radius: 4;
+    -fx-background-color: #D6D4F7;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 11;
+    -fx-text-fill: #A9A5F3;
+}
+
+.builder-settings-description-textfield .content {
+    -fx-background-radius: 0;
+    -fx-padding: 0 3;
+    -fx-background-color: #D6D4F7;
+}
+
+
+
 .builder-action-settings {
     -fx-pref-width: 172;
     -fx-pref-height: 124;
@@ -719,13 +780,6 @@
 
 
 /* Action - Title - Description - Settings */
-
-.action-time-frame-vbox, .sequence-title-vbox{
-    -fx-pref-width: 140px;
-    -fx-spacing: 8px;
-    -fx-padding: 4px 8px;
-}
-
 .settings-close-button {
     -fx-background-color: red;
 }
@@ -734,7 +788,7 @@
     -fx-background-color: blue;
 }
 
-.action-in-focus-label, .sequence-in-focus-label, .description-in-focus-label {
+.action-in-focus-label, .description-in-focus-label {
     -fx-font-family: SansSerif;
     -fx-font-size: 14px;
     -fx-text-alignment: center;
@@ -812,12 +866,6 @@
 .settings-description-textarea {
     -fx-max-width: 124px;
     -fx-pref-height: 124px;
-}
-
-.settings-description-textarea .content{
-    -fx-background-color: #213539;
-    -fx-background-radius: 0px;
-    -fx-padding: 3px 6px;
 }
 
 .settings-description-textarea .scroll-bar:vertical {
