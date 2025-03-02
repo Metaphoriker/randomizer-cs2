@@ -637,6 +637,29 @@
     -fx-background-color: #D6D4F7;
 }
 
+.builder-settings-description-textfield .scroll-bar:vertical {
+    -fx-pref-width: 8;
+    -fx-background-color: transparent;
+}
+
+.builder-settings-description-textfield .scroll-bar:vertical .track {
+    -fx-background-color: #847EE7;
+    -fx-background-radius: 4;
+}
+
+.builder-settings-description-textfield .scroll-bar:vertical .thumb {
+    -fx-background-color: #2F27CE;
+    -fx-background-radius: 4;
+    -fx-pref-width: 8;
+}
+
+.builder-settings-description-textfield .scroll-bar:vertical .increment-button,
+.builder-settings-description-textfield .scroll-bar:vertical .decrement-button {
+    -fx-background-color: transparent;
+    -fx-shape: null;
+    -fx-opacity: 0;
+}
+
 
 
 .builder-action-settings {
@@ -853,43 +876,6 @@
     -fx-scale-y: 0.9;
 }
 
-.title-settings-textfield, .settings-description-textarea {
-    -fx-max-width: 124px;
-    -fx-pref-height: 16px;
-    -fx-font-family: SansSerif;
-    -fx-font-size: 12px;
-    -fx-text-alignment: left;
-    -fx-text-fill: #DAF0F3;
-    -fx-background-color: #213539;
-}
-
-.settings-description-textarea {
-    -fx-max-width: 124px;
-    -fx-pref-height: 124px;
-}
-
-.settings-description-textarea .scroll-bar:vertical {
-    -fx-pref-width: 8px;
-    -fx-background-color: transparent;
-}
-
-.settings-description-textarea .scroll-bar:vertical .track {
-    -fx-background-color: #4F747C;
-    -fx-background-radius: 4px;
-}
-
-.settings-description-textarea .scroll-bar:vertical .thumb {
-    -fx-background-color: #92D0DD;
-    -fx-background-radius: 4px;
-    -fx-pref-width: 8px;
-}
-
-.settings-description-textarea .scroll-bar:vertical .increment-button,
-.settings-description-textarea .scroll-bar:vertical .decrement-button {
-    -fx-background-color: transparent;
-    -fx-shape: null;
-    -fx-opacity: 0;
-}
 
 /* Rangeslider Labels */
 .rangeslider-min-label, .rangeslider-max-label {
