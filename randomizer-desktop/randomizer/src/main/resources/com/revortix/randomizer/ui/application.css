@@ -879,3 +879,12 @@
 .rangeslider-down-button:pressed, .rangeslider-down-button:hover {
     -fx-background-image: url("../images/randomizerView/arrowDownIconSelected.png");
 }
+
+.tooltip {
+    -fx-padding: 0 4;
+    -fx-background-radius: 4;
+    -fx-background-color: #D6D6F5;
+    -fx-text-fill: #2018B4;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+}
