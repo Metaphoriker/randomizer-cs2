@@ -19,6 +19,7 @@ import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
 import javafx.scene.layout.FlowPane;
+import javafx.util.Duration;
 
 @View
 public class BuilderActionsViewController {
@@ -53,7 +54,9 @@ public class BuilderActionsViewController {
                   .forEach(
                       action -> {
                         Label actionLabel = new Label(action.getName());
-                        actionLabel.setTooltip(new Tooltip(action.getActionKey().getKey().toUpperCase()));
+                        Tooltip tooltip = new Tooltip(action.getActionKey().getKey().toUpperCase());
+                        tooltip.setShowDelay(Duration.ZERO);
+                        actionLabel.setTooltip(tooltip);
                         actionLabel.getStyleClass().add("builder-actions-title");
                         setupDrag(actionLabel, action);
                         actionsFlowPane.getChildren().add(actionLabel);
