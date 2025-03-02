@@ -613,7 +613,7 @@
     -fx-background-color: #D6D4F7;
     -fx-font-family: SansSerif;
     -fx-font-size: 12;
-    -fx-text-fill: #A9A5F3;
+    -fx-text-fill: #534BE7;
 }
 
 .builder-sequence-settings-separator, .builder-sequence-settings-separator .line {
@@ -630,7 +630,7 @@
     -fx-background-color: #D6D4F7;
     -fx-font-family: SansSerif;
     -fx-font-size: 12;
-    -fx-text-fill: #A9A5F3;
+    -fx-text-fill: #534BE7;
 }
 
 .builder-settings-description-textfield .content {
