@@ -557,8 +557,22 @@
     -fx-pref-width: 172;
     -fx-pref-height: 320;
     -fx-alignment: center;
-    -fx-padding: 4;
-    -fx-background-radius: 8px;
+    -fx-spacing: 12;
+}
+
+.builder-sequence-settings {
+    -fx-pref-width: 172;
+    -fx-pref-height: 184;
+    -fx-padding: 6 8;
+    -fx-background-radius: 8;
+    -fx-background-color: #E6E5FF;
+}
+
+.builder-action-settings {
+    -fx-pref-width: 172;
+    -fx-pref-height: 124;
+    -fx-padding: 6 8;
+    -fx-background-radius: 8;
     -fx-background-color: #E6E5FF;
 }
 
@@ -695,12 +709,6 @@
 
 
 /* Action - Title - Description - Settings */
-.builder-settings-vbox {
-    -fx-pref-width: 140px;
-    -fx-pref-height: 488px;
-    -fx-padding: 8px 0px;
-    -fx-spacing: 4px;
-}
 
 .action-time-frame-vbox, .sequence-title-vbox{
     -fx-pref-width: 140px;
@@ -709,33 +717,25 @@
 }
 
 .settings-close-button {
-    -fx-background-color: transparent;
-    -fx-background-image: url("../images/closeSettingsIcon.png");
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 20px 20px;
+    -fx-background-color: red;
 }
 
 .settings-close-button:hover {
-    -fx-background-image: url("../images/closeSettingsHoverIcon.png");
+    -fx-background-color: blue;
 }
 
 .action-in-focus-label, .sequence-in-focus-label, .description-in-focus-label {
     -fx-font-family: SansSerif;
     -fx-font-size: 14px;
-    -fx-font-style: normal;
-    -fx-font-weight: 600;
     -fx-text-alignment: center;
-    -fx-text-fill: #DAF0F3;
+    -fx-text-fill: #040316;
     -fx-padding: 0px 8px;
 }
 
 .time-frame-label {
-    -fx-text-fill: #DAF0F3;
+    -fx-text-fill: #040316;
     -fx-font-family: SansSerif;
     -fx-font-size: 12px;
-    -fx-font-style: normal;
-    -fx-font-weight: 600;
 }
 
 /*.range-slider {*/
@@ -775,17 +775,13 @@
 }
 
 .settings-reset-button {
+    -fx-background-color: red;
     -fx-pref-width: 24px;
     -fx-pref-height: 24px;
-    -fx-background-color: transparent;
-    -fx-background-repeat: no-repeat;
-    -fx-background-position: center;
-    -fx-background-size: 20px 20px;
-    -fx-background-image: url("../images/resetButtonIcon.png");
 }
 
 .settings-reset-button:hover {
-    -fx-background-image: url("../images/resetButtonHoverIcon.png");
+    -fx-background-color: blue;
 }
 
 .settings-reset-button:pressed {
@@ -798,8 +794,6 @@
     -fx-pref-height: 16px;
     -fx-font-family: SansSerif;
     -fx-font-size: 12px;
-    -fx-font-style: normal;
-    -fx-font-weight: 500;
     -fx-text-alignment: left;
     -fx-text-fill: #DAF0F3;
     -fx-background-color: #213539;
