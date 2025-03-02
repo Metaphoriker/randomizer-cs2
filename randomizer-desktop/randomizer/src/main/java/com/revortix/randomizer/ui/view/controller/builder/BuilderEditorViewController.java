@@ -115,8 +115,20 @@ public class BuilderEditorViewController {
         .getCurrentActionSequenceProperty()
         .addListener(
             (_, _, newSequence) -> {
+              if (newSequence == null) return;
+              ViewWrapper<TitleDescriptionSettingsController> tdsViewWrapper =
+                  viewProvider.requestView(TitleDescriptionSettingsController.class);
+
+              settingsHolder.getChildren().setAll(tdsViewWrapper.parent());
+
+              TitleDescriptionSettingsController controller = tdsViewWrapper.controller();
+              controller.setTitle(builderViewModel.getSequenceNameProperty().get());
+              controller.setDescription(builderViewModel.getSequenceDescriptionProperty().get());
+
+              // TODO: 02.03.2025 - Do this via bindings
+
               fillBuilderWithActionsOfSequence(newSequence);
-                actionSettingsHolder.getChildren().clear();
+              actionSettingsHolder.getChildren().clear();
             });
 
     builderViewModel
@@ -155,12 +167,12 @@ public class BuilderEditorViewController {
     actionSettingsController.bindOnVisibleProperty(
         visible -> {
           if (visible)
-              actionSettingsHolder
+            actionSettingsHolder
                 .getChildren()
                 .setAll(viewProvider.requestView(ActionSettingsController.class).parent());
           else {
             labelInFocusProperty.set(null);
-              actionSettingsHolder.getChildren().clear();
+            actionSettingsHolder.getChildren().clear();
           }
         });
   }
