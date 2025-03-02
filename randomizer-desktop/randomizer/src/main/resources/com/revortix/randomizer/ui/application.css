@@ -642,17 +642,6 @@
     -fx-background-color: transparent;
 }
 
-.builder-settings-description-textfield .scroll-bar:vertical .track {
-    -fx-background-color: #847EE7;
-    -fx-background-radius: 4;
-}
-
-.builder-settings-description-textfield .scroll-bar:vertical .thumb {
-    -fx-background-color: #2F27CE;
-    -fx-background-radius: 4;
-    -fx-pref-width: 8;
-}
-
 .builder-settings-description-textfield .scroll-bar:vertical .increment-button,
 .builder-settings-description-textfield .scroll-bar:vertical .decrement-button {
     -fx-background-color: transparent;
