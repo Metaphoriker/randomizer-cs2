@@ -3,7 +3,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox prefHeight="148.0" prefWidth="504.0" styleClass="actions-selector" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.BuilderActionsViewController">
+<VBox prefHeight="148.0" prefWidth="504.0" styleClass="actions-selector" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.builder.BuilderActionsViewController">
    <children>
       <HBox prefHeight="22.0" prefWidth="504.0" styleClass="actions-categories">
          <children>

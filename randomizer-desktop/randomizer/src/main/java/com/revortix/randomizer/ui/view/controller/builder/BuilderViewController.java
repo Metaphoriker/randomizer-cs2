@@ -1,4 +1,4 @@
-package com.revortix.randomizer.ui.view.controller;
+package com.revortix.randomizer.ui.view.controller.builder;
 
 import com.google.inject.Inject;
 import com.revortix.model.action.sequence.ActionSequence;
@@ -8,7 +8,7 @@ import com.revortix.randomizer.ui.view.viewmodel.builder.BuilderViewModel;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
-import javafx.application.Platform;
+
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;

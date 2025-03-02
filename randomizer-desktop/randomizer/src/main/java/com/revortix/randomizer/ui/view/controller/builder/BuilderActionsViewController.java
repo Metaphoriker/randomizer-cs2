@@ -1,4 +1,4 @@
-package com.revortix.randomizer.ui.view.controller.settings;
+package com.revortix.randomizer.ui.view.controller.builder;
 
 import com.google.inject.Inject;
 import com.revortix.model.action.Action;
@@ -7,7 +7,6 @@ import com.revortix.model.persistence.JsonUtil;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.viewmodel.builder.BuilderViewModel;
 import java.util.List;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
@@ -17,27 +16,22 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.input.ClipboardContent;
 import javafx.scene.input.Dragboard;
 import javafx.scene.input.TransferMode;
+import javafx.scene.layout.FlowPane;
 import javafx.scene.layout.VBox;
 
 @View
-public class BuilderViewController2 {
+public class BuilderActionsViewController {
 
   private final BuilderViewModel builderViewModel;
   private final JsonUtil jsonUtil;
 
-  @FXML private VBox actionsVBox;
+  @FXML private FlowPane actionsFlowPane;
   @FXML private TextField searchField;
 
   @Inject
-  public BuilderViewController2(BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
+  public BuilderActionsViewController(BuilderViewModel builderViewModel, JsonUtil jsonUtil) {
     this.builderViewModel = builderViewModel;
     this.jsonUtil = jsonUtil;
-    Platform.runLater(this::initialize);
-  }
-
-  private void initialize() {
-    fillActions();
-    setupSearchFieldListener();
   }
 
   private void setupDrag(Label label, Action action) {
@@ -56,19 +50,25 @@ public class BuilderViewController2 {
         });
   }
 
+  @FXML
+  private void initialize() {
+    fillActions();
+    setupSearchFieldListener();
+  }
+
   private void setupSearchFieldListener() {
     searchField
         .textProperty()
         .addListener(
             (_, _, newValue) -> {
               if (newValue == null || newValue.isEmpty()) {
-                actionsVBox.getChildren().clear();
+                actionsFlowPane.getChildren().clear();
                 fillActions();
                 return;
               }
 
               String filter = newValue.toLowerCase();
-              actionsVBox.getChildren().clear();
+              actionsFlowPane.getChildren().clear();
               builderViewModel
                   .getActionToTypeMap()
                   .forEach(
@@ -83,7 +83,7 @@ public class BuilderViewController2 {
                               Label actionLabel = new Label(action.getName());
                               actionLabel.getStyleClass().add("builder-actions-title");
                               setupDrag(actionLabel, action);
-                              actionsVBox.getChildren().add(actionLabel);
+                              actionsFlowPane.getChildren().add(actionLabel);
                             });
                       });
             });
@@ -107,7 +107,6 @@ public class BuilderViewController2 {
           vBox.getStyleClass().add("builder-actions-title-vbox");
           vBox.getChildren().add(actionLabel);
         });
-    applyExpandListener(titledPane);
     titledPane.setContent(vBox);
 
     return titledPane;
@@ -118,19 +117,6 @@ public class BuilderViewController2 {
         .getActionToTypeMap()
         .forEach(
             (type, actionList) ->
-                actionsVBox.getChildren().add(createTitledPane(type, actionList)));
-  }
-
-  private void applyExpandListener(TitledPane titledPane) {
-    titledPane
-        .expandedProperty()
-        .addListener(
-            (_, _, newValue) -> {
-              if (newValue) {
-                actionsVBox.getChildren().stream()
-                    .filter(node -> node instanceof TitledPane && node != titledPane)
-                    .forEach(node -> ((TitledPane) node).setExpanded(false));
-              }
-            });
+                actionsFlowPane.getChildren().add(createTitledPane(type, actionList)));
   }
 }

@@ -1,4 +1,4 @@
-package com.revortix.randomizer.ui.view.controller;
+package com.revortix.randomizer.ui.view.controller.builder;
 
 import com.google.inject.Inject;
 import com.revortix.model.action.Action;
@@ -12,7 +12,7 @@ import com.revortix.randomizer.ui.view.controller.settings.DescriptionSettingsCo
 import com.revortix.randomizer.ui.view.controller.settings.TitleSettingsController;
 import com.revortix.randomizer.ui.view.viewmodel.builder.BuilderViewModel;
 import java.util.List;
-import javafx.application.Platform;
+
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import javafx.collections.ListChangeListener;
