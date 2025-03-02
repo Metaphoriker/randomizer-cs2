@@ -263,28 +263,30 @@
     -fx-padding: 8 2;
 }
 
-.range-slider-sequence-interval {
+.range-slider-sequence-interval, .range-slider-action-interval {
     -fx-spacing: 4;
 }
 
-.range-slider-sequence-interval .track {
+.range-slider-sequence-interval .trackm, .range-slider-action-interval .track {
     -fx-background-color: #847EE7;
     -fx-pref-height: 4;
 }
 
-.range-slider-sequence-interval .range-bar {
+.range-slider-sequence-interval .range-bar, .range-slider-action-interval .range-bar {
     -fx-background-color: #2F27CE;
     -fx-pref-height: 4;
 }
 
-.range-slider-sequence-interval .high-thumb, .range-slider-sequence-interval .low-thumb {
+.range-slider-sequence-interval .high-thumb, .range-slider-sequence-interval .low-thumb,
+.range-slider-action-interval .high-thumb, .range-slider-action-interval .low-thumb {
     -fx-background-color: #2F27CE;
     -fx-background-radius: 4;
     -fx-pref-width: 8;
     -fx-pref-height: 8;
 }
 
-.range-slider-sequence-interval .high-thumb:hover, .range-slider-sequence-interval .low-thumb:hover {
+.range-slider-sequence-interval .high-thumb:hover, .range-slider-sequence-interval .low-thumb:hover,
+.range-slider-action-interval .high-thumb:hover, .range-slider-action-interval .low-thumb:hover {
     -fx-scale-x: 1.1;
     -fx-scale-y: 1.1;
 }
@@ -649,14 +651,54 @@
     -fx-opacity: 0;
 }
 
-
-
 .builder-action-settings {
     -fx-pref-width: 172;
     -fx-pref-height: 124;
     -fx-padding: 6 8;
     -fx-background-radius: 8;
     -fx-background-color: #E6E5FF;
+}
+
+.builder-action-settings-container {
+    -fx-pref-width: 156;
+    -fx-spacing: 6;
+}
+
+.action-in-focus-label, .builder-actions-settings-timeframe {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #040316;
+}
+
+.builder-action-settings-timeframe-vbox {
+    -fx-pref-width: 156;
+    -fx-spacing: 6;
+}
+
+.builder-actions-settings-description {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 11;
+    -fx-text-fill: #A9A5F3;
+}
+
+.settings-reset-button {
+    -fx-pref-width: 16 ;
+    -fx-min-height: 16;
+    -fx-max-height: 16;
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: center;
+    -fx-background-size: 16;
+    -fx-background-image: url("../images/ActionSettings/resetIcon.png");
+}
+
+.settings-reset-button:hover {
+    -fx-background-image: url("../images/ActionSettings/resetIconSelected.png");
+}
+
+.settings-reset-button:pressed {
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
 }
 
 .sequence-builder {
@@ -787,84 +829,6 @@
     -fx-focus-traversable: false;
     -fx-focus-color: transparent;
 }
-
-
-
-
-/* Action - Title - Description - Settings */
-.settings-close-button {
-    -fx-background-color: red;
-}
-
-.settings-close-button:hover {
-    -fx-background-color: blue;
-}
-
-.action-in-focus-label, .description-in-focus-label {
-    -fx-font-family: SansSerif;
-    -fx-font-size: 14px;
-    -fx-text-alignment: center;
-    -fx-text-fill: #040316;
-    -fx-padding: 0px 8px;
-}
-
-.time-frame-label {
-    -fx-text-fill: #040316;
-    -fx-font-family: SansSerif;
-    -fx-font-size: 12px;
-}
-
-/*.range-slider {*/
-/*    -fx-pref-width: 124px;*/
-/*    -fx-pref-height: 24px;*/
-/*    -fx-padding: 8px 6px;*/
-/*}*/
-
-.range-slider-action-interval .track {
-    -fx-background-color: #4F747C;
-    -fx-pref-height: 4px;
-}
-
-.range-slider-action-interval .range-bar {
-    -fx-background-color: #92D0DD;
-    -fx-pref-height: 4px;
-}
-
-.range-slider-action-interval .high-thumb, .range-slider-action-interval .low-thumb {
-    -fx-background-color: #92D0DD;
-    -fx-background-radius: 4px;
-    -fx-pref-width: 8px;
-    -fx-pref-height: 8px;
-}
-
-.range-slider-action-interval .high-thumb:hover, .range-slider-action-interval .low-thumb:hover {
-    -fx-scale-x: 1.2;
-    -fx-scale-y: 1.2;
-}
-
-.settings-description {
-    -fx-font-family: SansSerif;
-    -fx-font-size: 12px;
-    -fx-font-style: normal;
-    -fx-font-weight: 500;
-    -fx-text-fill: #738487;
-}
-
-.settings-reset-button {
-    -fx-background-color: red;
-    -fx-pref-width: 24px;
-    -fx-pref-height: 24px;
-}
-
-.settings-reset-button:hover {
-    -fx-background-color: blue;
-}
-
-.settings-reset-button:pressed {
-    -fx-scale-x: 0.9;
-    -fx-scale-y: 0.9;
-}
-
 
 /* Rangeslider Labels */
 .rangeslider-min-label, .rangeslider-max-label {
