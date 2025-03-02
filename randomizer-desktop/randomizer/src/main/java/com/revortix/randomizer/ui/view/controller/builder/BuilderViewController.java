@@ -45,6 +45,7 @@ public class BuilderViewController {
   @FXML
   void onAddSequence(ActionEvent event) {
     builderViewModel.createNewActionSequence();
+    contentPane.getChildren().clear();
     fillActionSequences();
   }
 
