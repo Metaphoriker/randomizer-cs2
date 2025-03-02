@@ -2,6 +2,7 @@ package com.revortix.randomizer.ui;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
+import com.revortix.model.action.Action;
 import com.revortix.model.updater.Updater;
 import com.revortix.model.util.JarFileUtil;
 import com.revortix.randomizer.Main;
@@ -53,7 +54,7 @@ public class RandomizerApplication extends Application {
 
   private void setupStage(Stage stage, Scene scene) {
     try {
-      if(Main.isTestMode()) {
+      if (Main.isTestMode()) {
         stage.setTitle("Randomizer-CS2 - DEVELOPMENT");
       } else {
         stage.setTitle("Randomizer-CS2 - " + Updater.getVersion(JarFileUtil.getJarFile()));
@@ -68,7 +69,11 @@ public class RandomizerApplication extends Application {
     stage.setMinHeight(MIN_HEIGHT);
     stage.setWidth(MIN_WIDTH);
     stage.setHeight(MIN_HEIGHT);
-    stage.setOnCloseRequest(_ -> System.exit(0));
+    stage.setOnCloseRequest(
+        _ -> {
+          Action.releaseAllKeys();
+          System.exit(0);
+        });
     stage.setScene(scene);
   }
 

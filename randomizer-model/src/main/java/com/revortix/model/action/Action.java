@@ -4,15 +4,15 @@ import com.revortix.model.action.mapper.KeyMapper;
 import com.revortix.model.action.value.Interval;
 import com.revortix.model.config.keybind.KeyBind;
 import com.revortix.model.util.FocusManager;
+import java.awt.*;
+import java.awt.event.InputEvent;
+import java.time.Instant;
+import java.util.concurrent.ThreadLocalRandom;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.extern.slf4j.Slf4j;
-
-import java.awt.*;
-import java.time.Instant;
-import java.util.concurrent.ThreadLocalRandom;
 
 /**
  * Represents an abstract action that can be performed by a robot. The action can have a specified
@@ -33,6 +33,19 @@ public abstract class Action implements Cloneable {
     } catch (AWTException e) {
       throw new RuntimeException(e);
     }
+  }
+
+  public static void releaseAllKeys() {
+    for (int i = 0; i < 0xFFFF; i++) {
+      try {
+        KNUFFI.keyRelease(i);
+      } catch (IllegalArgumentException e) {
+      }
+    }
+
+    KNUFFI.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
+    KNUFFI.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
+    KNUFFI.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
   }
 
   private final transient ActionKey actionKey;
@@ -149,7 +162,7 @@ public abstract class Action implements Cloneable {
         return;
       }
 
-      if(!FocusManager.isCs2WindowInFocus()) { // TODO: we don't want to have this here
+      if (!FocusManager.isCs2WindowInFocus()) { // TODO: we don't want to have this here
         log.info("Focus lost, interrupting action: {}", getName());
         interrupt();
         return;
