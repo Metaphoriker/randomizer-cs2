@@ -267,7 +267,7 @@
     -fx-spacing: 4;
 }
 
-.range-slider-sequence-interval .trackm, .range-slider-action-interval .track {
+.range-slider-sequence-interval .track, .range-slider-action-interval .track {
     -fx-background-color: #847EE7;
     -fx-pref-height: 4;
 }
