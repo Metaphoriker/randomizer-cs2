@@ -121,6 +121,7 @@ public class BuilderViewController {
             builderViewModel.getCurrentActionSequenceProperty().set(null);
           }
           builderViewModel.deleteActionSequence(actionSequence);
+          contentPane.getChildren().clear();
           fillActionSequences();
           event.consume();
         });
