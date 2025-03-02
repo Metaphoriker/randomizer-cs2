@@ -542,8 +542,18 @@
     -fx-pref-width: 480;
     -fx-pref-height: 126;
     -fx-alignment: center;
-    -fx-spacing: 18;
+    -fx-hgap: 12;
+    -fx-vgap: 12;
     -fx-padding: 12 8;
+}
+
+.builder-actions-title {
+    -fx-padding: 0 3;
+    -fx-background-radius: 4;
+    -fx-background-color: #D6D4F7;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #7E78ED;
 }
 
 /* Builder Editor View */
