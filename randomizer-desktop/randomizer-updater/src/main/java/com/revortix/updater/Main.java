@@ -42,7 +42,7 @@ public class Main {
         if (arg.startsWith("-randomizerLocation=")) {
           File randomizer = extractFilePath(arg);
           if (!randomizer.exists()) {
-            showError("The specified randomizer file does not exist.");
+            showErrorDialog("Randomizer file does not exist!");
             return; // Exit the checkAndUpdate process
           }
           checkAndUpdate(randomizer);
@@ -50,7 +50,8 @@ public class Main {
         }
       }
     } else {
-      showError("No randomizer location specified! DO NOT OPEN THIS JAR DIRECTLY!");
+      showErrorDialog(
+          "No randomizer file specified! Please specify the randomizer file location with -randomizerLocation=<randomizerFilePath>");
     }
   }
 
@@ -189,9 +190,32 @@ public class Main {
         .exceptionally(
             e -> {
               SwingUtilities.invokeLater(
-                  () -> showError("Error during update check: " + e.getMessage()));
+                  () -> showErrorDialog("Error during update check: " + e.getMessage()));
               return null;
             });
+  }
+
+  private void showErrorDialog(String errorMessage) {
+    JLabel label = new JLabel(errorMessage, SwingConstants.CENTER);
+    label.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+    label.setForeground(ERROR_COLOR);
+    label.setBackground(LIGHT_BACKGROUND);
+    label.setOpaque(true);
+
+    JOptionPane optionPane =
+        new JOptionPane(
+            label,
+            JOptionPane.ERROR_MESSAGE,
+            JOptionPane.DEFAULT_OPTION,
+            null,
+            new Object[] {"OK"},
+            "OK");
+
+    JDialog dialog = optionPane.createDialog(mainFrame, "Fehler");
+    dialog.setModal(true);
+    dialog.setVisible(true);
+
+    System.exit(0);
   }
 
   private void updateRandomizer(File randomizer) {
@@ -221,7 +245,7 @@ public class Main {
             SwingUtilities::invokeLater)
         .exceptionally(
             e -> {
-              SwingUtilities.invokeLater(() -> showError("Update failed: " + e.getMessage()));
+              SwingUtilities.invokeLater(() -> showErrorDialog("Update failed: " + e.getMessage()));
               return null; // Must return null
             });
   }
@@ -233,12 +257,8 @@ public class Main {
       System.exit(0);
     } catch (IOException | InterruptedException ex) {
       SwingUtilities.invokeLater(
-          () -> showError("Failed to launch updated randomizer: " + ex.getMessage()));
+          () -> showErrorDialog("Failed to launch updated randomizer: " + ex.getMessage()));
     }
-  }
-
-  private void showError(String message) {
-    statusLabel.setText(formatColorText(message, ERROR_COLOR));
   }
 
   private String formatColorText(String text, Color color) {

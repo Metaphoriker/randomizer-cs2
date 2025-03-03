@@ -53,6 +53,7 @@ public class Updater {
       log.info("Erfolgreich aktualisiert von URL: {} zu Ziel-Datei: {}", downloadUrl, target);
     } catch (IOException ignored) {
       log.error("Fehler bei der Aktualisierung von URL: {} zu Ziel-Datei: {}", downloadUrl, target);
+      throw new RuntimeException(ignored);
     }
   }
 
@@ -117,8 +118,8 @@ public class Updater {
       return updateAvailable;
     } catch (IOException ignored) {
       log.error("Fehler bei der Prüfung auf Update von Datei: {}", toUpdate);
+      throw new RuntimeException(ignored);
     }
-    return true;
   }
 
   public static String getVersion(File file) {
