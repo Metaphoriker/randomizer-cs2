@@ -170,7 +170,7 @@
     -fx-pref-width: 296;
     -fx-pref-height: 244;
     -fx-spacing: 6;
-    -fx-padding: 0 0 8 8;
+    -fx-padding: 8 0;
 }
 
 .logbook-sequence-actions-name {
