@@ -38,5 +38,8 @@ We had a lot of fun playtesting it.
 
 ---
 
+![ezgif-87ce657ec9cfed](https://github.com/user-attachments/assets/efffd234-5f9e-4f13-b8a3-539257139d92)
+
+
 UX: [@bustolio](https://www.github.com/CuzIamBusted)
 Programming: [@Metaphoriker](https://www.github.com/Metaphoriker)
