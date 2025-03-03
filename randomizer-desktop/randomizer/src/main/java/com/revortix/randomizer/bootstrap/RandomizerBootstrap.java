@@ -56,6 +56,7 @@ public class RandomizerBootstrap {
   public void initializeApplication() {
     log.info("Initialisiere Applikation...");
     loadConfiguration();
+    // firstStartInitialization();
     randomizerUpdater.installUpdater();
     if (!Main.isTestMode() && randomizerConfig.isAutoupdateEnabled())
       randomizerUpdater.runUpdaterIfNeeded();
@@ -72,6 +73,12 @@ public class RandomizerBootstrap {
   private void loadKeyBinds() {
     loadDefaultKeyBinds();
     ladeUserKeyBinds();
+  }
+
+  private void firstStartInitialization() {
+    if(!randomizerConfig.isFirstStart()) return;
+    // TODO:
+    randomizerConfig.setFirstStart(false);
   }
 
   private void loadConfiguration() {

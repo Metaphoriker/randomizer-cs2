@@ -12,6 +12,9 @@ import lombok.Setter;
 @Configuration(fileName = "config", type = ConfigurationType.YAML)
 public class RandomizerConfig extends BaseConfiguration {
 
+  @Key("first.start")
+  private boolean firstStart = true;
+
   @Key("min.interval")
   private int minInterval = 15;
 
