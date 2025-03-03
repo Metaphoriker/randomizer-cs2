@@ -31,13 +31,10 @@
                                     </children>
                                 </VBox>
                                 <!-- Statusbereich -->
-                                <VBox alignment="center" styleClass="logbook-state">
+                                <VBox styleClass="logbook-state">
                                     <children>
                                         <ToggleButton fx:id="randomizerToggleButton" mnemonicParsing="false" onAction="#onToggle" styleClass="logbook-toggle-button" />
                                     </children>
-                                    <VBox.margin>
-                                        <Insets />
-                                    </VBox.margin>
                                 </VBox>
                             </children>
                         </VBox>

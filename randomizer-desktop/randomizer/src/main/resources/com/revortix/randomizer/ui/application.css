@@ -143,18 +143,17 @@
     -fx-pref-width: 320;
     -fx-min-height: 32;
     -fx-alignment: center;
-    -fx-padding: 0 4;
-    -fx-spacing: -4;
+    -fx-padding: 6 4;
     -fx-background-radius: 8;
     -fx-background-color: #E6E5FF;
 }
 
 .logbook-toggle-button {
-    -fx-pref-width: 16;
-    -fx-pref-height: 16;
+    -fx-pref-width: 20;
+    -fx-min-height: 20;
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
-    -fx-background-size: 16;
+    -fx-background-size: 20;
     -fx-background-image: url("../images/randomizerView/playIcon.png");
 }
 
@@ -165,21 +164,6 @@
 
 .logbook-toggle-button:selected {
     -fx-background-image: url("../images/randomizerView/pauseIcon.png");
-}
-
-.logbook-progress-indicator {
-    -fx-pref-width: 180;
-    -fx-pref-height: 4;
-}
-
-.logbook-progress-indicator .track {
-    -fx-pref-width: 180;
-    -fx-max-height: 2;
-    -fx-background-color: #847EE7;
-}
-
-.logbook-progress-indicator .bar{
-    -fx-background-color: #2F27CE;
 }
 
 .logbook-active-actions {
