@@ -318,18 +318,17 @@
 
 .logbook-history-scrollpane .scroll-bar:vertical {
     -fx-pref-width: 4;
-    -fx-background-color: transparent;
 }
 
 .logbook-history-scrollpane .scroll-bar:vertical .track {
-    -fx-background-color: #847EE7;
     -fx-background-radius: 2;
+    -fx-background-color: #847EE7;
 }
 
 .logbook-history-scrollpane .scroll-bar:vertical .thumb {
-    -fx-background-color: #2F27CE;
     -fx-background-radius: 2;
-    -fx-pref-width: 4;
+    -fx-background-insets: 0;
+    -fx-background-color: #2F27CE;
 }
 
 .logbook-history-scrollpane .scroll-bar:vertical .increment-button,
@@ -630,7 +629,7 @@
 }
 
 .builder-settings-description-textfield .scroll-bar:vertical {
-    -fx-pref-width: 8;
+    -fx-pref-width: 4;
     -fx-background-color: transparent;
 }
 
@@ -784,19 +783,20 @@
 }
 
 .builder-selected-actions-scrollpane .scroll-bar:vertical {
-    -fx-pref-width: 8;
+    -fx-pref-width: 4;
     -fx-background-color: transparent;
 }
 
 .builder-selected-actions-scrollpane .scroll-bar:vertical .track {
     -fx-background-color: #847EE7;
-    -fx-background-radius: 4;
+    -fx-background-radius: 2;
 }
 
 .builder-selected-actions-scrollpane .scroll-bar:vertical .thumb {
     -fx-background-color: #2F27CE;
-    -fx-background-radius: 4;
-    -fx-pref-width: 8;
+    -fx-background-insets: 0;
+    -fx-background-radius: 2;
+    -fx-pref-width: 4;
 }
 
 .builder-selected-actions-scrollpane .scroll-bar:vertical .increment-button,
