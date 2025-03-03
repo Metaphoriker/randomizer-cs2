@@ -3,7 +3,9 @@
 
 # <img src="https://github.com/user-attachments/assets/ab28eba7-4b88-47b4-be10-ac4487d66e23" alt="randomizer" width="24" height="24" style="vertical-align: middle;" />andomizer-CS2
 
-<center><p style="display: inline-block; vertical-align: middle;"><a href="https://discord.gg/yjKRgMyENR"><img src="https://github.com/user-attachments/assets/db9fa4e3-94a3-42dc-90c3-5379127120aa" width="75"></a></p>
+<center>
+<a href="https://discord.gg/yjKRgMyENR"><img src="https://github.com/user-attachments/assets/db9fa4e3-94a3-42dc-90c3-5379127120aa" width="120" style="vertical-align: middle; margin-right: 20px;"></a><img src="https://github.com/user-attachments/assets/efffd234-5f9e-4f13-b8a3-539257139d92" width="220" height="auto" style="vertical-align: middle;">
+</center>
 
 [![Build Status](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml/badge.svg?branch=stage)](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml)
 [![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)
@@ -18,6 +20,10 @@
 > The origin of Randomizer-CS2 stemmed from our desire to playfully troll each other while spectating matches. Imagine forcing someone to jump at the worst moment, making them fire unexpectedly, or even dropping their weapon mid-fight! Lacking the resources for a dedicated server, we opted for a software solution that everyone could use to trigger these random actions. This marked the birth of Randomizer-CSGO, now known as Randomizer-CS2.
 
 </span>
+
+Randomizer-CS2 is a JavaFX application that lets you craft custom sequences of random actions to trigger in Counter-Strike 2.  Make your friends jump, shoot, reload, or drop their weapons in unfavorable moments – all without injecting into the game itself. It's safe, open-source, and uses simulated key presses for maximum compatibility (works great in private matches and matchmaking!). 
+
+We had a lot of fun playtesting it.
 
 ---
 
