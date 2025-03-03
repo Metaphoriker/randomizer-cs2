@@ -35,6 +35,7 @@ public abstract class Action implements Cloneable {
     }
   }
 
+  // TODO: move this to another, SoC
   public static void releaseAllKeys() {
     for (int i = 0; i < 0xFFFF; i++) {
       try {
