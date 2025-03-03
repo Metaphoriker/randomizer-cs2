@@ -4,13 +4,12 @@
 # <img src="https://github.com/user-attachments/assets/ab28eba7-4b88-47b4-be10-ac4487d66e23" alt="randomizer" width="24" height="24" style="vertical-align: middle;" />andomizer-CS2
 
 <center>
-<a href="https://discord.gg/yjKRgMyENR"><img src="https://github.com/user-attachments/assets/db9fa4e3-94a3-42dc-90c3-5379127120aa" width="120" style="vertical-align: middle; margin-right: 20px;"></a><img src="https://github.com/user-attachments/assets/efffd234-5f9e-4f13-b8a3-539257139d92" width="220" height="auto" style="vertical-align: middle;">
+<a href="https://discord.gg/yjKRgMyENR"><img src="https://github.com/user-attachments/assets/db9fa4e3-94a3-42dc-90c3-5379127120aa" width="120" style="vertical-align: middle; margin-right: 20px;"></a><img src="https://github.com/user-attachments/assets/efffd234-5f9e-4f13-b8a3-539257139d92" width="300" height="auto" align="right" style="vertical-align: middle;">
 </center>
 
 [![Build Status](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml/badge.svg?branch=stage)](https://github.com/Luziferium/randomizer-csgo/actions/workflows/build_and_pre-release.yml)
 [![Visitor Count](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)](https://visitor-badge.laobi.icu/badge?page_id=Metaphoriker.randomizer-cs2)
 ![Downloads](https://img.shields.io/github/downloads/Metaphoriker/randomizer-cs2/randomizer.jar)
-
 ---
 
 ## 🎮 About
