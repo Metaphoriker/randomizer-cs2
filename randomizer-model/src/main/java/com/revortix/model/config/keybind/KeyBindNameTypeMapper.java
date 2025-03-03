@@ -104,6 +104,7 @@ public class KeyBindNameTypeMapper {
     descriptorToNameMap.put("+attack2", new NameType("Secondary Attack", KeyBindType.WEAPON));
 
     descriptorToNameMap.put("player_ping", new NameType("Player Ping", KeyBindType.MISCELLANEOUS));
+    descriptorToNameMap.put("+showscores", new NameType("Scoreboard", KeyBindType.MISCELLANEOUS));
 
     log.info("{} Deskriptoren initialisiert.", descriptorToNameMap.size());
   }
