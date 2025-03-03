@@ -46,6 +46,7 @@ public abstract class Action implements Cloneable {
     KNUFFI.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
     KNUFFI.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
     KNUFFI.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
+    log.info("Erfolgreich alle Keys released");
   }
 
   private final transient ActionKey actionKey;
