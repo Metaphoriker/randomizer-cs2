@@ -19,6 +19,10 @@
 
 </span>
 
+Randomizer-CS2 is a JavaFX application that lets you craft custom sequences of random actions to trigger in Counter-Strike 2.  Make players jump, shoot, reload, or drop their weapons – all without injecting into the game itself. It's safe, open-source, and uses simulated key presses for maximum compatibility (works great in private matches and matchmaking!).
+
+On top of that it's fool proof and only works if CS2 is in focus.
+
 ---
 
 ## 🛠️ Quick Start
