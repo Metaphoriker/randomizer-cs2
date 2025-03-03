@@ -13,10 +13,10 @@ import lombok.Setter;
 public class RandomizerConfig extends BaseConfiguration {
 
   @Key("min.interval")
-  private int minInterval = 30;
+  private int minInterval = 15;
 
   @Key("max.interval")
-  private int maxInterval = 120;
+  private int maxInterval = 70;
 
   @Key("autoupdate.enabled")
   private boolean autoupdateEnabled = false;
