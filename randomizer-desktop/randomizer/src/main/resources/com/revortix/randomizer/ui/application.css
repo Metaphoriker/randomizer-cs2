@@ -820,6 +820,51 @@
     -fx-focus-color: transparent;
 }
 
+
+
+
+/* Settings View */
+.settings-container {
+    -fx-max-width: 632;
+    -fx-pref-height: 360;
+    -fx-spacing: 8;
+    -fx-padding: 8 12;
+    -fx-background-radius: 8;
+    -fx-background-color: #EBEBFA;
+}
+
+.settings-selection {
+    -fx-pref-width: 112;
+    -fx-pref-height: 344;
+    -fx-spacing: 8;
+    -fx-alignment: top-center;
+}
+
+.settings-options {
+    -fx-pref-width: 112;
+    -fx-pref-height: 14;
+    -fx-padding: 0 0 0 6;
+    -fx-alignment: center-left;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #040316;
+    -fx-background-radius: 4;
+    -fx-background-color: transparent;
+}
+
+.settings-options:hover, .settings-options:selected {
+    -fx-background-color: #9E99FF;
+}
+
+.settings-selection-separator, .settings-selection-separator .line {
+    -fx-pref-width: 1;
+    -fx-pref-height: 360;
+    -fx-background-color: #CECCFF;
+    -fx-border-color: null;
+}
+
+
+
 /* Rangeslider Labels */
 .rangeslider-min-label, .rangeslider-max-label {
     -fx-min-width: 32;

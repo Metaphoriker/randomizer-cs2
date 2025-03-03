@@ -1,28 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.SettingsViewController">
+<AnchorPane prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.SettingsViewController">
    <children>
-      <VBox alignment="CENTER" prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <HBox layoutY="72.0" prefHeight="360.0" prefWidth="632.0" styleClass="settings-container" AnchorPane.bottomAnchor="72.0" AnchorPane.leftAnchor="12.0" AnchorPane.rightAnchor="12.0" AnchorPane.topAnchor="72.0">
          <children>
-            <HBox prefHeight="360.0" prefWidth="632.0" spacing="8.0">
-               <padding>
-                  <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
-               </padding>
+            <VBox prefHeight="344.0" prefWidth="112.0" styleClass="settings-selection">
                <children>
-                  <VBox prefHeight="344.0" prefWidth="112.0">
-                     <children>
-                        <ToggleButton mnemonicParsing="false" text="General" />
-                        <ToggleButton mnemonicParsing="false" text="Updater" />
-                     </children>
-                  </VBox>
-                  <Separator orientation="VERTICAL" prefHeight="360.0" />
-                  <VBox prefHeight="344.0" prefWidth="480.0" />
+                  <ToggleButton mnemonicParsing="false" styleClass="settings-options" text="General" />
+                  <ToggleButton mnemonicParsing="false" styleClass="settings-options" text="Updater" />
                </children>
-            </HBox>
-         </children></VBox>
+            </VBox>
+            <Separator orientation="VERTICAL" prefHeight="360.0" styleClass="settings-selection-separator" />
+            <GridPane prefHeight="344.0" prefWidth="480.0" HBox.hgrow="ALWAYS">
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+         </children>
+      </HBox>
    </children>
 </AnchorPane>
