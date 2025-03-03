@@ -38,7 +38,6 @@ public class RandomizerViewController {
   @FXML private VBox actionsVBox;
   @FXML private MinMaxSlider minMaxSlider;
   @FXML private VBox historyVBox;
-  @FXML private ProgressBar sequenceProgressIndicator;
   @FXML private ToggleButton randomizerToggleButton;
 
   @Inject
@@ -65,36 +64,11 @@ public class RandomizerViewController {
     randomizerViewModel.initConfig();
     setupBindings();
     setupListener();
-    setupProgressIndicator();
     setupIntervalSlider();
   }
 
   private void setupBindings() {
     sequenceNameLabel.visibleProperty().bind(sequenceNameLabel.textProperty().isNotEmpty());
-  }
-
-  private void setupProgressIndicator() {
-    randomizerViewModel
-        .getCurrentActionSequenceProgressProperty()
-        .addListener(
-            (_, _, t1) -> {
-              Platform.runLater(
-                  () -> {
-                    int actionSize =
-                        randomizerViewModel
-                            .getCurrentActionSequenceProperty()
-                            .get()
-                            .getActions()
-                            .size();
-                    if (randomizerViewModel.getCurrentActionSequenceProperty().get() == null) {
-                      sequenceProgressIndicator.setProgress(0.0);
-                      return;
-                    }
-                    double progress = actionSize == 0 ? 0.0 : (t1.doubleValue() / actionSize);
-                    progress = Math.min(1, progress);
-                    sequenceProgressIndicator.setProgress(progress);
-                  });
-            });
   }
 
   private void setupIntervalSlider() {

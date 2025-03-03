@@ -27,9 +27,6 @@ public class RandomizerViewModel {
   private final ObjectProperty<ActionSequence> currentActionSequenceProperty =
       new SimpleObjectProperty<>();
 
-  @Getter
-  private final IntegerProperty currentActionSequenceProgressProperty = new SimpleIntegerProperty();
-
   @Getter private final ObjectProperty<Action> currentActionProperty = new SimpleObjectProperty<>();
   @Getter private final IntegerProperty minIntervalProperty = new SimpleIntegerProperty();
   @Getter private final IntegerProperty maxIntervalProperty = new SimpleIntegerProperty();
@@ -91,13 +88,5 @@ public class RandomizerViewModel {
   private void setupInternalHandler() {
     actionSequenceDispatcher.registerSequenceHandler(currentActionSequenceProperty::set);
     actionSequenceDispatcher.registerActionHandler(currentActionProperty::set);
-    actionSequenceDispatcher.registerActionFinishHandler(
-        _ -> {
-          currentActionProperty.set(null);
-          currentActionSequenceProgressProperty.set(
-              currentActionSequenceProgressProperty.get() + 1);
-        });
-    actionSequenceDispatcher.registerSequenceFinishHandler(
-        _ -> currentActionSequenceProgressProperty.set(0));
   }
 }

@@ -34,7 +34,6 @@
                                 <VBox alignment="center" styleClass="logbook-state">
                                     <children>
                                         <ToggleButton fx:id="randomizerToggleButton" mnemonicParsing="false" onAction="#onToggle" styleClass="logbook-toggle-button" />
-                                        <ProgressBar fx:id="sequenceProgressIndicator" progress="0.0" styleClass="logbook-progress-indicator" />
                                     </children>
                                     <VBox.margin>
                                         <Insets />
