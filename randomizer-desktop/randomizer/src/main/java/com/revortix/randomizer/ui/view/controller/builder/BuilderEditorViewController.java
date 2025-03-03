@@ -324,6 +324,7 @@ public class BuilderEditorViewController {
         .getCurrentActionsProperty()
         .forEach(
             action -> {
+              if (action == null) return; // in case an action is broken
               Label actionLabel = new Label(action.getName());
               actionLabel.setOnMouseClicked(
                   _ -> {

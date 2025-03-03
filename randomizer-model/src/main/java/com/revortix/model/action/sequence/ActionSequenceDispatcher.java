@@ -37,6 +37,7 @@ public class ActionSequenceDispatcher {
      * @param action the Action to be dispatched
      */
     private void dispatch(Action action) {
+        if(action == null) return;
         if (!actionRepository.isEnabled(action)) return;
         dispatchToHandlers(action, actionHandlers);
         action.execute();

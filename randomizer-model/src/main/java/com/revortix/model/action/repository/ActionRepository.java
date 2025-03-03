@@ -98,7 +98,7 @@ public class ActionRepository {
         actions.keySet().stream()
             .filter(action -> action.getName().equals(actionName))
             .findFirst()
-            .orElse(null);
+            .orElseThrow();
 
     try {
       return originalAction.clone();
