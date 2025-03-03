@@ -10,6 +10,7 @@ import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.RandomizerWindowController;
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
@@ -48,6 +49,8 @@ public class RandomizerApplication extends Application {
           } catch (NativeHookException e) {
             throw new RuntimeException(e);
           }
+          Action.releaseAllKeys();
+          Platform.exit();
         });
     stage.show();
   }
@@ -69,11 +72,6 @@ public class RandomizerApplication extends Application {
     stage.setMinHeight(MIN_HEIGHT);
     stage.setWidth(MIN_WIDTH);
     stage.setHeight(MIN_HEIGHT);
-    stage.setOnCloseRequest(
-        _ -> {
-          Action.releaseAllKeys();
-          System.exit(0);
-        });
     stage.setScene(scene);
   }
 
