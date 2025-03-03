@@ -1,21 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
-<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane fx:controller="com.revortix.randomizer.ui.view.controller.SettingsViewController" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.SettingsViewController">
    <children>
-      <VBox spacing="16" alignment="CENTER" prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" prefHeight="504.0" prefWidth="656.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <ImageView fitHeight="256.0" fitWidth="256.0" pickOnBounds="true" preserveRatio="true">
-               <image>
-                  <Image url="@../../../images/homeView/randomizerLogo.png" />
-               </image>
-            </ImageView>
-            <Label text="Coming Soon..." />
-         </children>
-      </VBox>
+            <HBox prefHeight="360.0" prefWidth="632.0" spacing="8.0">
+               <padding>
+                  <Insets bottom="8.0" left="12.0" right="12.0" top="8.0" />
+               </padding>
+               <children>
+                  <VBox prefHeight="344.0" prefWidth="112.0">
+                     <children>
+                        <ToggleButton mnemonicParsing="false" text="General" />
+                        <ToggleButton mnemonicParsing="false" text="Updater" />
+                     </children>
+                  </VBox>
+                  <Separator orientation="VERTICAL" prefHeight="360.0" />
+                  <VBox prefHeight="344.0" prefWidth="480.0" />
+               </children>
+            </HBox>
+         </children></VBox>
    </children>
 </AnchorPane>

@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <HBox prefHeight="32.0" prefWidth="480.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Auto Update" />
+                  <Label text="Automatically update Randomizer without confirmation" />
+               </children>
+            </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+         </children></HBox>
+      <Separator prefWidth="200.0" />
+      <HBox prefHeight="32.0" prefWidth="480.0">
+         <children>
+            <VBox prefHeight="200.0" prefWidth="100.0">
+               <children>
+                  <Label text="Get notified when an update is available" />
+                  <Label text="Shows an update indicator next to the Settings icon" />
+               </children>
+            </VBox>
+            <HBox prefHeight="100.0" prefWidth="200.0" />
+         </children></HBox>
+      <Separator prefWidth="200.0" />
+      <VBox prefHeight="32.0" prefWidth="480.0">
+         <children>
+            <Label text="REPO" />
+            <Label text="Metaphoriker/randomizer-cs2" />
+         </children></VBox>
+      <Separator prefWidth="200.0" />
+      <VBox prefHeight="58.0" prefWidth="480.0">
+         <children>
+            <Label text="Updates" />
+            <Label text="Up to Date!" />
+            <Button mnemonicParsing="false" text="Check for Updates" />
+         </children></VBox>
+   </children>
+</VBox>
