@@ -36,11 +36,6 @@ public class ActionSettingsController {
   }
 
   @FXML
-  void onPanelClose(ActionEvent event) {
-    setAction(null);
-  }
-
-  @FXML
   void onClear(ActionEvent event) {
     minMaxSlider.setMinMaxValue(0, 1);
   }
