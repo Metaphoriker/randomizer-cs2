@@ -820,6 +820,11 @@
     -fx-focus-color: transparent;
 }
 
+.builder-filler-text {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 16;
+    -fx-text-fill: #A9A5F3;
+}
 
 
 

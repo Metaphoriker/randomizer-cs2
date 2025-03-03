@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.revortix.model.action.sequence.ActionSequence;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.ViewProvider;
+import com.revortix.randomizer.ui.view.controller.builder.filler.BuilderFillerViewController;
 import com.revortix.randomizer.ui.view.viewmodel.builder.BuilderViewModel;
 import java.io.IOException;
 import java.util.Comparator;
@@ -45,7 +46,7 @@ public class BuilderViewController {
   @FXML
   void onAddSequence(ActionEvent event) {
     builderViewModel.createNewActionSequence();
-    contentPane.getChildren().clear();
+    showFiller();
     fillActionSequences();
   }
 
@@ -60,7 +61,12 @@ public class BuilderViewController {
 
   @FXML
   private void initialize() {
+    showFiller();
     fillActionSequences();
+  }
+
+  private void showFiller() {
+    contentPane.getChildren().setAll(viewProvider.requestView(BuilderFillerViewController.class).parent());
   }
 
   public void fillActionSequences() {
@@ -126,7 +132,7 @@ public class BuilderViewController {
             builderViewModel.getCurrentActionSequenceProperty().set(null);
           }
           builderViewModel.deleteActionSequence(actionSequence);
-          contentPane.getChildren().clear();
+          showFiller();
           fillActionSequences();
           event.consume();
         });
