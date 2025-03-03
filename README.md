@@ -28,11 +28,9 @@
 
 *Requires [Java 22+](https://www.oracle.com/de/java/technologies/downloads/#jdk23-windows)* ☕
 
----
-
 ## 📸 Preview
-<img src="https://github.com/user-attachments/assets/28bd983b-2ce6-4f99-a414-3377c391f8a0" width="45%" height="auto" /> <img src="https://github.com/user-attachments/assets/122a053c-7096-401e-97ba-132bba4abc30" width="45%" height="auto" /> 
-<img src="https://github.com/user-attachments/assets/bfd535a1-0cd4-4947-a3b3-ea101512c5ca" width="45%" height="auto" />  
+<img src="https://github.com/user-attachments/assets/7bf7cf8d-fe24-4b3b-9635-43f97c747543" width="45%" height="auto" /> <img src="https://github.com/user-attachments/assets/36a73c74-2d67-4db1-b976-167fe581f6ee" width="45%" height="auto" /> 
+<img src="https://github.com/user-attachments/assets/e71f5d98-a5e2-461a-a8d7-f62fde32cba6" width="45%" height="auto" />  
 
 ---
 
