@@ -80,6 +80,14 @@ public class RandomizerViewModel {
     applicationContext.registerApplicationStateChangeListener(consumer);
   }
 
+  public void onActionSequenceFinished(Consumer<ActionSequence> consumer) {
+    actionSequenceDispatcher.registerSequenceFinishHandler(consumer);
+  }
+
+  public void onActionFinished(Consumer<Action> consumer) {
+    actionSequenceDispatcher.registerActionFinishHandler(consumer);
+  }
+
   private void setupInternalHandler() {
     actionSequenceDispatcher.registerSequenceHandler(currentActionSequenceProperty::set);
     actionSequenceDispatcher.registerActionHandler(currentActionProperty::set);

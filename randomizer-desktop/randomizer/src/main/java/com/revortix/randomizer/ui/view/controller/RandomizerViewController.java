@@ -90,7 +90,7 @@ public class RandomizerViewController {
                       sequenceProgressIndicator.setProgress(0.0);
                       return;
                     }
-                    double progress = actionSize == 0 ? 0.0 : (double) t1 / actionSize;
+                    double progress = actionSize == 0 ? 0.0 : (t1.doubleValue() / actionSize);
                     progress = Math.min(1, progress);
                     sequenceProgressIndicator.setProgress(progress);
                   });
@@ -127,14 +127,18 @@ public class RandomizerViewController {
   }
 
   private void setupListener() {
+    randomizerViewModel.onActionSequenceFinished(
+        actionSequence ->
+            Platform.runLater(
+                () -> {
+                  createActionSequenceContainer(actionSequence);
+                  sequenceNameLabel.setText("");
+                  actionsVBox.getChildren().clear();
+                }));
     randomizerViewModel
         .getCurrentActionSequenceProperty()
         .addListener(
-            (_, oldSequence, sequence) -> {
-              if (oldSequence != null) {
-                Platform.runLater(() -> createActionSequenceContainer(oldSequence));
-              }
-
+            (_, _, sequence) -> {
               if (sequence == null) {
                 return;
               }
@@ -157,30 +161,15 @@ public class RandomizerViewController {
                   });
             });
 
-    randomizerViewModel
-        .getCurrentActionProperty()
-        .addListener(
-            (_, previousAction, action) -> {
-              if (previousAction != null) {
-                actionsVBox.getChildren().stream()
-                    .filter(Label.class::isInstance)
-                    .map(Label.class::cast)
-                    .filter(label -> label.getText().equals(previousAction.getName()))
-                    .filter(label -> !isActive(label))
-                    .findFirst()
-                    .ifPresent(label -> setPositionalStyling(label, true));
-              }
-              if (action == null) {
-                return;
-              }
-              actionsVBox.getChildren().stream()
-                  .filter(Label.class::isInstance)
-                  .map(Label.class::cast)
-                  .filter(label -> label.getText().equals(action.getName()))
-                  .filter(label -> !isActive(label))
-                  .findFirst()
-                  .ifPresent(label -> setPositionalStyling(label, true));
-            });
+    randomizerViewModel.onActionFinished(
+        action ->
+            actionsVBox.getChildren().stream()
+                .filter(Label.class::isInstance)
+                .map(Label.class::cast)
+                .filter(label -> label.getText().equals(action.getName()))
+                .filter(label -> !isActive(label))
+                .findFirst()
+                .ifPresent(label -> setPositionalStyling(label, true)));
   }
 
   private boolean isActive(Label label) {
