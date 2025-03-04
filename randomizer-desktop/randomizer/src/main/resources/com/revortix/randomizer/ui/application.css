@@ -166,6 +166,7 @@
     -fx-background-repeat: no-repeat;
     -fx-background-size: 20;
     -fx-background-image: url("../images/randomizerView/playIcon.png");
+    -fx-cursor: hand;
 }
 
 .logbook-toggle-button:pressed {
@@ -298,6 +299,7 @@
     -fx-font-family: SansSerif;
     -fx-font-size: 12;
     -fx-background-color: #443DFF;
+    -fx-cursor: hand;
 }
 
 .settings-apply-button:hover {
@@ -690,6 +692,7 @@
     -fx-background-position: center;
     -fx-background-size: 16;
     -fx-background-image: url("../images/ActionSettings/resetIcon.png");
+    -fx-cursor: hand;
 }
 
 .settings-reset-button:hover {
@@ -900,6 +903,7 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 8 8;
+    -fx-cursor: hand;
 }
 
 .rangeslider-up-button {
