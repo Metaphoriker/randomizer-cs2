@@ -10,7 +10,7 @@
     -fx-min-width: 48;
     -fx-pref-height: 504;
     -fx-padding: 12 0;
-    -fx-spacing: 10;
+    -fx-spacing: 12;
     -fx-background-color: #FBFBFE;
 }
 
@@ -20,14 +20,6 @@
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-position: right;
-}
-
-.navigation-bar-separator, .navigation-bar-separator .line {
-    -fx-max-width: 27;
-    -fx-pref-height: 2;
-    -fx-translate-x: 7;
-    -fx-border-color: null;
-    -fx-background-color: #443DFF;
 }
 
 .navigation-bar-home {
@@ -60,6 +52,32 @@
 
 .navigation-bar-settings:hover, .navigation-bar-settings:selected {
     -fx-background-image: url("../images/navigationbar/settingsIconSelected.png");
+}
+
+.navigation-bar-update-indicator {
+    -fx-pref-width: 34;
+    -fx-pref-height: 20;
+    -fx-background-color: transparent;
+    -fx-background-repeat: no-repeat;
+    -fx-background-position: right;
+    -fx-background-image: url("../images/navigationbar/updateIndicatorIcon.png");
+}
+
+.navigation-bar-update-indicator:hover {
+    -fx-background-image: url("../images/navigationbar/updateIndicatorIconSelected.png");
+}
+
+.navigation-bar-update-indicator:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+.navigation-bar-separator, .navigation-bar-separator .line {
+    -fx-max-width: 27;
+    -fx-pref-height: 2;
+    -fx-translate-x: 7;
+    -fx-border-color: null;
+    -fx-background-color: #443DFF;
 }
 
 /* Home View */

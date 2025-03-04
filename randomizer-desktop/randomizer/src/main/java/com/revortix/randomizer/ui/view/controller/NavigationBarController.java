@@ -8,6 +8,7 @@ import com.revortix.randomizer.ui.view.viewmodel.NavigationBarViewModel;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 
 @View
@@ -19,6 +20,7 @@ public class NavigationBarController {
   @FXML private ToggleButton randomizerButton;
   @FXML private ToggleButton builderButton;
   @FXML private ToggleButton settingsButton;
+  @FXML private Button updateIndicatorButton;
 
   @Inject
   public NavigationBarController(
@@ -32,6 +34,7 @@ public class NavigationBarController {
     setupBindings();
     setupToggleButtonLogic();
     toggle(homeButton);
+    setupUpdateIndicator();
   }
 
   private void setupBindings() {
@@ -67,6 +70,12 @@ public class NavigationBarController {
         builderButton, BuilderViewController.class, homeButton, randomizerButton, settingsButton);
     addToggleButtonListener(
         settingsButton, SettingsViewController.class, homeButton, randomizerButton, builderButton);
+  }
+
+  private void setupUpdateIndicator() {
+    if (navigationBarViewModel.isUpdateAvailable()) {
+      updateIndicatorButton.setVisible(true);
+    }
   }
 
   private void addToggleButtonListener(
