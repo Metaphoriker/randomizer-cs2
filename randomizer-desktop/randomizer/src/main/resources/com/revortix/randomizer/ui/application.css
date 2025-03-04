@@ -709,12 +709,12 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 16;
-    -fx-background-image: url("../images/ActionSettings/resetIcon.png");
+    -fx-background-image: url("../images/actionSettings/resetIcon.png");
     -fx-cursor: hand;
 }
 
 .settings-reset-button:hover {
-    -fx-background-image: url("../images/ActionSettings/resetIconSelected.png");
+    -fx-background-image: url("../images/actionSettings/resetIconSelected.png");
 }
 
 .settings-reset-button:pressed {
