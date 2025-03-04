@@ -9,6 +9,7 @@ import java.io.OutputStream;
 import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
+import lombok.Getter;
 import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.io.FileUtils;
@@ -18,11 +19,11 @@ import org.apache.commons.io.FileUtils;
 public class Updater {
 
   public static final String UPDATER_VERSION_URL =
-      "https://raw.githubusercontent.com/revortix/randomizer-cs2/stage/randomizer-desktop/randomizer-updater/src/main/resources/version.txt";
+      "https://raw.githubusercontent.com/revortix/randomizer-cs2/stage/randomizer-desktop/randomizer-updater/src/main/resources/updater-version.txt";
   public static final String UPDATER_DOWNLOAD_URL =
       "https://github.com/revortix/randomizer-cs2/releases/download/latest/randomizer-updater.jar";
   public static final String RANDOMIZER_VERSION_URL =
-      "https://raw.githubusercontent.com/revortix/randomizer-cs2/stage/randomizer-model/src/main/resources/version.txt";
+      "https://raw.githubusercontent.com/revortix/randomizer-cs2/stage/randomizer-model/src/main/resources/model-version.txt";
   public static final String RANDOMIZER_DOWNLOAD_URL =
       "https://github.com/revortix/randomizer-cs2/releases/download/latest/randomizer.jar";
 
@@ -86,6 +87,18 @@ public class Updater {
     }
   }
 
+  @Getter
+  public enum FileType {
+    UPDATER("updater-"),
+    RANDOMIZER("model-");
+
+    private final String prefix;
+
+    FileType(String prefix) {
+      this.prefix = prefix;
+    }
+  }
+
   /**
    * Checks if an update is available for the given file by comparing its version with the version
    * retrieved from a specified URL.
@@ -94,7 +107,7 @@ public class Updater {
    * @param versionUrl the URL from which the latest version information can be retrieved
    * @return true if an update is available or the file is not found/accessible, false otherwise
    */
-  public static boolean isUpdateAvailable(File toUpdate, String versionUrl) {
+  public static boolean isUpdateAvailable(File toUpdate, String versionUrl, FileType fileType) {
     log.info("Prüfen auf Update: Datei = {}, Versions-URL = {}", toUpdate, versionUrl);
 
     if (!toUpdate.exists()) {
@@ -102,10 +115,13 @@ public class Updater {
       return true;
     }
 
+    log.info("Update für Version={} von Datei={} wird geprüft", getVersion(toUpdate, fileType), toUpdate);
+
+    String versionFile = fileType.getPrefix() + "version.txt";
     try (ZipFile zipFile = new ZipFile(toUpdate)) {
-      ZipEntry versionEntry = zipFile.getEntry("version.txt");
+      ZipEntry versionEntry = zipFile.getEntry(versionFile);
       if (versionEntry == null) {
-        log.info("Update verfügbar: version.txt Eintrag wurde nicht im Zip-Archiv gefunden");
+        log.info("Update verfügbar: model-version.txt Eintrag wurde nicht im Zip-Archiv gefunden");
         return true;
       }
 
@@ -122,19 +138,20 @@ public class Updater {
     }
   }
 
-  public static String getVersion(File file) {
+  public static String getVersion(File file, FileType fileType) {
     if (!file.exists()) {
       log.warn("Datei nicht gefunden: {}", file);
       return "NOT FOUND";
     }
 
+    String versionFile = fileType.getPrefix() + "version.txt";
     try (ZipFile zipFile = new ZipFile(file)) {
-      ZipEntry versionEntry = zipFile.getEntry("version.txt");
+      ZipEntry versionEntry = zipFile.getEntry(versionFile);
       if (versionEntry == null) {
         return "NOT FOUND";
       }
 
-        return readLineFromInputStream(zipFile.getInputStream(versionEntry));
+      return readLineFromInputStream(zipFile.getInputStream(versionEntry));
     } catch (IOException ignored) {
       log.error("Fehler bei der Prüfung auf Update von Datei: {}", file);
     }

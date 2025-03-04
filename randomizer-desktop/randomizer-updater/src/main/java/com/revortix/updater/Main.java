@@ -2,6 +2,7 @@ package com.revortix.updater;
 
 import com.revortix.model.exception.UncaughtExceptionLogger;
 import com.revortix.model.updater.Updater;
+import com.revortix.model.util.JarFileUtil;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -84,7 +85,12 @@ public class Main {
   private JFrame createMainFrame() {
     JFrame frame = new JFrame();
     frame.setSize(550, 250);
-    frame.setTitle("Randomizer Updater");
+    try {
+      frame.setTitle(
+          "Randomizer Updater - v" + Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.UPDATER));
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
     frame.getContentPane().setBackground(LIGHT_BACKGROUND); // Set background
@@ -145,10 +151,12 @@ public class Main {
 
   private void checkAndUpdate(File randomizer) {
     CompletableFuture.supplyAsync(
-            () -> Updater.isUpdateAvailable(randomizer, Updater.RANDOMIZER_VERSION_URL))
+            () ->
+                Updater.isUpdateAvailable(
+                    randomizer, Updater.RANDOMIZER_VERSION_URL, Updater.FileType.RANDOMIZER))
         .thenAcceptAsync(
             isUpdateAvailable -> { // No need for nested invokeLater
-              String currentVersion = Updater.getVersion(randomizer);
+              String currentVersion = Updater.getVersion(randomizer, Updater.FileType.RANDOMIZER);
               String latestVersion = Updater.getLatestVersion(Updater.RANDOMIZER_VERSION_URL);
 
               SwingUtilities.invokeLater(

@@ -25,7 +25,7 @@ public class RandomizerUpdater {
   public boolean isRandomizerUpdateAvailable() {
     try {
       return Updater.isUpdateAvailable(
-          Updater.getVersion(JarFileUtil.getJarFile()), Updater.RANDOMIZER_VERSION_URL);
+          Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.RANDOMIZER), Updater.RANDOMIZER_VERSION_URL);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -43,13 +43,15 @@ public class RandomizerUpdater {
     log.info("Installiere Updater...");
     File updaterJar = new File(ApplicationContext.getAppdataFolder(), "randomizer-updater.jar");
     try {
-      updaterJar.createNewFile();
+      if(!updaterJar.exists())
+        updaterJar.createNewFile();
     } catch (IOException e) {
       log.error("Fehler beim Erstellen der Updater Datei", e);
       throw new RuntimeException(e);
     }
 
-    if (Updater.isUpdateAvailable(updaterJar, Updater.UPDATER_VERSION_URL)) {
+    if (Updater.isUpdateAvailable(
+        updaterJar, Updater.UPDATER_VERSION_URL, Updater.FileType.UPDATER)) {
       Updater.update(updaterJar, Updater.UPDATER_DOWNLOAD_URL);
     }
 
@@ -60,7 +62,8 @@ public class RandomizerUpdater {
     log.info("Starte Updater falls notwendig...");
     try {
       File jarPath = JarFileUtil.getJarFile();
-      if (Updater.isUpdateAvailable(Updater.getVersion(jarPath), Updater.RANDOMIZER_VERSION_URL)) {
+      if (Updater.isUpdateAvailable(
+          Updater.getVersion(jarPath, Updater.FileType.RANDOMIZER), Updater.RANDOMIZER_VERSION_URL)) {
         log.info("Updater gestartet");
         ProcessBuilder processBuilder =
             new ProcessBuilder(

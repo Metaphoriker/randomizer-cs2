@@ -5,6 +5,7 @@ import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.builder.BuilderViewController;
 import com.revortix.randomizer.ui.view.viewmodel.NavigationBarViewModel;
+import java.util.concurrent.CompletableFuture;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -73,9 +74,8 @@ public class NavigationBarController {
   }
 
   private void setupUpdateIndicator() {
-    if (navigationBarViewModel.isUpdateAvailable()) {
-      updateIndicatorButton.setVisible(true);
-    }
+    CompletableFuture.supplyAsync(navigationBarViewModel::isUpdateAvailable)
+        .thenAccept(b -> Platform.runLater(() -> updateIndicatorButton.setVisible(b)));
   }
 
   private void addToggleButtonListener(
