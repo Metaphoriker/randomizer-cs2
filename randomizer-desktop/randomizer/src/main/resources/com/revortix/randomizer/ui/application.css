@@ -385,7 +385,7 @@
 }
 
 .logbook-history-entry-rightbox {
-    -fx-pref-width: 32;
+    -fx-min-width: 32;
     -fx-spacing: 4;
     -fx-alignment: center-right;
 }
@@ -394,7 +394,7 @@
     -fx-alignment: bottom-right;
     -fx-font-family: SansSerif;
     -fx-font-size: 8;
-    -fx-text-fill: #A9A5F3;
+    -fx-text-fill: #100C5A;
 }
 
 /* Builder View */
@@ -495,6 +495,7 @@
 }
 
 .builder-sequences-title {
+    -fx-max-width: 80;
     -fx-font-family: SansSerif;
     -fx-font-size: 12;
     -fx-text-fill: #040316;
