@@ -11,6 +11,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
+import javafx.scene.control.Tooltip;
 
 @View
 public class NavigationBarController {
@@ -74,6 +75,7 @@ public class NavigationBarController {
   }
 
   private void setupUpdateIndicator() {
+    Tooltip.install(updateIndicatorButton, new Tooltip("Click to update to the latest version"));
     CompletableFuture.supplyAsync(navigationBarViewModel::isUpdateAvailable)
         .thenAccept(b -> Platform.runLater(() -> updateIndicatorButton.setVisible(b)));
   }
