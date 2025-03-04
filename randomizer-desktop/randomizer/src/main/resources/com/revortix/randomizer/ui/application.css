@@ -277,6 +277,7 @@
 }
 
 .range-slider-sequence-interval, .range-slider-action-interval {
+    -fx-pref-height: 20;
     -fx-spacing: 4;
 }
 
@@ -307,7 +308,7 @@
 .settings-apply-button-container {
     -fx-pref-width: 84;
     -fx-pref-height: 20;
-    -fx-alignment: center-right;
+    -fx-alignment: bottom-right;
 }
 
 .settings-apply-button {
@@ -587,14 +588,14 @@
 }
 
 .builder-settings-holder {
-    -fx-pref-width: 172;
+    -fx-pref-width: 192;
     -fx-pref-height: 320;
     -fx-alignment: center;
     -fx-spacing: 12;
 }
 
 .builder-sequence-settings {
-    -fx-pref-width: 172;
+    -fx-pref-width: 192;
     -fx-pref-height: 184;
     -fx-padding: 6 8;
     -fx-background-radius: 8;
@@ -602,7 +603,7 @@
 }
 
 .builder-sequence-settings-container, .builder-settings-sequence-title-vbox, .action-time-frame-vbox {
-    -fx-pref-width: 156;
+    -fx-pref-width: 176;
     -fx-spacing: 6;
 }
 
@@ -614,7 +615,7 @@
 }
 
 .builder-settings-separator, .builder-settings-separator .line {
-    -fx-pref-width: 156;
+    -fx-pref-width: 176;
     -fx-pref-height: 1;
     -fx-background-color: #9C99FF;
     -fx-border-color: null;
@@ -627,7 +628,7 @@
 }
 
 .builder-settings-title-textfield {
-    -fx-pref-width: 156;
+    -fx-pref-width: 176;
     -fx-pref-height: 16;
     -fx-padding: 0 3;
     -fx-background-radius: 4;
@@ -638,14 +639,14 @@
 }
 
 .builder-sequence-settings-separator, .builder-sequence-settings-separator .line {
-    -fx-pref-width: 156;
+    -fx-pref-width: 176;
     -fx-pref-height: 1;
     -fx-background-color: #CECCFF;
     -fx-border-color: null;
 }
 
 .builder-settings-description-textfield {
-    -fx-pref-width: 156;
+    -fx-pref-width: 176;
     -fx-pref-height: 64;
     -fx-background-radius: 4;
     -fx-background-color: #D6D4F7;
@@ -673,7 +674,7 @@
 }
 
 .builder-action-settings {
-    -fx-pref-width: 172;
+    -fx-pref-width: 192;
     -fx-pref-height: 124;
     -fx-padding: 6 8;
     -fx-background-radius: 8;
@@ -681,7 +682,7 @@
 }
 
 .builder-action-settings-container {
-    -fx-pref-width: 156;
+    -fx-pref-width: 176;
     -fx-spacing: 6;
 }
 
@@ -692,7 +693,6 @@
 }
 
 .builder-action-settings-duration-vbox {
-    -fx-pref-width: 156;
     -fx-spacing: 6;
 }
 
@@ -724,7 +724,7 @@
 }
 
 .sequence-builder {
-    -fx-pref-width: 320;
+    -fx-pref-width: 300;
     -fx-pref-height: 320;
     -fx-alignment: center;
     -fx-padding: 8 12;
@@ -733,7 +733,7 @@
 }
 
 .sequence-naming-container {
-    -fx-pref-width: 296;
+    -fx-pref-width: 276;
     -fx-pref-height: 30;
 }
 
@@ -840,7 +840,7 @@
 }
 
 .builder-selected-actions-vbox {
-    -fx-pref-width: 296;
+    -fx-pref-width: 276;
     -fx-pref-height: 244;
     -fx-spacing: 6;
     -fx-padding: 6 0;
@@ -858,8 +858,6 @@
     -fx-font-size: 16;
     -fx-text-fill: #A9A5F3;
 }
-
-
 
 /* Settings View */
 .settings-container {
@@ -905,7 +903,7 @@
 
 /* Rangeslider Labels */
 .rangeslider-min-label, .rangeslider-max-label {
-    -fx-min-width: 32;
+    -fx-min-width: 42;
     -fx-min-height: 12;
     -fx-background-radius: 4;
     -fx-background-color: #D6D6F5;

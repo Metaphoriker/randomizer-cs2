@@ -48,7 +48,7 @@ public class ActionSettingsController {
   private void initializeMinMaxSlider() {
     minMaxSlider.setTimeUnit(MinMaxSlider.TimeUnit.MILLISECONDS);
     minMaxSlider.setMinLowerValue(0);
-    minMaxSlider.setMaxHigherValue(10000);
+    minMaxSlider.setMaxHigherValue(9999);
     minMaxSlider
         .getMinProperty()
         .bindBidirectional(actionSettingsViewModel.getMinIntervalProperty());
