@@ -1,7 +1,6 @@
 package com.revortix.model.action.sequence;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
-import com.github.kwhat.jnativehook.NativeInputEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyEvent;
 import com.github.kwhat.jnativehook.keyboard.NativeKeyListener;
 import com.github.kwhat.jnativehook.mouse.NativeMouseEvent;
@@ -274,7 +273,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
     lastCycle = Instant.now().toEpochMilli();
     lastWaitTime = waitTime;
   }
-
+  
   private void handleApplicationState() {
     long currentTime = Instant.now().toEpochMilli();
     if (currentTime - lastFocusCheckTime < FOCUS_CHECK_INTERVAL) return;

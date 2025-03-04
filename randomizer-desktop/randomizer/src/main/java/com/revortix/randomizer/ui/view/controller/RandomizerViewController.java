@@ -1,6 +1,7 @@
 package com.revortix.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
+import com.revortix.model.ApplicationState;
 import com.revortix.model.action.sequence.ActionSequence;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.component.MinMaxSlider;
@@ -38,6 +39,9 @@ public class RandomizerViewController {
   @FXML private MinMaxSlider minMaxSlider;
   @FXML private VBox historyVBox;
   @FXML private ToggleButton randomizerToggleButton;
+  @FXML private Label runnerStateLabel;
+  @FXML private Label cs2FocusLabel;
+  @FXML private HBox logbookState;
 
   @Inject
   public RandomizerViewController(RandomizerViewModel randomizerViewModel) {
@@ -64,6 +68,7 @@ public class RandomizerViewController {
     setupBindings();
     setupListener();
     setupIntervalSlider();
+    setupStateListener();
   }
 
   private void setupBindings() {
@@ -143,6 +148,20 @@ public class RandomizerViewController {
                 .filter(label -> !isActive(label))
                 .findFirst()
                 .ifPresent(label -> setPositionalStyling(label, true)));
+  }
+
+  private void setupStateListener() {
+    randomizerViewModel.onStateChange(applicationState -> {
+      if (applicationState == ApplicationState.AWAITING) {
+        runnerStateLabel.setVisible(true);
+        cs2FocusLabel.setVisible(true);
+        logbookState.getStyleClass().add("logbook-state-awaiting");
+      } else {
+        runnerStateLabel.setVisible(false);
+        cs2FocusLabel.setVisible(false);
+        logbookState.getStyleClass().remove("logbook-state-awaiting");
+      }
+    });
   }
 
   private boolean isActive(Label label) {
