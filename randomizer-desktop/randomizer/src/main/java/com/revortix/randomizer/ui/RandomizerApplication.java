@@ -3,6 +3,7 @@ package com.revortix.randomizer.ui;
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import com.revortix.model.action.Action;
+import com.revortix.model.action.sequence.ActionSequenceDispatcher;
 import com.revortix.model.updater.Updater;
 import com.revortix.model.util.JarFileUtil;
 import com.revortix.randomizer.Main;
@@ -49,7 +50,7 @@ public class RandomizerApplication extends Application {
           } catch (NativeHookException e) {
             throw new RuntimeException(e);
           }
-          Action.releaseAllKeys();
+          ActionSequenceDispatcher.discardAllRunningActions();
           Platform.exit();
         });
     stage.show();

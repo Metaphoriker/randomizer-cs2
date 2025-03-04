@@ -4,118 +4,129 @@ import com.google.inject.Inject;
 import com.revortix.model.action.Action;
 import com.revortix.model.action.repository.ActionRepository;
 import com.revortix.model.util.FocusManager;
-import lombok.extern.slf4j.Slf4j;
-
 import java.util.List;
 import java.util.concurrent.CopyOnWriteArrayList;
-import java.util.function.BooleanSupplier;
 import java.util.function.Consumer;
-import java.util.function.Supplier;
+import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class ActionSequenceDispatcher {
 
-    private static final String ACTION_DISPATCHED = "Action successfully dispatched: {}";
-    private static final String SEQUENCE_DISPATCHED = "ActionSequence successfully dispatched: {}";
+  private static final String ACTION_DISPATCHED = "Action successfully dispatched: {}";
+  private static final String SEQUENCE_DISPATCHED = "ActionSequence successfully dispatched: {}";
 
-    private final List<Consumer<ActionSequence>> sequenceHandlers = new CopyOnWriteArrayList<>();
-    private final List<Consumer<Action>> actionHandlers = new CopyOnWriteArrayList<>();
-    private final List<Consumer<Action>> actionFinishHandlers = new CopyOnWriteArrayList<>();
-    private final List<Consumer<ActionSequence>> actionSequenceFinishHandlers =
-            new CopyOnWriteArrayList<>();
+  private final List<Consumer<ActionSequence>> sequenceHandlers = new CopyOnWriteArrayList<>();
+  private final List<Consumer<Action>> actionHandlers = new CopyOnWriteArrayList<>();
+  private final List<Consumer<Action>> actionFinishHandlers = new CopyOnWriteArrayList<>();
+  private final List<Consumer<ActionSequence>> actionSequenceFinishHandlers =
+      new CopyOnWriteArrayList<>();
 
-    private final ActionRepository actionRepository;
+  private static final List<Action> runningActions = new CopyOnWriteArrayList<>();
+  private final ActionRepository actionRepository;
 
-    @Inject
-    public ActionSequenceDispatcher(ActionRepository actionRepository) {
-        this.actionRepository = actionRepository;
+  @Inject
+  public ActionSequenceDispatcher(ActionRepository actionRepository) {
+    this.actionRepository = actionRepository;
+  }
+
+  /**
+   * Dispatches a single action to all registered handlers and logs its completion.
+   *
+   * @param action the Action to be dispatched
+   */
+  private void dispatch(Action action) {
+    if (action == null) return;
+    if (!actionRepository.isEnabled(action)) return;
+    dispatchToHandlers(action, actionHandlers);
+    runningActions.add(action);
+    action.execute();
+    runningActions.remove(action);
+    finishActionProcessing(action);
+    log.info(ACTION_DISPATCHED, action);
+  }
+
+  /**
+   * Dispatches an ActionSequence to registered handlers and processes each contained Action.
+   *
+   * @param actionSequence the ActionSequence to be dispatched
+   */
+  public void dispatchSequence(ActionSequence actionSequence) {
+    dispatchToHandlers(actionSequence, sequenceHandlers);
+    for (Action action : actionSequence.getActions()) {
+      if (!FocusManager.isCs2WindowInFocus()) { // TODO: hacky
+        log.info("Interrupted sequence processing");
+        return;
+      }
+      dispatch(action);
     }
+    finishSequenceProcessing(actionSequence);
+    log.info(SEQUENCE_DISPATCHED, actionSequence);
+  }
 
-    /**
-     * Dispatches a single action to all registered handlers and logs its completion.
-     *
-     * @param action the Action to be dispatched
-     */
-    private void dispatch(Action action) {
-        if(action == null) return;
-        if (!actionRepository.isEnabled(action)) return;
-        dispatchToHandlers(action, actionHandlers);
-        action.execute();
-        finishActionProcessing(action);
-        log.info(ACTION_DISPATCHED, action);
+  public static void discardAllRunningActions() {
+    if (runningActions.isEmpty()) {
+      log.info("No running actions to discard");
+      return;
     }
+    log.info("Discarding {} running actions", runningActions.size());
+    runningActions.forEach(Action::instantInterrupt);
+    runningActions.clear();
+    log.info("All running actions discarded");
+  }
 
-    /**
-     * Dispatches an ActionSequence to registered handlers and processes each contained Action.
-     *
-     * @param actionSequence the ActionSequence to be dispatched
-     */
-    public void dispatchSequence(ActionSequence actionSequence) {
-        dispatchToHandlers(actionSequence, sequenceHandlers);
-        for(Action action : actionSequence.getActions()) {
-            if (!FocusManager.isCs2WindowInFocus()) { // TODO: hacky
-                log.info("Interrupted sequence processing");
-                return;
-            }
-            dispatch(action);
-        }
-        finishSequenceProcessing(actionSequence);
-        log.info(SEQUENCE_DISPATCHED, actionSequence);
-    }
+  private void finishActionProcessing(Action action) {
+    actionFinishHandlers.forEach(handler -> safeAccept(handler, action));
+  }
 
-    private void finishActionProcessing(Action action) {
-        actionFinishHandlers.forEach(handler -> safeAccept(handler, action));
-    }
+  private void finishSequenceProcessing(ActionSequence actionSequence) {
+    actionSequenceFinishHandlers.forEach(handler -> safeAccept(handler, actionSequence));
+  }
 
-    private void finishSequenceProcessing(ActionSequence actionSequence) {
-        actionSequenceFinishHandlers.forEach(handler -> safeAccept(handler, actionSequence));
-    }
+  /**
+   * Registers a handler to process any finished action.
+   *
+   * @param handler the Consumer to handle finished actions
+   */
+  public void registerActionFinishHandler(Consumer<Action> handler) {
+    actionFinishHandlers.add(handler);
+  }
 
-    /**
-     * Registers a handler to process any finished action.
-     *
-     * @param handler the Consumer to handle finished actions
-     */
-    public void registerActionFinishHandler(Consumer<Action> handler) {
-        actionFinishHandlers.add(handler);
-    }
+  /**
+   * Registers a handler to process any finished action sequence.
+   *
+   * @param handler the Consumer to handle finished action sequences
+   */
+  public void registerSequenceFinishHandler(Consumer<ActionSequence> handler) {
+    actionSequenceFinishHandlers.add(handler);
+  }
 
-    /**
-     * Registers a handler to process any finished action sequence.
-     *
-     * @param handler the Consumer to handle finished action sequences
-     */
-    public void registerSequenceFinishHandler(Consumer<ActionSequence> handler) {
-        actionSequenceFinishHandlers.add(handler);
-    }
+  /**
+   * Registers a generic handler for Action events.
+   *
+   * @param handler the Consumer to process Action events
+   */
+  public void registerActionHandler(Consumer<Action> handler) {
+    actionHandlers.add(handler);
+  }
 
-    /**
-     * Registers a generic handler for Action events.
-     *
-     * @param handler the Consumer to process Action events
-     */
-    public void registerActionHandler(Consumer<Action> handler) {
-        actionHandlers.add(handler);
-    }
+  /**
+   * Registers a generic handler for ActionSequence events.
+   *
+   * @param handler the Consumer to process ActionSequence events
+   */
+  public void registerSequenceHandler(Consumer<ActionSequence> handler) {
+    sequenceHandlers.add(handler);
+  }
 
-    /**
-     * Registers a generic handler for ActionSequence events.
-     *
-     * @param handler the Consumer to process ActionSequence events
-     */
-    public void registerSequenceHandler(Consumer<ActionSequence> handler) {
-        sequenceHandlers.add(handler);
-    }
+  private <T> void dispatchToHandlers(T item, List<Consumer<T>> handlers) {
+    handlers.forEach(handler -> safeAccept(handler, item));
+  }
 
-    private <T> void dispatchToHandlers(T item, List<Consumer<T>> handlers) {
-        handlers.forEach(handler -> safeAccept(handler, item));
+  private <T> void safeAccept(Consumer<T> handler, T item) {
+    try {
+      handler.accept(item);
+    } catch (Exception e) {
+      log.error("Error while handling item: {}", item, e);
     }
-
-    private <T> void safeAccept(Consumer<T> handler, T item) {
-        try {
-            handler.accept(item);
-        } catch (Exception e) {
-            log.error("Error while handling item: {}", item, e);
-        }
-    }
+  }
 }

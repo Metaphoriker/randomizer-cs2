@@ -5,7 +5,6 @@ import com.revortix.model.action.value.Interval;
 import com.revortix.model.config.keybind.KeyBind;
 import com.revortix.model.util.FocusManager;
 import java.awt.*;
-import java.awt.event.InputEvent;
 import java.time.Instant;
 import java.util.concurrent.ThreadLocalRandom;
 import lombok.AccessLevel;
@@ -33,21 +32,6 @@ public abstract class Action implements Cloneable {
     } catch (AWTException e) {
       throw new RuntimeException(e);
     }
-  }
-
-  // TODO: move this to another, SoC
-  public static void releaseAllKeys() {
-    for (int i = 0; i < 0xFFFF; i++) {
-      try {
-        KNUFFI.keyRelease(i);
-      } catch (IllegalArgumentException e) {
-      }
-    }
-
-    KNUFFI.mouseRelease(InputEvent.BUTTON1_DOWN_MASK);
-    KNUFFI.mouseRelease(InputEvent.BUTTON2_DOWN_MASK);
-    KNUFFI.mouseRelease(InputEvent.BUTTON3_DOWN_MASK);
-    log.info("Erfolgreich alle Keys released");
   }
 
   private final transient ActionKey actionKey;
@@ -138,6 +122,14 @@ public abstract class Action implements Cloneable {
    */
   public void interrupt() {
     interrupted = true;
+  }
+
+  /**
+   * Interrupting the keypress and doesn't wait for the current cycle to end.
+   */
+  public void instantInterrupt() {
+    interrupted = true;
+    performActionEnd(KEY_MAPPER.getKeyCodeForKey(getActionKey().getKey()));
   }
 
   /**
