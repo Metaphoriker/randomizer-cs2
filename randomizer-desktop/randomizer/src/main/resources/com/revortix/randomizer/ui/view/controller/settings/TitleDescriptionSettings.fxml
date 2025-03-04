@@ -3,9 +3,9 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox fx:id="root" prefHeight="184.0" prefWidth="172.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.settings.TitleDescriptionSettingsController">
+<VBox VBox.vgrow="ALWAYS" fx:id="root" prefHeight="184.0" prefWidth="172.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.settings.TitleDescriptionSettingsController">
     <children>
-        <VBox fx:id="actionSettingsVBox" styleClass="builder-sequence-settings-container">
+        <VBox VBox.vgrow="ALWAYS" fx:id="actionSettingsVBox" styleClass="builder-sequence-settings-container">
             <children>
             <VBox spacing="2.0">
                <children>
@@ -23,10 +23,10 @@
                 <HBox alignment="CENTER_LEFT">
                     <Label styleClass="builder-settings-sequence-description" text="Description" />
                 </HBox>
-                <VBox prefWidth="156.0" styleClass="action-time-frame-vbox">
+                <VBox VBox.vgrow="ALWAYS" prefWidth="156.0" styleClass="action-time-frame-vbox">
                     <children>
                         <TextArea fx:id="textArea" prefHeight="64.0" prefWidth="156.0" promptText="Set the description" styleClass="builder-settings-description-textfield" wrapText="true" />
-                        <VBox alignment="BOTTOM_RIGHT" prefHeight="20.0" prefWidth="75.0" styleClass="settings-apply-button-container">
+                        <VBox VBox.vgrow="ALWAYS" alignment="BOTTOM_RIGHT" prefHeight="20.0" prefWidth="75.0" styleClass="settings-apply-button-container">
                             <children>
                                 <Button mnemonicParsing="false" onAction="#onApply" styleClass="settings-apply-button" text="Apply" />
                             </children>
