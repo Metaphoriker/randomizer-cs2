@@ -33,9 +33,11 @@ We had a lot of fun playtesting it.
 
 *Requires [Java 22+](https://www.oracle.com/de/java/technologies/downloads/#jdk23-windows)* ☕
 
-## 📸 Preview
-<img src="https://github.com/user-attachments/assets/7bf7cf8d-fe24-4b3b-9635-43f97c747543" width="45%" height="auto" /> <img src="https://github.com/user-attachments/assets/36a73c74-2d67-4db1-b976-167fe581f6ee" width="45%" height="auto" /> 
-<img src="https://github.com/user-attachments/assets/e71f5d98-a5e2-461a-a8d7-f62fde32cba6" width="45%" height="auto" />  
+## 📸 Teaser
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/a66d5992-1797-490c-a814-2f439f18aded" alt="ezgif-57101e97035d3b">
+</p>
 
 ---
 
