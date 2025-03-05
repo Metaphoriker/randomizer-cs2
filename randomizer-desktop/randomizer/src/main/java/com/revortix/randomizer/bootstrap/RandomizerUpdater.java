@@ -5,6 +5,8 @@ import com.revortix.model.updater.Updater;
 import com.revortix.model.util.JarFileUtil;
 import java.io.File;
 import java.io.IOException;
+
+import javafx.application.Platform;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
@@ -70,7 +72,7 @@ public class RandomizerUpdater {
                 "java", "-jar", path, "-randomizerLocation=" + jarPath.getAbsolutePath());
         processBuilder.inheritIO();
         startProcess(processBuilder);
-        System.exit(0); // we want to close the randomizer in order to update it
+        Platform.exit(); // we want to close the randomizer in order to update it
       }
     } catch (IOException | InterruptedException e) {
       throw new RuntimeException(e);
