@@ -1,4 +1,4 @@
-package com.revortix.model.util;
+package de.metaphoriker.updater.util;
 
 import java.io.File;
 import java.io.IOException;

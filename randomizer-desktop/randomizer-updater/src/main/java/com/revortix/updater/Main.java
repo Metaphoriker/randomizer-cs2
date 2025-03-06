@@ -1,8 +1,7 @@
 package com.revortix.updater;
 
-import com.revortix.model.exception.UncaughtExceptionLogger;
-import com.revortix.model.updater.Updater;
-import com.revortix.model.util.JarFileUtil;
+import de.metaphoriker.updater.Updater;
+import de.metaphoriker.updater.util.JarFileUtil;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
@@ -29,9 +28,7 @@ public class Main {
   private JLabel versionComparisonLabel;
 
   public static void main(String[] args) {
-    Thread.currentThread()
-        .setUncaughtExceptionHandler(UncaughtExceptionLogger.DEFAULT_UNCAUGHT_EXCEPTION_LOGGER);
-
+    Thread.currentThread().setUncaughtExceptionHandler(new UpdaterThreadExceptionHandler());
     SwingUtilities.invokeLater(() -> new Main().initialize(args));
   }
 
@@ -87,7 +84,8 @@ public class Main {
     frame.setSize(550, 250);
     try {
       frame.setTitle(
-          "Randomizer Updater - v" + Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.UPDATER));
+          "Randomizer Updater - v"
+              + Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.UPDATER));
     } catch (IOException e) {
       throw new RuntimeException(e);
     }

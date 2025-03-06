@@ -1,11 +1,10 @@
 package com.revortix.randomizer.bootstrap;
 
 import com.revortix.model.ApplicationContext;
-import com.revortix.model.updater.Updater;
-import com.revortix.model.util.JarFileUtil;
+import de.metaphoriker.updater.Updater;
+import de.metaphoriker.updater.util.JarFileUtil;
 import java.io.File;
 import java.io.IOException;
-
 import javafx.application.Platform;
 import lombok.extern.slf4j.Slf4j;
 
@@ -27,7 +26,8 @@ public class RandomizerUpdater {
   public boolean isRandomizerUpdateAvailable() {
     try {
       return Updater.isUpdateAvailable(
-          Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.RANDOMIZER), Updater.RANDOMIZER_VERSION_URL);
+          Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.RANDOMIZER),
+          Updater.RANDOMIZER_VERSION_URL);
     } catch (IOException e) {
       throw new RuntimeException(e);
     }
@@ -45,8 +45,7 @@ public class RandomizerUpdater {
     log.info("Installiere Updater...");
     File updaterJar = new File(ApplicationContext.getAppdataFolder(), "randomizer-updater.jar");
     try {
-      if(!updaterJar.exists())
-        updaterJar.createNewFile();
+      if (!updaterJar.exists()) updaterJar.createNewFile();
     } catch (IOException e) {
       log.error("Fehler beim Erstellen der Updater Datei", e);
       throw new RuntimeException(e);
@@ -65,7 +64,8 @@ public class RandomizerUpdater {
     try {
       File jarPath = JarFileUtil.getJarFile();
       if (Updater.isUpdateAvailable(
-          Updater.getVersion(jarPath, Updater.FileType.RANDOMIZER), Updater.RANDOMIZER_VERSION_URL)) {
+          Updater.getVersion(jarPath, Updater.FileType.RANDOMIZER),
+          Updater.RANDOMIZER_VERSION_URL)) {
         log.info("Updater gestartet");
         ProcessBuilder processBuilder =
             new ProcessBuilder(

@@ -2,13 +2,12 @@ package com.revortix.randomizer.ui;
 
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
-import com.revortix.model.action.Action;
 import com.revortix.model.action.sequence.ActionSequenceDispatcher;
-import com.revortix.model.updater.Updater;
-import com.revortix.model.util.JarFileUtil;
 import com.revortix.randomizer.Main;
 import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.RandomizerWindowController;
+import de.metaphoriker.updater.Updater;
+import de.metaphoriker.updater.util.JarFileUtil;
 import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -61,10 +60,12 @@ public class RandomizerApplication extends Application {
       if (Main.isTestMode()) {
         stage.setTitle("Randomizer-CS2 - DEVELOPMENT");
       } else {
-        stage.setTitle("Randomizer-CS2 - " + Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.RANDOMIZER));
+        stage.setTitle(
+            "Randomizer-CS2 - "
+                + Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.RANDOMIZER));
       }
-    } catch (IOException e) {
-      throw new RuntimeException(e);
+    } catch (Exception e) {
+      log.error("Fehler beim Laden der Version für Titel", e);
     }
 
     stage.getIcons().add(new Image("com/revortix/randomizer/images/randomizer.png"));

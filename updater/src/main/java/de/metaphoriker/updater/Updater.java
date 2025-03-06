@@ -1,21 +1,11 @@
-package com.revortix.model.updater;
+package de.metaphoriker.updater;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStream;
+import java.io.*;
+import java.net.HttpURLConnection;
 import java.net.URL;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
-import lombok.Getter;
-import lombok.experimental.UtilityClass;
-import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.io.FileUtils;
 
-@UtilityClass
-@Slf4j
 public class Updater {
 
   public static final String UPDATER_VERSION_URL =
@@ -46,21 +36,23 @@ public class Updater {
    * @param listener the listener to track the progress of the download
    */
   public static void update(File target, String downloadUrl, ProgressListener listener) {
-    log.info("Starte Aktualisierung von URL: {} zu Ziel-Datei: {}", downloadUrl, target);
+    log("Starte Aktualisierung von URL: " + downloadUrl + " zu Ziel-Datei: " + target);
 
     try {
       URL downloadFrom = new URL(downloadUrl);
       copyURLToFileWithProgress(downloadFrom, target, listener);
-      log.info("Erfolgreich aktualisiert von URL: {} zu Ziel-Datei: {}", downloadUrl, target);
-    } catch (IOException ignored) {
-      log.error("Fehler bei der Aktualisierung von URL: {} zu Ziel-Datei: {}", downloadUrl, target);
-      throw new RuntimeException(ignored);
+      log("Erfolgreich aktualisiert von URL: " + downloadUrl + " zu Ziel-Datei: " + target);
+    } catch (IOException e) {
+      log("Fehler bei der Aktualisierung von URL: " + downloadUrl + " zu Ziel-Datei: " + target);
+      e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
 
   /**
    * Downloads a file from the specified URL and saves it to the specified destination file,
-   * providing progress updates via a ProgressListener.
+   * providing progress updates via a ProgressListener. Uses HttpURLConnection for more control over
+   * the connection.
    *
    * @param source the URL to copy the file from.
    * @param destination the file to which the URL's content will be copied.
@@ -69,25 +61,39 @@ public class Updater {
    */
   public static void copyURLToFileWithProgress(
       URL source, File destination, ProgressListener listener) throws IOException {
-    try (InputStream inputStream = source.openStream()) {
-      long totalBytes = source.openConnection().getContentLengthLong();
-      try (OutputStream outputStream = FileUtils.openOutputStream(destination)) {
+    HttpURLConnection connection = (HttpURLConnection) source.openConnection();
+    connection.setRequestMethod("GET"); // Ensure GET request
+
+    try (InputStream inputStream = connection.getInputStream()) {
+      long totalBytes = connection.getContentLengthLong(); // Get content length from the connection
+
+      // Create parent directories if they don't exist
+      File parentDir = destination.getParentFile();
+      if (parentDir != null && !parentDir.exists()) {
+        if (!parentDir.mkdirs()) {
+          throw new IOException("Failed to create directory: " + parentDir.getAbsolutePath());
+        }
+      }
+
+      try (FileOutputStream outputStream =
+          new FileOutputStream(destination)) { // Use FileOutputStream
         byte[] buffer = new byte[1024];
         long bytesRead = 0;
         int n;
-        while (-1 != (n = inputStream.read(buffer))) {
+        while ((n = inputStream.read(buffer)) != -1) {
           outputStream.write(buffer, 0, n);
           bytesRead += n;
           if (listener != null) {
             listener.onProgress(bytesRead, totalBytes);
           }
         }
-        log.info("Daten von URL: {} erfolgreich zu Ziel-Datei: {} kopiert", source, destination);
+        log("Daten von URL: " + source + " erfolgreich zu Ziel-Datei: " + destination + " kopiert");
       }
+    } finally {
+      connection.disconnect(); // Always disconnect
     }
   }
 
-  @Getter
   public enum FileType {
     UPDATER("updater-"),
     RANDOMIZER("model-");
@@ -96,6 +102,10 @@ public class Updater {
 
     FileType(String prefix) {
       this.prefix = prefix;
+    }
+
+    public String getPrefix() {
+      return prefix;
     }
   }
 
@@ -108,39 +118,44 @@ public class Updater {
    * @return true if an update is available or the file is not found/accessible, false otherwise
    */
   public static boolean isUpdateAvailable(File toUpdate, String versionUrl, FileType fileType) {
-    log.info("Prüfen auf Update: Datei = {}, Versions-URL = {}", toUpdate, versionUrl);
+    log("Prüfen auf Update: Datei = " + toUpdate + ", Versions-URL = " + versionUrl);
 
     if (!toUpdate.exists()) {
-      log.info("Update verfügbar: Ziel-Datei existiert nicht: {}", toUpdate);
+      log("Update verfügbar: Ziel-Datei existiert nicht: " + toUpdate);
       return true;
     }
-
-    log.info("Update für Version={} von Datei={} wird geprüft", getVersion(toUpdate, fileType), toUpdate);
+    String version = getVersion(toUpdate, fileType);
+    log("Update für Version=" + version + " von Datei=" + toUpdate + " wird geprüft");
 
     String versionFile = fileType.getPrefix() + "version.txt";
     try (ZipFile zipFile = new ZipFile(toUpdate)) {
       ZipEntry versionEntry = zipFile.getEntry(versionFile);
       if (versionEntry == null) {
-        log.info("Update verfügbar: model-version.txt Eintrag wurde nicht im Zip-Archiv gefunden");
+        log(
+            "Update verfügbar: "
+                + fileType.getPrefix()
+                + "version.txt Eintrag wurde nicht im Zip-Archiv gefunden");
         return true;
       }
 
-      String version = readLineFromInputStream(zipFile.getInputStream(versionEntry));
+      version = readLineFromInputStream(zipFile.getInputStream(versionEntry));
       boolean updateAvailable = isUpdateAvailable(version, versionUrl);
-      log.info(
-          "Update-Verfügbarkeit geprüft: aktuelle Version = {}, Update verfügbar = {}",
-          version,
-          updateAvailable);
+      log(
+          "Update-Verfügbarkeit geprüft: aktuelle Version = "
+              + version
+              + ", Update verfügbar = "
+              + updateAvailable);
       return updateAvailable;
-    } catch (IOException ignored) {
-      log.error("Fehler bei der Prüfung auf Update von Datei: {}", toUpdate);
-      throw new RuntimeException(ignored);
+    } catch (IOException e) {
+      log("Fehler bei der Prüfung auf Update von Datei: " + toUpdate);
+      e.printStackTrace();
+      throw new RuntimeException(e);
     }
   }
 
   public static String getVersion(File file, FileType fileType) {
     if (!file.exists()) {
-      log.warn("Datei nicht gefunden: {}", file);
+      log("Datei nicht gefunden: " + file);
       return "NOT FOUND";
     }
 
@@ -152,10 +167,10 @@ public class Updater {
       }
 
       return readLineFromInputStream(zipFile.getInputStream(versionEntry));
-    } catch (IOException ignored) {
-      log.error("Fehler bei der Prüfung auf Update von Datei: {}", file);
+    } catch (IOException e) {
+      log("Fehler bei der Prüfung auf Update von Datei: " + file);
+      throw new RuntimeException(e);
     }
-    return "NOT FOUND";
   }
 
   /**
@@ -165,14 +180,23 @@ public class Updater {
    * @return a String representing the latest version.
    */
   public static String getLatestVersion(String versionUrl) {
-    log.info("Abrufen der neuesten Version von URL: {}", versionUrl);
-    try (BufferedReader in =
-        new BufferedReader(new InputStreamReader(new URL(versionUrl).openStream()))) {
-      String latestVersion = in.readLine();
-      log.info("Erfolgreich abgerufen: neueste Version = {}", latestVersion);
-      return latestVersion;
+    log("Abrufen der neuesten Version von URL: " + versionUrl);
+    try {
+      URL url = new URL(versionUrl);
+      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+      connection.setRequestMethod("GET"); // Set request method explicitly
+
+      try (BufferedReader in =
+          new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+        String latestVersion = in.readLine();
+        log("Erfolgreich abgerufen: neueste Version = " + latestVersion);
+        return latestVersion;
+      } finally {
+        connection.disconnect(); // Ensure disconnection
+      }
     } catch (IOException e) {
-      log.error("Fehler beim Abrufen der neuesten Version von URL: {}", versionUrl, e);
+      log("Fehler beim Abrufen der neuesten Version von URL: " + versionUrl);
+      e.printStackTrace(); // Log the exception details
       return "UNGÜLTIG";
     }
   }
@@ -185,19 +209,21 @@ public class Updater {
    * @return true if an update is available, false otherwise
    */
   public static boolean isUpdateAvailable(String version, String versionUrl) {
-    log.info(
-        "Prüfen auf Update mit aktueller Version: {} unter Verwendung der Versions-URL: {}",
-        version,
-        versionUrl);
+    log(
+        "Prüfen auf Update mit aktueller Version: "
+            + version
+            + " unter Verwendung der Versions-URL: "
+            + versionUrl);
 
     UpdateChecker updateChecker = new UpdateChecker(versionUrl);
     updateChecker.checkUpdate(version);
 
     boolean updateAvailable = updateChecker.isUpdateAvailable();
-    log.info(
-        "Update-Prüfung abgeschlossen: Versions-URL = {}, Update verfügbar = {}",
-        versionUrl,
-        updateAvailable);
+    log(
+        "Update-Prüfung abgeschlossen: Versions-URL = "
+            + versionUrl
+            + ", Update verfügbar = "
+            + updateAvailable);
     return updateAvailable;
   }
 
@@ -205,8 +231,13 @@ public class Updater {
     try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
       return bufferedReader.readLine();
     } catch (IOException e) {
-      log.error("Fehler beim Lesen der Version aus dem InputStream", e);
+      log("Fehler beim Lesen der Version aus dem InputStream");
+      e.printStackTrace();
       return "UNGÜLTIG";
     }
+  }
+
+  private static void log(String message) {
+    System.out.println(message);
   }
 }

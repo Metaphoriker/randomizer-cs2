@@ -1,4 +1,4 @@
-package com.revortix.model.updater;
+package de.metaphoriker.updater;
 
 /**
  * A listener interface for monitoring the progress of a task.
