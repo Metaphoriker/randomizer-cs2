@@ -16,6 +16,7 @@ import javafx.scene.Node;
 import javafx.scene.control.Label;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.layout.HBox;
+import javafx.scene.layout.Priority;
 import javafx.scene.layout.VBox;
 
 @View
@@ -100,7 +101,9 @@ public class RandomizerViewController {
     Label actionSequenceActionExecutedAt = new Label(LocalTime.now().format(formatter));
     actionSequenceActionExecutedAt.getStyleClass().add("logbook-history-entry-executed-at");
     rightbox.getChildren().addAll(actionSequenceActionCount, actionSequenceActionExecutedAt);
-    container.getChildren().addAll(actionSequenceNameLabel, rightbox);
+    HBox filler = new HBox();
+    HBox.setHgrow(filler, Priority.ALWAYS);
+    container.getChildren().addAll(actionSequenceNameLabel, filler, rightbox);
     historyVBox.getChildren().addFirst(container);
   }
 
