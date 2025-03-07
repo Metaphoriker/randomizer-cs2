@@ -113,6 +113,7 @@ public class RandomizerViewController {
                   sequenceNameLabel.setText("");
                   actionsVBox.getChildren().clear();
                 }));
+
     randomizerViewModel
         .getCurrentActionSequenceProperty()
         .addListener(
@@ -141,27 +142,31 @@ public class RandomizerViewController {
 
     randomizerViewModel.onActionFinished(
         action ->
-            actionsVBox.getChildren().stream()
-                .filter(Label.class::isInstance)
-                .map(Label.class::cast)
-                .filter(label -> label.getText().equals(action.getName()))
-                .filter(label -> !isActive(label))
-                .findFirst()
-                .ifPresent(label -> setPositionalStyling(label, true)));
+            Platform.runLater(
+                () -> {
+                  actionsVBox.getChildren().stream()
+                      .filter(Label.class::isInstance)
+                      .map(Label.class::cast)
+                      .filter(label -> label.getText().equals(action.getName()))
+                      .filter(label -> !isActive(label))
+                      .findFirst()
+                      .ifPresent(label -> setPositionalStyling(label, true));
+                }));
   }
 
   private void setupStateListener() {
-    randomizerViewModel.onStateChange(applicationState -> {
-      if (applicationState == ApplicationState.AWAITING) {
-        runnerStateLabel.setVisible(true);
-        cs2FocusLabel.setVisible(true);
-        logbookState.getStyleClass().add("logbook-state-awaiting");
-      } else {
-        runnerStateLabel.setVisible(false);
-        cs2FocusLabel.setVisible(false);
-        logbookState.getStyleClass().remove("logbook-state-awaiting");
-      }
-    });
+    randomizerViewModel.onStateChange(
+        applicationState -> {
+          if (applicationState == ApplicationState.AWAITING) {
+            runnerStateLabel.setVisible(true);
+            cs2FocusLabel.setVisible(true);
+            logbookState.getStyleClass().add("logbook-state-awaiting");
+          } else {
+            runnerStateLabel.setVisible(false);
+            cs2FocusLabel.setVisible(false);
+            logbookState.getStyleClass().remove("logbook-state-awaiting");
+          }
+        });
   }
 
   private boolean isActive(Label label) {
