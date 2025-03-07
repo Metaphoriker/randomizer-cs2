@@ -20,6 +20,7 @@
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-position: right;
+    -fx-cursor: hand;
 }
 
 .navigation-bar-home {
@@ -61,6 +62,7 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: right;
     -fx-background-image: url("../images/navigationbar/updateIndicatorIcon.png");
+    -fx-cursor: hand;
 }
 
 .navigation-bar-update-indicator:hover {
@@ -105,6 +107,7 @@
     -fx-font-size: 16;
     -fx-underline: true;
     -fx-text-fill: #A9A5F3;
+    -fx-cursor: hand;
 }
 
 .home-view-github {
@@ -297,6 +300,7 @@
     -fx-background-radius: 4;
     -fx-pref-width: 8;
     -fx-pref-height: 8;
+    -fx-cursor: hand;
 }
 
 .range-slider-sequence-interval .high-thumb:hover, .range-slider-sequence-interval .low-thumb:hover,
@@ -328,6 +332,7 @@
 .settings-apply-button:pressed {
     -fx-scale-x: 0.95;
     -fx-scale-y: 0.95;
+    -fx-cursor: hand;
 }
 
 .logbook-sequence-history {
@@ -444,6 +449,7 @@
     -fx-min-height: 14;
     -fx-max-height: 14;
     -fx-background-image: url("../images/builderView/folderIcon.png");
+    -fx-cursor: hand;
 }
 
 .builder-sequences-folder-button:hover {
@@ -455,6 +461,7 @@
     -fx-min-height: 12;
     -fx-max-height: 12;
     -fx-background-image: url("../images/builderView/addIcon.png");
+    -fx-cursor: hand;
 }
 
 .builder-sequences-add-sequence-button:hover {
@@ -524,6 +531,7 @@
     -fx-alignment: center;
     -fx-padding: 4;
     -fx-background-color: #9E99FF;
+    -fx-cursor: hand;
 }
 
 .builder-sequences-title {
@@ -541,6 +549,7 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 12;
+    -fx-cursor: hand;
 }
 
 .builder-sequences-delete-button:hover {
@@ -569,6 +578,7 @@
     -fx-font-size: 12;
     -fx-text-fill: #7E78ED;
     -fx-background-color: transparent;
+    -fx-cursor: hand;
 }
 
 .actions-category:hover, .actions-category:selected {
@@ -809,6 +819,7 @@
     -fx-background-repeat: no-repeat;
     -fx-background-position: center;
     -fx-background-size: 16;
+    -fx-cursor: hand;
 }
 
 .builder-randomize-button {
@@ -835,6 +846,7 @@
     -fx-background-position: center;
     -fx-background-size: 21 16;
     -fx-background-image: url("../images/builderEditorView/clearIcon.png");
+    -fx-cursor: hand;
 }
 
 .builder-actions-clear-button:hover {
@@ -919,6 +931,7 @@
     -fx-text-fill: #040316;
     -fx-background-radius: 4;
     -fx-background-color: transparent;
+    -fx-cursor: hand;
 }
 
 .settings-options:hover, .settings-options:selected {
@@ -973,6 +986,7 @@
     -fx-background-color: #ADA9EF;
     -fx-background-insets: 0;
     -fx-graphic: url("../images/settingsView/uncheckIcon.png");
+    -fx-cursor: hand;
 }
 
 .settings-toggle-button:selected {
@@ -1008,6 +1022,7 @@
 .settings-repo-link:hover {
     -fx-text-fill: #2F27CE;
     -fx-underline: true;
+    -fx-cursor: hand;
 }
 
 .settings-check-for-update {
@@ -1027,6 +1042,7 @@
     -fx-font-family: SansSerif;
     -fx-font-size: 12;
     -fx-background-color: #443DFF;
+    -fx-cursor: hand;
 }
 
 .settings-check-update-button:pressed {
@@ -1047,6 +1063,7 @@
     -fx-min-height: 14;
     -fx-max-height: 14;
     -fx-background-color: transparent;
+    -fx-cursor: hand;
     -fx-graphic: url("../images/settingsView/syncPathIcon.png");
 }
 
