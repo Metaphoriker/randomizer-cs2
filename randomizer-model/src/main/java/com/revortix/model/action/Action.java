@@ -88,6 +88,16 @@ public abstract class Action implements Cloneable {
   }
 
   /**
+   * Determines if the action has ended based on the expected ending time.
+   *
+   * @return {@code true} if the expected ending time is set and is before the current time,
+   *     otherwise {@code false}.
+   */
+  public boolean hasEnded() {
+    return expectedEnding != null && expectedEnding.isBefore(Instant.now());
+  }
+
+  /**
    * Executes an action with a specified delay. It begins by performing an action start using a key
    * code, waits for the specified delay allowing for interruption, and then, if not interrupted,
    * performs the action end.
@@ -124,9 +134,7 @@ public abstract class Action implements Cloneable {
     interrupted = true;
   }
 
-  /**
-   * Interrupting the keypress and doesn't wait for the current cycle to end.
-   */
+  /** Interrupting the keypress and doesn't wait for the current cycle to end. */
   public void instantInterrupt() {
     interrupted = true;
     performActionEnd(KEY_MAPPER.getKeyCodeForKey(getActionKey().getKey()));

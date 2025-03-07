@@ -40,9 +40,33 @@ public class ActionSequenceDispatcher {
     dispatchToHandlers(action, actionHandlers);
     runningActions.add(action);
     action.execute();
+    if (action.isInterrupted() && !action.hasEnded()) {
+      log.info("Interrupted action processing");
+      return;
+    }
+    finishDispatch(action);
+  }
+
+  private void finishDispatch(Action action) {
     runningActions.remove(action);
     finishActionProcessing(action);
     log.info(ACTION_DISPATCHED, action);
+  }
+
+  /**
+   * Attempts to redispatch the provided action with a specified delay and handles its lifecycle
+   * based on its state.
+   *
+   * @param action the action to be redispatched
+   * @param remainingTime the delay in milliseconds before the action is processed
+   */
+  public void redispatch(Action action, long remainingTime) {
+    action.executeWithDelay(remainingTime);
+    if (action.isInterrupted() && !action.hasEnded()) {
+      log.info("Interrupted action processing");
+      return;
+    }
+    finishDispatch(action);
   }
 
   /**

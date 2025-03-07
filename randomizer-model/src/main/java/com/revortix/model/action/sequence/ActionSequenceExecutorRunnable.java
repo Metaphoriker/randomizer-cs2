@@ -232,8 +232,8 @@ public class ActionSequenceExecutorRunnable implements Runnable {
     if (delayedAt != null) {
       long remainingTimeMs = delayedAt.toEpochMilli() - now.toEpochMilli();
       if (remainingTimeMs > 0) {
-        log.debug("Führe Aktion für {} ms fort.", remainingTimeMs);
-        currentAction.executeWithDelay(remainingTimeMs);
+        log.debug("Führe Aktion für {} ms fort (redispatched)", remainingTimeMs);
+        actionSequenceDispatcher.redispatch(currentAction, remainingTimeMs);
         return true;
       }
     }
@@ -273,7 +273,7 @@ public class ActionSequenceExecutorRunnable implements Runnable {
     lastCycle = Instant.now().toEpochMilli();
     lastWaitTime = waitTime;
   }
-  
+
   private void handleApplicationState() {
     long currentTime = Instant.now().toEpochMilli();
     if (currentTime - lastFocusCheckTime < FOCUS_CHECK_INTERVAL) return;
