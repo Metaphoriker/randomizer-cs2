@@ -400,6 +400,10 @@
     -fx-text-fill: #100C5A;
 }
 
+.logbook-history-entry-action-count {
+    -fx-pref-width: 12;
+}
+
 /* Builder View */
 .builder-sequences {
     -fx-min-width: 128;
