@@ -20,7 +20,7 @@
                         </children>
                     </HBox>
                     <Separator styleClass="builder-separator" />
-                    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefWidth="128.0" styleClass="builder-sequences-scrollpane" vbarPolicy="NEVER" VBox.vgrow="ALWAYS">
+                    <ScrollPane fitToHeight="true" fitToWidth="true" hbarPolicy="NEVER" prefWidth="128.0" styleClass="builder-sequences-scrollpane" VBox.vgrow="ALWAYS">
                         <content>
                             <VBox fx:id="actionSequencesVBox" styleClass="builder-actions-sequences" />
                         </content>
