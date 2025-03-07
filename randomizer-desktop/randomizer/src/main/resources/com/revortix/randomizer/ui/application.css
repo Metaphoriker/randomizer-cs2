@@ -877,7 +877,7 @@
 }
 
 .settings-options {
-    -fx-pref-width: 112;
+    -fx-min-width: 112;
     -fx-pref-height: 14;
     -fx-padding: 0 0 0 6;
     -fx-alignment: center-left;
@@ -899,6 +899,138 @@
     -fx-border-color: null;
 }
 
+.updater-settings {
+    -fx-pref-width: 480;
+    -fx-pref-height: 344;
+    -fx-spacing: 8;
+}
+
+.settings-auto-update {
+    -fx-pref-width: 480;
+}
+
+.settings-auto-update-container {
+    -fx-spacing: 4;
+    -fx-alignment: center-left;
+}
+
+.settings-title {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #040316;
+}
+
+.settings-description {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 11;
+    -fx-text-fill: #7E78ED;
+}
+
+.settings-toggle-button-container {
+    -fx-pref-width: 48;
+    -fx-pref-height: 16;
+    -fx-alignment: center-right;
+}
+
+.settings-toggle-button {
+    -fx-pref-width: 30;
+    -fx-max-height: 16;
+    -fx-background-radius: 8;
+    -fx-padding: 1 15 1 2;
+    -fx-background-color: #ADA9EF;
+    -fx-background-insets: 0;
+    -fx-graphic: url("../images/settingsView/uncheckIcon.png");
+}
+
+.settings-toggle-button:selected {
+    -fx-pref-width: 30;
+    -fx-max-height: 16;
+    -fx-background-radius: 8;
+    -fx-padding: 1 2 1 15;
+    -fx-background-color: #2F27CE;
+    -fx-background-insets: 0;
+    -fx-graphic: url("../images/settingsView/checkIcon.png");
+}
+
+.settings-separator, .settings-separator .line {
+    -fx-pref-width: 480;
+    -fx-pref-height: 1;
+    -fx-background-color: #CECCFF;
+    -fx-border-color: null;
+}
+
+.settings-update-repo {
+    -fx-pref-width: 480;
+    -fx-pref-height: 32;
+    -fx-spacing: 4;
+    -fx-alignment: center-left;
+}
+
+.settings-repo-link {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 11;
+    -fx-text-fill: #0800FF;
+}
+
+.settings-check-for-update {
+    -fx-pref-width: 480;
+    -fx-pref-height: 58;
+    -fx-spacing: 4;
+    -fx-alignment: center-left;
+}
+
+.settings-check-update-button {
+    -fx-pref-width: 112;
+    -fx-pref-height: 20;
+    -fx-padding: 3 6;
+    -fx-background-radius: 4;
+    -fx-text-fill: #EAE9FC;
+    -fx-text-alignment: center;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-background-color: #443DFF;
+}
+
+.settings-check-update-button:pressed {
+    -fx-scale-x: 0.95;
+    -fx-scale-y: 0.95;
+}
+
+.sync-path-container {
+    -fx-pref-width: 480;
+    -fx-pref-height: 16;
+    -fx-spacing: 4;
+    -fx-alignment: center-left;
+}
+
+.sync-config-path {
+    -fx-min-width: 14;
+    -fx-max-width: 14;
+    -fx-min-height: 14;
+    -fx-max-height: 14;
+    -fx-background-color: transparent;
+    -fx-graphic: url("../images/settingsView/syncPathIcon.png");
+}
+
+.sync-config-path:hover, .sync-config-path:pressed {
+    -fx-graphic: url("../images/settingsView/syncPathIconPressed.png");
+}
+
+.sync-config-path:pressed {
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
+}
+
+.config-path-label {
+    -fx-fit-to-width: true;
+    -fx-pref-height: 16;
+    -fx-padding: 2 6;
+    -fx-background-radius: 4;
+    -fx-background-color: #D6D6F5;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 11;
+    -fx-text-fill: #9E99FF;
+}
 
 
 /* Rangeslider Labels */

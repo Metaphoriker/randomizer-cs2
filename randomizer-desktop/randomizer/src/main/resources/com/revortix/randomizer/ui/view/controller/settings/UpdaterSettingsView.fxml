@@ -3,41 +3,49 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<VBox maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="344.0" prefWidth="480.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<VBox prefHeight="344.0" prefWidth="480.0" styleClass="updater-settings" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox prefHeight="32.0" prefWidth="480.0">
+      <HBox prefWidth="480.0" styleClass="settings-auto-update" HBox.hgrow="ALWAYS">
          <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <VBox styleClass="settings-auto-update-container" VBox.vgrow="ALWAYS">
                <children>
-                  <Label text="Auto Update" />
-                  <Label text="Automatically update Randomizer without confirmation" />
+                  <Label styleClass="settings-title" text="Auto Update" />
+                  <Label styleClass="settings-description" text="Automatically update Randomizer without confirmation" />
                </children>
             </VBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
-         </children></HBox>
-      <Separator prefWidth="200.0" />
-      <HBox prefHeight="32.0" prefWidth="480.0">
-         <children>
-            <VBox prefHeight="200.0" prefWidth="100.0">
+            <HBox HBox.hgrow="ALWAYS" />
+            <HBox prefHeight="16.0" prefWidth="48.0" styleClass="settings-toggle-button-container">
                <children>
-                  <Label text="Get notified when an update is available" />
-                  <Label text="Shows an update indicator next to the Settings icon" />
+                  <ToggleButton mnemonicParsing="false" styleClass="settings-toggle-button" />
+               </children></HBox>
+         </children></HBox>
+      <Separator styleClass="settings-separator" />
+      <HBox prefWidth="480.0" styleClass="settings-auto-update">
+         <children>
+            <VBox styleClass="settings-auto-update-container" VBox.vgrow="ALWAYS">
+               <children>
+                  <Label styleClass="settings-title" text="Get notified when an update is available" />
+                  <Label styleClass="settings-description" text="Shows an update indicator next to the Settings icon" />
                </children>
             </VBox>
-            <HBox prefHeight="100.0" prefWidth="200.0" />
+            <HBox HBox.hgrow="ALWAYS" />
+            <HBox prefHeight="16.0" prefWidth="48.0" styleClass="settings-toggle-button-container">
+               <children>
+                  <ToggleButton mnemonicParsing="false" styleClass="settings-toggle-button" />
+               </children></HBox>
          </children></HBox>
-      <Separator prefWidth="200.0" />
-      <VBox prefHeight="32.0" prefWidth="480.0">
+      <Separator styleClass="settings-separator" />
+      <VBox prefHeight="32.0" prefWidth="480.0" styleClass="settings-update-repo">
          <children>
-            <Label text="REPO" />
-            <Label text="Metaphoriker/randomizer-cs2" />
+            <Label styleClass="settings-title" text="REPO" />
+            <Label styleClass="settings-repo-link" text="Metaphoriker/randomizer-cs2" />
          </children></VBox>
-      <Separator prefWidth="200.0" />
-      <VBox prefHeight="58.0" prefWidth="480.0">
+      <Separator styleClass="settings-separator" />
+      <VBox prefHeight="58.0" prefWidth="480.0" styleClass="settings-check-for-update">
          <children>
-            <Label text="Updates" />
-            <Label text="Up to Date!" />
-            <Button mnemonicParsing="false" text="Check for Updates" />
+            <Label styleClass="settings-title" text="Updates" />
+            <Label styleClass="settings-description" text="Up to Date!" />
+            <Button mnemonicParsing="false" styleClass="settings-check-update-button" text="Check for Updates" />
          </children></VBox>
    </children>
 </VBox>
