@@ -46,6 +46,8 @@ public class UpdaterSettingsViewController {
     updateNotifierToggleButton
         .selectedProperty()
         .addListener((_, _, newVal) -> randomizerConfig.setUpdateNotifier(newVal));
+
+    // TODO: save logic for config
   }
 
   public void onRepoLinkClicked(MouseEvent mouseEvent) throws IOException {
