@@ -24,7 +24,13 @@ public class NavigationBarViewModel {
     this.selectedView.set(viewClass);
   }
 
-  public boolean isUpdateAvailable () {
-    return randomizerUpdater.isRandomizerUpdateAvailable();
+  public boolean isUpdateAvailable() {
+    boolean isUpdateAvailable = randomizerUpdater.isRandomizerUpdateAvailable();
+    log.info("Update available: {}", isUpdateAvailable ? "YES" : "NO");
+    return isUpdateAvailable;
+  }
+
+  public void runUpdater() {
+    randomizerUpdater.runUpdaterIfNeeded();
   }
 }

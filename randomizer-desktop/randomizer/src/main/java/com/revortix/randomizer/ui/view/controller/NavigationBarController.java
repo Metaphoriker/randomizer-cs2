@@ -12,8 +12,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
+import lombok.extern.slf4j.Slf4j;
 
 @View
+@Slf4j
 public class NavigationBarController {
   private final NavigationBarViewModel navigationBarViewModel;
   private final ViewProvider viewProvider;
@@ -77,7 +79,13 @@ public class NavigationBarController {
   private void setupUpdateIndicator() {
     Tooltip.install(updateIndicatorButton, new Tooltip("Click to update to the latest version"));
     CompletableFuture.supplyAsync(navigationBarViewModel::isUpdateAvailable)
-        .thenAccept(b -> Platform.runLater(() -> updateIndicatorButton.setVisible(b)));
+        .thenAccept(b -> Platform.runLater(() -> updateIndicatorButton.setVisible(b)))
+        .exceptionally(
+            throwable -> {
+              log.error("Error checking for updates", throwable);
+              return null;
+            });
+    updateIndicatorButton.setOnAction(_ -> navigationBarViewModel.runUpdater());
   }
 
   private void addToggleButtonListener(
