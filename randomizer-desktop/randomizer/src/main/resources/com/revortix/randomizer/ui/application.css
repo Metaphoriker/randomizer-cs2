@@ -350,6 +350,7 @@
 
 .logbook-history-scrollpane .scroll-bar:vertical {
     -fx-pref-width: 4;
+    -fx-padding: -4 0;
     -fx-background-color: transparent;
 }
 
@@ -473,6 +474,7 @@
 
 .builder-sequences-scrollpane .scroll-bar:vertical {
     -fx-pref-width: 4;
+    -fx-padding: -4 0;
     -fx-background-color: transparent;
 }
 
@@ -688,6 +690,7 @@
 
 .builder-settings-description-textfield .scroll-bar:vertical {
     -fx-pref-width: 4;
+    -fx-padding: -4 0;
     -fx-background-color: transparent;
 }
 
@@ -842,6 +845,7 @@
 
 .builder-selected-actions-scrollpane .scroll-bar:vertical {
     -fx-pref-width: 4;
+    -fx-padding: -4 0;
     -fx-background-color: transparent;
 }
 
