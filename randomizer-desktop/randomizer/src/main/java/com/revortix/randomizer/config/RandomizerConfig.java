@@ -28,6 +28,9 @@ public class RandomizerConfig extends BaseConfiguration {
   @Key("autoupdate.enabled")
   private boolean autoupdateEnabled = false;
 
+  @Key("update.notifier")
+  private boolean updateNotifier = true;
+
   @Key("show.intro")
   private boolean showIntro = true;
 
