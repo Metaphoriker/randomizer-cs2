@@ -1005,6 +1005,11 @@
     -fx-text-fill: #0800FF;
 }
 
+.settings-repo-link:hover {
+    -fx-text-fill: #2F27CE;
+    -fx-underline: true;
+}
+
 .settings-check-for-update {
     -fx-pref-width: 480;
     -fx-pref-height: 58;
