@@ -1110,6 +1110,13 @@
     -fx-scale-y: 0.9;
 }
 
+.sync-failed-indicator {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 11;
+    -fx-text-fill: #A50E0E;
+    -fx-background-color: transparent;
+}
+
 
 /* Rangeslider Labels */
 .rangeslider-min-label, .rangeslider-max-label {

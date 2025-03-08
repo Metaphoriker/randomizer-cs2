@@ -7,10 +7,7 @@ import com.revortix.randomizer.ui.view.viewmodel.settings.GeneralSettingsViewMod
 import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
-import javafx.scene.control.Button;
-import javafx.scene.control.TextField;
-import javafx.scene.control.ToggleButton;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 
 @View
 public class GeneralSettingsController {
@@ -21,6 +18,7 @@ public class GeneralSettingsController {
   @FXML private Button syncConfigButton;
   @FXML private TextField configPathTextField;
   @FXML private MinMaxSlider minMaxSlider;
+  @FXML private Label syncFailedIndicator;
 
   @Inject
   public GeneralSettingsController(GeneralSettingsViewModel generalSettingsViewModel) {
@@ -67,8 +65,10 @@ public class GeneralSettingsController {
         .exceptionallyAsync(
             e -> {
               syncConfigButton.getStyleClass().add("sync-config-path-failed");
+              syncFailedIndicator.setVisible(true);
               return null;
             },
             Platform::runLater);
+            syncFailedIndicator.setVisible(false);
   }
 }

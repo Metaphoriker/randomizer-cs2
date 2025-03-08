@@ -54,6 +54,7 @@
                         <HBox HBox.hgrow="ALWAYS"/>
                     </children>
                 </HBox>
+                <Label fx:id="syncFailedIndicator" visible="false" styleClass="sync-failed-indicator" text="Config could not be loaded. Please try again or enter it manually"/>
             </children>
         </VBox>
     </children>
