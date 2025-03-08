@@ -23,7 +23,6 @@ public class UIUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
     log.error("Unexpected error", e);
 
     Alert alert = createStyledAlert();
-    Throwable rootCause = getRootCause(e);
     VBox content = createContent();
 
     alert.getDialogPane().setContent(content);
@@ -39,15 +38,6 @@ public class UIUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
     alert.setTitle("User Error Dialog");
     alert.setHeaderText("Something happened");
     return alert;
-  }
-
-  private Throwable getRootCause(Throwable e) {
-    Throwable cause = e.getCause();
-    while (cause != null) {
-      e = cause;
-      cause = e.getCause();
-    }
-    return e;
   }
 
   private VBox createContent() {
