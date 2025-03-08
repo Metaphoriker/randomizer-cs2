@@ -24,18 +24,18 @@
                 </HBox>
             </children>
         </HBox>
-        <Separator styleClass="settings-separator"/>
-        <HBox styleClass="settings-auto-update">
-            <children>
-                <VBox styleClass="settings-auto-update-container" VBox.vgrow="ALWAYS">
-                    <children>
-                        <Label styleClass="settings-title" text="Sequence Interval"/>
-                        <Label styleClass="settings-description" text="Changes the Interval between each Sequence"/>
-                        <MinMaxSlider fx:id="minMaxSlider" styleClass="range-slider-action-interval"/>
-                    </children>
-                </VBox>
-            </children>
-        </HBox>
+<!--        <Separator styleClass="settings-separator"/>-->
+<!--        <HBox styleClass="settings-auto-update">-->
+<!--            <children>-->
+<!--                <VBox styleClass="settings-auto-update-container" VBox.vgrow="ALWAYS">-->
+<!--                    <children>-->
+<!--                        <Label styleClass="settings-title" text="Sequence Interval"/>-->
+<!--                        <Label styleClass="settings-description" text="Changes the Interval between each Sequence"/>-->
+<!--                        <MinMaxSlider fx:id="minMaxSlider" styleClass="range-slider-action-interval"/>-->
+<!--                    </children>-->
+<!--                </VBox>-->
+<!--            </children>-->
+<!--        </HBox>-->
         <Separator styleClass="settings-separator"/>
         <VBox styleClass="settings-auto-update-container">
             <children>
