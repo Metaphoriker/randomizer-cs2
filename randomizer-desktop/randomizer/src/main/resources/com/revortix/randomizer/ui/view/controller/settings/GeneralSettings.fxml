@@ -47,7 +47,7 @@
                 <Label styleClass="settings-description" text="Shows the path of the config used to load the keybinds"/>
                 <HBox styleClass="sync-path-container" HBox.hgrow="ALWAYS">
                     <children>
-                        <Button styleClass="sync-config-path" mnemonicParsing="false" tooltip="Sync"/>
+                        <Button fx:id="syncConfigButton" styleClass="sync-config-path" mnemonicParsing="false"/>
                         <Label styleClass="config-path-label"
                                text="C:\Program Files (x86)\Steam\userdata\869932099\730\local\cfg"/>
                     </children>
