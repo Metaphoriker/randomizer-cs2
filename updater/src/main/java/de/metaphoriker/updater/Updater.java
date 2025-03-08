@@ -3,6 +3,10 @@ package de.metaphoriker.updater;
 import java.io.*;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.zip.ZipEntry;
 import java.util.zip.ZipFile;
 
@@ -17,57 +21,42 @@ public class Updater {
   public static final String RANDOMIZER_DOWNLOAD_URL =
       "https://github.com/revortix/randomizer-cs2/releases/download/latest/randomizer.jar";
 
-  /**
-   * Updates the specified target file using the provided download URL.
-   *
-   * @param target The file to be updated.
-   * @param downloadUrl The URL from which the file update should be downloaded.
-   */
-  public static void update(File target, String downloadUrl) {
-    update(target, downloadUrl, null);
+  private static final ExecutorService EXECUTOR_SERVICE = Executors.newCachedThreadPool();
+
+  public static CompletionStage<Void> update(File target, String downloadUrl) {
+    return update(target, downloadUrl, null);
   }
 
-  /**
-   * Updates the target file with content from the specified download URL, providing progress
-   * through the listener.
-   *
-   * @param target the file to update
-   * @param downloadUrl the URL to download content from
-   * @param listener the listener to track the progress of the download
-   */
-  public static void update(File target, String downloadUrl, ProgressListener listener) {
-    log("Starte Aktualisierung von URL: " + downloadUrl + " zu Ziel-Datei: " + target);
-
-    try {
-      URL downloadFrom = new URL(downloadUrl);
-      copyURLToFileWithProgress(downloadFrom, target, listener);
-      log("Erfolgreich aktualisiert von URL: " + downloadUrl + " zu Ziel-Datei: " + target);
-    } catch (IOException e) {
-      log("Fehler bei der Aktualisierung von URL: " + downloadUrl + " zu Ziel-Datei: " + target);
-      e.printStackTrace();
-      throw new RuntimeException(e);
-    }
+  public static CompletionStage<Void> update(
+      File target, String downloadUrl, ProgressListener listener) {
+    return CompletableFuture.runAsync(
+            () -> {
+              log("Starting update from URL: " + downloadUrl + " to target file: " + target);
+              try {
+                URL downloadFrom = new URL(downloadUrl);
+                copyURLToFileWithProgress(downloadFrom, target, listener);
+                log("Successfully updated from URL: " + downloadUrl + " to target file: " + target);
+              } catch (IOException e) {
+                throw new IllegalStateException(
+                    "Error updating from URL: " + downloadUrl + " to target file: " + target, e);
+              }
+            },
+            EXECUTOR_SERVICE)
+        .exceptionally(
+            ex -> {
+              log("Exception during update: " + ex.getMessage());
+              throw new IllegalStateException(ex);
+            });
   }
 
-  /**
-   * Downloads a file from the specified URL and saves it to the specified destination file,
-   * providing progress updates via a ProgressListener. Uses HttpURLConnection for more control over
-   * the connection.
-   *
-   * @param source the URL to copy the file from.
-   * @param destination the file to which the URL's content will be copied.
-   * @param listener a ProgressListener to receive updates about the copy progress, can be null.
-   * @throws IOException if an error occurs during the file copy process.
-   */
-  public static void copyURLToFileWithProgress(
+  private static void copyURLToFileWithProgress(
       URL source, File destination, ProgressListener listener) throws IOException {
     HttpURLConnection connection = (HttpURLConnection) source.openConnection();
-    connection.setRequestMethod("GET"); // Ensure GET request
+    connection.setRequestMethod("GET");
 
     try (InputStream inputStream = connection.getInputStream()) {
-      long totalBytes = connection.getContentLengthLong(); // Get content length from the connection
+      long totalBytes = connection.getContentLengthLong();
 
-      // Create parent directories if they don't exist
       File parentDir = destination.getParentFile();
       if (parentDir != null && !parentDir.exists()) {
         if (!parentDir.mkdirs()) {
@@ -75,8 +64,7 @@ public class Updater {
         }
       }
 
-      try (FileOutputStream outputStream =
-          new FileOutputStream(destination)) { // Use FileOutputStream
+      try (FileOutputStream outputStream = new FileOutputStream(destination)) {
         byte[] buffer = new byte[1024];
         long bytesRead = 0;
         int n;
@@ -87,10 +75,14 @@ public class Updater {
             listener.onProgress(bytesRead, totalBytes);
           }
         }
-        log("Daten von URL: " + source + " erfolgreich zu Ziel-Datei: " + destination + " kopiert");
+        log(
+            "Data successfully copied from URL: "
+                + source
+                + " to destination file: "
+                + destination);
       }
     } finally {
-      connection.disconnect(); // Always disconnect
+      connection.disconnect();
     }
   }
 
@@ -109,130 +101,130 @@ public class Updater {
     }
   }
 
-  /**
-   * Checks if an update is available for the given file by comparing its version with the version
-   * retrieved from a specified URL.
-   *
-   * @param toUpdate the file to be checked for updates
-   * @param versionUrl the URL from which the latest version information can be retrieved
-   * @return true if an update is available or the file is not found/accessible, false otherwise
-   */
-  public static boolean isUpdateAvailable(File toUpdate, String versionUrl, FileType fileType) {
-    log("Prüfen auf Update: Datei = " + toUpdate + ", Versions-URL = " + versionUrl);
+  public static CompletionStage<Boolean> isUpdateAvailable(
+      File toUpdate, String versionUrl, FileType fileType) {
+    return CompletableFuture.supplyAsync(
+            () -> {
+              log("Checking for update: File = " + toUpdate + ", Version URL = " + versionUrl);
 
-    if (!toUpdate.exists()) {
-      log("Update verfügbar: Ziel-Datei existiert nicht: " + toUpdate);
-      return true;
-    }
-    String version = getVersion(toUpdate, fileType);
-    log("Update für Version=" + version + " von Datei=" + toUpdate + " wird geprüft");
+              if (!toUpdate.exists()) {
+                log("Update available: Target file does not exist: " + toUpdate);
+                return true;
+              }
 
-    String versionFile = fileType.getPrefix() + "version.txt";
-    try (ZipFile zipFile = new ZipFile(toUpdate)) {
-      ZipEntry versionEntry = zipFile.getEntry(versionFile);
-      if (versionEntry == null) {
-        log(
-            "Update verfügbar: "
-                + fileType.getPrefix()
-                + "version.txt Eintrag wurde nicht im Zip-Archiv gefunden");
-        return true;
-      }
+              String version =
+                  getVersion(toUpdate, fileType).toCompletableFuture().join(); // get the version
+              log("Checking update for version=" + version + " of file=" + toUpdate);
 
-      version = readLineFromInputStream(zipFile.getInputStream(versionEntry));
-      boolean updateAvailable = isUpdateAvailable(version, versionUrl);
-      log(
-          "Update-Verfügbarkeit geprüft: aktuelle Version = "
-              + version
-              + ", Update verfügbar = "
-              + updateAvailable);
-      return updateAvailable;
-    } catch (IOException e) {
-      log("Fehler bei der Prüfung auf Update von Datei: " + toUpdate);
-      e.printStackTrace();
-      throw new RuntimeException(e);
-    }
+              boolean updateAvailable =
+                  isUpdateAvailable(version, versionUrl).toCompletableFuture().join();
+              log(
+                  "Update availability checked: current version = "
+                      + version
+                      + ", Update available = "
+                      + updateAvailable);
+              return updateAvailable;
+            },
+            EXECUTOR_SERVICE)
+        .exceptionally(
+            ex -> {
+              log("Exception during update check: " + ex.getMessage());
+              throw new IllegalStateException(ex);
+            });
   }
 
-  public static String getVersion(File file, FileType fileType) {
-    if (!file.exists()) {
-      log("Datei nicht gefunden: " + file);
-      return "NOT FOUND";
-    }
+  public static CompletionStage<String> getVersion(File file, FileType fileType) {
+    return CompletableFuture.supplyAsync(
+            () -> {
+              if (!file.exists()) {
+                log("File not found: " + file);
+                return "NOT FOUND";
+              }
 
-    String versionFile = fileType.getPrefix() + "version.txt";
-    try (ZipFile zipFile = new ZipFile(file)) {
-      ZipEntry versionEntry = zipFile.getEntry(versionFile);
-      if (versionEntry == null) {
-        return "NOT FOUND";
-      }
+              String versionFile = fileType.getPrefix() + "version.txt";
+              try (ZipFile zipFile = new ZipFile(file)) {
+                ZipEntry versionEntry = zipFile.getEntry(versionFile);
+                if (versionEntry == null) {
+                  return "NOT FOUND";
+                }
 
-      return readLineFromInputStream(zipFile.getInputStream(versionEntry));
-    } catch (IOException e) {
-      log("Fehler bei der Prüfung auf Update von Datei: " + file);
-      return "NOT FOUND";
-    }
+                return readLineFromInputStream(zipFile.getInputStream(versionEntry));
+              } catch (IOException e) {
+                throw new IllegalStateException("Error reading version from file: " + file, e);
+              }
+            },
+            EXECUTOR_SERVICE)
+        .exceptionally(
+            ex -> {
+              log("Exception during version retrieval: " + ex.getMessage());
+              return "NOT FOUND";
+            });
   }
 
-  /**
-   * Retrieves the latest version from a specified version URL.
-   *
-   * @param versionUrl the URL from which the latest version information can be retrieved
-   * @return a String representing the latest version.
-   */
-  public static String getLatestVersion(String versionUrl) {
-    log("Abrufen der neuesten Version von URL: " + versionUrl);
-    try {
-      URL url = new URL(versionUrl);
-      HttpURLConnection connection = (HttpURLConnection) url.openConnection();
-      connection.setRequestMethod("GET"); // Set request method explicitly
+  public static CompletionStage<String> getLatestVersion(String versionUrl) {
+    return CompletableFuture.supplyAsync(
+            () -> {
+              log("Retrieving latest version from URL: " + versionUrl);
+              try {
+                URL url = new URL(versionUrl);
+                HttpURLConnection connection = (HttpURLConnection) url.openConnection();
+                connection.setRequestMethod("GET");
 
-      try (BufferedReader in =
-          new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
-        String latestVersion = in.readLine();
-        log("Erfolgreich abgerufen: neueste Version = " + latestVersion);
-        return latestVersion;
-      } finally {
-        connection.disconnect(); // Ensure disconnection
-      }
-    } catch (IOException e) {
-      log("Fehler beim Abrufen der neuesten Version von URL: " + versionUrl);
-      return "UNGÜLTIG";
-    }
+                try (BufferedReader in =
+                    new BufferedReader(new InputStreamReader(connection.getInputStream()))) {
+                  String latestVersion = in.readLine();
+                  log("Successfully retrieved: latest version = " + latestVersion);
+                  return latestVersion;
+                } finally {
+                  connection.disconnect();
+                }
+              } catch (IOException e) {
+                throw new IllegalStateException(
+                    "Error retrieving latest version from URL: " + versionUrl, e);
+              }
+            },
+            EXECUTOR_SERVICE)
+        .exceptionally(
+            ex -> {
+              log("Exception during latest version retrieval: " + ex.getMessage());
+              return "NOT FOUND";
+            });
   }
 
-  /**
-   * Checks if an update is available for the given version using the specified version URL.
-   *
-   * @param version the current version to check against
-   * @param versionUrl the URL used to check for the latest version
-   * @return true if an update is available, false otherwise
-   */
-  public static boolean isUpdateAvailable(String version, String versionUrl) {
-    log(
-        "Prüfen auf Update mit aktueller Version: "
-            + version
-            + " unter Verwendung der Versions-URL: "
-            + versionUrl);
+  public static CompletionStage<Boolean> isUpdateAvailable(String version, String versionUrl) {
+    return CompletableFuture.supplyAsync(
+            () -> {
+              log(
+                  "Checking for update with current version: "
+                      + version
+                      + " using version URL: "
+                      + versionUrl);
 
-    UpdateChecker updateChecker = new UpdateChecker(versionUrl);
-    updateChecker.checkUpdate(version);
+              UpdateChecker updateChecker = new UpdateChecker(versionUrl);
+              updateChecker.checkUpdate(version);
 
-    boolean updateAvailable = updateChecker.isUpdateAvailable();
-    log(
-        "Update-Prüfung abgeschlossen: Versions-URL = "
-            + versionUrl
-            + ", Update verfügbar = "
-            + updateAvailable);
-    return updateAvailable;
+              boolean updateAvailable = updateChecker.isUpdateAvailable();
+              log(
+                  "Update check completed: Version URL = "
+                      + versionUrl
+                      + ", Update available = "
+                      + updateAvailable);
+              return updateAvailable;
+            },
+            EXECUTOR_SERVICE)
+        .exceptionally(
+            ex -> {
+              log("Exception during update availability check: " + ex.getMessage());
+              if (ex instanceof RuntimeException) {
+                throw (RuntimeException) ex;
+              }
+              throw new RuntimeException(ex);
+            });
   }
 
-  private static String readLineFromInputStream(InputStream inputStream) {
+  private static String readLineFromInputStream(InputStream inputStream) throws IOException {
     try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
       return bufferedReader.readLine();
-    } catch (IOException e) {
-      log("Fehler beim Lesen der Version aus dem InputStream");
-      e.printStackTrace();
-      return "UNGÜLTIG";
     }
   }
 

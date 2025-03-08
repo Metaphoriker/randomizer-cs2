@@ -2,6 +2,7 @@ package com.revortix.randomizer.ui.view.viewmodel;
 
 import com.google.inject.Inject;
 import com.revortix.randomizer.bootstrap.RandomizerUpdater;
+import java.util.concurrent.CompletionStage;
 import javafx.beans.property.ObjectProperty;
 import javafx.beans.property.SimpleObjectProperty;
 import lombok.Getter;
@@ -24,10 +25,8 @@ public class NavigationBarViewModel {
     this.selectedView.set(viewClass);
   }
 
-  public boolean isUpdateAvailable() {
-    boolean isUpdateAvailable = randomizerUpdater.isRandomizerUpdateAvailable();
-    log.info("Update available: {}", isUpdateAvailable ? "YES" : "NO");
-    return isUpdateAvailable;
+  public CompletionStage<Boolean> isUpdateAvailable() {
+    return randomizerUpdater.isRandomizerUpdateAvailable();
   }
 
   public void runUpdater() {

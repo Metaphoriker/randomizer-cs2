@@ -7,6 +7,9 @@ import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.NavigationBarController;
 import com.revortix.randomizer.ui.view.viewmodel.settings.UpdateSettingsViewModel;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
@@ -42,12 +45,31 @@ public class UpdaterSettingsViewController {
 
   @FXML
   public void onUpdateCheck(ActionEvent event) {
-    boolean isUpdateAvailable = randomizerUpdater.isRandomizerUpdateAvailable();
-    updateLabel.setText(
-        isUpdateAvailable
-            ? "Update Available - v" + randomizerUpdater.getRandomizerVersion()
-            : "Randomizer is up to date!");
-    viewProvider.requestView(NavigationBarController.class).controller().triggerUpdateCheck();
+    CompletionStage<Boolean> randomizerUpdateAvailable =
+        randomizerUpdater.isRandomizerUpdateAvailable();
+    CompletionStage<String> randomizerVersion = randomizerUpdater.getRandomizerVersion();
+
+    CompletableFuture<Void> allOf =
+        CompletableFuture.allOf(
+            randomizerUpdateAvailable.toCompletableFuture(),
+            randomizerVersion.toCompletableFuture());
+
+    allOf.thenRunAsync(
+        () -> {
+          boolean updateAvailable = randomizerUpdateAvailable.toCompletableFuture().join();
+          String version = randomizerVersion.toCompletableFuture().join();
+
+          if (updateAvailable) {
+            updateLabel.setText("Update Available - v" + version);
+            viewProvider
+                .requestView(NavigationBarController.class)
+                .controller()
+                .triggerUpdateCheck();
+          } else {
+            updateLabel.setText("Randomizer is up to date!");
+          }
+        },
+        Platform::runLater);
   }
 
   private void bind() {

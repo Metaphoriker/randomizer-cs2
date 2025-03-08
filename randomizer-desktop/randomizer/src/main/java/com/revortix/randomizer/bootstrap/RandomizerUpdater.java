@@ -5,85 +5,115 @@ import de.metaphoriker.updater.Updater;
 import de.metaphoriker.updater.util.JarFileUtil;
 import java.io.File;
 import java.io.IOException;
+import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import javafx.application.Platform;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j
 public class RandomizerUpdater {
 
-  private static void startProcess(ProcessBuilder processBuilder)
-      throws IOException, InterruptedException {
-    Process process = processBuilder.start();
-    process.waitFor();
-  }
-
   public void runUpdaterIfNeeded() {
-    log.info("Richte Appdata Verzeichnis ein...");
+    log.info("Setting up appdata directory...");
     File updater = getUpdater();
     startUpdaterIfNecessary(updater.getAbsolutePath());
   }
 
-  public boolean isRandomizerUpdateAvailable() {
+  public CompletionStage<Boolean> isRandomizerUpdateAvailable() {
     try {
       return Updater.isUpdateAvailable(
-          Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.RANDOMIZER),
-          Updater.RANDOMIZER_VERSION_URL);
+          JarFileUtil.getJarFile(), Updater.RANDOMIZER_VERSION_URL, Updater.FileType.RANDOMIZER);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new IllegalStateException(e);
     }
   }
 
   public File getUpdater() {
     File updaterJar = new File(ApplicationContext.getAppdataFolder(), "randomizer-updater.jar");
     if (!updaterJar.exists()) {
-      updaterJar = installUpdater();
+      installUpdater();
     }
     return updaterJar;
   }
 
-  public String getRandomizerVersion() {
+  public CompletionStage<String> getRandomizerVersion() {
     try {
       return Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.RANDOMIZER);
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      throw new IllegalStateException(e);
     }
   }
 
   public File installUpdater() {
-    log.info("Installiere Updater...");
+    log.info("Installing Updater...");
     File updaterJar = new File(ApplicationContext.getAppdataFolder(), "randomizer-updater.jar");
+
     try {
-      if (!updaterJar.exists()) updaterJar.createNewFile();
+      if (!updaterJar.exists()) {
+        updaterJar.getParentFile().mkdirs();
+        updaterJar.createNewFile();
+      }
     } catch (IOException e) {
-      log.error("Fehler beim Erstellen der Updater Datei", e);
-      throw new RuntimeException(e);
+      log.error("Error creating Updater file", e);
+      throw new IllegalStateException(e);
     }
 
-    if (Updater.isUpdateAvailable(
-        updaterJar, Updater.UPDATER_VERSION_URL, Updater.FileType.UPDATER)) {
-      Updater.update(updaterJar, Updater.UPDATER_DOWNLOAD_URL);
-    }
-
+    Updater.isUpdateAvailable(updaterJar, Updater.UPDATER_VERSION_URL, Updater.FileType.UPDATER)
+        .thenCompose(
+            updateAvailable -> {
+              if (Boolean.TRUE.equals(updateAvailable)) {
+                log.info("Updating updater...");
+                return Updater.update(updaterJar, Updater.UPDATER_DOWNLOAD_URL);
+              }
+              return CompletableFuture.completedFuture(null);
+            })
+        .exceptionally(
+            e -> {
+              log.error("Error updating updater", e);
+              throw new IllegalStateException(e);
+            })
+        .toCompletableFuture()
+        .join();
     return updaterJar;
   }
 
-  private void startUpdaterIfNecessary(String path) {
-    log.info("Starte Updater falls notwendig...");
+  private void startUpdaterIfNecessary(String updaterPath) {
+    log.info("Checking for Randomizer updates...");
     try {
       File jarPath = JarFileUtil.getJarFile();
-      if (Updater.isUpdateAvailable(
-          Updater.getVersion(jarPath, Updater.FileType.RANDOMIZER),
-          Updater.RANDOMIZER_VERSION_URL)) {
-        log.info("Updater gestartet");
-        ProcessBuilder processBuilder =
-            new ProcessBuilder(
-                "java", "-jar", path, "-randomizerLocation=" + jarPath.getAbsolutePath());
-        processBuilder.inheritIO();
-        startProcess(processBuilder);
-        Platform.exit(); // we want to close the randomizer in order to update it
-      }
-    } catch (IOException | InterruptedException e) {
-      throw new RuntimeException(e);
+
+      isRandomizerUpdateAvailable()
+          .thenAccept(
+              updateAvailable -> {
+                if (Boolean.TRUE.equals(updateAvailable)) {
+                  log.info("Randomizer update available. Starting Updater...");
+                  try {
+                    ProcessBuilder processBuilder =
+                        new ProcessBuilder(
+                            "java",
+                            "-jar",
+                            updaterPath,
+                            "-randomizerLocation=" + jarPath.getAbsolutePath());
+                    processBuilder.inheritIO();
+                    processBuilder.start();
+                    Platform.runLater(Platform::exit);
+                  } catch (IOException e) {
+                    log.error("Failed to start updater process.", e);
+                    throw new IllegalStateException("Failed to start updater", e);
+                  }
+                } else {
+                  log.info("No Randomizer update available.");
+                }
+              })
+          .exceptionally(
+              ex -> {
+                log.error("Error during update check.", ex);
+                return null;
+              });
+
+    } catch (IOException e) {
+      log.error("Failed to get current JAR path.", e);
+      throw new IllegalStateException("Failed to determine current JAR path", e);
     }
   }
 }

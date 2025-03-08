@@ -6,7 +6,6 @@ import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.builder.BuilderViewController;
 import com.revortix.randomizer.ui.view.viewmodel.NavigationBarViewModel;
-import java.util.concurrent.CompletableFuture;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.fxml.FXML;
@@ -89,7 +88,8 @@ public class NavigationBarController {
   }
 
   public void triggerUpdateCheck() {
-    CompletableFuture.supplyAsync(navigationBarViewModel::isUpdateAvailable)
+    navigationBarViewModel
+        .isUpdateAvailable()
         .thenAccept(b -> Platform.runLater(() -> updateIndicatorButton.setVisible(b)))
         .exceptionally(
             throwable -> {

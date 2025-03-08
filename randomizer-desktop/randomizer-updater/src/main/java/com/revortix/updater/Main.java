@@ -9,6 +9,7 @@ import java.awt.geom.RoundRectangle2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
+import java.util.concurrent.CompletionStage;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
 import javax.swing.plaf.basic.BasicProgressBarUI;
@@ -192,40 +193,44 @@ public class Main {
   }
 
   private void checkAndUpdate(File randomizer) {
-    CompletableFuture.supplyAsync(
-            () ->
-                Updater.isUpdateAvailable(
-                    randomizer, Updater.RANDOMIZER_VERSION_URL, Updater.FileType.RANDOMIZER))
-        .thenAcceptAsync(
-            isUpdateAvailable -> {
-              String currentVersion = Updater.getVersion(randomizer, Updater.FileType.RANDOMIZER);
-              String latestVersion = Updater.getLatestVersion(Updater.RANDOMIZER_VERSION_URL);
+    CompletionStage<Boolean> updateAvailable =
+        Updater.isUpdateAvailable(
+            randomizer, Updater.RANDOMIZER_VERSION_URL, Updater.FileType.RANDOMIZER);
+    CompletionStage<String> randomizerVersion =
+        Updater.getVersion(randomizer, Updater.FileType.RANDOMIZER);
+    CompletionStage<String> latestVersion =
+        Updater.getLatestVersion(Updater.RANDOMIZER_VERSION_URL);
+
+    CompletableFuture<Void> allOf =
+        CompletableFuture.allOf(
+            updateAvailable.toCompletableFuture(),
+            randomizerVersion.toCompletableFuture(),
+            latestVersion.toCompletableFuture());
+
+    allOf
+        .thenRunAsync(
+            () -> {
+              String currentVersion = randomizerVersion.toCompletableFuture().join();
+              String latestVersionString = latestVersion.toCompletableFuture().join();
+              boolean isUpdateAvailable = updateAvailable.toCompletableFuture().join();
 
               SwingUtilities.invokeLater(
-                  () ->
-                      versionComparisonLabel.setText(
-                          String.format("%s \u2192 %s", currentVersion, latestVersion)));
+                  () -> {
+                    versionComparisonLabel.setText(
+                        String.format("%s → %s", currentVersion, latestVersionString));
+                    versionComparisonLabel.setForeground(
+                        isUpdateAvailable ? ERROR_COLOR : SUCCESS_COLOR);
 
-              if (isUpdateAvailable) {
-                SwingUtilities.invokeLater(() -> versionComparisonLabel.setForeground(ERROR_COLOR));
-              } else {
-                SwingUtilities.invokeLater(
-                    () -> versionComparisonLabel.setForeground(SUCCESS_COLOR));
-              }
-
-              if (isUpdateAvailable) {
-                SwingUtilities.invokeLater(() -> statusLabel.setText("Updating..."));
-                updateRandomizer(randomizer);
-              } else {
-                SwingUtilities.invokeLater(
-                    () -> {
+                    if (isUpdateAvailable) {
+                      statusLabel.setText("Updating...");
+                      updateRandomizer(randomizer);
+                    } else {
                       statusLabel.setText("No update available!");
                       progressBar.setValue(100);
                       progressBar.setString("Up to date!");
-                    });
-              }
-            },
-            SwingUtilities::invokeLater)
+                    }
+                  });
+            })
         .exceptionally(
             e -> {
               SwingUtilities.invokeLater(
