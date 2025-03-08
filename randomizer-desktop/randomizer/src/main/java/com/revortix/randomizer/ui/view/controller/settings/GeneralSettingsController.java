@@ -62,11 +62,8 @@ public class GeneralSettingsController {
 
   @FXML
   private void onConfigSync(ActionEvent event) {
-    syncConfigButton.getStyleClass().setAll("sync-loading-path");
     generalSettingsViewModel
         .loadConfigs()
-        .thenRunAsync(
-            () -> syncConfigButton.getStyleClass().setAll("sync-config-path"), Platform::runLater)
         .exceptionallyAsync(
             e -> {
               syncConfigButton.getStyleClass().setAll("sync-config-path-failed");
