@@ -48,6 +48,7 @@ public class RandomizerApplication extends Application {
             throw new RuntimeException(e);
           }
           ActionSequenceDispatcher.discardAllRunningActions();
+          Updater.close();
           Platform.exit();
         });
     stage.show();

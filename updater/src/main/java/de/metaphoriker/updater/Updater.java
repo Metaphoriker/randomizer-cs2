@@ -222,6 +222,10 @@ public class Updater {
             });
   }
 
+  public static void close() {
+      EXECUTOR_SERVICE.shutdown();
+  }
+
   private static String readLineFromInputStream(InputStream inputStream) throws IOException {
     try (BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream))) {
       return bufferedReader.readLine();

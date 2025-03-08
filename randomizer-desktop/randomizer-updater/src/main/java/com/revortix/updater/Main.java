@@ -74,6 +74,7 @@ public class Main {
     closeButton.addActionListener(
         e -> {
           mainFrame.dispose();
+          Updater.close();
           System.exit(0);
         });
     topPanel.add(closeButton, BorderLayout.EAST);
