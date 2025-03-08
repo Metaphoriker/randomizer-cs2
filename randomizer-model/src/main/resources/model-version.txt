@@ -1,4 +1,4 @@
-1.1.1
+1.1.2
 /*
  * The first number of the version is the major version number.
  * The second number of the version is the minor version number.

@@ -12,7 +12,6 @@ import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import lombok.extern.slf4j.Slf4j;
@@ -59,9 +58,9 @@ public class RandomizerApplication extends Application {
       if (Main.isTestMode()) {
         stage.setTitle("Randomizer-CS2 - DEVELOPMENT");
       } else {
-        stage.setTitle(
-            "Randomizer-CS2 - "
-                + Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.RANDOMIZER));
+        stage.setTitle("Randomizer-CS2");
+        Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.RANDOMIZER)
+            .thenAccept(version -> stage.setTitle("Randomizer-CS2 - " + version));
       }
     } catch (Exception e) {
       log.error("Fehler beim Laden der Version für Titel", e);
