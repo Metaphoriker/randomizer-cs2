@@ -471,7 +471,7 @@
 .builder-separator, .builder-separator .line {
     -fx-pref-width: 128;
     -fx-pref-height: 1;
-    -fx-background-color: #6B66FF;
+    -fx-background-color: #CECCFF;
     -fx-border-color: null;
 }
 
