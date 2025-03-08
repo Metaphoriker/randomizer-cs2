@@ -1044,7 +1044,7 @@
 }
 
 .sync-path-container {
-    -fx-pref-width: 462;
+    -fx-pref-width: 480;
     -fx-pref-height: 16;
     -fx-spacing: 4;
     -fx-alignment: center-left;
@@ -1073,7 +1073,7 @@
 }
 
 .config-path-textfield {
-    -fx-pref-width: 440;
+    -fx-pref-width: 426;
     -fx-pref-height: 16;
     -fx-padding: 2 6;
     -fx-background-radius: 4;
