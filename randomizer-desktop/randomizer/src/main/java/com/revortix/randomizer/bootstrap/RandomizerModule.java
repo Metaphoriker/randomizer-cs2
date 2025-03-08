@@ -10,6 +10,7 @@ import com.revortix.randomizer.ui.view.viewmodel.builder.BuilderViewModel;
 import com.revortix.randomizer.ui.view.viewmodel.HomeViewModel;
 import com.revortix.randomizer.ui.view.viewmodel.NavigationBarViewModel;
 import com.revortix.randomizer.ui.view.viewmodel.RandomizerViewModel;
+import com.revortix.randomizer.ui.view.viewmodel.settings.GeneralSettingsViewModel;
 import com.revortix.randomizer.ui.view.viewmodel.settings.UpdateSettingsViewModel;
 
 public class RandomizerModule extends AbstractModule {
@@ -23,6 +24,7 @@ public class RandomizerModule extends AbstractModule {
         bind(RandomizerViewModel.class).asEagerSingleton();
         bind(ActionSettingsViewModel.class).asEagerSingleton();
         bind(UpdateSettingsViewModel.class).asEagerSingleton();
+        bind(GeneralSettingsViewModel.class).asEagerSingleton();
         bind(HomeViewModel.class).asEagerSingleton();
         bind(ViewProvider.class).asEagerSingleton();
         bind(RandomizerConfig.class).asEagerSingleton();
