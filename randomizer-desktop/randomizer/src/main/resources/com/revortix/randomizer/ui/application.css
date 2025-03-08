@@ -1080,17 +1080,6 @@
     -fx-graphic: url("../images/settingsView/syncFailedIconPressed.png");
 }
 
-.sync-loading-path {
-    -fx-pref-width: 14;
-    -fx-pref-height: 14;
-    -fx-background-size: 14;
-    -fx-background-position: center;
-    -fx-background-repeat: no-repeat;
-    -fx-background-color: transparent;
-    -fx-cursor: hand;
-    -fx-background-image: url("../images/settingsView/syncLoading.gif");
-}
-
 .config-path-textfield {
     -fx-pref-width: 426;
     -fx-pref-height: 16;
