@@ -44,8 +44,7 @@
                 <HBox styleClass="sync-path-container" HBox.hgrow="ALWAYS">
                     <children>
                         <Button fx:id="syncConfigButton" styleClass="sync-config-path" mnemonicParsing="false"/>
-                        <TextField HBox.hgrow="ALWAYS" styleClass="config-path-label"
-                                   text="C:\Program Files (x86)\Steam\userdata\869932099\730\local\cfg"/>
+                        <TextField HBox.hgrow="ALWAYS" styleClass="config-path-label" editable="false"/>
                     </children>
                 </HBox>
             </children>

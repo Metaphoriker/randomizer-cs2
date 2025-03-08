@@ -4,6 +4,7 @@ import com.google.inject.Inject;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.viewmodel.settings.GeneralSettingsViewModel;
 import javafx.fxml.FXML;
+import javafx.scene.control.Button;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 
@@ -13,7 +14,7 @@ public class GeneralSettingsController {
   private final GeneralSettingsViewModel generalSettingsViewModel;
 
   @FXML private ToggleButton showIntroToggleButton;
-  @FXML private ToggleButton syncConfigButton;
+  @FXML private Button syncConfigButton;
 
   @Inject
   public GeneralSettingsController(GeneralSettingsViewModel generalSettingsViewModel) {
