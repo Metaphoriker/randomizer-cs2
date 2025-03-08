@@ -5,11 +5,10 @@ import com.revortix.randomizer.config.RandomizerConfig;
 import com.revortix.randomizer.ui.util.GifDecoder;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.ViewProvider;
+import com.revortix.randomizer.ui.view.controller.builder.BuilderViewController;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
-
-import com.revortix.randomizer.ui.view.controller.builder.BuilderViewController;
 import javafx.animation.KeyFrame;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;

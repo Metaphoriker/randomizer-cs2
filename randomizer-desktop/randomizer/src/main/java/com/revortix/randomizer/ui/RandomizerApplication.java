@@ -8,7 +8,6 @@ import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.RandomizerWindowController;
 import de.metaphoriker.updater.Updater;
 import de.metaphoriker.updater.util.JarFileUtil;
-import java.io.IOException;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.scene.Parent;
@@ -75,27 +74,5 @@ public class RandomizerApplication extends Application {
     stage.setWidth(MIN_WIDTH);
     stage.setHeight(MIN_HEIGHT);
     stage.setScene(scene);
-  }
-
-  public static class UIUncaughtExceptionHandler implements Thread.UncaughtExceptionHandler {
-    @Override
-    public void uncaughtException(Thread t, Throwable e) {
-      log.error("Unexpected error", e);
-      Alert alert = new Alert(Alert.AlertType.ERROR);
-      alert
-          .getDialogPane()
-          .getStylesheets()
-          .add(getClass().getResource("alert-style.css").toExternalForm());
-      alert.setTitle("An unexpected error occured");
-      alert.setHeaderText("Please open an Issue on GitHub with the following text:");
-      alert.setContentText(e.toString());
-      Throwable cause = e.getCause();
-      while (cause != null) {
-        e = cause;
-        cause = e.getCause();
-      }
-      alert.setContentText("An unexpected error occurred:\n" + e);
-      alert.showAndWait();
-    }
   }
 }

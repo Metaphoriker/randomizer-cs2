@@ -18,6 +18,7 @@ public class ApplicationContext {
             new File(System.getenv("APPDATA") + File.separator + "randomizer");
 
     private static final File APPDATA_LIBS_FOLDER = new File(APPDATA_FOLDER, "libs");
+    private static final File APPDATA_LOGS_FOLDER = new File(APPDATA_FOLDER, "logs");
 
     private final List<Consumer<ApplicationState>> changeListener = new ArrayList<>();
 
@@ -29,6 +30,10 @@ public class ApplicationContext {
 
     public static File getAppdataLibsFolder() {
         return APPDATA_LIBS_FOLDER;
+    }
+
+    public static File getAppdataLogsFolder() {
+        return APPDATA_LOGS_FOLDER;
     }
 
     /**
