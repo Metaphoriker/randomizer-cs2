@@ -61,6 +61,23 @@ public class Main {
     progressBar = createProgressBar();
     versionComparisonLabel = createVersionComparisonLabel();
 
+    JPanel topPanel = new JPanel(new BorderLayout());
+    topPanel.setOpaque(false);
+
+    topPanel.add(versionComparisonLabel, BorderLayout.CENTER);
+
+    JButton closeButton = new JButton("X");
+    closeButton.setForeground(Color.WHITE);
+    closeButton.setBackground(ERROR_COLOR);
+    closeButton.setFocusPainted(false);
+    closeButton.setBorder(BorderFactory.createEmptyBorder(5, 10, 5, 10));
+    closeButton.addActionListener(
+        e -> {
+          mainFrame.dispose();
+          System.exit(0);
+        });
+    topPanel.add(closeButton, BorderLayout.EAST);
+
     JPanel contentPanel =
         new JPanel(new BorderLayout(10, 10)) {
           @Override
@@ -78,15 +95,11 @@ public class Main {
         BorderFactory.createCompoundBorder(
             BorderFactory.createLineBorder(BORDER_COLOR, 2), new EmptyBorder(15, 20, 15, 20)));
 
-    JPanel versionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
-    versionPanel.setOpaque(false);
-    versionPanel.add(versionComparisonLabel);
-
     JPanel progressPanel = new JPanel(new BorderLayout());
     progressPanel.setOpaque(false);
     progressPanel.add(progressBar, BorderLayout.CENTER);
 
-    contentPanel.add(versionPanel, BorderLayout.NORTH);
+    contentPanel.add(topPanel, BorderLayout.NORTH);
     contentPanel.add(statusLabel, BorderLayout.CENTER);
     contentPanel.add(progressPanel, BorderLayout.SOUTH);
 
