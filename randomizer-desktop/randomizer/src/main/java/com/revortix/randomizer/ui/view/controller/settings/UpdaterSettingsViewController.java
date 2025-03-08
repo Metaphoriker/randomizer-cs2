@@ -1,57 +1,45 @@
 package com.revortix.randomizer.ui.view.controller.settings;
 
 import com.google.inject.Inject;
-import com.revortix.randomizer.config.RandomizerConfig;
 import com.revortix.randomizer.ui.view.View;
+import com.revortix.randomizer.ui.view.viewmodel.settings.UpdateSettingsViewModel;
+import java.io.IOException;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.input.MouseEvent;
 
-import java.awt.*;
-import java.io.IOException;
-import java.net.URI;
-
 @View
 public class UpdaterSettingsViewController {
 
-  private static final String REPO_LINK = "https://github.com/Metaphoriker/randomizer-cs2";
-
-  private final RandomizerConfig randomizerConfig;
+  private final UpdateSettingsViewModel updateSettingsViewModel;
 
   @FXML private ToggleButton autoUpdateToggleButton;
   @FXML private ToggleButton updateNotifierToggleButton;
 
   @Inject
-  public UpdaterSettingsViewController(RandomizerConfig randomizerConfig) {
-    this.randomizerConfig = randomizerConfig;
+  public UpdaterSettingsViewController(UpdateSettingsViewModel updateSettingsViewModel) {
+    this.updateSettingsViewModel = updateSettingsViewModel;
   }
 
   @FXML
   private void initialize() {
-    initializeButtonStates();
+    bind();
   }
 
   @FXML
   public void onUpdateCheck(ActionEvent event) {}
 
-  private void initializeButtonStates() {
-    autoUpdateToggleButton.setSelected(randomizerConfig.isAutoupdateEnabled());
-    updateNotifierToggleButton.setSelected(randomizerConfig.isUpdateNotifier());
-
-    // TODO: via bindings in viewmodel
+  private void bind() {
     autoUpdateToggleButton
         .selectedProperty()
-        .addListener((_, _, newVal) -> randomizerConfig.setAutoupdateEnabled(newVal));
+        .bindBidirectional(updateSettingsViewModel.autoUpdateProperty());
     updateNotifierToggleButton
         .selectedProperty()
-        .addListener((_, _, newVal) -> randomizerConfig.setUpdateNotifier(newVal));
-
-    // TODO: save logic for config
+        .bindBidirectional(updateSettingsViewModel.updateNotifierProperty());
   }
 
   public void onRepoLinkClicked(MouseEvent mouseEvent) throws IOException {
-    // TODO: viewmodel logic
-    Desktop.getDesktop().browse(URI.create(REPO_LINK));
+    updateSettingsViewModel.browseRepository();
   }
 }
