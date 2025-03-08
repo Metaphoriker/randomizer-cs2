@@ -28,6 +28,7 @@ public class RandomizerConfigLoader {
         log.info("Default KeyBinds erfolgreich geladen!");
       }
     } catch (Exception e) {
+      throw new RuntimeException("Fehler beim Laden der Default KeyBinds", e);
     }
   }
 
@@ -37,6 +38,7 @@ public class RandomizerConfigLoader {
       ConfigLoader.loadUserKeyBindings(getUserConfigPath(), keyBindRepository);
       log.info("User KeyBinds erfolgreich geladen!");
     } catch (Exception e) {
+      throw new RuntimeException("Fehler beim Laden der User KeyBinds", e);
     }
   }
 

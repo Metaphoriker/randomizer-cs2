@@ -56,7 +56,7 @@ public class ConfigLoader {
         return defaultConfig.getAbsolutePath();
       }
     }
-    return null;
+    throw new IllegalStateException("Standardkonfigurationsdatei nicht gefunden.");
   }
 
   public static String findUserConfigFile() {
@@ -72,7 +72,7 @@ public class ConfigLoader {
         }
       }
     }
-    return null;
+    throw new IllegalStateException("Keine Benutzerkonfigurationsdatei gefunden.");
   }
 
   private static File[] listUserDirectories(File userdataFolder) {

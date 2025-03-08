@@ -36,6 +36,7 @@ public class GeneralSettingsViewModel {
     return CompletableFuture.runAsync(
             () -> {
               randomizerConfig.setConfigPath(randomizerConfigLoader.ladeUserConfigPath());
+              randomizerConfig.save();
               randomizerConfigLoader.ladeDefaultKeyBinds();
               randomizerConfigLoader.ladeUserKeyBinds();
             })

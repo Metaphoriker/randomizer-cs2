@@ -66,7 +66,7 @@ public class GeneralSettingsController {
         .loadConfigs()
         .exceptionallyAsync(
             e -> {
-              syncConfigButton.getStyleClass().setAll("sync-config-path-failed");
+              syncConfigButton.getStyleClass().add("sync-config-path-failed");
               return null;
             },
             Platform::runLater);

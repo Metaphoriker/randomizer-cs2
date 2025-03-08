@@ -68,6 +68,7 @@ public class KeyBindRepository {
       log.info("Erfolgreich {} KeyBinds geladen", keyBinds.size());
     } catch (FileNotFoundException e) {
       log.error("Konfigurationsdatei nicht gefunden: {}", filePath, e);
+      throw new RuntimeException(e);
     }
   }
 
