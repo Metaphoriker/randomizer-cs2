@@ -169,7 +169,7 @@ public class Updater {
       return readLineFromInputStream(zipFile.getInputStream(versionEntry));
     } catch (IOException e) {
       log("Fehler bei der Prüfung auf Update von Datei: " + file);
-      throw new RuntimeException(e);
+      return "NOT FOUND";
     }
   }
 
@@ -196,7 +196,6 @@ public class Updater {
       }
     } catch (IOException e) {
       log("Fehler beim Abrufen der neuesten Version von URL: " + versionUrl);
-      e.printStackTrace(); // Log the exception details
       return "UNGÜLTIG";
     }
   }
