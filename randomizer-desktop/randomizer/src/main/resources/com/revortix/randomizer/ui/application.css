@@ -251,16 +251,7 @@
     -fx-spacing: 12;
 }
 
-.logbook-sequence-interval {
-    -fx-pref-width: 276;
-    -fx-pref-height: 100;
-    -fx-background-radius: 8;
-    -fx-background-color: #E6E5FF;
-    -fx-spacing: 6;
-    -fx-padding: 6 8;
-}
-
-.logbook-sequence-interval-label, .logbook-history-label {
+.logbook-history-label {
     -fx-font-family: SansSerif;
     -fx-font-size: 12;
     -fx-text-fill: #040316;
@@ -336,6 +327,7 @@
 }
 
 .logbook-sequence-history {
+    -fx-pref-height: 320;
     -fx-background-radius: 8;
     -fx-background-color: #E6E5FF;
     -fx-spacing: 4;
@@ -348,7 +340,7 @@
 
 .logbook-history-content {
     -fx-pref-width: 260;
-    -fx-pref-height: 158;
+    -fx-pref-height: 268;
     -fx-spacing: 6;
     -fx-background-color: #E6E5FF;
 }
