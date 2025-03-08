@@ -183,6 +183,7 @@
 .logbook-toggle-button {
     -fx-pref-width: 20;
     -fx-min-height: 20;
+    -fx-max-height: 20;
     -fx-background-color: transparent;
     -fx-background-repeat: no-repeat;
     -fx-background-size: 20;
