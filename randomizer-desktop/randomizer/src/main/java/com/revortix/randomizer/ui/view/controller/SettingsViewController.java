@@ -25,30 +25,22 @@ public class SettingsViewController {
 
   @FXML
   private void initialize() {
-    generalToggleButton
-        .selectedProperty()
-        .addListener(
-            (obs, oldVal, newVal) -> {
-              updaterToggleButton.setSelected(!newVal);
-              if (newVal) {
-                contentPane
-                    .getChildren()
-                    .setAll(viewProvider.requestView(GeneralSettingsController.class).parent());
-              }
-            });
-
-    updaterToggleButton
-        .selectedProperty()
-        .addListener(
-            (obs, oldVal, newVal) -> {
-              generalToggleButton.setSelected(!newVal);
-              if (newVal) {
-                contentPane
-                    .getChildren()
-                    .setAll(viewProvider.requestView(UpdaterSettingsViewController.class).parent());
-              }
-            });
-
+    setupButton(generalToggleButton, UpdaterSettingsViewController.class, updaterToggleButton);
+    setupButton(updaterToggleButton, GeneralSettingsController.class, generalToggleButton);
     generalToggleButton.setSelected(true);
+  }
+
+  private void setupButton(ToggleButton thisButton, Class<?> viewClass, ToggleButton otherButton) {
+    thisButton
+        .selectedProperty()
+        .addListener(
+            (_, _, newValue) -> {
+              if (newValue) {
+                otherButton.setSelected(false);
+                contentPane.getChildren().setAll(viewProvider.requestView(viewClass).parent());
+              } else if (!otherButton.isSelected()) {
+                thisButton.setSelected(true);
+              }
+            });
   }
 }
