@@ -45,7 +45,7 @@ public class RandomizerViewModel {
   public void saveInterval() {
     randomizerConfig.setMinInterval(minIntervalProperty.get());
     randomizerConfig.setMaxInterval(maxIntervalProperty.get());
-    randomizerConfig.saveConfiguration();
+    randomizerConfig.save();
 
     log.info(
         "Save interval {}:{} to configuration.",

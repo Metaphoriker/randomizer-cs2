@@ -27,6 +27,6 @@ public class GeneralSettingsViewModel {
 
   public void saveSettings() {
     randomizerConfig.setShowIntro(showIntroProperty.get());
-    randomizerConfig.saveConfiguration();
+    randomizerConfig.save();
   }
 }

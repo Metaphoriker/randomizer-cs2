@@ -74,7 +74,7 @@ public class BuilderActionsViewController {
           } else {
             randomizerConfig.getBuilderFiltersActivated().remove(keyBindTypeName);
           }
-          randomizerConfig.saveConfiguration();
+          randomizerConfig.save();
           updateActionDisplay();
         });
   }

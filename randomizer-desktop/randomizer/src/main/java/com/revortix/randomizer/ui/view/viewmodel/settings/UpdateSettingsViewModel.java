@@ -43,7 +43,7 @@ public class UpdateSettingsViewModel {
   public void saveSettings() {
     randomizerConfig.setAutoupdateEnabled(autoUpdateProperty.get());
     randomizerConfig.setUpdateNotifier(updateNotifierProperty.get());
-    randomizerConfig.saveConfiguration();
+    randomizerConfig.save();
   }
 
   public void browseRepository() throws IOException {

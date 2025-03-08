@@ -76,14 +76,14 @@ public class RandomizerBootstrap {
   }
 
   private void firstStartInitialization() {
-    if(!randomizerConfig.isFirstStart()) return;
+    if (!randomizerConfig.isFirstStart()) return;
     // TODO:
     randomizerConfig.setFirstStart(false);
   }
 
   private void loadConfiguration() {
     log.info("Lade Konfiguration...");
-    randomizerConfig.setDirectory(ApplicationContext.getAppdataFolder());
+    randomizerConfig.setDirectory(ApplicationContext.getAppdataFolder().toPath());
     randomizerConfig.initialize();
 
     ActionSequenceExecutorRunnable.setMinWaitTime(randomizerConfig.getMinInterval());
@@ -107,7 +107,7 @@ public class RandomizerBootstrap {
     try {
       String configPath = ConfigLoader.findUserConfigFile();
       randomizerConfig.setConfigPath(configPath);
-      randomizerConfig.saveConfiguration();
+      randomizerConfig.save();
       if (configPath != null) {
         ConfigLoader.loadUserKeyBindings(configPath, keyBindRepository);
         log.info("User KeyBinds erfolgreich geladen!");
