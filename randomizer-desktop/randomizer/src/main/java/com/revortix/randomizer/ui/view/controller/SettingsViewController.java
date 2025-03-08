@@ -25,8 +25,8 @@ public class SettingsViewController {
 
   @FXML
   private void initialize() {
-    setupButton(generalToggleButton, UpdaterSettingsViewController.class, updaterToggleButton);
-    setupButton(updaterToggleButton, GeneralSettingsController.class, generalToggleButton);
+    setupButton(generalToggleButton, GeneralSettingsController.class, updaterToggleButton);
+    setupButton(updaterToggleButton, UpdaterSettingsViewController.class, generalToggleButton);
     generalToggleButton.setSelected(true);
   }
 
