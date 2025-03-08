@@ -58,7 +58,7 @@
         <VBox prefHeight="58.0" prefWidth="480.0" styleClass="settings-check-for-update">
             <children>
                 <Label styleClass="settings-title" text="Updates"/>
-                <Label styleClass="settings-description" text="Up to Date!"/>
+                <Label fx:id="updateLabel" styleClass="settings-description" text="Click to check for an update."/>
                 <Button mnemonicParsing="false" styleClass="settings-check-update-button"
                         text="Check for Updates" onAction="#onUpdateCheck"/>
             </children>

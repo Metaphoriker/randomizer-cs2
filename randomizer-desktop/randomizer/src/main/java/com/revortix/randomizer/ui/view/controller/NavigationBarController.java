@@ -78,6 +78,11 @@ public class NavigationBarController {
 
   private void setupUpdateIndicator() {
     Tooltip.install(updateIndicatorButton, new Tooltip("Click to update to the latest version"));
+    triggerUpdateCheck();
+    updateIndicatorButton.setOnAction(_ -> navigationBarViewModel.runUpdater());
+  }
+
+  public void triggerUpdateCheck() {
     CompletableFuture.supplyAsync(navigationBarViewModel::isUpdateAvailable)
         .thenAccept(b -> Platform.runLater(() -> updateIndicatorButton.setVisible(b)))
         .exceptionally(
@@ -85,7 +90,6 @@ public class NavigationBarController {
               log.error("Error checking for updates", throwable);
               return null;
             });
-    updateIndicatorButton.setOnAction(_ -> navigationBarViewModel.runUpdater());
   }
 
   private void addToggleButtonListener(

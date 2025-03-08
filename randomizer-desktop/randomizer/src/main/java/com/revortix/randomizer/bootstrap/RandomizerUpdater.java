@@ -41,6 +41,14 @@ public class RandomizerUpdater {
     return updaterJar;
   }
 
+  public String getRandomizerVersion() {
+    try {
+      return Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.RANDOMIZER);
+    } catch (IOException e) {
+      throw new RuntimeException(e);
+    }
+  }
+
   public File installUpdater() {
     log.info("Installiere Updater...");
     File updaterJar = new File(ApplicationContext.getAppdataFolder(), "randomizer-updater.jar");
