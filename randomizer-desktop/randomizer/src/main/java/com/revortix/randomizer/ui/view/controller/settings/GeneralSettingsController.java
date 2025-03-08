@@ -28,13 +28,17 @@ public class GeneralSettingsController {
 
   @FXML
   private void initialize() {
+    generalSettingsViewModel.setupViewModel();
+    setupSettingsOptions();
+    setupIntervalSlider();
+  }
+
+  private void setupSettingsOptions() {
     configPathTextField.setText(generalSettingsViewModel.getConfigPath());
     syncConfigButton.setTooltip(new Tooltip("Sync"));
     showIntroToggleButton
         .selectedProperty()
         .bindBidirectional(generalSettingsViewModel.getShowIntroProperty());
-    generalSettingsViewModel.setupViewModel();
-    setupIntervalSlider();
   }
 
   private void setupIntervalSlider() {
