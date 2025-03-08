@@ -37,6 +37,7 @@ public class UpdaterSettingsViewController {
   @FXML
   private void initialize() {
     bind();
+    updateSettingsViewModel.setupProperties();
   }
 
   @FXML
@@ -44,7 +45,7 @@ public class UpdaterSettingsViewController {
     boolean isUpdateAvailable = randomizerUpdater.isRandomizerUpdateAvailable();
     updateLabel.setText(
         isUpdateAvailable
-            ? "Update Available, v" + randomizerUpdater.getRandomizerVersion()
+            ? "Update Available - v" + randomizerUpdater.getRandomizerVersion()
             : "Randomizer is up to date!");
     viewProvider.requestView(NavigationBarController.class).controller().triggerUpdateCheck();
   }

@@ -30,5 +30,6 @@ public class GeneralSettingsController {
     showIntroToggleButton
         .selectedProperty()
         .bindBidirectional(generalSettingsViewModel.showIntroProperty());
+    generalSettingsViewModel.setupProperties();
   }
 }
