@@ -24,10 +24,13 @@ public class UpdateSettingsViewModel {
   @Inject
   public UpdateSettingsViewModel(RandomizerConfig randomizerConfig) {
     this.randomizerConfig = randomizerConfig;
-    setupListener();
+    setupProperties();
   }
 
-  private void setupListener() {
+  private void setupProperties() {
+    autoUpdateProperty.set(randomizerConfig.isAutoupdateEnabled());
+    updateNotifierProperty.set(randomizerConfig.isUpdateNotifier());
+
     autoUpdateProperty.addListener(switchSettingsListener);
     updateNotifierProperty.addListener(switchSettingsListener);
   }

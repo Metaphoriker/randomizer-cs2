@@ -14,6 +14,11 @@ public class GeneralSettingsViewModel {
   @Inject
   public GeneralSettingsViewModel(RandomizerConfig randomizerConfig) {
     this.randomizerConfig = randomizerConfig;
+    setupProperties(randomizerConfig);
+  }
+
+  private void setupProperties(RandomizerConfig randomizerConfig) {
+    showIntroProperty.set(randomizerConfig.isShowIntro());
     showIntroProperty.addListener((_, _, _) -> saveSettings());
   }
 
