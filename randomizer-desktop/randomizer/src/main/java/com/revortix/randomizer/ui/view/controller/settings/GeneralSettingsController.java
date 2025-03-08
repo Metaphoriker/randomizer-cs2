@@ -5,6 +5,7 @@ import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.component.MinMaxSlider;
 import com.revortix.randomizer.ui.view.viewmodel.settings.GeneralSettingsViewModel;
 import javafx.application.Platform;
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -34,6 +35,9 @@ public class GeneralSettingsController {
   }
 
   private void setupSettingsOptions() {
+    configPathTextField
+        .textProperty()
+        .bindBidirectional(generalSettingsViewModel.getConfigPathProperty());
     configPathTextField.setText(generalSettingsViewModel.getConfigPath());
     syncConfigButton.setTooltip(new Tooltip("Sync"));
     showIntroToggleButton
@@ -54,5 +58,20 @@ public class GeneralSettingsController {
     minMaxSlider
         .getMaxProperty()
         .bindBidirectional(generalSettingsViewModel.getMaxIntervalProperty());
+  }
+
+  @FXML
+  private void onConfigSync(ActionEvent event) {
+    syncConfigButton.getStyleClass().setAll("sync-loading-path");
+    generalSettingsViewModel
+        .loadConfigs()
+        .thenRunAsync(
+            () -> syncConfigButton.getStyleClass().setAll("sync-config-path"), Platform::runLater)
+        .exceptionallyAsync(
+            e -> {
+              syncConfigButton.getStyleClass().setAll("sync-config-path-failed");
+              return null;
+            },
+            Platform::runLater);
   }
 }

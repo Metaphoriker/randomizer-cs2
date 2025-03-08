@@ -48,7 +48,7 @@
                 <Label styleClass="settings-description" text="Shows the path of the config used to load the keybinds"/>
                 <HBox styleClass="sync-path-container" HBox.hgrow="ALWAYS">
                     <children>
-                        <Button fx:id="syncConfigButton" styleClass="sync-config-path" mnemonicParsing="false"/>
+                        <Button fx:id="syncConfigButton" styleClass="sync-config-path" mnemonicParsing="false" onAction="#onConfigSync"/>
                         <TextField fx:id="configPathTextField" styleClass="config-path-textfield" editable="false"/>
                         <Button styleClass="config-folder-path" mnemonicParsing="false"/>
                         <HBox HBox.hgrow="ALWAYS"/>

@@ -12,7 +12,6 @@ import com.revortix.model.action.impl.PauseAction;
 import com.revortix.model.action.repository.ActionRepository;
 import com.revortix.model.action.repository.ActionSequenceRepository;
 import com.revortix.model.action.sequence.ActionSequenceExecutorRunnable;
-import com.revortix.model.config.ConfigLoader;
 import com.revortix.model.config.keybind.KeyBindRepository;
 import com.revortix.model.exception.UncaughtExceptionLogger;
 import com.revortix.model.messages.Messages;
@@ -36,6 +35,7 @@ public class RandomizerBootstrap {
   private final ActionSequenceExecutorRunnable actionSequenceExecutorRunnable;
   private final RandomizerConfig randomizerConfig;
   private final RandomizerUpdater randomizerUpdater;
+  private final RandomizerConfigLoader randomizerConfigLoader;
 
   @Inject
   public RandomizerBootstrap(
@@ -44,22 +44,24 @@ public class RandomizerBootstrap {
       KeyBindRepository keyBindRepository,
       ActionSequenceExecutorRunnable actionSequenceExecutorRunnable,
       RandomizerConfig randomizerConfig,
-      RandomizerUpdater randomizerUpdater) {
+      RandomizerUpdater randomizerUpdater,
+      RandomizerConfigLoader randomizerConfigLoader) {
     this.actionSequenceRepository = actionSequenceRepository;
     this.actionRepository = actionRepository;
     this.keyBindRepository = keyBindRepository;
     this.actionSequenceExecutorRunnable = actionSequenceExecutorRunnable;
     this.randomizerConfig = randomizerConfig;
     this.randomizerUpdater = randomizerUpdater;
+    this.randomizerConfigLoader = randomizerConfigLoader;
   }
 
   public void initializeApplication() {
     log.info("Initialisiere Applikation...");
     loadConfiguration();
+    loadUserKeyBindsByConfig();
     randomizerUpdater.installUpdater();
     if (!Main.isTestMode() && randomizerConfig.isAutoupdateEnabled())
       randomizerUpdater.runUpdaterIfNeeded();
-    loadKeyBinds();
     registerActions();
     setupFileWatcher();
     Messages.cache();
@@ -69,9 +71,10 @@ public class RandomizerBootstrap {
     startExecutor();
   }
 
-  private void loadKeyBinds() {
-    loadDefaultKeyBinds();
-    ladeUserKeyBinds();
+  private void loadUserKeyBindsByConfig() {
+    randomizerConfigLoader.ladeDefaultKeyBinds();
+    if (randomizerConfig.getConfigPath() != null && !randomizerConfig.getConfigPath().isEmpty())
+      randomizerConfigLoader.ladeUserKeyBinds();
   }
 
   private void loadConfiguration() {
@@ -81,32 +84,6 @@ public class RandomizerBootstrap {
 
     ActionSequenceExecutorRunnable.setMinWaitTime(randomizerConfig.getMinInterval());
     ActionSequenceExecutorRunnable.setMaxWaitTime(randomizerConfig.getMaxInterval());
-  }
-
-  private void loadDefaultKeyBinds() {
-    log.info("Lade KeyBinds...");
-    try {
-      String configPath = ConfigLoader.findDefaultConfigFile();
-      if (configPath != null) {
-        ConfigLoader.loadDefaultKeyBinds(configPath, keyBindRepository);
-        log.info("Default KeyBinds erfolgreich geladen!");
-      }
-    } catch (Exception e) {
-    }
-  }
-
-  private void ladeUserKeyBinds() {
-    log.info("Lade User KeyBinds...");
-    try {
-      String configPath = ConfigLoader.findUserConfigFile();
-      randomizerConfig.setConfigPath(configPath.replace("\\", "/"));
-      randomizerConfig.save();
-      if (configPath != null) {
-        ConfigLoader.loadUserKeyBindings(configPath, keyBindRepository);
-        log.info("User KeyBinds erfolgreich geladen!");
-      }
-    } catch (Exception e) {
-    }
   }
 
   private void setupFileWatcher() {
