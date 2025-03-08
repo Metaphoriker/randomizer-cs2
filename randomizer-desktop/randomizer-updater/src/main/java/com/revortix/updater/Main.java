@@ -15,7 +15,6 @@ import javax.swing.plaf.basic.BasicProgressBarUI;
 
 public class Main {
 
-  // Colors from your .dialog-pane CSS, adapted for Swing
   private static final Color BACKGROUND_START = new Color(26, 26, 46); // #1a1a2e
   private static final Color BACKGROUND_END = new Color(22, 33, 62); // #16213e
   private static final Color BORDER_COLOR = new Color(82, 40, 126, 179); // rgba(82, 40, 126, 0.7)
@@ -236,41 +235,60 @@ public class Main {
   }
 
   private void showErrorDialog(String errorMessage) {
-    JLabel label = new JLabel(errorMessage, SwingConstants.CENTER);
-    label.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-    label.setForeground(ERROR_COLOR);
+    Color errorBackgroundStart =
+        new Color(
+            BACKGROUND_START.getRed() + 20,
+            BACKGROUND_START.getGreen(),
+            BACKGROUND_START.getBlue());
+    Color errorBackgroundEnd =
+        new Color(
+            BACKGROUND_END.getRed() + 20, BACKGROUND_END.getGreen(), BACKGROUND_END.getBlue());
 
     JPanel panel =
         new JPanel() {
           @Override
           protected void paintComponent(Graphics g) {
-            super.paintComponent(g);
-            Graphics2D g2d = (Graphics2D) g;
+            Graphics2D g2d = (Graphics2D) g.create();
+            g2d.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
             GradientPaint gradient =
-                new GradientPaint(0, 0, BACKGROUND_START, getWidth(), getHeight(), BACKGROUND_END);
+                new GradientPaint(0, 0, errorBackgroundStart, 0, getHeight(), errorBackgroundEnd);
             g2d.setPaint(gradient);
             g2d.fillRect(0, 0, getWidth(), getHeight());
+            g2d.dispose();
           }
         };
-
-    panel.setLayout(new BorderLayout());
-    panel.add(label, BorderLayout.CENTER);
+    panel.setOpaque(false);
+    panel.setLayout(new BorderLayout(10, 10));
     panel.setBorder(
         BorderFactory.createCompoundBorder(
-            BorderFactory.createLineBorder(BORDER_COLOR, 2), new EmptyBorder(15, 20, 15, 20)));
+            BorderFactory.createLineBorder(BORDER_COLOR, 2), new EmptyBorder(20, 30, 20, 30)));
 
-    JOptionPane optionPane =
-        new JOptionPane(
-            panel,
-            JOptionPane.PLAIN_MESSAGE,
-            JOptionPane.DEFAULT_OPTION,
-            null,
-            new Object[] {"OK"},
-            "OK");
-    panel.setPreferredSize(new Dimension(400, 150));
+    JLabel label = new JLabel(errorMessage, SwingConstants.CENTER);
+    label.setFont(new Font("Segoe UI", Font.PLAIN, 16));
+    label.setForeground(ERROR_COLOR);
+    panel.add(label, BorderLayout.CENTER);
 
-    JDialog dialog = optionPane.createDialog(mainFrame, "Error");
-    dialog.setModal(true);
+    JButton okButton = new JButton("OK");
+    okButton.setFocusPainted(false);
+    JPanel buttonPanel = new JPanel();
+    buttonPanel.setOpaque(false);
+    buttonPanel.add(okButton);
+    panel.add(buttonPanel, BorderLayout.SOUTH);
+
+    final JDialog dialog = new JDialog(mainFrame, "Error", true);
+    okButton.addActionListener(
+        e -> {
+          dialog.dispose();
+          System.exit(0);
+        });
+    dialog.setUndecorated(true);
+    dialog.getRootPane().setOpaque(false);
+    dialog.getContentPane().setBackground(new Color(0, 0, 0, 0));
+
+    dialog.setContentPane(panel);
+    dialog.pack();
+    dialog.setLocationRelativeTo(mainFrame);
     dialog.setVisible(true);
 
     System.exit(0);
