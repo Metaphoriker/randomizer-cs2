@@ -48,5 +48,7 @@ public class SettingsViewController {
                     .setAll(viewProvider.requestView(UpdaterSettingsViewController.class).parent());
               }
             });
+
+    generalToggleButton.setSelected(true);
   }
 }
