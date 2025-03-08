@@ -1,6 +1,7 @@
 package com.revortix.randomizer.ui.view.controller;
 
 import com.google.inject.Inject;
+import com.revortix.randomizer.config.RandomizerConfig;
 import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.builder.BuilderViewController;
@@ -17,6 +18,8 @@ import lombok.extern.slf4j.Slf4j;
 @View
 @Slf4j
 public class NavigationBarController {
+
+  private final RandomizerConfig randomizerConfig;
   private final NavigationBarViewModel navigationBarViewModel;
   private final ViewProvider viewProvider;
 
@@ -28,7 +31,10 @@ public class NavigationBarController {
 
   @Inject
   public NavigationBarController(
-      NavigationBarViewModel navigationBarViewModel, ViewProvider viewProvider) {
+      RandomizerConfig randomizerConfig,
+      NavigationBarViewModel navigationBarViewModel,
+      ViewProvider viewProvider) {
+    this.randomizerConfig = randomizerConfig;
     this.navigationBarViewModel = navigationBarViewModel;
     this.viewProvider = viewProvider;
   }
@@ -38,7 +44,7 @@ public class NavigationBarController {
     setupBindings();
     setupToggleButtonLogic();
     toggle(homeButton);
-    setupUpdateIndicator();
+    if (randomizerConfig.isUpdateNotifier()) setupUpdateIndicator();
   }
 
   private void setupBindings() {
