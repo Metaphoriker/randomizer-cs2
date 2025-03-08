@@ -24,7 +24,7 @@ public class UIUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
 
     Alert alert = createStyledAlert();
     Throwable rootCause = getRootCause(e);
-    VBox content = createContent(rootCause);
+    VBox content = createContent();
 
     alert.getDialogPane().setContent(content);
     alert.showAndWait();
@@ -36,8 +36,8 @@ public class UIUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
         .getDialogPane()
         .getStylesheets()
         .add(getClass().getResource("alert-style.css").toExternalForm());
-    alert.setTitle("An unexpected error occured");
-    alert.setHeaderText("Please open an Issue on GitHub and post your logs.");
+    alert.setTitle("User Error Dialog");
+    alert.setHeaderText("Something happened");
     return alert;
   }
 
@@ -50,27 +50,25 @@ public class UIUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
     return e;
   }
 
-  private VBox createContent(Throwable rootCause) {
+  private VBox createContent() {
     Hyperlink githubLink =
         createHyperlink(
-            "Click here to get to the Issue section on GitHub.",
-            GITHUB_ISSUES_URL,
-            () -> openUrl(GITHUB_ISSUES_URL));
+            "Click here to get to the Issue section on GitHub.", () -> openUrl(GITHUB_ISSUES_URL));
     Hyperlink logsLink =
-        createHyperlink("Click here to direct to your logs folder.", null, this::openLogsFolder);
+        createHyperlink("Click here to direct to your logs folder.", this::openLogsFolder);
 
     VBox content = new VBox(10);
     content
         .getChildren()
         .addAll(
-            new Label("An unexpected error occurred:"),
-            new Label(rootCause.toString()),
+            new Label("Please report this error to us on GitHub."),
+            new Label("The following information will be helpful in debugging this issue"),
             githubLink,
             logsLink);
     return content;
   }
 
-  private Hyperlink createHyperlink(String text, String url, Runnable action) {
+  private Hyperlink createHyperlink(String text, Runnable action) {
     Hyperlink hyperlink = new Hyperlink(text);
     hyperlink.setOnAction(_ -> action.run());
     return hyperlink;
@@ -80,7 +78,7 @@ public class UIUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
     try {
       Desktop.getDesktop().browse(new URI(url));
     } catch (IOException | URISyntaxException e) {
-      log.error("Could not open URL: " + url, e);
+      log.error("Could not open URL: {}", url, e);
       throw new IllegalStateException(e);
     }
   }
@@ -92,7 +90,8 @@ public class UIUncaughtExceptionHandler implements Thread.UncaughtExceptionHandl
         Desktop.getDesktop().open(logsFolder);
       } else {
         log.error("Log folder does not exist: {}", logsFolder.getAbsolutePath());
-        throw new IllegalStateException("Log folder does not exist: " + logsFolder.getAbsolutePath());
+        throw new IllegalStateException(
+            "Log folder does not exist: " + logsFolder.getAbsolutePath());
       }
     } catch (IOException e) {
       log.error("Could not open logs folder", e);
