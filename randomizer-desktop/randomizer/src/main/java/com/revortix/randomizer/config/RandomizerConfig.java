@@ -5,7 +5,6 @@ import de.metaphoriker.jshepherd.BaseConfiguration;
 import de.metaphoriker.jshepherd.ConfigurationType;
 import de.metaphoriker.jshepherd.annotation.Configuration;
 import de.metaphoriker.jshepherd.annotation.Key;
-
 import java.util.ArrayList;
 import java.util.List;
 import lombok.Getter;
@@ -33,6 +32,9 @@ public class RandomizerConfig extends BaseConfiguration {
 
   @Key("show.intro")
   private boolean showIntro = true;
+
+  @Key("config.path")
+  private String configPath = "";
 
   @Key("builder.filters.activated")
   private List<String> builderFiltersActivated = new ArrayList<>(KeyBindType.values().length);

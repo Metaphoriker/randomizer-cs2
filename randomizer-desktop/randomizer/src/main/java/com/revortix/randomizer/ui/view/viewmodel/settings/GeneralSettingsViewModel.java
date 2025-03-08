@@ -17,6 +17,10 @@ public class GeneralSettingsViewModel {
     showIntroProperty.addListener((_, _, _) -> saveSettings());
   }
 
+  public String getConfigPath() {
+    return randomizerConfig.getConfigPath();
+  }
+
   public BooleanProperty showIntroProperty() {
     return showIntroProperty;
   }

@@ -106,6 +106,8 @@ public class RandomizerBootstrap {
     log.info("Lade User KeyBinds...");
     try {
       String configPath = ConfigLoader.findUserConfigFile();
+      randomizerConfig.setConfigPath(configPath);
+      randomizerConfig.saveConfiguration();
       if (configPath != null) {
         ConfigLoader.loadUserKeyBindings(configPath, keyBindRepository);
         log.info("User KeyBinds erfolgreich geladen!");

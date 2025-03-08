@@ -1076,7 +1076,7 @@
     -fx-scale-y: 0.9;
 }
 
-.config-path-label {
+.config-path-textfield {
     -fx-pref-height: 16;
     -fx-padding: 2 6;
     -fx-background-radius: 4;

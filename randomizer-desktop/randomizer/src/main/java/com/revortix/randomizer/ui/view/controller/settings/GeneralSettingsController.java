@@ -5,6 +5,7 @@ import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.viewmodel.settings.GeneralSettingsViewModel;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.Tooltip;
 
@@ -15,6 +16,7 @@ public class GeneralSettingsController {
 
   @FXML private ToggleButton showIntroToggleButton;
   @FXML private Button syncConfigButton;
+  @FXML private TextField configPathTextField;
 
   @Inject
   public GeneralSettingsController(GeneralSettingsViewModel generalSettingsViewModel) {
@@ -23,6 +25,7 @@ public class GeneralSettingsController {
 
   @FXML
   private void initialize() {
+    configPathTextField.setText(generalSettingsViewModel.getConfigPath());
     syncConfigButton.setTooltip(new Tooltip("Sync"));
     showIntroToggleButton
         .selectedProperty()
