@@ -35,7 +35,7 @@ public class GeneralSettingsViewModel {
   public CompletionStage<Void> loadConfigs() {
     return CompletableFuture.runAsync(
             () -> {
-              randomizerConfig.setConfigPath(randomizerConfigLoader.ladeUserConfigPath());
+              randomizerConfig.setConfigPath(randomizerConfigLoader.ladeUserConfigPath().replace("\\", "/"));
               randomizerConfig.save();
               randomizerConfigLoader.ladeDefaultKeyBinds();
               randomizerConfigLoader.ladeUserKeyBinds();
