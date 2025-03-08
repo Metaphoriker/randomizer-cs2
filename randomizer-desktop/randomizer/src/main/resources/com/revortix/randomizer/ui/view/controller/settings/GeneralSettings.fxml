@@ -45,7 +45,7 @@
         <VBox styleClass="settings-auto-update-container">
             <children>
                 <Label styleClass="settings-title" text="Config Path"/>
-                <Label styleClass="settings-description" text="Shows the path of the config used to load the keybinds"/>
+                <Label styleClass="settings-description" text="The path of the CS2 config used to load the keybinds"/>
                 <HBox styleClass="sync-path-container" HBox.hgrow="ALWAYS">
                     <children>
                         <Button fx:id="syncConfigButton" styleClass="sync-config-path" mnemonicParsing="false" onAction="#onConfigSync"/>
