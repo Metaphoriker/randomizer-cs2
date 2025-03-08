@@ -58,6 +58,7 @@ public class RandomizerBootstrap {
   public void initializeApplication() {
     log.info("Initialisiere Applikation...");
     loadConfiguration();
+    temporarilyLoadUserConfigPath();
     loadUserKeyBindsByConfig();
     randomizerUpdater.installUpdater();
     if (!Main.isTestMode() && randomizerConfig.isAutoupdateEnabled())
@@ -69,6 +70,11 @@ public class RandomizerBootstrap {
     registerNativeKeyHook();
     cacheActionSequences();
     startExecutor();
+  }
+
+  private void temporarilyLoadUserConfigPath() {
+    randomizerConfig.setConfigPath(randomizerConfigLoader.ladeUserConfigPath().replace("\\", "/"));
+    randomizerConfig.save();
   }
 
   private void loadUserKeyBindsByConfig() {
