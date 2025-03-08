@@ -5,6 +5,7 @@ import de.metaphoriker.updater.util.JarFileUtil;
 import java.awt.*;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.awt.geom.RoundRectangle2D;
 import java.io.File;
 import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
@@ -129,33 +130,36 @@ public class Main {
     JProgressBar progressBar = new JProgressBar(0, 100);
     progressBar.setStringPainted(true);
     progressBar.setForeground(ACCENT_COLOR);
-
+    progressBar.setOpaque(false);
     progressBar.setBorder(BorderFactory.createEmptyBorder());
     progressBar.setUI(
         new BasicProgressBarUI() {
           @Override
           protected void paintDeterminate(Graphics g, JComponent c) {
-
             Graphics2D g2d = (Graphics2D) g.create();
-
             g2d.setRenderingHint(
                 RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
 
             Insets b = progressBar.getInsets();
-            int barRectWidth = progressBar.getWidth() - b.right - b.left;
-            int barRectHeight = progressBar.getHeight() - b.top - b.bottom;
+            int width = progressBar.getWidth() - b.left - b.right;
+            int height = progressBar.getHeight() - b.top - b.bottom;
 
-            if (barRectWidth <= 0 || barRectHeight <= 0) {
+            if (width <= 0 || height <= 0) {
+              g2d.dispose();
               return;
             }
 
-            int amountFull = getAmountFull(b, barRectWidth, barRectHeight);
+            RoundRectangle2D roundedRect = new RoundRectangle2D.Float(0, 0, width, height, 8, 8);
+            g2d.setClip(roundedRect);
 
             g2d.setColor(BACKGROUND_END);
-            g2d.fillRoundRect(0, 0, barRectWidth, barRectHeight, 8, 8);
+            g2d.fill(roundedRect);
 
+            int amountFull = getAmountFull(b, width, height);
+            RoundRectangle2D progressRect =
+                new RoundRectangle2D.Float(0, 0, amountFull, height, 8, 8);
             g2d.setColor(progressBar.getForeground());
-            g2d.fillRoundRect(0, 0, amountFull, barRectHeight, 8, 8);
+            g2d.fill(progressRect);
 
             g2d.dispose();
           }
