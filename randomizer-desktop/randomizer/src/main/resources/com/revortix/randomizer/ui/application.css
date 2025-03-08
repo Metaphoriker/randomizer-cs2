@@ -1077,7 +1077,6 @@
 }
 
 .config-path-label {
-    -fx-fit-to-width: true;
     -fx-pref-height: 16;
     -fx-padding: 2 6;
     -fx-background-radius: 4;
