@@ -50,6 +50,7 @@
                     <children>
                         <Button fx:id="syncConfigButton" styleClass="sync-config-path" mnemonicParsing="false"/>
                         <TextField fx:id="configPathTextField" styleClass="config-path-textfield" editable="false"/>
+                        <Button styleClass="config-folder-path" mnemonicParsing="false"/>
                         <HBox HBox.hgrow="ALWAYS"/>
                     </children>
                 </HBox>

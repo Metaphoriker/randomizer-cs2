@@ -1043,7 +1043,7 @@
 }
 
 .sync-path-container {
-    -fx-pref-width: 480;
+    -fx-pref-width: 462;
     -fx-pref-height: 16;
     -fx-spacing: 4;
     -fx-alignment: center-left;
@@ -1056,6 +1056,9 @@
     -fx-max-height: 14;
     -fx-background-color: transparent;
     -fx-cursor: hand;
+}
+
+.sync-config-path {
     -fx-graphic: url("../images/settingsView/syncPathIcon.png");
 }
 
@@ -1077,6 +1080,25 @@
     -fx-font-family: SansSerif;
     -fx-font-size: 11;
     -fx-text-fill: #9E99FF;
+}
+
+.config-folder-path {
+    -fx-min-width: 16;
+    -fx-max-width: 16;
+    -fx-min-height: 16;
+    -fx-max-height: 16;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-graphic: url("../images/settingsView/configFolderIcon.png");
+}
+
+.config-folder-path:hover, .config-folder-path:pressed {
+    -fx-graphic: url("../images/settingsView/configFolderIconPressed.png");
+}
+
+.config-folder-path:pressed {
+    -fx-scale-x: 0.9;
+    -fx-scale-y: 0.9;
 }
 
 
