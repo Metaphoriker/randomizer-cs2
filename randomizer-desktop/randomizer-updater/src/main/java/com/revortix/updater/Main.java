@@ -10,17 +10,18 @@ import java.io.IOException;
 import java.util.concurrent.CompletableFuture;
 import javax.swing.*;
 import javax.swing.border.EmptyBorder;
+import javax.swing.plaf.basic.BasicProgressBarUI;
 
 public class Main {
 
-  private static final Color LIGHT_BACKGROUND = new Color(248, 249, 250); // Light Gray Background
-  private static final Color LIGHT_TEXT = new Color(33, 37, 41); // Dark Gray Text
-  private static final Color ACCENT_COLOR = new Color(0, 123, 255); // Bootstrap Primary Blue
-  private static final Color ACCENT_COLOR_DARKER =
-      new Color(0, 86, 179); // Darker Blue for progress bar
-  private static final Color SUCCESS_COLOR = new Color(40, 167, 69); // Green for success
-  private static final Color WARNING_COLOR = new Color(255, 193, 7); // Yellow for warnings
-  private static final Color ERROR_COLOR = new Color(220, 53, 69); // Red for errors
+  // Colors from your .dialog-pane CSS, adapted for Swing
+  private static final Color BACKGROUND_START = new Color(26, 26, 46); // #1a1a2e
+  private static final Color BACKGROUND_END = new Color(22, 33, 62); // #16213e
+  private static final Color BORDER_COLOR = new Color(82, 40, 126, 179); // rgba(82, 40, 126, 0.7)
+  private static final Color TEXT_COLOR = new Color(224, 225, 249); // #e0e1f9
+  private static final Color ACCENT_COLOR = new Color(47, 39, 206); // #2F27CE
+  private static final Color SUCCESS_COLOR = new Color(40, 167, 69); // Green
+  private static final Color ERROR_COLOR = new Color(220, 53, 69); // Red
 
   private JFrame mainFrame;
   private JLabel statusLabel;
@@ -41,7 +42,7 @@ public class Main {
           File randomizer = extractFilePath(arg);
           if (!randomizer.exists()) {
             showErrorDialog("Randomizer file does not exist!");
-            return; // Exit the checkAndUpdate process
+            return;
           }
           checkAndUpdate(randomizer);
           break;
@@ -59,23 +60,36 @@ public class Main {
     progressBar = createProgressBar();
     versionComparisonLabel = createVersionComparisonLabel();
 
-    JPanel contentPanel = new JPanel(new BorderLayout(10, 10));
-    contentPanel.setBorder(new EmptyBorder(15, 20, 15, 20));
-    contentPanel.setBackground(LIGHT_BACKGROUND); // Set background color
+    JPanel contentPanel =
+        new JPanel(new BorderLayout(10, 10)) {
+          @Override
+          protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2d = (Graphics2D) g;
+            GradientPaint gradient =
+                new GradientPaint(0, 0, BACKGROUND_START, getWidth(), getHeight(), BACKGROUND_END);
+            g2d.setPaint(gradient);
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+          }
+        };
+
+    contentPanel.setBorder(
+        BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(BORDER_COLOR, 2), new EmptyBorder(15, 20, 15, 20)));
 
     JPanel versionPanel = new JPanel(new FlowLayout(FlowLayout.CENTER, 5, 0));
-    versionPanel.setBackground(LIGHT_BACKGROUND);
+    versionPanel.setOpaque(false);
     versionPanel.add(versionComparisonLabel);
 
     JPanel progressPanel = new JPanel(new BorderLayout());
-    progressPanel.setBackground(LIGHT_BACKGROUND);
+    progressPanel.setOpaque(false);
     progressPanel.add(progressBar, BorderLayout.CENTER);
 
     contentPanel.add(versionPanel, BorderLayout.NORTH);
     contentPanel.add(statusLabel, BorderLayout.CENTER);
     contentPanel.add(progressPanel, BorderLayout.SOUTH);
 
-    mainFrame.setContentPane(contentPanel); // Use setContentPane
+    mainFrame.setContentPane(contentPanel);
     mainFrame.setVisible(true);
   }
 
@@ -87,11 +101,12 @@ public class Main {
           "Randomizer Updater - v"
               + Updater.getVersion(JarFileUtil.getJarFile(), Updater.FileType.UPDATER));
     } catch (IOException e) {
-      throw new RuntimeException(e);
+      frame.setTitle("Randomizer Updater");
     }
     frame.setLocationRelativeTo(null);
     frame.setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
-    frame.getContentPane().setBackground(LIGHT_BACKGROUND); // Set background
+    frame.setUndecorated(true);
+
     frame.addWindowListener(
         new WindowAdapter() {
           @Override
@@ -106,26 +121,43 @@ public class Main {
   private JLabel createStatusLabel() {
     JLabel label = new JLabel("Checking for updates...", SwingConstants.CENTER);
     label.setFont(new Font("Segoe UI", Font.PLAIN, 16));
-    label.setForeground(LIGHT_TEXT);
+    label.setForeground(TEXT_COLOR);
     return label;
   }
 
   private JProgressBar createProgressBar() {
     JProgressBar progressBar = new JProgressBar(0, 100);
     progressBar.setStringPainted(true);
-    progressBar.setForeground(ACCENT_COLOR_DARKER);
-    progressBar.setBackground(LIGHT_BACKGROUND);
-    progressBar.setBorder(BorderFactory.createLineBorder(LIGHT_BACKGROUND, 2));
-    progressBar.setUI(
-        new javax.swing.plaf.basic.BasicProgressBarUI() {
-          @Override
-          protected Color getSelectionBackground() {
-            return LIGHT_TEXT;
-          }
+    progressBar.setForeground(ACCENT_COLOR);
 
+    progressBar.setBorder(BorderFactory.createEmptyBorder());
+    progressBar.setUI(
+        new BasicProgressBarUI() {
           @Override
-          protected Color getSelectionForeground() {
-            return LIGHT_BACKGROUND;
+          protected void paintDeterminate(Graphics g, JComponent c) {
+
+            Graphics2D g2d = (Graphics2D) g.create();
+
+            g2d.setRenderingHint(
+                RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
+
+            Insets b = progressBar.getInsets();
+            int barRectWidth = progressBar.getWidth() - b.right - b.left;
+            int barRectHeight = progressBar.getHeight() - b.top - b.bottom;
+
+            if (barRectWidth <= 0 || barRectHeight <= 0) {
+              return;
+            }
+
+            int amountFull = getAmountFull(b, barRectWidth, barRectHeight);
+
+            g2d.setColor(BACKGROUND_END);
+            g2d.fillRoundRect(0, 0, barRectWidth, barRectHeight, 8, 8);
+
+            g2d.setColor(progressBar.getForeground());
+            g2d.fillRoundRect(0, 0, amountFull, barRectHeight, 8, 8);
+
+            g2d.dispose();
           }
         });
     return progressBar;
@@ -134,17 +166,13 @@ public class Main {
   private JLabel createVersionComparisonLabel() {
     JLabel label = new JLabel("", SwingConstants.CENTER);
     label.setFont(new Font("Segoe UI", Font.BOLD, 14));
-    label.setForeground(LIGHT_TEXT);
+    label.setForeground(TEXT_COLOR);
     return label;
   }
 
   private File extractFilePath(String arg) {
-    File path = new File(arg.substring(arg.indexOf("=") + 1));
-    String pathName =
-        path.getAbsolutePath().substring(0, path.getAbsolutePath().lastIndexOf(File.separator));
-    String fileName =
-        path.getAbsolutePath().substring(path.getAbsolutePath().lastIndexOf(File.separator) + 1);
-    return new File(pathName, fileName);
+    String path = arg.substring(arg.indexOf("=") + 1);
+    return new File(path);
   }
 
   private void checkAndUpdate(File randomizer) {
@@ -153,40 +181,29 @@ public class Main {
                 Updater.isUpdateAvailable(
                     randomizer, Updater.RANDOMIZER_VERSION_URL, Updater.FileType.RANDOMIZER))
         .thenAcceptAsync(
-            isUpdateAvailable -> { // No need for nested invokeLater
+            isUpdateAvailable -> {
               String currentVersion = Updater.getVersion(randomizer, Updater.FileType.RANDOMIZER);
               String latestVersion = Updater.getLatestVersion(Updater.RANDOMIZER_VERSION_URL);
 
               SwingUtilities.invokeLater(
                   () ->
                       versionComparisonLabel.setText(
-                          String.format(
-                              "<html><span style='color:#%02x%02x%02x;'>%s</span> &rarr; <span style='color:#%02x%02x%02x;'>%s</span></html>",
-                              currentVersion.equals(latestVersion)
-                                  ? WARNING_COLOR.getRed()
-                                  : ERROR_COLOR
-                                      .getRed(), // Use warning color if versions are same, else
-                              // error
-                              currentVersion.equals(latestVersion)
-                                  ? WARNING_COLOR.getGreen()
-                                  : ERROR_COLOR.getGreen(),
-                              currentVersion.equals(latestVersion)
-                                  ? WARNING_COLOR.getBlue()
-                                  : ERROR_COLOR.getBlue(),
-                              currentVersion,
-                              SUCCESS_COLOR.getRed(),
-                              SUCCESS_COLOR.getGreen(),
-                              SUCCESS_COLOR.getBlue(),
-                              latestVersion)));
+                          String.format("%s \u2192 %s", currentVersion, latestVersion)));
 
               if (isUpdateAvailable) {
+                SwingUtilities.invokeLater(() -> versionComparisonLabel.setForeground(ERROR_COLOR));
+              } else {
                 SwingUtilities.invokeLater(
-                    () -> statusLabel.setText(formatColorText("Updating...", ACCENT_COLOR)));
+                    () -> versionComparisonLabel.setForeground(SUCCESS_COLOR));
+              }
+
+              if (isUpdateAvailable) {
+                SwingUtilities.invokeLater(() -> statusLabel.setText("Updating..."));
                 updateRandomizer(randomizer);
               } else {
                 SwingUtilities.invokeLater(
                     () -> {
-                      statusLabel.setText(formatColorText("No update available!", SUCCESS_COLOR));
+                      statusLabel.setText("No update available!");
                       progressBar.setValue(100);
                       progressBar.setString("Up to date!");
                     });
@@ -205,19 +222,37 @@ public class Main {
     JLabel label = new JLabel(errorMessage, SwingConstants.CENTER);
     label.setFont(new Font("Segoe UI", Font.PLAIN, 16));
     label.setForeground(ERROR_COLOR);
-    label.setBackground(LIGHT_BACKGROUND);
-    label.setOpaque(true);
+
+    JPanel panel =
+        new JPanel() {
+          @Override
+          protected void paintComponent(Graphics g) {
+            super.paintComponent(g);
+            Graphics2D g2d = (Graphics2D) g;
+            GradientPaint gradient =
+                new GradientPaint(0, 0, BACKGROUND_START, getWidth(), getHeight(), BACKGROUND_END);
+            g2d.setPaint(gradient);
+            g2d.fillRect(0, 0, getWidth(), getHeight());
+          }
+        };
+
+    panel.setLayout(new BorderLayout());
+    panel.add(label, BorderLayout.CENTER);
+    panel.setBorder(
+        BorderFactory.createCompoundBorder(
+            BorderFactory.createLineBorder(BORDER_COLOR, 2), new EmptyBorder(15, 20, 15, 20)));
 
     JOptionPane optionPane =
         new JOptionPane(
-            label,
-            JOptionPane.ERROR_MESSAGE,
+            panel,
+            JOptionPane.PLAIN_MESSAGE,
             JOptionPane.DEFAULT_OPTION,
             null,
             new Object[] {"OK"},
             "OK");
+    panel.setPreferredSize(new Dimension(400, 150));
 
-    JDialog dialog = optionPane.createDialog(mainFrame, "Fehler");
+    JDialog dialog = optionPane.createDialog(mainFrame, "Error");
     dialog.setModal(true);
     dialog.setVisible(true);
 
@@ -239,10 +274,10 @@ public class Main {
                           });
                     }))
         .thenRunAsync(
-            () -> { // thenRunAsync is correct here
+            () -> {
               SwingUtilities.invokeLater(
                   () -> {
-                    statusLabel.setText(formatColorText("Update successful!", SUCCESS_COLOR));
+                    statusLabel.setText("Update successful!");
                     progressBar.setValue(100);
                     progressBar.setString("Completed!");
                     launchRandomizer(randomizer);
@@ -252,7 +287,7 @@ public class Main {
         .exceptionally(
             e -> {
               SwingUtilities.invokeLater(() -> showErrorDialog("Update failed: " + e.getMessage()));
-              return null; // Must return null
+              return null;
             });
   }
 
@@ -265,11 +300,5 @@ public class Main {
       SwingUtilities.invokeLater(
           () -> showErrorDialog("Failed to launch updated randomizer: " + ex.getMessage()));
     }
-  }
-
-  private String formatColorText(String text, Color color) {
-    return String.format(
-        "<html><font color='#%02x%02x%02x'>%s</font></html>",
-        color.getRed(), color.getGreen(), color.getBlue(), text);
   }
 }
