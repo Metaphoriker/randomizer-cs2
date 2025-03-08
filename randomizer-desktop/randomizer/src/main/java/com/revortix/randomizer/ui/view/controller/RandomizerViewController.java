@@ -37,7 +37,6 @@ public class RandomizerViewController {
 
   @FXML private Label sequenceNameLabel;
   @FXML private VBox actionsVBox;
-  @FXML private MinMaxSlider minMaxSlider;
   @FXML private VBox historyVBox;
   @FXML private ToggleButton randomizerToggleButton;
   @FXML private Label runnerStateLabel;
@@ -59,32 +58,14 @@ public class RandomizerViewController {
   }
 
   @FXML
-  void onIntervalApply(ActionEvent event) {
-    randomizerViewModel.saveInterval();
-  }
-
-  @FXML
   private void initialize() {
-    randomizerViewModel.initConfig();
     setupBindings();
     setupListener();
-    setupIntervalSlider();
     setupStateListener();
   }
 
   private void setupBindings() {
     sequenceNameLabel.visibleProperty().bind(sequenceNameLabel.textProperty().isNotEmpty());
-  }
-
-  private void setupIntervalSlider() {
-    Platform.runLater(
-        () ->
-            minMaxSlider.setMinMaxValue(
-                randomizerViewModel.getMinIntervalProperty().get(),
-                randomizerViewModel.getMaxIntervalProperty().get()));
-
-    minMaxSlider.getMinProperty().bindBidirectional(randomizerViewModel.getMinIntervalProperty());
-    minMaxSlider.getMaxProperty().bindBidirectional(randomizerViewModel.getMaxIntervalProperty());
   }
 
   /** Creates the history container for the ActionSequence */

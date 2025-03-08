@@ -1,8 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.revortix.randomizer.ui.view.component.MinMaxSlider?>
-<?import javafx.scene.control.*?>
-<?import javafx.scene.layout.*?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Separator?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.ToggleButton?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
 <VBox prefHeight="344.0" prefWidth="480.0" styleClass="updater-settings" xmlns="http://javafx.com/javafx/17.0.12"
       xmlns:fx="http://javafx.com/fxml/1"
       fx:controller="com.revortix.randomizer.ui.view.controller.settings.GeneralSettingsController">
@@ -24,18 +29,18 @@
                 </HBox>
             </children>
         </HBox>
-<!--        <Separator styleClass="settings-separator"/>-->
-<!--        <HBox styleClass="settings-auto-update">-->
-<!--            <children>-->
-<!--                <VBox styleClass="settings-auto-update-container" VBox.vgrow="ALWAYS">-->
-<!--                    <children>-->
-<!--                        <Label styleClass="settings-title" text="Sequence Interval"/>-->
-<!--                        <Label styleClass="settings-description" text="Changes the Interval between each Sequence"/>-->
-<!--                        <MinMaxSlider fx:id="minMaxSlider" styleClass="range-slider-action-interval"/>-->
-<!--                    </children>-->
-<!--                </VBox>-->
-<!--            </children>-->
-<!--        </HBox>-->
+        <Separator styleClass="settings-separator"/>
+        <HBox styleClass="settings-auto-update">
+            <children>
+                <VBox styleClass="settings-auto-update-container" VBox.vgrow="ALWAYS">
+                    <children>
+                        <Label styleClass="settings-title" text="Sequence Interval"/>
+                        <Label styleClass="settings-description" text="Changes the Interval between each Sequence"/>
+                        <MinMaxSlider fx:id="minMaxSlider" styleClass="range-slider-action-interval"/>
+                    </children>
+                </VBox>
+            </children>
+        </HBox>
         <Separator styleClass="settings-separator"/>
         <VBox styleClass="settings-auto-update-container">
             <children>
