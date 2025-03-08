@@ -1077,6 +1077,7 @@
 }
 
 .config-path-textfield {
+    -fx-pref-width: 440;
     -fx-pref-height: 16;
     -fx-padding: 2 6;
     -fx-background-radius: 4;

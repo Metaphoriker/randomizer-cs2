@@ -44,7 +44,8 @@
                 <HBox styleClass="sync-path-container" HBox.hgrow="ALWAYS">
                     <children>
                         <Button fx:id="syncConfigButton" styleClass="sync-config-path" mnemonicParsing="false"/>
-                        <TextField fx:id="configPathTextField" HBox.hgrow="ALWAYS" styleClass="config-path-textfield" editable="false"/>
+                        <TextField fx:id="configPathTextField" styleClass="config-path-textfield" editable="false"/>
+                        <HBox HBox.hgrow="ALWAYS"/>
                     </children>
                 </HBox>
             </children>
