@@ -62,6 +62,12 @@ public class GeneralSettingsController {
   private void onConfigSync(ActionEvent event) {
     generalSettingsViewModel
         .loadConfigs()
+        .thenRunAsync(
+            () -> {
+              syncConfigButton.getStyleClass().add("sync-config-path-success");
+              syncFailedIndicator.setVisible(false);
+            },
+            Platform::runLater)
         .exceptionallyAsync(
             e -> {
               syncConfigButton.getStyleClass().add("sync-config-path-failed");
@@ -69,7 +75,5 @@ public class GeneralSettingsController {
               return null;
             },
             Platform::runLater);
-            syncConfigButton.getStyleClass().add("sync-config-path-success");
-            syncFailedIndicator.setVisible(false);
   }
 }

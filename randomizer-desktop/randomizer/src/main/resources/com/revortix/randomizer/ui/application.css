@@ -1090,7 +1090,7 @@
     -fx-graphic: url("../images/settingsView/syncFailedIconPressed.png");
 }
 
-.sync-config-path-succes {
+.sync-config-path-success {
     -fx-min-width: 16;
     -fx-max-width: 16;
     -fx-min-height: 16;
