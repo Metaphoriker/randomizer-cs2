@@ -9,6 +9,7 @@ import com.revortix.randomizer.ui.view.View;
 import com.revortix.randomizer.ui.view.viewmodel.builder.BuilderViewModel;
 import java.util.List;
 import javafx.beans.property.BooleanProperty;
+import javafx.css.PseudoClass;
 import javafx.fxml.FXML;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
@@ -23,6 +24,8 @@ import javafx.util.Duration;
 
 @View
 public class BuilderActionsViewController {
+
+  private static final PseudoClass EMPTY_PSEUDO_CLASS = PseudoClass.getPseudoClass("empty");
 
   private final RandomizerConfig randomizerConfig;
   private final BuilderViewModel builderViewModel;
@@ -80,10 +83,20 @@ public class BuilderActionsViewController {
   }
 
   private void setupSearchField() {
+    setupSearchFieldPseudoClass();
     searchField
         .textProperty()
+        .addListener((_, _, newValue) -> filterActionsBySearch(newValue.toLowerCase()));
+  }
+
+  private void setupSearchFieldPseudoClass() {
+    searchField.pseudoClassStateChanged(EMPTY_PSEUDO_CLASS, searchField.getText().isEmpty());
+    searchField
+        .textProperty()
+        .isEmpty()
         .addListener(
-            (observable, oldValue, newValue) -> filterActionsBySearch(newValue.toLowerCase()));
+            (_, _, isNowEmpty) ->
+                searchField.pseudoClassStateChanged(EMPTY_PSEUDO_CLASS, isNowEmpty));
   }
 
   private void filterActionsBySearch(String searchText) {

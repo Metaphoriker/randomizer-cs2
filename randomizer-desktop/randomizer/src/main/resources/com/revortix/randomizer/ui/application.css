@@ -160,7 +160,7 @@
     -fx-graphic: url("../images/randomizerView/sequenceIcon.png");
 }
 
-.logbook-state, .logbook-state-awaiting  {
+.logbook-state, .logbook-state-awaiting {
     -fx-pref-width: 320;
     -fx-min-height: 32;
     -fx-alignment: center;
@@ -169,8 +169,9 @@
     -fx-background-radius: 8;
     -fx-background-color: #E6E5FF;
 }
+
 .logbook-state-awaiting {
-    -fx-effect: innershadow(gaussian, #E37400 , 12, 0.2, 0, 0);
+    -fx-effect: innershadow(gaussian, #E37400, 12, 0.2, 0, 0);
 }
 
 .logbook-state-indicator {
@@ -550,6 +551,16 @@
 }
 
 /* Builder Actions View */
+
+/* Pseudo Class */
+.text-field:empty {
+    -fx-alignment: center;
+}
+
+.text-field:empty:focused {
+    -fx-alignment: center-left;
+}
+
 .actions-selector {
     -fx-pref-width: 504;
     -fx-pref-height: 148;
@@ -738,7 +749,7 @@
 }
 
 .settings-reset-button {
-    -fx-pref-width: 16 ;
+    -fx-pref-width: 16;
     -fx-min-height: 16;
     -fx-max-height: 16;
     -fx-background-color: transparent;
