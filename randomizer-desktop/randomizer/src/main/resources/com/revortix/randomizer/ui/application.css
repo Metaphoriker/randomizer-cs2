@@ -267,7 +267,7 @@
 }
 
 .range-slider {
-    -fx-pref-width: 2000;
+    -fx-pref-width: 450;
     -fx-pref-height: 12;
     -fx-padding: 8 2;
 }
