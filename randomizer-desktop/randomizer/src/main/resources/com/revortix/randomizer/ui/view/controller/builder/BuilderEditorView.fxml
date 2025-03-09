@@ -26,15 +26,16 @@
             <center>
                 <VBox styleClass="sequence-builder" BorderPane.alignment="CENTER">
                     <children>
-                        <HBox styleClass="sequence-naming-container">
+                        <HBox HBox.hgrow="ALWAYS" styleClass="sequence-naming-container">
                             <children>
-                                <VBox prefHeight="148.0" styleClass="sequence-naming">
-                                    <children>
-                                        <Label fx:id="sequenceNameLabel" styleClass="sequence-name-label" />
-                                        <Label fx:id="sequenceDescriptionLabel" styleClass="sequence-description-label" />
-                                    </children>
-                                </VBox>
-                                    <HBox prefHeight="30.0" prefWidth="80.0" HBox.hgrow="ALWAYS" />
+                                <HBox prefHeight="30.0" HBox.hgrow="ALWAYS">
+                                    <VBox VBox.vgrow="ALWAYS" styleClass="sequence-naming">
+                                        <children>
+                                            <Label fx:id="sequenceNameLabel" styleClass="sequence-name-label" />
+                                            <Label fx:id="sequenceDescriptionLabel" styleClass="sequence-description-label" />
+                                        </children>
+                                    </VBox> </HBox>
+                                    <HBox prefHeight="30.0" HBox.hgrow="ALWAYS" />
                                     <HBox alignment="CENTER_RIGHT" prefHeight="16.0" prefWidth="76.0" styleClass="sequence-builder-buttons">
                                         <children>
                                             <Button fx:id="saveSequenceButton" mnemonicParsing="false" onAction="#onSaveSequence" styleClass="builder-save-sequence-button" />
