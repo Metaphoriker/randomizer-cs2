@@ -67,6 +67,16 @@ public class ActionSequenceDispatcher {
       return;
     }
     finishDispatch(action);
+    interruptedSequences.stream()
+        .filter(actionSequence -> actionSequence.getActions().contains(action))
+        .forEach(
+            actionSequence -> {
+              if (actionSequence.getActions().stream().noneMatch(Action::isInterrupted)) {
+                finishSequenceProcessing(actionSequence);
+                interruptedSequences.remove(actionSequence);
+                log.info(SEQUENCE_DISPATCHED, actionSequence);
+              }
+            });
   }
 
   /**
@@ -83,9 +93,18 @@ public class ActionSequenceDispatcher {
       }
       dispatch(action);
     }
+
+    if (actionSequence.getActions().stream().anyMatch(Action::isInterrupted)) {
+      log.info("Interrupted sequence processing");
+      interruptedSequences.add(actionSequence);
+      return;
+    }
+
     finishSequenceProcessing(actionSequence);
     log.info(SEQUENCE_DISPATCHED, actionSequence);
   }
+
+  private final List<ActionSequence> interruptedSequences = new CopyOnWriteArrayList<>();
 
   public static void discardAllRunningActions() {
     if (runningActions.isEmpty()) {
