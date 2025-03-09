@@ -4,7 +4,6 @@ import com.google.inject.Inject;
 import com.revortix.model.ApplicationState;
 import com.revortix.model.action.sequence.ActionSequence;
 import com.revortix.randomizer.ui.view.View;
-import com.revortix.randomizer.ui.view.component.MinMaxSlider;
 import com.revortix.randomizer.ui.view.viewmodel.RandomizerViewModel;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -114,13 +113,17 @@ public class RandomizerViewController {
                         .getActions()
                         .forEach(
                             action -> {
+                              if (action == null) return;
                               Label actionLabel = new Label(action.getName());
                               actionLabel.getStyleClass().add("logbook-sequence-actions-name");
                               actionsVBox.getChildren().add(actionLabel);
                             });
-                    actionsVBox
-                        .getChildren()
-                        .forEach(label -> setPositionalStyling((Label) label, false));
+                    Platform.runLater(
+                        () -> {
+                          actionsVBox
+                              .getChildren()
+                              .forEach(label -> setPositionalStyling((Label) label, false));
+                        });
                   });
             });
 
@@ -131,6 +134,7 @@ public class RandomizerViewController {
                   actionsVBox.getChildren().stream()
                       .filter(Label.class::isInstance)
                       .map(Label.class::cast)
+                      .filter(label -> label.getText() != null)
                       .filter(label -> label.getText().equals(action.getName()))
                       .filter(label -> !isActive(label))
                       .findFirst()
