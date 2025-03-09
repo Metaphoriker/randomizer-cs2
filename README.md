@@ -26,12 +26,15 @@ We had a lot of fun playtesting it.
 
 ---
 
-## 🛠️ Quick Start
+## 🛠️ Get Started
 
 1. [Download randomizer.jar](https://github.com/Metaphoriker/randomizer-cs2/releases/tag/latest).
 2. Launch, adjust, enjoy!
 
 *Requires [Java 22+](https://www.oracle.com/de/java/technologies/downloads/#jdk23-windows)* ☕
+
+### Optionally
+Download *premade and playtested* Sequences [here](https://github.com/Metaphoriker/randomizer-cs2/tree/master/randomizer/sequences)!
 
 ## 📸 Teaser
 
