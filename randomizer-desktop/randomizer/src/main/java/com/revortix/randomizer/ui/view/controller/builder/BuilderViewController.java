@@ -9,7 +9,6 @@ import com.revortix.randomizer.ui.view.viewmodel.builder.BuilderViewModel;
 import java.io.IOException;
 import java.util.Comparator;
 import java.util.List;
-
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.geometry.Pos;
@@ -46,6 +45,7 @@ public class BuilderViewController {
   @FXML
   void onAddSequence(ActionEvent event) {
     builderViewModel.createNewActionSequence();
+    builderViewModel.getCurrentActionSequenceProperty().set(null);
     showFiller();
     fillActionSequences();
   }
@@ -66,7 +66,9 @@ public class BuilderViewController {
   }
 
   private void showFiller() {
-    contentPane.getChildren().setAll(viewProvider.requestView(BuilderFillerViewController.class).parent());
+    contentPane
+        .getChildren()
+        .setAll(viewProvider.requestView(BuilderFillerViewController.class).parent());
   }
 
   public void fillActionSequences() {
@@ -90,9 +92,13 @@ public class BuilderViewController {
     hBox.setOnMouseClicked(
         _ -> {
           builderViewModel.getCurrentActionSequenceProperty().set(actionSequence);
-          actionSequencesVBox.getChildren().forEach(hBox1 -> hBox1.getStyleClass().remove(HBOX_SELECTED_STYLE_CLASS));
+          actionSequencesVBox
+              .getChildren()
+              .forEach(hBox1 -> hBox1.getStyleClass().remove(HBOX_SELECTED_STYLE_CLASS));
           hBox.getStyleClass().add(HBOX_SELECTED_STYLE_CLASS);
-          contentPane.getChildren().setAll(viewProvider.requestView(BuilderEditorViewController.class).parent());
+          contentPane
+              .getChildren()
+              .setAll(viewProvider.requestView(BuilderEditorViewController.class).parent());
         });
     hBox.getChildren().add(sequenceLabel);
 
