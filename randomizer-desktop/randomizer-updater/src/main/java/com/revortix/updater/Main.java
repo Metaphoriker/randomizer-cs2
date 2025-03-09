@@ -301,35 +301,43 @@ public class Main {
   }
 
   private void updateRandomizer(File randomizer) {
-    CompletableFuture.runAsync(
-            () ->
-                Updater.update(
-                    randomizer,
-                    Updater.RANDOMIZER_DOWNLOAD_URL,
-                    (bytesRead, totalBytes) -> {
-                      double progress = (double) bytesRead / totalBytes * 100;
-                      SwingUtilities.invokeLater(
-                          () -> {
-                            progressBar.setValue((int) progress);
-                            progressBar.setString(String.format("%.1f%%", progress));
-                          });
-                    }))
-        .thenRunAsync(
-            () -> {
-              SwingUtilities.invokeLater(
-                  () -> {
-                    statusLabel.setText("Update successful!");
-                    progressBar.setValue(100);
-                    progressBar.setString("Completed!");
-                    launchRandomizer(randomizer);
-                  });
-            },
-            SwingUtilities::invokeLater)
+    CompletableFuture.runAsync(() -> performUpdate(randomizer), SwingUtilities::invokeLater)
         .exceptionally(
             e -> {
               SwingUtilities.invokeLater(() -> showErrorDialog("Update failed: " + e.getMessage()));
               return null;
             });
+  }
+
+  private void performUpdate(File randomizer) {
+    Updater.update(randomizer, Updater.RANDOMIZER_DOWNLOAD_URL, this::updateProgress)
+        .thenRunAsync(() -> onUpdateSuccess(randomizer))
+        .exceptionallyAsync(
+            e -> {
+              SwingUtilities.invokeLater(() -> showErrorDialog("Update failed: " + e.getMessage()));
+              return null;
+            },
+            SwingUtilities::invokeLater);
+  }
+
+  private void updateProgress(long bytesRead, long totalBytes) {
+    double progress = (double) bytesRead / totalBytes * 100;
+    SwingUtilities.invokeLater(
+        () -> updateProgressBar((int) progress, String.format("%.1f%%", progress)));
+  }
+
+  private void updateProgressBar(int value, String text) {
+    progressBar.setValue(value);
+    progressBar.setString(text);
+  }
+
+  private void onUpdateSuccess(File randomizer) {
+    SwingUtilities.invokeLater(
+        () -> {
+          statusLabel.setText("Update successful!");
+          updateProgressBar(100, "Completed!");
+          launchRandomizer(randomizer);
+        });
   }
 
   private void launchRandomizer(File randomizer) {
