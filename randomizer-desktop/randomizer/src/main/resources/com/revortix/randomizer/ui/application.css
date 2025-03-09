@@ -1077,7 +1077,7 @@
     -fx-graphic: url("../images/settingsView/syncPathIconPressed.png");
 }
 
-.sync-config-path:pressed, .sync-config-path-failed:pressed {
+.sync-config-path:pressed, .sync-config-path-failed:pressed, .sync-config-path-succes:pressed {
     -fx-scale-x: 0.9;
     -fx-scale-y: 0.9;
 }
@@ -1088,6 +1088,20 @@
 
 .sync-config-path-failed:hover, .sync-config-path-failed:pressed {
     -fx-graphic: url("../images/settingsView/syncFailedIconPressed.png");
+}
+
+.sync-config-path-succes {
+    -fx-min-width: 16;
+    -fx-max-width: 16;
+    -fx-min-height: 16;
+    -fx-max-height: 16;
+    -fx-background-color: transparent;
+    -fx-cursor: hand;
+    -fx-graphic: url("../images/settingsView/syncSuccesIcon.png");
+}
+
+.sync-config-path-succes:hover, .sync-config-path-succes:pressed {
+    -fx-graphic: url("../images/settingsView/syncSuccesIconPressed.png");
 }
 
 .config-path-textfield {

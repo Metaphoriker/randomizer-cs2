@@ -69,6 +69,7 @@ public class GeneralSettingsController {
               return null;
             },
             Platform::runLater);
+            syncConfigButton.getStyleClass().add("sync-config-path-success");
             syncFailedIndicator.setVisible(false);
   }
 }
