@@ -57,5 +57,9 @@
                 <Label fx:id="syncFailedIndicator" visible="false" styleClass="sync-failed-indicator" text="Config could not be loaded. Please try again or enter it manually"/>
             </children>
         </VBox>
+        <VBox VBox.vgrow="ALWAYS"/>
+        <HBox alignment="CENTER_RIGHT">
+            <Label fx:id="spentTimeLabel"/>
+        </HBox>
     </children>
 </VBox>
