@@ -3,6 +3,7 @@ package com.revortix.randomizer.config;
 import com.revortix.model.config.keybind.KeyBindType;
 import de.metaphoriker.jshepherd.BaseConfiguration;
 import de.metaphoriker.jshepherd.ConfigurationType;
+import de.metaphoriker.jshepherd.annotation.Comment;
 import de.metaphoriker.jshepherd.annotation.Configuration;
 import de.metaphoriker.jshepherd.annotation.Key;
 import java.util.ArrayList;
@@ -35,4 +36,8 @@ public class RandomizerConfig extends BaseConfiguration {
 
   @Key("builder.filters.activated")
   private List<String> builderFiltersActivated = new ArrayList<>(KeyBindType.values().length);
+
+  @Key("time.tracked")
+  @Comment({"Basically this is just to see, how many hours you've spent with the Randomizer on.", "Please do not change this specific value, it would just be self-sabotage"})
+  private long timeTracked = 0L;
 }

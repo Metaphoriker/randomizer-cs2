@@ -1,6 +1,7 @@
 package com.revortix.randomizer.bootstrap;
 
 import com.google.inject.AbstractModule;
+import com.revortix.model.tracker.TimeTracker;
 import com.revortix.randomizer.config.RandomizerConfig;
 import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.viewmodel.settings.ActionSettingsViewModel;
@@ -30,5 +31,6 @@ public class RandomizerModule extends AbstractModule {
         bind(RandomizerConfig.class).asEagerSingleton();
         bind(RandomizerUpdater.class).asEagerSingleton();
         bind(RandomizerConfigLoader.class).asEagerSingleton();
+        bind(TimeTracker.class).asEagerSingleton();
     }
 }

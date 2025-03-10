@@ -3,7 +3,9 @@ package com.revortix.randomizer.ui;
 import com.github.kwhat.jnativehook.GlobalScreen;
 import com.github.kwhat.jnativehook.NativeHookException;
 import com.revortix.model.action.sequence.ActionSequenceDispatcher;
+import com.revortix.model.tracker.TimeTracker;
 import com.revortix.randomizer.Main;
+import com.revortix.randomizer.config.RandomizerConfig;
 import com.revortix.randomizer.ui.view.ViewProvider;
 import com.revortix.randomizer.ui.view.controller.RandomizerWindowController;
 import de.metaphoriker.updater.Updater;
@@ -36,6 +38,8 @@ public class RandomizerApplication extends Application {
 
   private void buildAndShowApplication(Stage stage) {
     ViewProvider viewProvider = Main.getInjector().getInstance(ViewProvider.class);
+    TimeTracker timeTracker = Main.getInjector().getInstance(TimeTracker.class);
+    RandomizerConfig randomizerConfig = Main.getInjector().getInstance(RandomizerConfig.class);
     log.debug("Lade Hauptfenster...");
     Parent root = viewProvider.requestView(RandomizerWindowController.class).parent();
     Scene scene = new Scene(root);
@@ -47,6 +51,9 @@ public class RandomizerApplication extends Application {
           } catch (NativeHookException e) {
             throw new RuntimeException(e);
           }
+          randomizerConfig.setTimeTracked(
+              randomizerConfig.getTimeTracked() + timeTracker.getElapsedTime());
+          randomizerConfig.save();
           ActionSequenceDispatcher.discardAllRunningActions();
           Updater.close();
           Platform.exit();
