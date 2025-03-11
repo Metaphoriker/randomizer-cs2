@@ -1141,6 +1141,13 @@
     -fx-background-color: transparent;
 }
 
+.settings-playtime {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #7E78ED;
+    -fx-background-color: transparent;
+}
+
 
 /* Rangeslider Labels */
 .rangeslider-min-label, .rangeslider-max-label {

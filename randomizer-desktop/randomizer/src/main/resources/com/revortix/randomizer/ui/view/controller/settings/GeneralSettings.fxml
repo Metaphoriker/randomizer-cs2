@@ -59,7 +59,7 @@
         </VBox>
         <VBox VBox.vgrow="ALWAYS"/>
         <HBox alignment="CENTER_RIGHT">
-            <Label fx:id="spentTimeLabel"/>
+            <Label fx:id="spentTimeLabel" styleClass="settings-playtime"/>
         </HBox>
     </children>
 </VBox>
