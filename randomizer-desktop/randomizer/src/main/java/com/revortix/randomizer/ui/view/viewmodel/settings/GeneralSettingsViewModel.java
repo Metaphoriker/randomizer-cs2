@@ -47,6 +47,16 @@ public class GeneralSettingsViewModel {
             () -> configPathProperty.set(randomizerConfig.getConfigPath()), Platform::runLater);
   }
 
+  public void setConfigPath(String configPath) {
+    randomizerConfig.setConfigPath(configPath);
+    randomizerConfig.save();
+    configPathProperty.set(configPath);
+  }
+
+  public String getCurrentConfigPath() {
+    return configPathProperty.get();
+  }
+
   public void setupViewModel() {
     loadIntervalFromConfig();
     spentTimeProperty.set(randomizerConfig.getTimeTracked());
