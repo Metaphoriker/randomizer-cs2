@@ -15,11 +15,17 @@
                                 <Image url="@../../../../../images/homeView/randomizerLogo.png" />
                             </image>
                         </ImageView>
-                        <HBox alignment="CENTER" prefHeight="20.0" prefWidth="162.0" styleClass="home-view-socials-container">
+                  <VBox alignment="CENTER" styleClass="builder-config-indicator">
                      <children>
-                        <Label text="Select A Sequence To Get Started" styleClass="builder-filler-text" />
-                     </children>
+                        <Label styleClass="builder-filler-text" text="Select A Sequence To Get Started" />
+                        <HBox alignment="center" spacing="-4.0">
+                           <children>
+                              <Label styleClass="builder-config-indicator-label" text="You don't have your CS2 config set. Please consider to set it " />
+                              <Hyperlink styleClass="builder-config-hyperlink" text="here" />
+                           </children>
                         </HBox>
+                     </children>
+                  </VBox>
                     </children>
                 </VBox>
             </children>

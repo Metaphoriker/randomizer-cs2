@@ -901,10 +901,35 @@
     -fx-focus-color: transparent;
 }
 
+.builder-config-indicator {
+    -fx-pref-width: 162;
+    -fx-spacing: 6;
+    -fx-alignment: center;
+}
+
 .builder-filler-text {
     -fx-font-family: SansSerif;
     -fx-font-size: 16;
     -fx-text-fill: #A9A5F3;
+}
+
+.builder-config-indicator-label {
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #A50E0E;
+}
+
+.builder-config-hyperlink {
+    -fx-background-color: transparent;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 12;
+    -fx-text-fill: #0800FF;
+    -fx-cursor: hand;
+}
+
+.builder-config-hyperlink:focused {
+    -fx-border-color: transparent;
+    -fx-background-color: transparent;
 }
 
 /* Settings View */
