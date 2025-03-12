@@ -18,7 +18,7 @@ import lombok.extern.slf4j.Slf4j;
 @View
 public class GeneralSettingsController {
 
-  private static final String CONFIG_FILE_TITLE = "Choose Randomizer Config File";
+  private static final String CONFIG_FILE_TITLE = "Choose CS2 Config";
   private static final String CONFIG_FILE_EXTENSION = "*.vcfg";
   private static final String CONFIG_FILE_DESCRIPTION = "VCFG";
 
