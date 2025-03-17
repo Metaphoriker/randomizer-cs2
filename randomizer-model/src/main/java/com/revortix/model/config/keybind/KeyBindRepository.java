@@ -38,6 +38,15 @@ public class KeyBindRepository {
   }
 
   /**
+   * Determines whether there are any key bindings configured.
+   *
+   * @return true if there are one or more key bindings present; false otherwise.
+   */
+  public boolean hasAnyKeyBinds() {
+    return !keyBinds.isEmpty();
+  }
+
+  /**
    * Initializes the default key bindings from a specified configuration file.
    *
    * @param filePath the path to the configuration file containing the default key bindings
