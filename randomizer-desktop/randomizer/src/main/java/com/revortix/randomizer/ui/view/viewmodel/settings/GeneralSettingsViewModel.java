@@ -68,6 +68,10 @@ public class GeneralSettingsViewModel {
     return keyBindRepository.hasAnyKeyBinds();
   }
 
+  public void reloadKeyBinds() {
+    randomizerConfigLoader.ladeUserKeyBinds();
+  }
+
   private <T> T noThrow(Supplier<T> tSupplier) {
     try {
       return tSupplier.get();

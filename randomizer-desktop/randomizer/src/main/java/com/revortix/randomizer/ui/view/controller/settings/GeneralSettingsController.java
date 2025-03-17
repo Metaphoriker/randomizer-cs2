@@ -120,6 +120,7 @@ public class GeneralSettingsController {
       log.info("Selected config file: {}", selectedFile.getAbsolutePath());
       String normalizedPath = normalizeFilePath(selectedFile.getAbsolutePath());
       generalSettingsViewModel.setConfigPath(normalizedPath);
+      generalSettingsViewModel.reloadKeyBinds();
     }
   }
 
