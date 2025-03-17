@@ -60,7 +60,9 @@ public class GeneralSettingsController {
         .textProperty()
         .bindBidirectional(generalSettingsViewModel.getConfigPathProperty());
     configPathTextField.setText(generalSettingsViewModel.getConfigPath());
-    syncConfigButton.setTooltip(new Tooltip("Reload Config"));
+    Tooltip tooltip = new Tooltip("Reload Config");
+    tooltip.getStyleClass().add("tooltip-user-options");
+    syncConfigButton.setTooltip(tooltip);
     if(!generalSettingsViewModel.isThereAnyKeyBinds()) {
       syncStatus("sync-config-path-failed", true);
     }

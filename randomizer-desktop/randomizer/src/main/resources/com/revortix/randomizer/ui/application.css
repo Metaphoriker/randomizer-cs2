@@ -1220,3 +1220,14 @@
     -fx-font-family: SansSerif;
     -fx-font-size: 12;
 }
+
+/* Tooltip styling for user options */
+.tooltip-user-options {
+    -fx-padding: 4 8;
+    -fx-background-radius: 6;
+    -fx-background-color: #EFEFEF;
+    -fx-text-fill: #333333;
+    -fx-font-family: SansSerif;
+    -fx-font-size: 13;
+    -fx-effect: dropshadow(gaussian, rgba(0, 0, 0, 0.3), 4, 0, 0, 2);
+}

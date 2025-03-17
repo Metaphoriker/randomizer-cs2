@@ -82,7 +82,9 @@ public class NavigationBarController {
   }
 
   private void setupUpdateIndicator() {
-    Tooltip.install(updateIndicatorButton, new Tooltip("Click to update to the latest version"));
+    Tooltip tooltip = new Tooltip("Click to update to the latest version");
+    tooltip.getStyleClass().add("tooltip-user-options");
+    Tooltip.install(updateIndicatorButton, tooltip);
     triggerUpdateCheck();
     updateIndicatorButton.setOnAction(_ -> navigationBarViewModel.runUpdater());
   }
