@@ -4,7 +4,7 @@
 <?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane prefHeight="504.0" prefWidth="656.0" xmlns="http://javafx.com/javafx/17.0.12" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.revortix.randomizer.ui.view.controller.builder.filler.BuilderFillerViewController">
     <children>
         <VBox alignment="CENTER" prefHeight="504.0" prefWidth="656.0" styleClass="home-view" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
             <children>
@@ -15,17 +15,17 @@
                                 <Image url="@../../../../../images/homeView/randomizerLogo.png" />
                             </image>
                         </ImageView>
-                  <VBox alignment="CENTER" styleClass="builder-config-indicator">
-                     <children>
-                        <Label styleClass="builder-filler-text" text="Select A Sequence To Get Started" />
-                        <HBox alignment="center" spacing="-4.0">
-                           <children>
-                              <Label styleClass="builder-config-indicator-label" text="You don't have your CS2 config set. Please consider to set it " />
-                              <Hyperlink styleClass="builder-config-hyperlink" text="here" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </VBox>
+                        <VBox alignment="CENTER" styleClass="builder-config-indicator">
+                            <children>
+                                <Label styleClass="builder-filler-text" text="Select A Sequence To Get Started" />
+                                <HBox fx:id="configIndicatorHBox" alignment="center" spacing="-4.0">
+                                    <children>
+                                        <Label styleClass="builder-config-indicator-label" text="You don't have your CS2 config set. Please consider to set it " />
+                                        <Hyperlink onAction="#onHyperlink" styleClass="builder-config-hyperlink" text="here" />
+                                    </children>
+                                </HBox>
+                            </children>
+                        </VBox>
                     </children>
                 </VBox>
             </children>
