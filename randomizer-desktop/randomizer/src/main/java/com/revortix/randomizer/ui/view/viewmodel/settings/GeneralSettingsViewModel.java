@@ -6,6 +6,7 @@ import com.revortix.randomizer.bootstrap.RandomizerConfigLoader;
 import com.revortix.randomizer.config.RandomizerConfig;
 import java.util.concurrent.CompletableFuture;
 import java.util.concurrent.CompletionStage;
+import java.util.function.Supplier;
 import javafx.application.Platform;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.IntegerProperty;
@@ -16,7 +17,9 @@ import javafx.beans.property.SimpleLongProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
 import lombok.Getter;
+import lombok.extern.slf4j.Slf4j;
 
+@Slf4j
 public class GeneralSettingsViewModel {
 
   @Getter private final LongProperty spentTimeProperty = new SimpleLongProperty();
@@ -38,13 +41,32 @@ public class GeneralSettingsViewModel {
   public CompletionStage<Void> loadConfigs() {
     return CompletableFuture.runAsync(
             () -> {
-              randomizerConfig.setConfigPath(randomizerConfigLoader.ladeUserConfigPath().replace("\\", "/"));
+              String userConfigPath = randomizerConfig.getConfigPath();
+              if (randomizerConfig.getConfigPath() == null
+                  || randomizerConfig.getConfigPath().isEmpty()) {
+                randomizerConfig.setConfigPath(
+                    randomizerConfigLoader.ladeUserConfigPath().replace("\\", "/"));
+              } else {
+                String loadedConfigPath =
+                    noThrow(() -> randomizerConfigLoader.ladeUserConfigPath().replace("\\", "/"));
+                if(loadedConfigPath != null && !loadedConfigPath.equals(userConfigPath)) {
+                  randomizerConfig.setConfigPath(loadedConfigPath);
+                }
+              }
               randomizerConfig.save();
               randomizerConfigLoader.ladeDefaultKeyBinds();
               randomizerConfigLoader.ladeUserKeyBinds();
             })
         .thenRunAsync(
             () -> configPathProperty.set(randomizerConfig.getConfigPath()), Platform::runLater);
+  }
+
+  private <T> T noThrow(Supplier<T> tSupplier) {
+    try {
+      return tSupplier.get();
+    } catch (Exception e) {
+      return null;
+    }
   }
 
   public void setConfigPath(String configPath) {
