@@ -42,6 +42,7 @@ public class NavigationBarController {
   private void initialize() {
     setupBindings();
     setupToggleButtonLogic();
+    addTooltips();
     toggle(homeButton);
     if (randomizerConfig.isUpdateNotifier()) setupUpdateIndicator();
   }
@@ -54,6 +55,19 @@ public class NavigationBarController {
     navigationBarViewModel
         .getSelectedView()
         .addListener((_, _, newView) -> triggerViewChange(newView));
+  }
+
+  private void addTooltips() {
+    addTooltipToButton(homeButton, "Home");
+    addTooltipToButton(randomizerButton, "Randomizer");
+    addTooltipToButton(builderButton, "Builder");
+    addTooltipToButton(settingsButton, "Settings");
+  }
+
+  private void addTooltipToButton(ToggleButton toggleButton, String tooltipText) {
+    Tooltip tooltip = new Tooltip(tooltipText);
+    tooltip.getStyleClass().add("tooltip-user-options");
+    Tooltip.install(toggleButton, tooltip);
   }
 
   private void triggerViewChange(Class<?> newView) {
