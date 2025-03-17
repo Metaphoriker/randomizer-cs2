@@ -50,7 +50,7 @@ public class GeneralSettingsViewModel {
                 String loadedConfigPath =
                     noThrow(() -> randomizerConfigLoader.ladeUserConfigPath().replace("\\", "/"));
                 if(loadedConfigPath != null && !loadedConfigPath.equals(userConfigPath)) {
-                  randomizerConfig.setConfigPath(loadedConfigPath);
+                  randomizerConfig.setConfigPath(loadedConfigPath); // TODO: what if it always finds the wrong config?
                 }
               }
               randomizerConfig.save();
