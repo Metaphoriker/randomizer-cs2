@@ -2,6 +2,7 @@ package com.revortix.randomizer.ui.view.viewmodel.settings;
 
 import com.google.inject.Inject;
 import com.revortix.model.action.sequence.ActionSequenceExecutorRunnable;
+import com.revortix.model.config.keybind.KeyBindRepository;
 import com.revortix.randomizer.bootstrap.RandomizerConfigLoader;
 import com.revortix.randomizer.config.RandomizerConfig;
 import java.util.concurrent.CompletableFuture;
@@ -29,12 +30,14 @@ public class GeneralSettingsViewModel {
   @Getter private final IntegerProperty maxIntervalProperty = new SimpleIntegerProperty();
 
   private final RandomizerConfig randomizerConfig;
+  private final KeyBindRepository keyBindRepository;
   private final RandomizerConfigLoader randomizerConfigLoader;
 
   @Inject
   public GeneralSettingsViewModel(
-      RandomizerConfig randomizerConfig, RandomizerConfigLoader randomizerConfigLoader) {
+      RandomizerConfig randomizerConfig, KeyBindRepository keyBindRepository, RandomizerConfigLoader randomizerConfigLoader) {
     this.randomizerConfig = randomizerConfig;
+    this.keyBindRepository = keyBindRepository;
     this.randomizerConfigLoader = randomizerConfigLoader;
   }
 
@@ -59,6 +62,10 @@ public class GeneralSettingsViewModel {
             })
         .thenRunAsync(
             () -> configPathProperty.set(randomizerConfig.getConfigPath()), Platform::runLater);
+  }
+
+  public boolean isThereAnyKeyBinds() {
+    return keyBindRepository.hasAnyKeyBinds();
   }
 
   private <T> T noThrow(Supplier<T> tSupplier) {

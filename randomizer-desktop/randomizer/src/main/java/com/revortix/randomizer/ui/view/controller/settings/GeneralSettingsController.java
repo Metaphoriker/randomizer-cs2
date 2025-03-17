@@ -61,6 +61,9 @@ public class GeneralSettingsController {
         .bindBidirectional(generalSettingsViewModel.getConfigPathProperty());
     configPathTextField.setText(generalSettingsViewModel.getConfigPath());
     syncConfigButton.setTooltip(new Tooltip("Reload Config"));
+    if(!generalSettingsViewModel.isThereAnyKeyBinds()) {
+      syncStatus("sync-config-path-failed", true);
+    }
     showIntroToggleButton
         .selectedProperty()
         .bindBidirectional(generalSettingsViewModel.getShowIntroProperty());
@@ -87,17 +90,24 @@ public class GeneralSettingsController {
         .loadConfigs()
         .thenRunAsync(
             () -> {
-              syncConfigButton.getStyleClass().add("sync-config-path-success");
-              syncFailedIndicator.setVisible(false);
+              syncStatus("sync-config-path-success", false);
             },
             Platform::runLater)
         .exceptionallyAsync(
             e -> {
-              syncConfigButton.getStyleClass().add("sync-config-path-failed");
-              syncFailedIndicator.setVisible(true);
+              syncStatus("sync-config-path-failed", true);
               return null;
             },
             Platform::runLater);
+  }
+
+  /**
+   * @param e the css style class
+   * @param b if it failed or not
+   */
+  private void syncStatus(String e, boolean b) {
+    syncConfigButton.getStyleClass().add(e);
+    syncFailedIndicator.setVisible(b);
   }
 
   @FXML
