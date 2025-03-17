@@ -60,7 +60,7 @@ public class GeneralSettingsController {
         .textProperty()
         .bindBidirectional(generalSettingsViewModel.getConfigPathProperty());
     configPathTextField.setText(generalSettingsViewModel.getConfigPath());
-    syncConfigButton.setTooltip(new Tooltip("Sync"));
+    syncConfigButton.setTooltip(new Tooltip("Reload Config"));
     showIntroToggleButton
         .selectedProperty()
         .bindBidirectional(generalSettingsViewModel.getShowIntroProperty());
